@@ -9,7 +9,7 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            IDAL.DO.BaseStation = new IDAL.DO.BaseStation();
+             
         }
     }
 }
