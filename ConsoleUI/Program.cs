@@ -9,9 +9,9 @@ namespace ConsoleUI
     {
         enum MenuOpt { Exit, Add, Update, ShowOne, ShowList }
         enum AddOpt { Exit, AddDrone, AddStation, AddParcel, AddCustomer }
-        enum UpdateOpt { Exit, AddDrone, AddStation, AddParcel, AddCustomer }
-        enum ShowONEOpt { Exit, AddDrone, AddStation, AddParcel, AddCustomer }
-        enum ShowListOpt { Exit, AddDrone, AddStation, AddParcel, AddCustomer }
+        enum UpdateOpt { Exit, linkParcelToDrone, PickParcel, DeliveringP, DroneToCharge, EndingCharge }
+        enum ShowONEOpt { Exit, ShowDrone, ShowStation, ShowParcel, ShowCustomer }
+        enum ShowListOpt { Exit, ShowDrone, ShowStation, ShowParcel, ShowCustomer, UnmatchedParcels, EmptySlots }
         void PrintMenu()
         {
             MenuOpt mo;
