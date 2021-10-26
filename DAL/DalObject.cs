@@ -16,28 +16,31 @@ namespace DalObject
 
         public void addDrone(Drone d)//static?
         {
-            DataSource.drones[DataSource.Config.dronesI++] = d;
+            DataSource.dronelist.Add( d);
         }
 
-        public void UpdateDrone(Drone d)//static?+ לעדכן ככה או ע"י ID
-        {
-            for (int i = 0; i < DataSource.Config.dronesI; i++)
-            {
-                if (DataSource.drones[i].Id == d.Id)
-                    DataSource.drones[i] = d;
-            }
-        }
+        //public void UpdateDrone(Drone d)//static?+ לעדכן ככה או ע"י ID
+        //{
+        //    //for (int i = 0; i < DataSource.Config.dronesI; i++)
+        //    //{
+        //    //    if (DataSource.drones[i].Id == d.Id)
+        //    //        DataSource.drones[i] = d;
+        //    //}
+        //}
 
         public Drone GetDrone(int id)//static?+ 
         {
-            for (int i = 0; i < DataSource.Config.dronesI; i++)
-            {
-                if (DataSource.drones[i].Id == id)
-                    return DataSource.drones[i];
-            }
-            return null;
+            Drone d = DataSource.dronelist.Find(x => x.Id == id);
+            return d;
+            //for (int i = 0; i < DataSource.Config.dronesI; i++)
+            //{
+
+            //    if (DataSource.drones[i].Id == id)
+            //        return DataSource.drones[i];
+            //}
+            //return null;
         }
-        public void addStation(Station s)//static?
+        public static void addStation(Station s)//static?
         {
             //Station s = new Station();
             //s.Id = id;
@@ -45,10 +48,10 @@ namespace DalObject
             //s.Lattitude = lattitude;
             //s.Longitude = longitude;
             //s.ChargeSlots = chargeSlots;
-            DataSource.stations[DataSource.Config.stationsI++] = s;
+            DataSource.stationsList.Add(s);
         }
 
-        public void addCustomer(Customer cus)//static?
+        public static void addCustomer(Customer cus)//static?
         {
             //Customer cus = new Customer();
             //cus.Id = id;
@@ -56,10 +59,10 @@ namespace DalObject
             //cus.Lattitude = lattitude;
             //cus.Longitude = longitude;
             //cus.Phone = phone;
-            DataSource.customers[DataSource.Config.customersI++] = cus;
+            DataSource.customersList.Add( cus);
         }
 
-        public void addParcel(Parcel per)//static?
+        public static void addParcel(Parcel per)//static?
         {
             //Parcel per = new Parcel();
             //per.Id = id;
@@ -72,7 +75,48 @@ namespace DalObject
             //per.Scheduled = scheduled;
             //per.PickedUp = pickedUp;
             //per.Delivered = delivered;
-            DataSource.parcels[DataSource.Config.parcelsI++] = per;
+            DataSource.parcelsList.Add(per);
+        }
+        public static void linkParcelToDrone(int parcelId, int droneId)
+        {
+            Parcel p = DataSource.parcelsList.Find(x => x.Id == parcelId);
+            p.DroneId = droneId;
+            //foreach (Parcel item in parcelsList)
+            //{
+            //    if (item.Id == parcelId)
+            //        item.DroneId = droneId;
+            //}
+        }
+        public static void pickParcel(int parcelId)
+        {
+            Parcel p = DataSource.parcelsList.Find(x => x.Id == parcelId);
+            p.PickedUp = DateTime.Now;
+            Drone d = DataSource.dronelist.Find(x => x.Id == p.DroneId);
+            d.Status = DroneStatuses.Delivery;   //??
+        }
+        public static void deliveringParcel(int parcelId)
+        {
+            Parcel p = DataSource.parcelsList.Find(x => x.Id == parcelId);
+            p.Delivered = DateTime.Now;
+            Drone d = DataSource.dronelist.Find(x => x.Id == p.DroneId);
+            d.Status = DroneStatuses.Available;   //??
+
+        }
+        public static void droneToCharge(int droneId, int stationId)
+        {
+            Drone d = DataSource.dronelist.Find(x => x.Id == droneId);
+            d.Status = DroneStatuses.Charging; //charging?
+            DroneCharge dc = new DroneCharge()
+            {
+                DroneId = droneId,
+                StationId = stationId
+            };
+            Station s =DataSource.stationsList.Find(x => x.Id == stationId);
+            s.ChargeSlots--;
+        }
+        public static void EndingCharge(int droneId)
+        {
+            //DroneCharge dc= 
         }
     }
 }

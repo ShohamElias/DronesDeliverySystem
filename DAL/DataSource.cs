@@ -17,24 +17,26 @@ namespace DalObject
             internal static int customersI = 0;
             internal static int parcelsI = 0;
             public static int countIdParcel = 1;
+           // public static int availableStations = 0;
+
         }
 
-        internal static Drone[] drones = new Drone[10];
-        internal static Station [] stations = new Station[5];
-        internal static Customer[] customers = new Customer[100];
-        internal static Parcel[] parcels = new Parcel[1000];
+        //internal static Drone[] drones = new Drone[10];
+        //internal static Station [] stations = new Station[5];
+        //internal static Customer[] customers = new Customer[100];
+        //internal static Parcel[] parcels = new Parcel[1000];
         internal static Random rand = new Random(DateTime.Now.Millisecond);//not sure its internal
 
-        //internal static List<Drone> dronelist = new List<Drone>();
-        //internal static List<Station> stationsList = new List<Station>();
-        //internal static List<Customer> customersList = new List<Customer>();
-        //internal static List<Parcel> parcelsList = new List<Parcel>();
+        internal static List<Drone> dronelist = new List<Drone>();
+        internal static List<Station> stationsList = new List<Station>();
+        internal static List<Customer> customersList = new List<Customer>();
+        internal static List<Parcel> parcelsList = new List<Parcel>();
 
         private static void createDrone(int num)
         {
             for (int i=0; i < num; i++)
             {
-                drones[Config.dronesI++] = new Drone()
+                Drone d = new Drone()
                 {
                     Id = rand.Next(1000, 10001),
                     Model = "",
@@ -42,6 +44,16 @@ namespace DalObject
                     Status = (DroneStatuses)rand.Next(3),
                     Battery = rand.Next(101)
                 };
+                dronelist.Add(d);
+
+                //drones[Config.dronesI++] = new Drone()
+                //{
+                //    Id = rand.Next(1000, 10001),
+                //    Model = "",
+                //    MaxWeight = (WeightCategories)rand.Next(3),
+                //    Status = (DroneStatuses)rand.Next(3),
+                //    Battery = rand.Next(101)
+                //};
             }
         }
 
@@ -49,7 +61,7 @@ namespace DalObject
         {
             for (int i = 0; i < num; i++)
             {
-                parcels[Config.parcelsI++] = new Parcel()
+                Parcel p = new Parcel()
                 {
                     Id = rand.Next(1000, 10001),
                     SenderId = 0,
@@ -58,10 +70,11 @@ namespace DalObject
                     Priority = (Priorities)rand.Next(2),
                     Requested = DateTime.Now,
                     DroneId = rand.Next(5),
-                    Scheduled = DateTime.Today,
+                    Scheduled = DateTime.Now,
                     PickedUp = DateTime.Now,
                     Delivered = DateTime.Now
                 };
+                parcelsList.Add(p);
             }
         }
 
@@ -69,7 +82,7 @@ namespace DalObject
         {
             for (int i = 0; i < num; i++)
             {
-                stations[Config.stationsI++] = new Station()
+                Station s = new Station()
                 {
                     Id = rand.Next(1000, 10001),
                     Name = " ",
@@ -77,14 +90,17 @@ namespace DalObject
                     Lattitude = 0,
                     ChargeSlots = rand.Next(11)
                 };
+                stationsList.Add(s);
+                //Config.availableStations++;
             }
+
         }
 
         private static void creacustomer(int num)
         {
             for (int i = 0; i < num; i++)
             {
-                customers[Config.customersI++] = new Customer()
+                Customer c = new Customer()
                 {
                     Id = rand.Next(100000000, 1000000000),
                     Name = "",
@@ -92,8 +108,11 @@ namespace DalObject
                     Longitude = 0,
                     Lattitude = 0
                 };
+                customersList.Add(c);
             }
         }
+       
+       
         public static void  Intialize()
         {
              //שדה סטטי של המחלקה
