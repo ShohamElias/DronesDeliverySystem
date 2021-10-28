@@ -34,7 +34,7 @@ namespace DalObject
 
         private static void createDrone(int num)
         {
-            for (int i=0; i < num; i++)
+            for (int i = 0; i < num; i++)
             {
                 Drone d = new Drone()
                 {
@@ -45,15 +45,6 @@ namespace DalObject
                     Battery = rand.Next(101)
                 };
                 dronelist.Add(d);
-
-                //drones[Config.dronesI++] = new Drone()
-                //{
-                //    Id = rand.Next(1000, 10001),
-                //    Model = "",
-                //    MaxWeight = (WeightCategories)rand.Next(3),
-                //    Status = (DroneStatuses)rand.Next(3),
-                //    Battery = rand.Next(101)
-                //};
             }
         }
 
@@ -86,8 +77,8 @@ namespace DalObject
                 {
                     Id = rand.Next(1000, 10001),
                     Name = " ",
-                    Longitude = 0,
-                    Lattitude = 0,
+                    Lattitude = rand.Next(30, 33) + ((double)rand.Next(0, 100) / 100),
+                    Longitude = rand.Next(34, 36) + ((double)rand.Next(0, 100) / 100),
                     ChargeSlots = rand.Next(11)
                 };
                 stationsList.Add(s);
@@ -98,15 +89,16 @@ namespace DalObject
 
         private static void creacustomer(int num)
         {
+
             for (int i = 0; i < num; i++)
             {
                 Customer c = new Customer()
                 {
                     Id = rand.Next(100000000, 1000000000),
-                    Name = "",
-                    Phone = "",
-                    Longitude = 0,
-                    Lattitude = 0
+                    Name = "name",
+                    Phone = "un",
+                    Lattitude = rand.Next(30, 33) + ((double)rand.Next(0, 100) / 100),
+                    Longitude = rand.Next(34, 36) + ((double)rand.Next(0, 100) / 100),
                 };
                 customersList.Add(c);
             }
@@ -117,8 +109,8 @@ namespace DalObject
         {
              //שדה סטטי של המחלקה
             
-            createDrone(5);
             createStation(2);
+            createDrone(5);
             createParcel(10);
             creacustomer(10);
         }

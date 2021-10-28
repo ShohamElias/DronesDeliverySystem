@@ -14,7 +14,7 @@ namespace DalObject
             DataSource.Intialize();
         }
 
-        internal void addDrone(Drone d)//static?
+        public static  void addDrone(Drone d)//static?
         {
             DataSource.dronelist.Add( d);
         }
@@ -105,7 +105,7 @@ namespace DalObject
         public static void droneToCharge(int droneId, int stationId)
         {
             Drone d = DataSource.dronelist.Find(x => x.Id == droneId);
-            d.Status = DroneStatuses.Charging; //charging?
+            d.Status = DroneStatuses.Maintenance; 
             DroneCharge dc = new DroneCharge()
             {
                 DroneId = droneId,
@@ -179,7 +179,7 @@ namespace DalObject
         {
             foreach (Parcel item in DataSource.parcelsList)
             {
-              //  if(item.PickedUp)  ???????
+              if(item.DroneId==0) 
                 Console.WriteLine(item.ToString());
             }
 
