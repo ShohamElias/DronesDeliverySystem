@@ -14,7 +14,7 @@ namespace DalObject
             DataSource.Intialize();
         }
 
-        public void addDrone(Drone d)//static?
+        internal void addDrone(Drone d)//static?
         {
             DataSource.dronelist.Add( d);
         }
@@ -116,7 +116,82 @@ namespace DalObject
         }
         public static void EndingCharge(int droneId)
         {
-            //DroneCharge dc= 
+            Drone d = DataSource.dronelist.Find(x => x.Id == droneId);
+            d.Status = DroneStatuses.Available;
+            //~~~~~~~~~~~~~~~~~~~? station and dronecharging list
+        }
+
+        public static string ShowOneDrone(int _id)
+        {
+            Drone d = DataSource.dronelist.Find(x => x.Id == _id);
+            return d.ToString();
+        }
+        public static string ShowOneCustomer(int _id)
+        {
+            Customer c = DataSource.customersList.Find(x => x.Id == _id);
+            return c.ToString();
+        }
+        public static string ShowOneStation(int _id)
+        {
+            Station s = DataSource.stationsList.Find(x => x.Id == _id);
+            return s.ToString();
+        }
+        public static string ShowOneParcel(int _id)
+        {
+            Parcel p = DataSource.parcelsList.Find(x => x.Id == _id);
+            return p.ToString();
+        }
+
+        public static void ShowDrone()
+        {
+            foreach (Drone item in DataSource.dronelist)
+            {
+                Console.WriteLine(item.ToString());
+            }
+
+        }
+
+        public static void ShowStation()
+        {
+            foreach (Station item in DataSource.stationsList)
+            {
+                Console.WriteLine(item.ToString());
+            }
+
+        }
+        public static void ShowParcel()
+        {
+            foreach (Parcel item in DataSource.parcelsList)
+            {
+                Console.WriteLine(item.ToString());
+            }
+
+        }
+        public static void ShowCustomer()
+        {
+            foreach (Customer item in DataSource.customersList)
+            {
+                Console.WriteLine(item.ToString());
+            }
+
+        }
+        public static void UnmatchedParcels()
+        {
+            foreach (Parcel item in DataSource.parcelsList)
+            {
+              //  if(item.PickedUp)  ???????
+                Console.WriteLine(item.ToString());
+            }
+
+        }
+        public static void ShowEmptySlots()
+        {
+            foreach (Station item in DataSource.stationsList)
+            {
+                if(item.ChargeSlots!=0)
+                   Console.WriteLine(item.ToString());
+            }
+
         }
     }
 }

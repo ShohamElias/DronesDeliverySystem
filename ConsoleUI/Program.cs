@@ -33,7 +33,7 @@ namespace ConsoleUI
                         case AddOpt.Exit:
                             break;
                         case AddOpt.AddDrone:
-                           
+                           //?????
                             break;
                         case AddOpt.AddStation:
                             Station s = new Station();
@@ -106,8 +106,64 @@ namespace ConsoleUI
                     }
                     break;
                 case MenuOpt.ShowOne:
+                    ShowONEOpt soo;
+                    int id;
+                    flag = int.TryParse(Console.ReadLine(), out option);
+                    soo = (ShowONEOpt)option;
+                    switch (soo)
+                    {
+                        case ShowONEOpt.Exit:
+                            break;
+                        case ShowONEOpt.ShowDrone:
+                            id = Console.Read();
+                            Console.WriteLine(DalObject.DalObject.ShowOneDrone(id));
+                            break;
+                        case ShowONEOpt.ShowStation:
+                            id = Console.Read();
+                            Console.WriteLine(DalObject.DalObject.ShowOneStation(id));
+                            break;
+                        case ShowONEOpt.ShowParcel:
+                            id = Console.Read();
+                            Console.WriteLine(DalObject.DalObject.ShowOneParcel(id));
+                            break;
+                        case ShowONEOpt.ShowCustomer:
+                            id = Console.Read();
+                            Console.WriteLine(DalObject.DalObject.ShowOneCustomer(id));
+                            break;
+                        default:
+                            break;
+                    }
+
                     break;
                 case MenuOpt.ShowList:
+                    ShowListOpt slo;
+                    flag = int.TryParse(Console.ReadLine(), out option);
+                    slo = (ShowListOpt)option;
+                    switch (slo)
+                    {
+                        case ShowListOpt.Exit:
+                            break;
+                        case ShowListOpt.ShowDrone:
+                            DalObject.DalObject.ShowDrone();
+                            break;
+                        case ShowListOpt.ShowStation:
+                            DalObject.DalObject.ShowStation();
+                            break;
+                        case ShowListOpt.ShowParcel:
+                            DalObject.DalObject.ShowParcel();
+                            break;
+                        case ShowListOpt.ShowCustomer:
+                            DalObject.DalObject.ShowCustomer();
+                            break;
+                        case ShowListOpt.UnmatchedParcels:
+                            DalObject.DalObject.UnmatchedParcels();
+                            break;
+                        case ShowListOpt.EmptySlots:
+                            DalObject.DalObject.ShowEmptySlots();
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 default:
                     break;
@@ -118,3 +174,4 @@ namespace ConsoleUI
         }
     }
 }
+  
