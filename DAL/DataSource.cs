@@ -31,6 +31,8 @@ namespace DalObject
         internal static List<Station> stationsList = new List<Station>();
         internal static List<Customer> customersList = new List<Customer>();
         internal static List<Parcel> parcelsList = new List<Parcel>();
+       // internal static List<Parcel> parcelsList = new List<Parcel>();
+
 
         private static void createDrone(int num)
         {
