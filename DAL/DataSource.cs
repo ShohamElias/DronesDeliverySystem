@@ -9,7 +9,6 @@ namespace DalObject
 {
     public class DataSource
     {
-
         internal class Config
         {
             internal static int dronesI = 0;
@@ -25,18 +24,18 @@ namespace DalObject
         //internal static Station [] stations = new Station[5];
         //internal static Customer[] customers = new Customer[100];
         //internal static Parcel[] parcels = new Parcel[1000];
-        internal static Random rand = new Random(DateTime.Now.Millisecond);//not sure its internal
-
+        internal static Random rand = new Random(DateTime.Now.Millisecond);//random
+        //lists for the objects
         internal static List<Drone> dronelist = new List<Drone>();
         internal static List<Station> stationsList = new List<Station>();
         internal static List<Customer> customersList = new List<Customer>();
         internal static List<Parcel> parcelsList = new List<Parcel>();
 
-        private static void createDrone(int num)
+        private static void createDrone(int num)//the function creates a given number of drones and adds them to the list
         {
             for (int i = 0; i < num; i++)
             {
-                Drone d = new Drone()
+                Drone d = new Drone()//creating the drone
                 {
                     Id = rand.Next(1000, 10001),
                     Model = "",
@@ -48,11 +47,11 @@ namespace DalObject
             }
         }
 
-        private static void createParcel(int num)
+        private static void createParcel(int num)//the function creates a given number of parcels and adds them to the list
         {
             for (int i = 0; i < num; i++)
             {
-                Parcel p = new Parcel()
+                Parcel p = new Parcel()//creating the parcel
                 {
                     Id = rand.Next(1000, 10001),
                     SenderId = 0,
@@ -69,16 +68,16 @@ namespace DalObject
             }
         }
 
-        private static void createStation(int num)
+        private static void createStation(int num)//the function creates a given number of stations and adds them to the list
         {
             for (int i = 0; i < num; i++)
             {
-                Station s = new Station()
+                Station s = new Station()//creating the station and getting random values
                 {
                     Id = rand.Next(1000, 10001),
                     Name = " ",
-                    Lattitude = rand.Next(30, 33) + ((double)rand.Next(0, 100) / 100),
-                    Longitude = rand.Next(34, 36) + ((double)rand.Next(0, 100) / 100),
+                    Lattitude = rand.Next(30, 33) + ((double)rand.Next(0, 1000000) / 1000000),
+                    Longitude = rand.Next(34, 36) + ((double)rand.Next(0, 1000000) / 1000000),
                     ChargeSlots = rand.Next(11)
                 };
                 stationsList.Add(s);
@@ -87,18 +86,18 @@ namespace DalObject
 
         }
 
-        private static void creacustomer(int num)
+        private static void creacustomer(int num)//the function creates a given number of customers and adds them to the list
         {
 
             for (int i = 0; i < num; i++)
             {
-                Customer c = new Customer()
+                Customer c = new Customer()//creating the customer and getting random values
                 {
                     Id = rand.Next(100000000, 1000000000),
                     Name = "name",
                     Phone = "un",
-                    Lattitude = rand.Next(30, 33) + ((double)rand.Next(0, 100) / 100),
-                    Longitude = rand.Next(34, 36) + ((double)rand.Next(0, 100) / 100),
+                    Lattitude = rand.Next(30, 33) + ((double)rand.Next(0, 1000000) / 1000000),
+                    Longitude = rand.Next(34, 36) + ((double)rand.Next(0, 1000000) / 1000000),
                 };
                 customersList.Add(c);
             }

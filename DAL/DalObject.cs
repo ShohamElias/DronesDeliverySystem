@@ -14,33 +14,47 @@ namespace DalObject
             DataSource.Intialize();
         }
 
-        public static  void addDrone(Drone d)//static?
+        public static  void addDrone(Drone d)//the function adds a new drone to the list
         {
             DataSource.dronelist.Add( d);
+            //Console.WriteLine((float)getDistanceFromLatLonInKm(0.05, 80, 0.058, 80.3));
         }
 
-        //public void UpdateDrone(Drone d)//static?+ לעדכן ככה או ע"י ID
-        //{
-        //    //for (int i = 0; i < DataSource.Config.dronesI; i++)
-        //    //{
-        //    //    if (DataSource.drones[i].Id == d.Id)
-        //    //        DataSource.drones[i] = d;
-        //    //}
-        //}
-
-        public Drone GetDrone(int id)//static?+ 
+        public static double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)
         {
-            Drone d = DataSource.dronelist.Find(x => x.Id == id);
+            double R = 6371; // Radius of the earth in km
+            double dLat = deg2rad(lat2 - lat1);  // deg2rad below
+            double dLon = deg2rad(lon2 - lon1);
+            double a =
+              Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+              Math.Cos(deg2rad(lat1)) * Math.Cos(deg2rad(lat2)) *
+              Math.Sin(dLon / 2) * Math.Sin(dLon / 2)
+              ;
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            double d = R * c; // Distance in km
             return d;
-            //for (int i = 0; i < DataSource.Config.dronesI; i++)
-            //{
-
-            //    if (DataSource.drones[i].Id == id)
-            //        return DataSource.drones[i];
-            //}
-            //return null;
         }
-        public static void addStation(Station s)//static?
+        
+        public static double deg2rad(double deg)
+        {
+            return deg * (Math.PI / 180);
+         }
+        
+
+        public static  double CustomerDistance(double lat, double lon1, int id)//static?+ 
+        {
+            Customer d = DataSource.customersList.Find(x => x.Id == id);
+
+            return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);
+        }
+
+        public static double StationDistance(double lat, double lon1, int id)//static?+ 
+        {
+            Station d = DataSource.stationsList.Find(x => x.Id == id);
+
+            return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);
+        }
+        public static void addStation(Station s)//the function adds a new station to the list
         {
             //Station s = new Station();
             //s.Id = id;
@@ -51,7 +65,7 @@ namespace DalObject
             DataSource.stationsList.Add(s);
         }
 
-        public static void addCustomer(Customer cus)//static?
+        public static void addCustomer(Customer cus)//the function adds a new customer to the list
         {
             //Customer cus = new Customer();
             //cus.Id = id;
@@ -62,7 +76,7 @@ namespace DalObject
             DataSource.customersList.Add( cus);
         }
 
-        public static void addParcel(Parcel per)//static?
+        public static void addParcel(Parcel per)//the function adds a new parcel to the list
         {
             //Parcel per = new Parcel();
             //per.Id = id;
@@ -77,7 +91,7 @@ namespace DalObject
             //per.Delivered = delivered;
             DataSource.parcelsList.Add(per);
         }
-        public static void linkParcelToDrone(int parcelId, int droneId)
+        public static void linkParcelToDrone(int parcelId, int droneId)//the function gets a parcel and a drone and linked them (the parcel will be delivered by this drone)
         {
             Parcel p = DataSource.parcelsList.Find(x => x.Id == parcelId);
             p.DroneId = droneId;
