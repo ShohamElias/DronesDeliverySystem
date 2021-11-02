@@ -206,7 +206,10 @@ namespace DalObject
             return p.ToString();
         }
 
-        
+        /// <summary>
+        /// the func create a copy of the drones list and returns it
+        /// </summary>
+        /// <returns></returns>
         public List<Drone> ListDrone()
         {
             List<Drone> temp = new();
@@ -216,7 +219,10 @@ namespace DalObject
             }
             return temp;
         }
-
+        /// <summary>
+        /// the func create a copy of the stations list and returns it
+        /// </summary>
+        /// <returns></returns>
         public List<Station> ListStation()
         {
             List<Station> temp = new();
@@ -226,6 +232,10 @@ namespace DalObject
             }
             return temp;
         }
+        /// <summary>
+        /// the func create a copy of the parcel list and returns it
+        /// </summary>
+        /// <returns></returns>
         public List<Parcel> ListParcel()
         {
             List<Parcel> temp = new();
