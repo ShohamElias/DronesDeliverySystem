@@ -235,6 +235,12 @@ namespace DalObject
             }
             return temp;
         }
+
+        /// <summary>
+        /// the function rturns a copy of the Customer List
+        /// </summary>
+        /// <param name="_id"></param>
+        /// <returns></returns>
         public List<Customer> ListCustomer()
         {
             List<Customer> temp = new();

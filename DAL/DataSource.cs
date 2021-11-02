@@ -45,7 +45,7 @@ namespace DalObject
                     Status = (DroneStatuses)rand.Next(3),
                     Battery = rand.Next(101)
                 };
-                DroneList.Add(d);
+                DroneList.Add(d);//adding to the list
             }
         }
 

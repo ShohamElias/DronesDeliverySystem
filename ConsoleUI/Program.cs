@@ -5,7 +5,8 @@ using IDAL.DO;
 using DalObject;
 using System.Linq;
 using System.Collections.Generic;
-
+//Shoham Elias 325289338
+//Adi Rozental 212726442
 namespace ConsoleUI
 {
     class Program
