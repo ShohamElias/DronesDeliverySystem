@@ -3,6 +3,8 @@
 
 using IDAL.DO;
 using DalObject;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace ConsoleUI
 {
@@ -161,26 +163,48 @@ namespace ConsoleUI
                             case ShowListOpt.Exit:
                                 break;
                             case ShowListOpt.ShowDrone://printing the drones list
-                                DalObject.DalObject.ShowDrone();
+                                List<Drone> temp = dal.ListDrone();
+                                foreach (Drone item in temp)
+                                {
+                                    Console.WriteLine(item);
+                                }
                                 break;
                             case ShowListOpt.ShowStation://printing the stations list
-                                DalObject.DalObject.ShowStation();
+                                List<Station> Stations = dal.ListStation();
+                                foreach (Station item in Stations)
+                                {
+                                    Console.WriteLine(item);
+                                }
                                 break;
                             case ShowListOpt.ShowParcel://printing the parcels list
-                                DalObject.DalObject.ShowParcel();
+                                List<Parcel> ListParcel = dal.ListParcel();
+                                foreach (Parcel item in ListParcel)
+                                {
+                                    Console.WriteLine(item);
+                                }
                                 break;
                             case ShowListOpt.ShowCustomer://printing the customers list
-                                DalObject.DalObject.ShowCustomer();
+                                List<Customer> ListCustomer = dal.ListCustomer();
+                                foreach (Customer item in ListCustomer)
+                                {
+                                    Console.WriteLine(item);
+                                }
                                 break;
                             case ShowListOpt.UnmatchedParcels://printing all the unmatced parcels 
-                                DalObject.DalObject.UnmatchedParcels();
+                                List<Parcel> ListP = dal.ListParcel();
+                                foreach (Parcel item in ListP)
+                                {
+                                    if(item.DroneId==0)
+                                       Console.WriteLine(item);
+                                }
                                 break;
                             case ShowListOpt.EmptySlots://printing all the stations that has empty slots
-                                DalObject.DalObject.ShowEmptySlots();
-                                //foreach (Station item in  )
-                                //{
-
-                                //}
+                                List<Station> StationsList = dal.ListStation();
+                                foreach (Station item in StationsList)
+                                {
+                                    if(item.ChargeSlots!=0)
+                                       Console.WriteLine(item);
+                                }
                                 break;
                             default:
                                 break;
