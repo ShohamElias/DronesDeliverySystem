@@ -81,7 +81,12 @@ namespace DalObject
             Drone d = DataSource.DroneList.Find(x => x.Id == p.DroneId); //finding the drone that was connected to the parcel by its id
             d.Status = DroneStatuses.Delivery;   //updating its status
         }
-        public static void deliveringParcel(int parcelId) //the function update a parcel that was dlivered
+
+        /// <summary>
+        /// //the function update a parcel that was dlivered
+        /// </summary>
+        /// <param name="parcelId"></param>The given id of a parcel
+        public static void deliveringParcel(int parcelId) 
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
             p.Delivered = DateTime.Now; //adding delivering time
@@ -89,30 +94,43 @@ namespace DalObject
             d.Status = DroneStatuses.Available;   //updating its status
 
         }
+        /// <summary>
+        /// the function get a drone and a station nd sent the drone to be recharged
+        /// </summary>
+        /// <param name="droneId"></param>the drone to charge
+        /// <param name="stationId"></param>the station he will be charged at
         public static void droneToCharge(int droneId, int stationId)
         {
-            Drone d = DataSource.DroneList.Find(x => x.Id == droneId);
-            d.Status = DroneStatuses.Maintenance; 
-            DroneCharge dc = new DroneCharge()
+            Drone d = DataSource.DroneList.Find(x => x.Id == droneId);//finding the drone
+            d.Status = DroneStatuses.Maintenance; //changing to the needed status
+            DroneCharge dc = new DroneCharge()//creating a dronecharge object
             {
                 DroneId = droneId,
                 StationId = stationId
             };
-            DataSource.DChargeList.Add(dc);
-            Station s =DataSource.StationsList.Find(x => x.Id == stationId);
+            DataSource.DChargeList.Add(dc);//adding it to the list
+            Station s =DataSource.StationsList.Find(x => x.Id == stationId);//finding the station
             s.ChargeSlots--;
         }
-        public static void EndingCharge(int droneId)  //??????????????????????????????????????????????????????
+        /// <summary>
+        /// ending the charging of a given drone
+        /// </summary>
+        /// <param name="droneId"></param>
+        public static void EndingCharge(int droneId)  
         {
-            Drone d = DataSource.DroneList.Find(x => x.Id == droneId);
-            d.Status = DroneStatuses.Available;
-            DroneCharge dc = DataSource.DChargeList.Find(x => x.DroneId == droneId);
-            Station sta1 = DataSource.StationsList.Find(x => x.Id == dc.StationId);
-            sta1.ChargeSlots++;
-            DataSource.DChargeList.Remove(dc);
+            Drone d = DataSource.DroneList.Find(x => x.Id == droneId);//finding the drone
+            d.Status = DroneStatuses.Available;//changing its status
+            DroneCharge dc = DataSource.DChargeList.Find(x => x.DroneId == droneId);//finding the dronecharge object
+            Station sta1 = DataSource.StationsList.Find(x => x.Id == dc.StationId);//finsding the station he was charged at
+            sta1.ChargeSlots++;//adding an empty charge slot
+            DataSource.DChargeList.Remove(dc);//removing from the list
         }
-
-        public static string ShowOneDrone(int _id) //the function gets an id and prints the drone with the same id
+        /// <summary>
+        /// the function gets an id and prints the drone with the same id
+        /// </summary>
+        /// <param name="_id"></param>the wanted drone
+        /// <returns></returns>
+        public static string ShowOneDrone(int _id) 
         {
             Drone d = DataSource.DroneList.Find(x => x.Id == _id); //finding the drone by its id
             return d.ToString();
