@@ -190,7 +190,7 @@ namespace DalObject
         /// </summary>
         /// <param name="_id"></param>
         /// <returns></returns>
-        public  string  ShowOneStation(int _id) 
+        public  string ShowOneStation(int _id) 
         {
             Station s = DataSource.StationsList.Find(x => x.Id == _id); //finding the station by its id
             return s.ToString();
@@ -200,7 +200,7 @@ namespace DalObject
         /// </summary>
         /// <param name="_id"></param>the given parcels id 
         /// <returns></returns>
-        public  string  ShowOneParcel(int _id) 
+        public  string ShowOneParcel(int _id) 
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == _id); //finding the parcel by its id
             return p.ToString();
