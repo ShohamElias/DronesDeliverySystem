@@ -13,12 +13,6 @@ namespace DalObject
         {
             DataSource.Intialize();
         }
-
-
-        public void addDrone(Drone d)//the function adds a new drone to the list
-        {
-            DataSource.DroneList.Add(d);
-        }
         /// <summary>
         /// the function adds a new drone to the list
         /// </summary>
@@ -27,11 +21,6 @@ namespace DalObject
         {
             DataSource.DroneList.Add(d);
         }
-        /// <summary>
-        /// the function adds a new drone to the list
-        /// </summary>
-        /// <param name="d"></param>
-       
         /// <summary>
         /// the function gets two locations and calculates the distance between them
         /// </summary>
@@ -52,8 +41,6 @@ namespace DalObject
             double d = R * c; // Distance in km
             return d;
         }
-
-       
         /// <summary>
         /// the function gets a number in dergrees and converts it to radians
         /// </summary>
@@ -64,7 +51,6 @@ namespace DalObject
             return deg * (Math.PI / 180);
         }
         
-
         /// <summary>
         /// the function gets a location and custoner id, and calculates the distance between the customer and location
         /// </summary>
@@ -77,7 +63,6 @@ namespace DalObject
             Customer d = DataSource.CustomersList.Find(x => x.Id == id);//finding the customer
             return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);//sending to the func to calculate
         }
-
         /// <summary>
         /// the function gets a location and station id, and calculates the distance between the station and location
         /// </summary>
@@ -98,11 +83,6 @@ namespace DalObject
         {
             DataSource.StationsList.Add(s);
         }
-
-      
-
-        
-
         /// <summary>
         /// the function adds a new customer to the list
         /// </summary>
@@ -119,17 +99,6 @@ namespace DalObject
         {
             DataSource.ParcelsList.Add(per);
         }
-        
-        /// <summary>
-        /// the function adds a new customer to the list
-        /// </summary>
-        /// <param name="cus">the given object</param>
-       
-        /// <summary>
-        ///the function adds a new parcel to the list
-        /// </summary>
-        /// <param name="per">the given object</param>
-       
         /// <summary>
         ///the function gets a parcel and a drone and linked them (the parcel will be delivered by this drone)
         /// </summary>
@@ -141,14 +110,11 @@ namespace DalObject
             p.DroneId = droneId; //adding the drone id to the parcel
             p.Scheduled = DateTime.Now;
         }
-
-
         /// <summary>
         /// the function update a parcel that was picked and the drone that picked it
         /// </summary>
         /// <param name="parcelId">the parcel to pick</param>
         public static void PickParcel(int parcelId) 
-
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
             p.PickedUp = DateTime.Now;
@@ -160,8 +126,6 @@ namespace DalObject
         /// //the function update a parcel that was dlivered
         /// </summary>
         /// <param name="parcelId"></param>The given id of a parcel
-
-
         public static void DeliveringParcel(int parcelId) 
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
@@ -175,7 +139,6 @@ namespace DalObject
         /// </summary>
         /// <param name="droneId"></param>the drone to charge
         /// <param name="stationId"></param>the station he will be charged at
-
         public static void DroneToCharge(int droneId, int stationId)
         {
             Drone d = DataSource.DroneList.Find(x => x.Id == droneId);//finding the drone
@@ -212,8 +175,6 @@ namespace DalObject
             Drone d = DataSource.DroneList.Find(x => x.Id == _id); //finding the drone by its id
             return d.ToString();
         }
-
-
         /// <summary>
         /// the function gets an id and prints the customer with the same id
         /// </summary>
@@ -224,27 +185,22 @@ namespace DalObject
             Customer c = DataSource.CustomersList.Find(x => x.Id == _id); //finding the customer by its id
             return c.ToString();
         }
-
-
         /// <summary>
         /// the function gets an id and prints the station with the same id
         /// </summary>
         /// <param name="_id"></param>
         /// <returns></returns>
         public static string ShowOneStation(int _id) 
-
         {
             Station s = DataSource.StationsList.Find(x => x.Id == _id); //finding the station by its id
             return s.ToString();
         }
-
         /// <summary>
         /// the function gets an id and prints the parcel with the same id
         /// </summary>
         /// <param name="_id"></param>the given parcels id 
         /// <returns></returns>
         public static string ShowOneParcel(int _id) 
-
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == _id); //finding the parcel by its id
             return p.ToString();
