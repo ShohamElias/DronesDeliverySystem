@@ -62,7 +62,7 @@ namespace ConsoleUI
                                 per.TargetId = Convert.ToInt32(Console.ReadLine());
                                 per.Weight = (WeightCategories)Convert.ToInt32(Console.ReadLine());
                                 per.Priority = (Priorities)Convert.ToInt32(Console.ReadLine());
-                                per.Requested =DateTime.Today;
+                                per.Requested =DateTime.Now;
                                 per.DroneId =0;
                                 per.SenderId = Convert.ToInt32(Console.ReadLine());
                                 per.Scheduled = DateTime.Today;

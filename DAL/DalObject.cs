@@ -95,6 +95,7 @@ namespace DalObject
         {
             Parcel p = DataSource.parcelsList.Find(x => x.Id == parcelId);
             p.DroneId = droneId;
+            p.Scheduled = DateTime.Now;
             //foreach (Parcel item in parcelsList)
             //{
             //    if (item.Id == parcelId)
@@ -106,7 +107,7 @@ namespace DalObject
             Parcel p = DataSource.parcelsList.Find(x => x.Id == parcelId);
             p.PickedUp = DateTime.Now;
             Drone d = DataSource.dronelist.Find(x => x.Id == p.DroneId);
-            d.Status = DroneStatuses.Delivery;   //??
+            d.Status = DroneStatuses.Delivery;   //???????????????????????
         }
         public static void deliveringParcel(int parcelId)
         {
@@ -128,7 +129,7 @@ namespace DalObject
             Station s =DataSource.stationsList.Find(x => x.Id == stationId);
             s.ChargeSlots--;
         }
-        public static void EndingCharge(int droneId)
+        public static void EndingCharge(int droneId)  //??????????????????????????????????????????????????????
         {
             Drone d = DataSource.dronelist.Find(x => x.Id == droneId);
             d.Status = DroneStatuses.Available;
