@@ -58,7 +58,7 @@ namespace DalObject
         /// <param name="lon1">longtitude</param>
         /// <param name="id">the customer id</param>
         /// <returns></returns>
-        public static  double CustomerDistance(double lat, double lon1, int id) 
+        public   double CustomerDistance(double lat, double lon1, int id) 
         {
             Customer d = DataSource.CustomersList.Find(x => x.Id == id);//finding the customer
             return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);//sending to the func to calculate
@@ -70,7 +70,7 @@ namespace DalObject
         /// <param name="lon1">longtitude</param>
         /// <param name="id">the station id</param>
         /// <returns>the distance</returns>
-        public static double StationDistance(double lat, double lon1, int id) 
+        public  double StationDistance(double lat, double lon1, int id) 
         {
             Station d = DataSource.StationsList.Find(x => x.Id == id);//finding the station in the list
             return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);//sending to the func to calculate
@@ -170,7 +170,7 @@ namespace DalObject
         /// </summary>
         /// <param name="_id"></param>the wanted drone
         /// <returns></returns>
-        public string ShowOneDrone(int _id) 
+        public  string ShowOneDrone(int _id) 
         {
             Drone d = DataSource.DroneList.Find(x => x.Id == _id); //finding the drone by its id
             return d.ToString();
@@ -180,7 +180,7 @@ namespace DalObject
         /// </summary>
         /// <param name="_id"></param>
         /// <returns></returns>
-        public static string ShowOneCustomer(int _id) 
+        public  string ShowOneCustomer(int _id) 
         {
             Customer c = DataSource.CustomersList.Find(x => x.Id == _id); //finding the customer by its id
             return c.ToString();
@@ -190,7 +190,7 @@ namespace DalObject
         /// </summary>
         /// <param name="_id"></param>
         /// <returns></returns>
-        public static string ShowOneStation(int _id) 
+        public  string  ShowOneStation(int _id) 
         {
             Station s = DataSource.StationsList.Find(x => x.Id == _id); //finding the station by its id
             return s.ToString();
@@ -200,65 +200,13 @@ namespace DalObject
         /// </summary>
         /// <param name="_id"></param>the given parcels id 
         /// <returns></returns>
-        public static string ShowOneParcel(int _id) 
+        public  string  ShowOneParcel(int _id) 
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == _id); //finding the parcel by its id
             return p.ToString();
         }
 
-        //public static void ShowDrone()
-        //{
-        //    foreach (Drone item in DataSource.DroneList)
-        //    {
-        //        Console.WriteLine(item.ToString());
-        //    }
-
-        //}
-
-        //public static void ShowStation()
-        //{
-        //    foreach (Station item in DataSource.StationsList) 
-        //    {
-        //        Console.WriteLine(item.ToString());
-        //    }
-
-        //}
-        //public static void ShowParcel() //a function that prints the parcels in the lists
-        //{
-        //    foreach (Parcel item in DataSource.ParcelsList) //for each parcels in the list
-        //    {
-        //        Console.WriteLine(item.ToString());
-        //    }
-
-        //}
-        //public static void ShowCustomer() //a function that prints the customers in our list
-        //{
-        //    foreach (Customer item in DataSource.CustomersList) //for each customer in the list
-        //    {
-        //        Console.WriteLine(item.ToString());
-        //    }
-
-        //}
-        //public static void UnmatchedParcels() //a function that prints the parcels that hasnt been linked to a drone
-        //{
-        //    foreach (Parcel item in DataSource.ParcelsList) //for each station in the list
-        //    {
-        //      if(item.DroneId==0)  //print only those that hasnt been linked to a drone
-        //            Console.WriteLine(item.ToString());
-        //    }
-
-        //}
-        //public static void ShowEmptySlots() //a function that prints the stations that has empty slots
-        //{
-        //    foreach (Station item in DataSource.StationsList) //for each station in the list
-        //    {
-        //        if(item.ChargeSlots!=0) //print only those with empty charging slots
-        //           Console.WriteLine(item.ToString());
-        //    }
-
-        //}
-
-
+        
         public List<Drone> ListDrone()
         {
             List<Drone> temp = new();
