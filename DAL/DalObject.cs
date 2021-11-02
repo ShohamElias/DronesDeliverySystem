@@ -16,8 +16,7 @@ namespace DalObject
 
         public static  void addDrone(Drone d)//the function adds a new drone to the list
         {
-            DataSource.dronelist.Add( d);
-            //Console.WriteLine((float)getDistanceFromLatLonInKm(0.05, 80, 0.058, 80.3));
+            DataSource.dronelist.Add(d);
         }
 
         public static double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)
@@ -114,7 +113,7 @@ namespace DalObject
             Parcel p = DataSource.parcelsList.Find(x => x.Id == parcelId);
             p.Delivered = DateTime.Now;
             Drone d = DataSource.dronelist.Find(x => x.Id == p.DroneId);
-            d.Status = DroneStatuses.Available;   //??
+            d.Status = DroneStatuses.Available;   
 
         }
         public static void droneToCharge(int droneId, int stationId)
@@ -126,6 +125,7 @@ namespace DalObject
                 DroneId = droneId,
                 StationId = stationId
             };
+            DataSource.dChargeList.Add(dc);
             Station s =DataSource.stationsList.Find(x => x.Id == stationId);
             s.ChargeSlots--;
         }
@@ -133,7 +133,10 @@ namespace DalObject
         {
             Drone d = DataSource.dronelist.Find(x => x.Id == droneId);
             d.Status = DroneStatuses.Available;
-            //~~~~~~~~~~~~~~~~~~~? station and dronecharging list
+            DroneCharge dc = DataSource.dChargeList.Find(x => x.DroneId == droneId);
+            Station sta1 = DataSource.stationsList.Find(x => x.Id == dc.StationId);
+            sta1.ChargeSlots++;
+            DataSource.dChargeList.Remove(dc);
         }
 
         public static string ShowOneDrone(int _id)
