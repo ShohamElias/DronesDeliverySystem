@@ -58,7 +58,7 @@ namespace DalObject
         /// <param name="lon1">longtitude</param>
         /// <param name="id">the customer id</param>
         /// <returns></returns>
-        public static  double CustomerDistance(double lat, double lon1, int id) 
+        public   double CustomerDistance(double lat, double lon1, int id) 
         {
             Customer d = DataSource.CustomersList.Find(x => x.Id == id);//finding the customer
             return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);//sending to the func to calculate
@@ -70,7 +70,7 @@ namespace DalObject
         /// <param name="lon1">longtitude</param>
         /// <param name="id">the station id</param>
         /// <returns>the distance</returns>
-        public static double StationDistance(double lat, double lon1, int id) 
+        public  double StationDistance(double lat, double lon1, int id) 
         {
             Station d = DataSource.StationsList.Find(x => x.Id == id);//finding the station in the list
             return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);//sending to the func to calculate
@@ -180,7 +180,7 @@ namespace DalObject
         /// </summary>
         /// <param name="_id"></param>
         /// <returns></returns>
-        public static string ShowOneCustomer(int _id) 
+        public  string ShowOneCustomer(int _id) 
         {
             Customer c = DataSource.CustomersList.Find(x => x.Id == _id); //finding the customer by its id
             return c.ToString();
@@ -190,7 +190,7 @@ namespace DalObject
         /// </summary>
         /// <param name="_id"></param>
         /// <returns></returns>
-        public static string ShowOneStation(int _id) 
+        public  string ShowOneStation(int _id) 
         {
             Station s = DataSource.StationsList.Find(x => x.Id == _id); //finding the station by its id
             return s.ToString();
@@ -200,7 +200,7 @@ namespace DalObject
         /// </summary>
         /// <param name="_id"></param>the given parcels id 
         /// <returns></returns>
-        public static string ShowOneParcel(int _id) 
+        public  string ShowOneParcel(int _id) 
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == _id); //finding the parcel by its id
             return p.ToString();
