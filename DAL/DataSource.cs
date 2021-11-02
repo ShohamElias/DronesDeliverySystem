@@ -26,11 +26,11 @@ namespace DalObject
         //internal static Parcel[] parcels = new Parcel[1000];
         internal static Random rand = new Random(DateTime.Now.Millisecond);//random
         //lists for the objects
-        internal static List<Drone> dronelist = new List<Drone>();
-        internal static List<Station> stationsList = new List<Station>();
-        internal static List<Customer> customersList = new List<Customer>();
-        internal static List<Parcel> parcelsList = new List<Parcel>();
-        internal static List<DroneCharge> dChargeList = new List<DroneCharge>();
+        internal static List<Drone> DroneList = new List<Drone>();
+        internal static List<Station> StationsList = new List<Station>();
+        internal static List<Customer> CustomersList = new List<Customer>();
+        internal static List<Parcel> ParcelsList = new List<Parcel>();
+        internal static List<DroneCharge> DChargeList = new List<DroneCharge>();
 
 
         private static void createDrone(int num)//the function creates a given number of drones and adds them to the list
