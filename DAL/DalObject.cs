@@ -133,56 +133,95 @@ namespace DalObject
             return p.ToString();
         }
 
-        public static void ShowDrone()
+        //public static void ShowDrone()
+        //{
+        //    foreach (Drone item in DataSource.DroneList)
+        //    {
+        //        Console.WriteLine(item.ToString());
+        //    }
+
+        //}
+
+        //public static void ShowStation()
+        //{
+        //    foreach (Station item in DataSource.StationsList) 
+        //    {
+        //        Console.WriteLine(item.ToString());
+        //    }
+
+        //}
+        //public static void ShowParcel() //a function that prints the parcels in the lists
+        //{
+        //    foreach (Parcel item in DataSource.ParcelsList) //for each parcels in the list
+        //    {
+        //        Console.WriteLine(item.ToString());
+        //    }
+
+        //}
+        //public static void ShowCustomer() //a function that prints the customers in our list
+        //{
+        //    foreach (Customer item in DataSource.CustomersList) //for each customer in the list
+        //    {
+        //        Console.WriteLine(item.ToString());
+        //    }
+
+        //}
+        //public static void UnmatchedParcels() //a function that prints the parcels that hasnt been linked to a drone
+        //{
+        //    foreach (Parcel item in DataSource.ParcelsList) //for each station in the list
+        //    {
+        //      if(item.DroneId==0)  //print only those that hasnt been linked to a drone
+        //            Console.WriteLine(item.ToString());
+        //    }
+
+        //}
+        //public static void ShowEmptySlots() //a function that prints the stations that has empty slots
+        //{
+        //    foreach (Station item in DataSource.StationsList) //for each station in the list
+        //    {
+        //        if(item.ChargeSlots!=0) //print only those with empty charging slots
+        //           Console.WriteLine(item.ToString());
+        //    }
+
+        //}
+
+
+        public List<Drone> ListDrone()
         {
+            List<Drone> temp = new();
             foreach (Drone item in DataSource.DroneList)
             {
-                Console.WriteLine(item.ToString());
+                temp.Add(item);
             }
-
+            return temp;
         }
 
-        public static void ShowStation()
+        public List<Station> ListStation()
         {
-            foreach (Station item in DataSource.StationsList) 
+            List<Station> temp = new();
+            foreach (Station item in DataSource.StationsList)
             {
-                Console.WriteLine(item.ToString());
+                temp.Add(item);
             }
-
+            return temp;
         }
-        public static void ShowParcel() //a function that prints the parcels in the lists
+        public List<Parcel> ListParcel()
         {
-            foreach (Parcel item in DataSource.ParcelsList) //for each parcels in the list
+            List<Parcel> temp = new();
+            foreach (Parcel item in DataSource.ParcelsList)
             {
-                Console.WriteLine(item.ToString());
+                temp.Add(item);
             }
-
+            return temp;
         }
-        public static void ShowCustomer() //a function that prints the customers in our list
+        public List<Customer> ListCustomer()
         {
-            foreach (Customer item in DataSource.CustomersList) //for each customer in the list
+            List<Customer> temp = new();
+            foreach (Customer item in DataSource.CustomersList)
             {
-                Console.WriteLine(item.ToString());
+                temp.Add(item);
             }
-
-        }
-        public static void UnmatchedParcels() //a function that prints the parcels that hasnt been linked to a drone
-        {
-            foreach (Parcel item in DataSource.ParcelsList) //for each station in the list
-            {
-              if(item.DroneId==0)  //print only those that hasnt been linked to a drone
-                    Console.WriteLine(item.ToString());
-            }
-
-        }
-        public static void ShowEmptySlots() //a function that prints the stations that has empty slots
-        {
-            foreach (Station item in DataSource.StationsList) //for each station in the list
-            {
-                if(item.ChargeSlots!=0) //print only those with empty charging slots
-                   Console.WriteLine(item.ToString());
-            }
-
+            return temp;
         }
     }
 }
