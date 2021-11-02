@@ -45,7 +45,7 @@ namespace DalObject
                     Status = (DroneStatuses)rand.Next(3),
                     Battery = rand.Next(101)
                 };
-                dronelist.Add(d);
+                DroneList.Add(d);
             }
         }
 
@@ -66,7 +66,7 @@ namespace DalObject
                     PickedUp = DateTime.Now,
                     Delivered = DateTime.Now
                 };
-                parcelsList.Add(p);
+                ParcelsList.Add(p);
             }
         }
 
@@ -82,7 +82,7 @@ namespace DalObject
                     Longitude = rand.Next(34, 36) + ((double)rand.Next(0, 1000000) / 1000000),
                     ChargeSlots = rand.Next(11)
                 };
-                stationsList.Add(s);
+                StationsList.Add(s);
                 //Config.availableStations++;
             }
 
@@ -101,7 +101,7 @@ namespace DalObject
                     Lattitude = rand.Next(30, 33) + ((double)rand.Next(0, 1000000) / 1000000),
                     Longitude = rand.Next(34, 36) + ((double)rand.Next(0, 1000000) / 1000000),
                 };
-                customersList.Add(c);
+                CustomersList.Add(c);
             }
         }
        

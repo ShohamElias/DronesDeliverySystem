@@ -48,7 +48,7 @@ namespace ConsoleUI
                                 d.Status= (DroneStatuses)Convert.ToInt32(Console.ReadLine());
                                 d.MaxWeight= (WeightCategories)Convert.ToInt32(Console.ReadLine());
                                 d.Battery= Convert.ToInt32(Console.ReadLine());
-                                DalObject.DalObject.addDrone(d);//sending to the func to add to the list
+                                dal.addDrone(d);//sending to the func to add to the list
                                 break;
                             case AddOpt.AddStation://adding a station
                                 Station s = new Station();//creating an empty station and getting inputs for values
@@ -57,7 +57,7 @@ namespace ConsoleUI
                                 s.Lattitude = Convert.ToInt64(Console.ReadLine());
                                 s.Longitude = Convert.ToInt64(Console.ReadLine());
                                 s.ChargeSlots = Convert.ToInt32(Console.ReadLine());
-                                DalObject.DalObject.addStation(s);//sending to the func to add to the list
+                               dal.addStation(s);//sending to the func to add to the list
                                 break;
                             case AddOpt.AddParcel://adding a parcel
                                 Parcel per = new Parcel();//creating an empty parcel and getting inputs for values
@@ -71,7 +71,7 @@ namespace ConsoleUI
                                 per.Scheduled = DateTime.Today;
                                 per.PickedUp = DateTime.Today;
                                 per.Delivered = DateTime.Today;
-                                DalObject.DalObject.addParcel(per);//sending to the func to add to the list
+                                dal.addParcel(per);//sending to the func to add to the list
                                 break;
                             case AddOpt.AddCustomer://adding a customer
                                 Customer cus = new Customer();//creating an empty customer and getting inputs for values
@@ -80,7 +80,7 @@ namespace ConsoleUI
                                 cus.Lattitude = Convert.ToInt64(Console.ReadLine());
                                 cus.Longitude = Convert.ToInt64(Console.ReadLine());
                                 cus.Phone = Console.ReadLine();
-                                DalObject.DalObject.addCustomer(cus);//sending to the func to add to the list
+                                dal.addCustomer(cus);//sending to the func to add to the list
                                 break;
                             default:
                                 break;
@@ -99,24 +99,24 @@ namespace ConsoleUI
                             case UpdateOpt.linkParcelToDrone://linking a parcel to a drone (the parcel will be sent by it)
                                 parcelid = Convert.ToInt32(Console.ReadLine());
                                 droneId = Convert.ToInt32(Console.ReadLine());
-                                DalObject.DalObject.linkParcelToDrone(parcelid, droneId);//sending the id to the funct that will link them
+                                dal.linkParcelToDrone(parcelid, droneId);//sending the id to the funct that will link them
                                 break;
                             case UpdateOpt.PickParcel://updating a parcel to be picked
                                 parcelid = Convert.ToInt32(Console.ReadLine());//getting the id parcel
-                                DalObject.DalObject.pickParcel(parcelid);//sending to the func to update it
+                                dal.pickParcel(parcelid);//sending to the func to update it
                                 break;
                             case UpdateOpt.DeliveringParcel://updating a parcel to be delivered
                                 parcelid = Convert.ToInt32(Console.ReadLine());
-                                DalObject.DalObject.deliveringParcel(parcelid);//sending to the func to update it
+                                dal.deliveringParcel(parcelid);//sending to the func to update it
                                 break;
                             case UpdateOpt.DroneToCharge://sending a chosen drone to charge
                                 parcelid = Convert.ToInt32(Console.ReadLine());
                                 stationId = Convert.ToInt32(Console.ReadLine());
-                                DalObject.DalObject.droneToCharge(parcelid, stationId);//sending to the func to update it
+                                dal.droneToCharge(parcelid, stationId);//sending to the func to update it
                                 break;
                             case UpdateOpt.EndingCharge://ending the charge of a drone
                                 parcelid = Convert.ToInt32(Console.ReadLine());
-                                DalObject.DalObject.EndingCharge(parcelid);//sending the chosen parcel's id to the func to update it
+                                dal.EndingCharge(parcelid);//sending the chosen parcel's id to the func to update it
                                 break;
                             default:
                                 break;
@@ -134,19 +134,19 @@ namespace ConsoleUI
                                 break;
                             case ShowONEOpt.ShowDrone://printing a chosen drone
                                 id = Console.Read();
-                                Console.WriteLine(DalObject.DalObject.ShowOneDrone(id));
+                                Console.WriteLine(dal.ShowOneDrone(id));
                                 break;
                             case ShowONEOpt.ShowStation://printing a chosen station
                                 id = Console.Read();
-                                Console.WriteLine(DalObject.DalObject.ShowOneStation(id));
+                                 Console.WriteLine(dal.ShowOneStation(id));
                                 break;
                             case ShowONEOpt.ShowParcel://printing a chosen parcel
                                 id = Console.Read();
-                                Console.WriteLine(DalObject.DalObject.ShowOneParcel(id));
+                                Console.WriteLine(dal.ShowOneParcel(id));
                                 break;
                             case ShowONEOpt.ShowCustomer://printing a chosen customer
                                 id = Console.Read();
-                                Console.WriteLine(DalObject.DalObject.ShowOneCustomer(id));
+                                Console.WriteLine(dal.ShowOneCustomer(id));
                                 break;
                             default:
                                 break;
@@ -227,14 +227,14 @@ namespace ConsoleUI
                                 idS = int.Parse(Console.ReadLine());//getting customer id
                                 lat = double.Parse(Console.ReadLine());//getting location
                                 lon = double.Parse(Console.ReadLine());
-                                DalObject.DalObject.CustomerDistance(lat, lon, idS);
+                                dal.CustomerDistance(lat, lon, idS);
                                 break;
                             case CalcOPT.stationD://distance from location to station
                                 Console.WriteLine("choose station, id, and insert lat and lon");
                                 idS = int.Parse(Console.ReadLine());//getting station id
                                  lat = double.Parse(Console.ReadLine());//getting location
                                  lon = double.Parse(Console.ReadLine());
-                                Console.WriteLine( (float)DalObject.DalObject.StationDistance(lat, lon, idS));
+                                Console.WriteLine( (float)dal.StationDistance(lat, lon, idS));
                                 break;
                             
                             default:

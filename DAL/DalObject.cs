@@ -13,68 +13,151 @@ namespace DalObject
         {
             DataSource.Intialize();
         }
+<<<<<<< HEAD
 
-        public static  void addDrone(Drone d)//the function adds a new drone to the list
+        public void addDrone(Drone d)//the function adds a new drone to the list
         {
             DataSource.DroneList.Add(d);
         }
 
+        public double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)
+=======
+        /// <summary>
+        /// the function adds a new drone to the list
+        /// </summary>
+        /// <param name="d"></param>
+        public static  void AddDrone(Drone d)
+        {
+            DataSource.DroneList.Add(d);
+        }
+        /// <summary>
+        /// the function gets two locations and calculates the distance between them
+        /// </summary>
+        /// <param name="lat1">first location latitude</param>
+        /// <param name="lon1"> first ocation longtitude</param>
+        /// <param name="lat2">second one</param>
+        /// <param name="lon2">the second</param>
+        /// <returns></returns>
         public static double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)
+>>>>>>> 8bb7c6c04f863ec26d21462bd9ba9772152ceb09
         {
             double R = 6371; // Radius of the earth in km
-            double dLat = deg2rad(lat2 - lat1);  // deg2rad below
-            double dLon = deg2rad(lon2 - lon1);
-            double a =
-              Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-              Math.Cos(deg2rad(lat1)) * Math.Cos(deg2rad(lat2)) *
-              Math.Sin(dLon / 2) * Math.Sin(dLon / 2)
-              ;
+            double dLat = Deg2rad(lat2 - lat1);  // deg2rad below
+            double dLon = Deg2rad(lon2 - lon1);
+            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+              Math.Cos(Deg2rad(lat1)) * Math.Cos(Deg2rad(lat2)) *
+              Math.Sin(dLon / 2) * Math.Sin(dLon / 2);///calculating by the formula
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
             double d = R * c; // Distance in km
             return d;
         }
+<<<<<<< HEAD
         
-        public static double deg2rad(double deg)
+        public  double deg2rad(double deg)
+=======
+        /// <summary>
+        /// the function gets a number in dergrees and converts it to radians
+        /// </summary>
+        /// <param name="deg"></param>
+        /// <returns></returns>
+        public static double Deg2rad(double deg)
+>>>>>>> 8bb7c6c04f863ec26d21462bd9ba9772152ceb09
         {
             return deg * (Math.PI / 180);
          }
         
+<<<<<<< HEAD
 
-        public static  double CustomerDistance(double lat, double lon1, int id)//static?+ 
+        public   double CustomerDistance(double lat, double lon1, int id)//static?+ 
+=======
+        /// <summary>
+        /// the function gets a location and custoner id, and calculates the distance between the customer and location
+        /// </summary>
+        /// <param name="lat">the location latitude</param>
+        /// <param name="lon1">longtitude</param>
+        /// <param name="id">the customer id</param>
+        /// <returns></returns>
+        public static  double CustomerDistance(double lat, double lon1, int id) 
         {
-            Customer d = DataSource.CustomersList.Find(x => x.Id == id);
-
-            return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);
+            Customer d = DataSource.CustomersList.Find(x => x.Id == id);//finding the customer
+            return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);//sending to the func to calculate
         }
 
-        public static double StationDistance(double lat, double lon1, int id)//static?+ 
+        public  double StationDistance(double lat, double lon1, int id)//static?+ 
+        /// <summary>
+        /// the function gets a location and station id, and calculates the distance between the station and location
+        /// </summary>
+        /// <param name="lat">the location latitude</param>
+        /// <param name="lon1">longtitude</param>
+        /// <param name="id">the station id</param>
+        /// <returns>the distance</returns>
+        public static double StationDistance(double lat, double lon1, int id) 
         {
-            Station d = DataSource.StationsList.Find(x => x.Id == id);
-
-            return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);
+            Station d = DataSource.StationsList.Find(x => x.Id == id);//finding the station in the list
+            return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);//sending to the func to calculate
         }
-        public static void addStation(Station s)//the function adds a new station to the list
+<<<<<<< HEAD
+        public  void addStation(Station s)//the function adds a new station to the list
+=======
+        /// <summary>
+        /// the function adds a new station to the list 
+        /// </summary>
+        /// <param name="s">the given object</param>
+        public static void AddStation(Station s)
+>>>>>>> 8bb7c6c04f863ec26d21462bd9ba9772152ceb09
         {
- 
             DataSource.StationsList.Add(s);
         }
+<<<<<<< HEAD
 
-        public static void addCustomer(Customer cus)//the function adds a new customer to the list
+        public  void addCustomer(Customer cus)//the function adds a new customer to the list
         {
             DataSource.CustomersList.Add( cus);
         }
 
-        public static void addParcel(Parcel per)//the function adds a new parcel to the list
+        public  void addParcel(Parcel per)//the function adds a new parcel to the list
         {
             DataSource.ParcelsList.Add(per);
         }
-        public static void linkParcelToDrone(int parcelId, int droneId)//the function gets a parcel and a drone and linked them (the parcel will be delivered by this drone)
+        public  void linkParcelToDrone(int parcelId, int droneId)//the function gets a parcel and a drone and linked them (the parcel will be delivered by this drone)
+=======
+        /// <summary>
+        /// the function adds a new customer to the list
+        /// </summary>
+        /// <param name="cus">the given object</param>
+        public static void AddCustomer(Customer cus)
+        {
+            DataSource.CustomersList.Add( cus);
+        }
+        /// <summary>
+        ///the function adds a new parcel to the list
+        /// </summary>
+        /// <param name="per">the given object</param>
+        public static void AddParcel(Parcel per)
+        {
+            DataSource.ParcelsList.Add(per);
+        }
+        /// <summary>
+        ///the function gets a parcel and a drone and linked them (the parcel will be delivered by this drone)
+        /// </summary>
+        /// <param name="parcelId">the given object id</param>
+        /// <param name="droneId">the given object id</param>
+        public static void LinkParcelToDrone(int parcelId, int droneId)
+>>>>>>> 8bb7c6c04f863ec26d21462bd9ba9772152ceb09
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
             p.DroneId = droneId; //adding the drone id to the parcel
             p.Scheduled = DateTime.Now;
         }
-        public static void pickParcel(int parcelId) //the function update a parcel that was picked and the drone that picked it
+<<<<<<< HEAD
+        public  void pickParcel(int parcelId) //the function update a parcel that was picked and the drone that picked it
+=======
+        /// <summary>
+        /// the function update a parcel that was picked and the drone that picked it
+        /// </summary>
+        /// <param name="parcelId">the parcel to pick</param>
+        public static void PickParcel(int parcelId) 
+>>>>>>> 8bb7c6c04f863ec26d21462bd9ba9772152ceb09
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
             p.PickedUp = DateTime.Now;
@@ -86,7 +169,11 @@ namespace DalObject
         /// //the function update a parcel that was dlivered
         /// </summary>
         /// <param name="parcelId"></param>The given id of a parcel
-        public static void deliveringParcel(int parcelId) 
+<<<<<<< HEAD
+        public void deliveringParcel(int parcelId) 
+=======
+        public static void DeliveringParcel(int parcelId) 
+>>>>>>> 8bb7c6c04f863ec26d21462bd9ba9772152ceb09
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
             p.Delivered = DateTime.Now; //adding delivering time
@@ -99,7 +186,11 @@ namespace DalObject
         /// </summary>
         /// <param name="droneId"></param>the drone to charge
         /// <param name="stationId"></param>the station he will be charged at
-        public static void droneToCharge(int droneId, int stationId)
+<<<<<<< HEAD
+        public void droneToCharge(int droneId, int stationId)
+=======
+        public static void DroneToCharge(int droneId, int stationId)
+>>>>>>> 8bb7c6c04f863ec26d21462bd9ba9772152ceb09
         {
             Drone d = DataSource.DroneList.Find(x => x.Id == droneId);//finding the drone
             d.Status = DroneStatuses.Maintenance; //changing to the needed status
@@ -116,7 +207,7 @@ namespace DalObject
         /// ending the charging of a given drone
         /// </summary>
         /// <param name="droneId"></param>
-        public static void EndingCharge(int droneId)  
+        public void EndingCharge(int droneId)  
         {
             Drone d = DataSource.DroneList.Find(x => x.Id == droneId);//finding the drone
             d.Status = DroneStatuses.Available;//changing its status
@@ -130,22 +221,49 @@ namespace DalObject
         /// </summary>
         /// <param name="_id"></param>the wanted drone
         /// <returns></returns>
-        public static string ShowOneDrone(int _id) 
+        public string ShowOneDrone(int _id) 
         {
             Drone d = DataSource.DroneList.Find(x => x.Id == _id); //finding the drone by its id
             return d.ToString();
         }
-        public static string ShowOneCustomer(int _id) //the function gets an id and prints the customer with the same id
+<<<<<<< HEAD
+        public string ShowOneCustomer(int _id) //the function gets an id and prints the customer with the same id
+=======
+        /// <summary>
+        /// the function gets an id and prints the customer with the same id
+        /// </summary>
+        /// <param name="_id"></param>
+        /// <returns></returns>
+        public static string ShowOneCustomer(int _id) 
+>>>>>>> 8bb7c6c04f863ec26d21462bd9ba9772152ceb09
         {
             Customer c = DataSource.CustomersList.Find(x => x.Id == _id); //finding the customer by its id
             return c.ToString();
         }
-        public static string ShowOneStation(int _id) //the function gets an id and prints the station with the same id
+<<<<<<< HEAD
+        public string ShowOneStation(int _id) //the function gets an id and prints the station with the same id
+=======
+        /// <summary>
+        /// the function gets an id and prints the station with the same id
+        /// </summary>
+        /// <param name="_id"></param>
+        /// <returns></returns>
+        public static string ShowOneStation(int _id) 
+>>>>>>> 8bb7c6c04f863ec26d21462bd9ba9772152ceb09
         {
             Station s = DataSource.StationsList.Find(x => x.Id == _id); //finding the station by its id
             return s.ToString();
         }
-        public static string ShowOneParcel(int _id) //the function gets an id and prints the parcel with the same id
+<<<<<<< HEAD
+        public string ShowOneParcel(int _id) //the function gets an id and prints the parcel with the same id
+=======
+        /// <summary>
+        /// the function gets an id and prints the parcel with the same id
+        /// </summary>
+        /// <param name="_id"></param>the given parcels id 
+        /// <returns></returns>
+        public static string ShowOneParcel(int _id) 
+>>>>>>> 8bb7c6c04f863ec26d21462bd9ba9772152ceb09
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == _id); //finding the parcel by its id
             return p.ToString();
