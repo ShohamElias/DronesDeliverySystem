@@ -13,8 +13,11 @@ namespace DalObject
         {
             DataSource.Intialize();
         }
-
-        public static  void addDrone(Drone d)//the function adds a new drone to the list
+        /// <summary>
+        /// the function adds a new drone to the list
+        /// </summary>
+        /// <param name="d"></param>
+        public static  void addDrone(Drone d)
         {
             DataSource.DroneList.Add(d);
         }
@@ -53,28 +56,47 @@ namespace DalObject
 
             return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);
         }
-        public static void addStation(Station s)//the function adds a new station to the list
+        /// <summary>
+        /// the function adds a new station to the list 
+        /// </summary>
+        /// <param name="s">the given object</param>
+        public static void addStation(Station s)
         {
  
             DataSource.StationsList.Add(s);
         }
-
-        public static void addCustomer(Customer cus)//the function adds a new customer to the list
+        /// <summary>
+        /// the function adds a new customer to the list
+        /// </summary>
+        /// <param name="cus">the given object</param>
+        public static void addCustomer(Customer cus)
         {
             DataSource.CustomersList.Add( cus);
         }
-
-        public static void addParcel(Parcel per)//the function adds a new parcel to the list
+        /// <summary>
+        ///the function adds a new parcel to the list
+        /// </summary>
+        /// <param name="per">the given object</param>
+        public static void addParcel(Parcel per)
         {
             DataSource.ParcelsList.Add(per);
         }
-        public static void linkParcelToDrone(int parcelId, int droneId)//the function gets a parcel and a drone and linked them (the parcel will be delivered by this drone)
+        /// <summary>
+        ///the function gets a parcel and a drone and linked them (the parcel will be delivered by this drone)
+        /// </summary>
+        /// <param name="parcelId">the given object id</param>
+        /// <param name="droneId">the given object id</param>
+        public static void linkParcelToDrone(int parcelId, int droneId)
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
             p.DroneId = droneId; //adding the drone id to the parcel
             p.Scheduled = DateTime.Now;
         }
-        public static void pickParcel(int parcelId) //the function update a parcel that was picked and the drone that picked it
+        /// <summary>
+        /// the function update a parcel that was picked and the drone that picked it
+        /// </summary>
+        /// <param name="parcelId">the parcel to pick</param>
+        public static void pickParcel(int parcelId) 
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
             p.PickedUp = DateTime.Now;
@@ -135,17 +157,32 @@ namespace DalObject
             Drone d = DataSource.DroneList.Find(x => x.Id == _id); //finding the drone by its id
             return d.ToString();
         }
-        public static string ShowOneCustomer(int _id) //the function gets an id and prints the customer with the same id
+        /// <summary>
+        /// the function gets an id and prints the customer with the same id
+        /// </summary>
+        /// <param name="_id"></param>
+        /// <returns></returns>
+        public static string ShowOneCustomer(int _id) 
         {
             Customer c = DataSource.CustomersList.Find(x => x.Id == _id); //finding the customer by its id
             return c.ToString();
         }
-        public static string ShowOneStation(int _id) //the function gets an id and prints the station with the same id
+        /// <summary>
+        /// the function gets an id and prints the station with the same id
+        /// </summary>
+        /// <param name="_id"></param>
+        /// <returns></returns>
+        public static string ShowOneStation(int _id) 
         {
             Station s = DataSource.StationsList.Find(x => x.Id == _id); //finding the station by its id
             return s.ToString();
         }
-        public static string ShowOneParcel(int _id) //the function gets an id and prints the parcel with the same id
+        /// <summary>
+        /// the function gets an id and prints the parcel with the same id
+        /// </summary>
+        /// <param name="_id"></param>the given parcels id 
+        /// <returns></returns>
+        public static string ShowOneParcel(int _id) 
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == _id); //finding the parcel by its id
             return p.ToString();
