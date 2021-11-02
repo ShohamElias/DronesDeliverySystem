@@ -55,65 +55,37 @@ namespace DalObject
         }
         public static void addStation(Station s)//the function adds a new station to the list
         {
-            //Station s = new Station();
-            //s.Id = id;
-            //s.Name = name;
-            //s.Lattitude = lattitude;
-            //s.Longitude = longitude;
-            //s.ChargeSlots = chargeSlots;
             DataSource.stationsList.Add(s);
         }
 
         public static void addCustomer(Customer cus)//the function adds a new customer to the list
         {
-            //Customer cus = new Customer();
-            //cus.Id = id;
-            //cus.Name = name;
-            //cus.Lattitude = lattitude;
-            //cus.Longitude = longitude;
-            //cus.Phone = phone;
             DataSource.customersList.Add( cus);
         }
 
         public static void addParcel(Parcel per)//the function adds a new parcel to the list
         {
-            //Parcel per = new Parcel();
-            //per.Id = id;
-            //per.TargetId = targetId;
-            //per.Weight = weight;
-            //per.Priority = priority;
-            //per.Requested = requested;
-            //per.DroneId = droneId;
-            //per.SenderId = senderId;
-            //per.Scheduled = scheduled;
-            //per.PickedUp = pickedUp;
-            //per.Delivered = delivered;
             DataSource.parcelsList.Add(per);
         }
         public static void linkParcelToDrone(int parcelId, int droneId)//the function gets a parcel and a drone and linked them (the parcel will be delivered by this drone)
         {
-            Parcel p = DataSource.parcelsList.Find(x => x.Id == parcelId);
-            p.DroneId = droneId;
+            Parcel p = DataSource.parcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
+            p.DroneId = droneId; //adding the drone id to the parcel
             p.Scheduled = DateTime.Now;
-            //foreach (Parcel item in parcelsList)
-            //{
-            //    if (item.Id == parcelId)
-            //        item.DroneId = droneId;
-            //}
         }
-        public static void pickParcel(int parcelId)
+        public static void pickParcel(int parcelId) //the function update a parcel that was picked and the drone that picked it
         {
-            Parcel p = DataSource.parcelsList.Find(x => x.Id == parcelId);
+            Parcel p = DataSource.parcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
             p.PickedUp = DateTime.Now;
-            Drone d = DataSource.dronelist.Find(x => x.Id == p.DroneId);
-            d.Status = DroneStatuses.Delivery;   //???????????????????????
+            Drone d = DataSource.dronelist.Find(x => x.Id == p.DroneId); //finding the drone that was connected to the parcel by its id
+            d.Status = DroneStatuses.Delivery;   //updating its status
         }
-        public static void deliveringParcel(int parcelId)
+        public static void deliveringParcel(int parcelId) //the function update a parcel that was dlivered
         {
-            Parcel p = DataSource.parcelsList.Find(x => x.Id == parcelId);
-            p.Delivered = DateTime.Now;
-            Drone d = DataSource.dronelist.Find(x => x.Id == p.DroneId);
-            d.Status = DroneStatuses.Available;   
+            Parcel p = DataSource.parcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
+            p.Delivered = DateTime.Now; //adding delivering time
+            Drone d = DataSource.dronelist.Find(x => x.Id == p.DroneId); //finding the drone that was connected to the parcel by its id
+            d.Status = DroneStatuses.Available;   //updating its status
 
         }
         public static void droneToCharge(int droneId, int stationId)
@@ -139,24 +111,24 @@ namespace DalObject
             DataSource.dChargeList.Remove(dc);
         }
 
-        public static string ShowOneDrone(int _id)
+        public static string ShowOneDrone(int _id) //the function gets an id and prints the drone with the same id
         {
-            Drone d = DataSource.dronelist.Find(x => x.Id == _id);
+            Drone d = DataSource.dronelist.Find(x => x.Id == _id); //finding the drone by its id
             return d.ToString();
         }
-        public static string ShowOneCustomer(int _id)
+        public static string ShowOneCustomer(int _id) //the function gets an id and prints the customer with the same id
         {
-            Customer c = DataSource.customersList.Find(x => x.Id == _id);
+            Customer c = DataSource.customersList.Find(x => x.Id == _id); //finding the customer by its id
             return c.ToString();
         }
-        public static string ShowOneStation(int _id)
+        public static string ShowOneStation(int _id) //the function gets an id and prints the station with the same id
         {
-            Station s = DataSource.stationsList.Find(x => x.Id == _id);
+            Station s = DataSource.stationsList.Find(x => x.Id == _id); //finding the station by its id
             return s.ToString();
         }
-        public static string ShowOneParcel(int _id)
+        public static string ShowOneParcel(int _id) //the function gets an id and prints the parcel with the same id
         {
-            Parcel p = DataSource.parcelsList.Find(x => x.Id == _id);
+            Parcel p = DataSource.parcelsList.Find(x => x.Id == _id); //finding the parcel by its id
             return p.ToString();
         }
 
@@ -171,42 +143,42 @@ namespace DalObject
 
         public static void ShowStation()
         {
-            foreach (Station item in DataSource.stationsList)
+            foreach (Station item in DataSource.stationsList) 
             {
                 Console.WriteLine(item.ToString());
             }
 
         }
-        public static void ShowParcel()
+        public static void ShowParcel() //a function that prints the parcels in the lists
         {
-            foreach (Parcel item in DataSource.parcelsList)
+            foreach (Parcel item in DataSource.parcelsList) //for each parcels in the list
             {
                 Console.WriteLine(item.ToString());
             }
 
         }
-        public static void ShowCustomer()
+        public static void ShowCustomer() //a function that prints the customers in our list
         {
-            foreach (Customer item in DataSource.customersList)
+            foreach (Customer item in DataSource.customersList) //for each customer in the list
             {
                 Console.WriteLine(item.ToString());
             }
 
         }
-        public static void UnmatchedParcels()
+        public static void UnmatchedParcels() //a function that prints the parcels that hasnt been linked to a drone
         {
-            foreach (Parcel item in DataSource.parcelsList)
+            foreach (Parcel item in DataSource.parcelsList) //for each station in the list
             {
-              if(item.DroneId==0) 
-                Console.WriteLine(item.ToString());
+              if(item.DroneId==0)  //print only those that hasnt been linked to a drone
+                    Console.WriteLine(item.ToString());
             }
 
         }
-        public static void ShowEmptySlots()
+        public static void ShowEmptySlots() //a function that prints the stations that has empty slots
         {
-            foreach (Station item in DataSource.stationsList)
+            foreach (Station item in DataSource.stationsList) //for each station in the list
             {
-                if(item.ChargeSlots!=0)
+                if(item.ChargeSlots!=0) //print only those with empty charging slots
                    Console.WriteLine(item.ToString());
             }
 

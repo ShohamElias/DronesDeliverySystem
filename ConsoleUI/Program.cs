@@ -17,6 +17,7 @@ namespace ConsoleUI
         enum CalcOPT { Exit,CustomerS, stationD}
         public static void PrintMenu()
         {
+            DalObject.DalObject dal = new();
             bool flag2;
             MenuOpt mo;
             int option;
@@ -176,6 +177,10 @@ namespace ConsoleUI
                                 break;
                             case ShowListOpt.EmptySlots://printing all the stations that has empty slots
                                 DalObject.DalObject.ShowEmptySlots();
+                                //foreach (Station item in  )
+                                //{
+
+                                //}
                                 break;
                             default:
                                 break;
