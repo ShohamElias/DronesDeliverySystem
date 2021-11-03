@@ -254,8 +254,6 @@ namespace ConsoleUI
         }
         static void Main(string[] args)
         {
-            DalObject.DalObject dl = new DalObject.DalObject();
-            int num;
             PrintMenu();            
         }
     }
