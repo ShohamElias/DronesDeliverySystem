@@ -139,18 +139,22 @@ namespace DalObject
         /// </summary>
         /// <param name="droneId"></param>the drone to charge
         /// <param name="stationId"></param>the station he will be charged at
-        public static void DroneToCharge(int droneId, int stationId)
+        public  void DroneToCharge(int droneId, int stationId)
         {
             Drone d = DataSource.DroneList.Find(x => x.Id == droneId);//finding the drone
             d.Status = DroneStatuses.Maintenance; //changing to the needed status
+            Station s = DataSource.StationsList.Find(x => x.Id == stationId);//finding the station
+            s.ChargeSlots--;
+           
+            s.ChargeSlots = s.ChargeSlots;
             DroneCharge dc = new DroneCharge()//creating a dronecharge object
             {
                 DroneId = droneId,
                 StationId = stationId
             };
             DataSource.DChargeList.Add(dc);//adding it to the list
-            Station s =DataSource.StationsList.Find(x => x.Id == stationId);//finding the station
-            s.ChargeSlots--;
+            
+            Console.WriteLine(s.ChargeSlots);
         }
         /// <summary>
         /// ending the charging of a given drone
@@ -173,7 +177,9 @@ namespace DalObject
         public  string ShowOneDrone(int _id) 
         {
             Drone d = DataSource.DroneList.Find(x => x.Id == _id); //finding the drone by its id
-            return d.ToString();
+            if (d!=null)
+              return d.ToString();
+            return null;
         }
         /// <summary>
         /// the function gets an id and prints the customer with the same id
@@ -193,6 +199,7 @@ namespace DalObject
         public  string ShowOneStation(int _id) 
         {
             Station s = DataSource.StationsList.Find(x => x.Id == _id); //finding the station by its id
+            s.Name = "jhgf";
             return s.ToString();
         }
         /// <summary>

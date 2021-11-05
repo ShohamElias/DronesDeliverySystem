@@ -114,7 +114,7 @@ namespace ConsoleUI
                             case UpdateOpt.DroneToCharge://sending a chosen drone to charge
                                 parcelid = Convert.ToInt32(Console.ReadLine());
                                 stationId = Convert.ToInt32(Console.ReadLine());
-                                DalObject.DalObject.DroneToCharge(parcelid, stationId);//sending to the func to update it
+                                dal.DroneToCharge(parcelid, stationId);//sending to the func to update it
                                 break;
                             case UpdateOpt.EndingCharge://ending the charge of a drone
                                 parcelid = Convert.ToInt32(Console.ReadLine());
