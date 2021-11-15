@@ -19,6 +19,8 @@ namespace DalObject
         public double StationDistance(double lat, double lon1, int id)
         {
             Station d = DataSource.StationsList.Find(x => x.Id == id);//finding the station in the list
+            if (d.Id != id)
+                throw new IDAL.DO.BadIdException(id, "This id doesnt exists");
             return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);//sending to the func to calculate
         }
 
@@ -28,6 +30,9 @@ namespace DalObject
         /// <param name="s">the given object</param>
         public  void AddStation(Station s)
         {
+            Station s2 = DataSource.StationsList.Find(x => x.Id == s.Id); //finding the station by its id
+            if (s2.Id == s.Id)
+                throw new IDAL.DO.IDExistsExceprion(s.Id, "This id already exists");
             DataSource.StationsList.Add(s);
         }
 
@@ -39,8 +44,10 @@ namespace DalObject
         public string ShowOneStation(int _id)
         {
             Station s = DataSource.StationsList.Find(x => x.Id == _id); //finding the station by its id
-            s.Name = "jhgf";
-            return s.ToString();
+            if (s.Id == _id)
+                return s.ToString();
+            else
+                throw new IDAL.DO.BadIdException(_id, "This id doesnt exists");
         }
 
         /// <summary>

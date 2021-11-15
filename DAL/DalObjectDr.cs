@@ -15,6 +15,9 @@ namespace DalObject
         /// <param name="d"></param>
         public  void AddDrone(Drone d)
         {
+            Drone d2 = DataSource.DroneList.Find(x => x.Id == d.Id); //finding the station by its id
+            if (d2.Id == d.Id)
+                throw new IDAL.DO.IDExistsExceprion(d.Id, "This parcel id already exists");
             DataSource.DroneList.Add(d);
         }
         /// <summary>
@@ -25,6 +28,11 @@ namespace DalObject
         public  void LinkParcelToDrone(int parcelId, int droneId)
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
+            if (p.Id != parcelId)
+                throw new IDAL.DO.BadIdException(droneId, "This parcel id doesnt exists");
+            Drone d = DataSource.DroneList.Find(x => x.Id == droneId);//finding the drone
+            if (d.Id != droneId)
+                throw new IDAL.DO.BadIdException(droneId, "This drone id doesnt exists");
             p.DroneId = droneId; //adding the drone id to the parcel
             p.Scheduled = DateTime.Now;
         }
@@ -37,20 +45,26 @@ namespace DalObject
         public void DroneToCharge(int droneId, int stationId)
         {
             Drone d = DataSource.DroneList.Find(x => x.Id == droneId);//finding the drone
+            if (d.Id != droneId)
+                throw new IDAL.DO.BadIdException(droneId, "This drone id doesnt exists");
+            DataSource.DroneList.Remove(d);
             d.Status = DroneStatuses.Maintenance; //changing to the needed status
+            DataSource.DroneList.Add(d);
             Station s = DataSource.StationsList.Find(x => x.Id == stationId);//finding the station
+            if (s.Id != stationId)
+                throw new IDAL.DO.BadIdException(stationId, "This station id doesnt exists");
+            DataSource.StationsList.Remove(s);
             s.ChargeSlots--;
-
-            s.ChargeSlots = s.ChargeSlots;
+            DataSource.StationsList.Add(s);
             DroneCharge dc = new DroneCharge()//creating a dronecharge object
             {
                 DroneId = droneId,
                 StationId = stationId
             };
             DataSource.DChargeList.Add(dc);//adding it to the list
-
             Console.WriteLine(s.ChargeSlots);
         }
+
         /// <summary>
         /// ending the charging of a given drone
         /// </summary>
@@ -58,6 +72,8 @@ namespace DalObject
         public void EndingCharge(int droneId)
         {
             Drone d = DataSource.DroneList.Find(x => x.Id == droneId);//finding the drone
+            if (d.Id != droneId)
+                throw new IDAL.DO.BadIdException(droneId, "This drone id doesnt exists");
             d.Status = DroneStatuses.Available;//changing its status
             DroneCharge dc = DataSource.DChargeList.Find(x => x.DroneId == droneId);//finding the dronecharge object
             Station sta1 = DataSource.StationsList.Find(x => x.Id == dc.StationId);//finsding the station he was charged at
@@ -72,9 +88,10 @@ namespace DalObject
         public string ShowOneDrone(int _id)
         {
             Drone d = DataSource.DroneList.Find(x => x.Id == _id); //finding the drone by its id
-            if (d != null)
+            if (d.Id == _id)
                 return d.ToString();
-            return null;
+            else
+                throw new IDAL.DO.BadIdException(_id, "This id doesnt exists");
         }
 
         /// <summary>

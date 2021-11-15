@@ -32,8 +32,10 @@ namespace ConsoleUI
             {
                 switch (mo)
                 {
+
                     case MenuOpt.Exit: return;//if chose to exit
                     case MenuOpt.Add://if chose to add
+                        Console.WriteLine("1-5 \n 0: exit, 1: drone, 2:station, 3:parcel , 4:customer");
                         AddOpt addO;
                         flag = int.TryParse(Console.ReadLine(), out option);//checking its an int type
                         addO = (AddOpt)option;
@@ -42,6 +44,7 @@ namespace ConsoleUI
                         {
                             case AddOpt.Exit: return;//if wants to exit
                             case AddOpt.AddDrone://adding a drone
+                                Console.WriteLine("is, model, status, maxweight, battery,");
                                 Drone d = new Drone();//creating an empty drone and getting inputs for values
                                 d.Id = Convert.ToInt32(Console.ReadLine());
                                 d.Model= Console.ReadLine();
@@ -88,6 +91,7 @@ namespace ConsoleUI
                         break;
 
                     case MenuOpt.Update:
+                        Console.WriteLine("0: exit, 1: parceltodrone, 2:pickparcel, 3:deliver parcel , 4:drone to charge, 5: Ending charge");
                         UpdateOpt upp;
                         flag = int.TryParse(Console.ReadLine(), out option);
                         upp = (UpdateOpt)option;

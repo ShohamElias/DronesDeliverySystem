@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace IDAL.DO
 {
-    class Exceptions
-    {
+    
 
         [Serializable]
         public class BadIdException : Exception
@@ -25,7 +24,7 @@ namespace IDAL.DO
             { this.ID = id; }
 
             override public string ToString()
-            { return "OverloadCapacityException:" + ID + "\n" + Message; }
+            { return "bad id:" + ID + "\n" + Message; }
         }
 
 
@@ -48,5 +47,4 @@ namespace IDAL.DO
             { return "ID already Exists:" + ID + "\n" + Message; }
         }
 
-    }
 }

@@ -16,6 +16,9 @@ namespace DalObject
         /// <param name="per">the given object</param>
         public  void AddParcel(Parcel per)
         {
+            Parcel p2 = DataSource.ParcelsList.Find(x => x.Id == per.Id); //finding the station by its id
+            if (p2.Id == per.Id)
+                throw new IDAL.DO.IDExistsExceprion(per.Id, "This parcel id already exists");
             DataSource.ParcelsList.Add(per);
         }
 
@@ -26,7 +29,11 @@ namespace DalObject
         public  void PickParcel(int parcelId)
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
+            if (p.Id != parcelId)
+                throw new IDAL.DO.BadIdException(parcelId, "This parcel id doesnt exists");
+            DataSource.ParcelsList.Remove(p);
             p.PickedUp = DateTime.Now;
+            DataSource.ParcelsList.Add(p);
             Drone d = DataSource.DroneList.Find(x => x.Id == p.DroneId); //finding the drone that was connected to the parcel by its id
             d.Status = DroneStatuses.Delivery;   //updating its status
         }
@@ -38,6 +45,8 @@ namespace DalObject
         public  void DeliveringParcel(int parcelId)
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
+            if (p.Id != parcelId) 
+                throw new IDAL.DO.BadIdException(parcelId, "This parcel id doesnt exists");
             p.Delivered = DateTime.Now; //adding delivering time
             Drone d = DataSource.DroneList.Find(x => x.Id == p.DroneId); //finding the drone that was connected to the parcel by its id
             d.Status = DroneStatuses.Available;   //updating its status
@@ -53,7 +62,10 @@ namespace DalObject
         public string ShowOneParcel(int _id)
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == _id); //finding the parcel by its id
-            return p.ToString();
+            if (p.Id == _id)
+                return p.ToString();
+            else
+                throw new IDAL.DO.BadIdException(_id, "This id doesnt exists");
         }
 
         /// <summary>

@@ -54,6 +54,8 @@ namespace DalObject
         public   double CustomerDistance(double lat, double lon1, int id) 
         {
             Customer d = DataSource.CustomersList.Find(x => x.Id == id);//finding the customer
+            if (d.Id == id)
+                throw new IDAL.DO.BadIdException(id, "This id doesnt exists");
             return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);//sending to the func to calculate
         }
         
@@ -63,6 +65,9 @@ namespace DalObject
         /// <param name="cus">the given object</param>
         public  void AddCustomer(Customer cus)
         {
+            Customer c2 = DataSource.CustomersList.Find(x => x.Id == cus.Id); //finding the station by its id
+            if (c2.Id == cus.Id)
+                throw new IDAL.DO.IDExistsExceprion(cus.Id, "This parcel id already exists");
             DataSource.CustomersList.Add( cus);
         }
        
@@ -75,7 +80,10 @@ namespace DalObject
         public  string ShowOneCustomer(int _id) 
         {
             Customer c = DataSource.CustomersList.Find(x => x.Id == _id); //finding the customer by its id
-            return c.ToString();
+            if (c.Id == _id)
+                return c.ToString();
+            else
+                throw new IDAL.DO.BadIdException(_id, "This id doesnt exists");
         }
 
         /// <summary>
