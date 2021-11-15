@@ -145,7 +145,7 @@ namespace DalObject
             d.Status = DroneStatuses.Maintenance; //changing to the needed status
             Station s = DataSource.StationsList.Find(x => x.Id == stationId);//finding the station
             s.ChargeSlots--;
-           
+            //DataSource.StationsList[0] = s;
             s.ChargeSlots = s.ChargeSlots;
             DroneCharge dc = new DroneCharge()//creating a dronecharge object
             {
