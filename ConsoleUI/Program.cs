@@ -33,7 +33,6 @@ namespace ConsoleUI
                 switch (mo)
                 {
                     case MenuOpt.Exit: return;//if chose to exit
-                        break;
                     case MenuOpt.Add://if chose to add
                         AddOpt addO;
                         flag = int.TryParse(Console.ReadLine(), out option);//checking its an int type
@@ -42,7 +41,6 @@ namespace ConsoleUI
                         switch (addO)//checking ehat he chose to add
                         {
                             case AddOpt.Exit: return;//if wants to exit
-                                break;
                             case AddOpt.AddDrone://adding a drone
                                 Drone d = new Drone();//creating an empty drone and getting inputs for values
                                 d.Id = Convert.ToInt32(Console.ReadLine());
@@ -50,7 +48,7 @@ namespace ConsoleUI
                                 d.Status= (DroneStatuses)Convert.ToInt32(Console.ReadLine());
                                 d.MaxWeight= (WeightCategories)Convert.ToInt32(Console.ReadLine());
                                 d.Battery= Convert.ToInt32(Console.ReadLine());
-                                DalObject.DalObject.AddDrone(d);//sending to the func to add to the list
+                                dal.AddDrone(d);//sending to the func to add to the list
                                 break;
                             case AddOpt.AddStation://adding a station
                                 Station s = new Station();//creating an empty station and getting inputs for values
@@ -59,7 +57,7 @@ namespace ConsoleUI
                                 s.Lattitude = Convert.ToInt64(Console.ReadLine());
                                 s.Longitude = Convert.ToInt64(Console.ReadLine());
                                 s.ChargeSlots = Convert.ToInt32(Console.ReadLine());
-                                DalObject.DalObject.AddStation(s);//sending to the func to add to the list
+                               dal.AddStation(s);//sending to the func to add to the list
                                 break;
                             case AddOpt.AddParcel://adding a parcel
                                 Parcel per = new Parcel();//creating an empty parcel and getting inputs for values
@@ -73,7 +71,7 @@ namespace ConsoleUI
                                 per.Scheduled = DateTime.Today;
                                 per.PickedUp = DateTime.Today;
                                 per.Delivered = DateTime.Today;
-                                DalObject.DalObject.AddParcel(per);//sending to the func to add to the list
+                                dal.AddParcel(per);//sending to the func to add to the list
                                 break;
                             case AddOpt.AddCustomer://adding a customer
                                 Customer cus = new Customer();//creating an empty customer and getting inputs for values
@@ -82,7 +80,7 @@ namespace ConsoleUI
                                 cus.Lattitude = Convert.ToInt64(Console.ReadLine());
                                 cus.Longitude = Convert.ToInt64(Console.ReadLine());
                                 cus.Phone = Console.ReadLine();
-                                DalObject.DalObject.AddCustomer(cus);//sending to the func to add to the list
+                               dal.AddCustomer(cus);//sending to the func to add to the list
                                 break;
                             default:
                                 break;
@@ -101,15 +99,15 @@ namespace ConsoleUI
                             case UpdateOpt.linkParcelToDrone://linking a parcel to a drone (the parcel will be sent by it)
                                 parcelid = Convert.ToInt32(Console.ReadLine());
                                 droneId = Convert.ToInt32(Console.ReadLine());
-                                DalObject.DalObject.LinkParcelToDrone(parcelid, droneId);//sending the id to the funct that will link them
+                                dal.LinkParcelToDrone(parcelid, droneId);//sending the id to the funct that will link them
                                 break;
                             case UpdateOpt.PickParcel://updating a parcel to be picked
                                 parcelid = Convert.ToInt32(Console.ReadLine());//getting the id parcel
-                                DalObject.DalObject.PickParcel(parcelid);//sending to the func to update it
+                                dal.PickParcel(parcelid);//sending to the func to update it
                                 break;
                             case UpdateOpt.DeliveringParcel://updating a parcel to be delivered
                                 parcelid = Convert.ToInt32(Console.ReadLine());
-                                DalObject.DalObject.DeliveringParcel(parcelid);//sending to the func to update it
+                                dal.DeliveringParcel(parcelid);//sending to the func to update it
                                 break;
                             case UpdateOpt.DroneToCharge://sending a chosen drone to charge
                                 parcelid = Convert.ToInt32(Console.ReadLine());
@@ -165,35 +163,35 @@ namespace ConsoleUI
                             case ShowListOpt.Exit:
                                 break;
                             case ShowListOpt.ShowDrone://printing the drones list
-                                List<Drone> temp = dal.ListDrone();
+                                List<Drone> temp = dal.ListDrone().ToList();
                                 foreach (Drone item in temp)
                                 {
                                     Console.WriteLine(item);
                                 }
                                 break;
                             case ShowListOpt.ShowStation://printing the stations list
-                                List<Station> Stations = dal.ListStation();
+                                List<Station> Stations = dal.ListStation().ToList();
                                 foreach (Station item in Stations)
                                 {
                                     Console.WriteLine(item);
                                 }
                                 break;
                             case ShowListOpt.ShowParcel://printing the parcels list
-                                List<Parcel> ListParcel = dal.ListParcel();
+                                List<Parcel> ListParcel = dal.ListParcel().ToList();
                                 foreach (Parcel item in ListParcel)
                                 {
                                     Console.WriteLine(item);
                                 }
                                 break;
                             case ShowListOpt.ShowCustomer://printing the customers list
-                                List<Customer> ListCustomer = dal.ListCustomer();
+                                List<Customer> ListCustomer = dal.ListCustomer().ToList();
                                 foreach (Customer item in ListCustomer)
                                 {
                                     Console.WriteLine(item);
                                 }
                                 break;
                             case ShowListOpt.UnmatchedParcels://printing all the unmatced parcels 
-                                List<Parcel> ListP = dal.ListParcel();
+                                List<Parcel> ListP = dal.ListParcel().ToList();
                                 foreach (Parcel item in ListP)
                                 {
                                     if(item.DroneId==0)
@@ -201,7 +199,7 @@ namespace ConsoleUI
                                 }
                                 break;
                             case ShowListOpt.EmptySlots://printing all the stations that has empty slots
-                                List<Station> StationsList = dal.ListStation();
+                                List<Station> StationsList = dal.ListStation().ToList();
                                 foreach (Station item in StationsList)
                                 {
                                     if(item.ChargeSlots!=0)
