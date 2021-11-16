@@ -11,11 +11,11 @@ namespace DalObject
     {
         internal class Config
         {
-            internal static int dronesI = 0;
-            internal static int stationsI = 0;
-            internal static int customersI = 0;
-            internal static int parcelsI = 0;
-            public static int countIdParcel = 1;
+            //internal static int dronesI = 0;
+            //internal static int stationsI = 0;
+            //internal static int customersI = 0;
+            //internal static int parcelsI = 0;
+            //public static int countIdParcel = 1;
            // public static int availableStations = 0;
 
         }
