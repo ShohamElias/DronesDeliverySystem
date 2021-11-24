@@ -22,6 +22,26 @@ namespace DalObject
             DataSource.ParcelsList.Add(per);
         }
 
+        public Parcel GetParcel(int id)
+        {
+            if (!CheckParcel(id))
+                throw new IDAL.DO.BadIdException(id, "Parcel id doesnt exist: ");
+
+            Parcel p = DataSource.ParcelsList.Find(p => p.Id == id);
+            return p;
+        }
+
+        public bool CheckParcel(int id)
+        {
+            return DataSource.ParcelsList.Any(p => p.Id == id);
+        }
+
+        public IEnumerable<Parcel> GetALLParcel()
+        {
+            return from p in DataSource.ParcelsList
+                   select p;
+        }
+
         /// <summary>
         /// the function update a parcel that was picked and the drone that picked it
         /// </summary>

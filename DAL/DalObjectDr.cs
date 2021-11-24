@@ -9,6 +9,27 @@ namespace DalObject
 {
     public partial class DalObject : IDAL.IDal
     {
+
+        public Drone GetDrone(int id)
+        {
+            if (!CheckDrone(id))
+                throw new IDAL.DO.BadIdException(id, "Drone id doesnt exist: ");
+
+           Drone d = DataSource.DroneList.Find(d => d.Id == id);
+            return d;
+        }
+
+        public bool CheckDrone(int id)
+        {
+            return DataSource.DroneList.Any(d => d.Id== id);
+        }
+
+        public IEnumerable<Drone> GetALLDrone()
+        {
+            return from d in DataSource.DroneList
+                   select d;
+        }
+
         /// <summary>
         /// the function adds a new drone to the list
         /// </summary>
