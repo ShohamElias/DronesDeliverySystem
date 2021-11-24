@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IDAL.DO
+namespace IBL
 {
-    
+    namespace BO
+    {
 
         [Serializable]
         public class BadIdException : Exception
@@ -17,10 +18,10 @@ namespace IDAL.DO
             public BadIdException(string message) : base(message) { }
             public BadIdException(int id, string message, Exception inner) : base(message, inner) => ID = id;
 
-         //   protected BadIdException(int idSerializationInfo info, StreamingContext context)
-         //: base(info, context) { }
-         //   // special constructor for our custom exception
-            public BadIdException(int id,  string message) : base(message)
+            //   protected BadIdException(int idSerializationInfo info, StreamingContext context)
+            //: base(info, context) { }
+            //   // special constructor for our custom exception
+            public BadIdException(int id, string message) : base(message)
             { this.ID = id; }
 
             override public string ToString()
@@ -32,7 +33,7 @@ namespace IDAL.DO
         public class IDExistsException : Exception
         {
             public int ID { get; private set; }
-
+            public IDExistsException() : base() { }
             public IDExistsException(int id) : base() => ID = id;
             public IDExistsException(string message) : base(message) { }
             public IDExistsException(int id, string message, Exception inner) : base(message, inner) => ID = id;
@@ -46,5 +47,5 @@ namespace IDAL.DO
             override public string ToString()
             { return "ID already Exists:" + ID + "\n" + Message; }
         }
-
+    }
 }

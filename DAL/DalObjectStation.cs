@@ -32,7 +32,7 @@ namespace DalObject
         {
             Station s2 = DataSource.StationsList.Find(x => x.Id == s.Id); //finding the station by its id
             if (s2.Id == s.Id)
-                throw new IDAL.DO.IDExistsExceprion(s.Id, "This id already exists");
+                throw new IDAL.DO.IDExistsException(s.Id, "This id already exists");
             DataSource.StationsList.Add(s);
         }
 

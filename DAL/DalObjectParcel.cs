@@ -18,7 +18,7 @@ namespace DalObject
         {
             Parcel p2 = DataSource.ParcelsList.Find(x => x.Id == per.Id); //finding the station by its id
             if (p2.Id == per.Id)
-                throw new IDAL.DO.IDExistsExceprion(per.Id, "This parcel id already exists");
+                throw new IDAL.DO.IDExistsException(per.Id, "This parcel id already exists");
             DataSource.ParcelsList.Add(per);
         }
 

@@ -17,7 +17,7 @@ namespace DalObject
         {
             Drone d2 = DataSource.DroneList.Find(x => x.Id == d.Id); //finding the station by its id
             if (d2.Id == d.Id)
-                throw new IDAL.DO.IDExistsExceprion(d.Id, "This parcel id already exists");
+                throw new IDAL.DO.IDExistsException(d.Id, "This parcel id already exists");
             DataSource.DroneList.Add(d);
         }
         /// <summary>

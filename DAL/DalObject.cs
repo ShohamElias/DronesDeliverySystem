@@ -67,7 +67,7 @@ namespace DalObject
         {
             Customer c2 = DataSource.CustomersList.Find(x => x.Id == cus.Id); //finding the station by its id
             if (c2.Id == cus.Id)
-                throw new IDAL.DO.IDExistsExceprion(cus.Id, "This parcel id already exists");
+                throw new IDAL.DO.IDExistsException(cus.Id, "This parcel id already exists");
             DataSource.CustomersList.Add( cus);
         }
        
