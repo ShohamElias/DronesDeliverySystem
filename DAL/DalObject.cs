@@ -43,7 +43,26 @@ namespace DalObject
         {
             return deg * (Math.PI / 180);
         }
-        
+        public IEnumerable<Customer> GetALLCustomer()
+        {
+            return from cust in DataSource.CustomersList
+                   select cust;
+        }
+
+        public Customer GetCustomer(int id)
+        {
+            if (!CheckCustomer(id))
+                throw new IDAL.DO.BadIdException(id, "Customer id doesnt exist: ");
+
+            Customer cust1 = DataSource.CustomersList.Find(cust1 => cust1.Id == id);
+            return cust1;
+        }
+
+        public bool CheckCustomer(int id)
+        {
+            return DataSource.CustomersList.Any(cust1 => cust1.Id == id);
+        }
+
         /// <summary>
         /// the function gets a location and custoner id, and calculates the distance between the customer and location
         /// </summary>

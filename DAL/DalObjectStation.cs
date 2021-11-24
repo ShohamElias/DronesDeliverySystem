@@ -36,6 +36,26 @@ namespace DalObject
             DataSource.StationsList.Add(s);
         }
 
+        public Station GetStation(int id)
+        {
+            if (!CheckStation(id))
+                throw new IDAL.DO.BadIdException(id, "Station id doesnt exist: ");
+
+            Station stat1 = DataSource.StationsList.Find(stat1 => stat1.Id == id);
+            return stat1;
+        }
+
+        public bool CheckStation(int id)
+        {
+            return DataSource.StationsList.Any(stat1 => stat1.Id == id);
+        }
+
+        public IEnumerable<Station> GetALLStation()
+        {
+            return from stat in DataSource.StationsList
+                   select stat;
+        }
+
         /// <summary>
         /// the function gets an id and prints the station with the same id
         /// </summary>
