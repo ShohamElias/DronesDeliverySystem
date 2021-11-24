@@ -11,6 +11,7 @@ namespace IBL
     {
         // public IDAL.IDal dl;
         public IDAL.IDal AccessIdal;
+        List<DroneToList> DronesBL;
 
         public BL()
         {

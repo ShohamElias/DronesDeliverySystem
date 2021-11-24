@@ -35,17 +35,30 @@ namespace IBL
         {
             try
             {
-
+                IDAL.DO.Customer cus = AccessIdal.GetCustomer(cusId);
+                if (cusName != "")
+                    cus.Name = cusName;
+                if (cusPhone != "")
+                    cus.Phone = cusPhone;
+                //AccessIdal.
             }
             catch (IDAL.DO.BadIdException)
             {
 
-                throw;
+                throw new BadIdException("customer");
             }
         }
         public IEnumerable<Customer> GetAllCustomers()
         {
-            return 
+            return from item in AccessIdal.GetALLCustomer()
+                   select new Customer()
+                   {
+                       Id = item.Id,
+                       Name = item.Name,
+                       Phone = item.Phone,
+                       CustLocation = new Location() { Longitude = item.Longitude, Lattitude = item.Lattitude },  //////??????????
+
+                   };
         }
 
 
