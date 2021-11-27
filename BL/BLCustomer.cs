@@ -11,6 +11,27 @@ namespace IBL
 {
     public partial class BL 
     {
+        private Customer customerDoBoAdapter(IDAL.DO.Customer customerDO)
+        {
+            Customer customerBO = new Customer();
+            int id = customerDO.Id;
+            IDAL.DO.Customer s;
+            try //???
+            {
+                s = AccessIdal.GetCustomer(id);
+            }
+            catch (IDAL.DO.BadIdException)
+            {
+
+                throw new BadIdException("station");
+            }
+            s.CopyPropertiesTo(customerBO);
+            customerDO.CopyPropertiesTo(customerBO);
+            //stationBO.DronesinCharge= from sic in AccessIdal.GetALLDrone(sic=> sic.Id==Id )
+            //                          let 
+            return customerBO;
+
+        }
         public void AddCustomer(Customer newCustomer)
         {
             
@@ -20,7 +41,8 @@ namespace IBL
                 Name = newCustomer.Name,
                 Phone = newCustomer.Phone,
                 Longitude = newCustomer.CustLocation.Longitude,
-                Lattitude = newCustomer.CustLocation.Lattitude          
+                Lattitude = newCustomer.CustLocation.Lattitude     
+              
             };
             try
             {

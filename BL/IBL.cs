@@ -10,8 +10,8 @@ namespace IBL
     {
         #region Drone
         public BO.Drone GetDrone(int id);
-        // IEnumerable<BO.Drone> GetAllDrones();
-        public void AddDrone(BO.Drone d);
+         IEnumerable<BO.Drone> GetAllDrones();
+        public void AddDrone(int id, string model, BO.WeightCategories w, int stationId);
 
         #endregion
         #region Custoner
@@ -22,7 +22,7 @@ namespace IBL
         #endregion
 
         #region Parcel
-        public void AddParcel(BO.Parcel d);
+        public void AddParcel(int sender, int target, BO.WeightCategories w, BO.Priorities p);
         //public void UpdateCustomer(int cusid, string cusName, string cusPhone);
         public IEnumerable<BO.Parcel> GetAllParcels();
 

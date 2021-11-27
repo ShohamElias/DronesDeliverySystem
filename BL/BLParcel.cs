@@ -10,20 +10,41 @@ namespace IBL
 {
     public partial class BL
     {
-        public void AddParcel(Parcel newParcel)
+        private Parcel parcelDoBoAdapter(IDAL.DO.Parcel parcelDO)
+        {
+            Parcel parcelBO = new Parcel();
+            int id = parcelDO.Id;
+            IDAL.DO.Parcel s;
+            try //???
+            {
+                s = AccessIdal.GetParcel(id);
+            }
+            catch (IDAL.DO.BadIdException)
+            {
+
+                throw new BadIdException("station");
+            }
+            s.CopyPropertiesTo(parcelBO);
+            parcelDO.CopyPropertiesTo(parcelBO);
+            //stationBO.DronesinCharge= from sic in AccessIdal.GetALLDrone(sic=> sic.Id==Id )
+            //                          let 
+            return parcelBO;
+
+        }
+        public void AddParcel( int sender, int target, WeightCategories w, Priorities p) //מה הוא בכלל צרי לקבל
         {
             IDAL.DO.Parcel par = new IDAL.DO.Parcel()
             {
-                Id = newParcel.Id,
-                SenderId = newParcel.Sender.Id,
-                TargetId = newParcel.Target.Id,
-                Weight = (IDAL.DO.WeightCategories)newParcel.Weight,
-                Priority = (IDAL.DO.Priorities)newParcel.Priority,
-                Requested = newParcel.Requested,
-                DroneId = newParcel.DroneParcel.Id,
-                PickedUp = newParcel.PickedUp,
-                Scheduled = newParcel.Scheduled,
-                Delivered = newParcel.Delivered
+                //Id = newParcel.Id,
+                SenderId =sender,
+                TargetId = target,
+                Weight = (IDAL.DO.WeightCategories)w,
+                Priority = (IDAL.DO.Priorities)p,
+                Requested = DateTime.Now,
+               // DroneId = null,
+                PickedUp = new DateTime(0,0,0),
+                Scheduled = new DateTime(0, 0, 0),
+                Delivered = new DateTime(0, 0, 0)
 
             };
             try
