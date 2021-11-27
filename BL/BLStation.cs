@@ -32,14 +32,14 @@ namespace IBL
             return stationBO;
        
         }
-        public void AddStation(int id, string name,Location l )
+        public void AddStation( Station s/*int id, string name,Location l*/ )
         {
             IDAL.DO.Station newS = new IDAL.DO.Station()
             { 
-                Id=id,
-                Name=name,
-                Lattitude=l.Lattitude,
-                Longitude=l.Longitude,
+                Id=s.Id,
+                Name=s.Name,
+                Lattitude=s.StationLocation.Lattitude,
+                Longitude=s.StationLocation.Longitude,
                 ChargeSlots=0,
                 //רשימה מאיפה? זה דיאייאל לא ביאל
             };
@@ -58,12 +58,21 @@ namespace IBL
         {
             try
             {
-
+                if (!AccessIdal.CheckStation(id))
+                    throw new IDAL.DO.BadIdException("doesmt exist");
+                IDAL.DO.Station s = AccessIdal.GetStation(id);
+                if (name != "")
+                    s.Name = name;
+                //Station t=get
+                int n = AccessIdal.NumOfChargingNow(id);
+                if (numOfChargingSlots > 0)
+                    s.ChargeSlots = numOfChargingSlots - n;
+                //update
             }
-            catch (Exception)
+            catch (IDAL.DO.BadIdException)
             {
 
-                throw;
+                throw new BadIdException("station");
             }
         }
     }

@@ -57,6 +57,8 @@ namespace IBL
         {
             try
             {
+                if (!AccessIdal.CheckCustomer(cusId))
+                    throw new IDAL.DO.BadIdException("doesnt exist");
                 IDAL.DO.Customer cus = AccessIdal.GetCustomer(cusId);
                 if (cusName != "")
                     cus.Name = cusName;

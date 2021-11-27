@@ -65,14 +65,15 @@ namespace IBL
             //}
             //return droneBL;*/
         }
-            public void AddDrone(Drone d/*int id, string model, WeightCategories w, int stationId*/)
+            public void AddDrone(Drone d, int stationId/*int id, string model, WeightCategories w, int stationId*/)
         {
             IDAL.DO.Drone droneDO = new IDAL.DO.Drone();
             droneDO.CopyPropertiesTo(droneDO);
-            droneDO.Battery = rand.Next(20, 41);
-            droneDO.Status=(IDAL.DO.DroneStatuses)2;
-            droneDO.Lattitude = d.CurrentLocation.Lattitude;
-            droneDO.Longitude = d.CurrentLocation.Longitude;
+            droneDO.Battery = rand.Next(20, 41); //@@@
+            droneDO.Status=(IDAL.DO.DroneStatuses)2; //@@@
+            IDAL.DO.Station s = AccessIdal.GetStation(stationId);
+            droneDO.Lattitude = s.Lattitude;
+            droneDO.Longitude = s.Longitude;
             try
             {
                 AccessIdal.AddDrone(droneDO);
@@ -123,9 +124,30 @@ namespace IBL
             //       };
         }
 
-        public void UpdateDrone(Drone droneD)
+        public void UpdateDrone(int id, string m)
         {
+            if (!AccessIdal.CheckDrone(id))
+                throw new BadIdException("dont exist");
+            try
+            {
+                IDAL.DO.Drone d = AccessIdal.GetDrone(id);
+                d.Id = id;
+                d.Model = m;
+                //update
+            }
+            catch (IDAL.DO.BadIdException)
+            {
 
+                throw new BadIdException("drone");
+            }
+        }
+
+        public void DroneToCharge(int id)
+        {
+            if (!AccessIdal.CheckDrone(id))
+                throw new IDAL.DO.BadIdException("doesnt exust");
+            IDAL.DO.Drone d = AccessIdal.GetDrone(id);
+         //   if(d.Status==)
         }
 
     }

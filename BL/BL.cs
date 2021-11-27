@@ -19,6 +19,59 @@ namespace IBL
         {
             AccessIdal = new DalObject.DalObject();
             rand =  new Random(DateTime.Now.Millisecond);
+            DronesBL = (List<DroneToList>)(from item in AccessIdal.GetALLDrone()
+                                           select new DroneToList()
+                                           {
+                                               Id = item.Id,
+                                               Model = item.Model,
+                                               MaxWeight = (WeightCategories)item.MaxWeight,
+                                               Status = 0,
+                                               CurrentLocation = new Location() { Lattitude = item.Lattitude, Longitude = item.Longitude },
+                                               // IdOfParcel=item.
+                                               Battery = rand.Next(20, 41),
+                                               IdOfParcel=-1
+                                               
+
+                                           });
+            foreach(DroneToList item in DronesBL)
+            {
+                if(item.IdOfParcel!=-1)
+                {
+                    if(AccessIdal.CheckParcel(item.IdOfParcel))
+                    {
+                        item.Status = (DroneStatuses)2;
+                        //battery status
+                        IDAL.DO.Parcel p = AccessIdal.GetParcel(item.IdOfParcel);
+                        DateTime d = new DateTime(0, 0, 0);
+                        if(p.PickedUp==d)
+                        {
+                            //פונק של מרחק
+                        }
+                        else if(p.Delivered==d)
+                        {
+                            IDAL.DO.Customer c = AccessIdal.GetCustomer(p.SenderId);
+
+                            item.CurrentLocation = new Location() { Lattitude = c.Lattitude, Longitude = c.Longitude };
+                        }
+                    }
+                }
+                if(item.Status!=DroneStatuses.Delivery)
+                {
+                    //avaitabal/maintains
+                }
+                if(item.Status == DroneStatuses.Maintenance)
+                {
+                    //הגרלה בין תחנות
+                    item.Battery = rand.Next(20, 41);
+                
+                }
+                if (item.Status == DroneStatuses.Available)
+                {
+                    //הגרלות הגרלות
+                }
+
+            }
+
         }
     }
 }

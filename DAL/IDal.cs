@@ -51,6 +51,7 @@ namespace IDAL
         string ShowOneStation(int _id);
         IEnumerable<DO.Station> ListStation();
         public IEnumerable<DO.Station> GetALLStation();
+        int NumOfChargingNow(int x);
 
         #endregion
 

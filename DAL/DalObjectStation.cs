@@ -84,6 +84,16 @@ namespace DalObject
             return temp;
         }
 
-        
+        public int NumOfChargingNow(int id)
+        {
+            int x=0;
+            foreach (DroneCharge item in DataSource.DChargeList)
+            {
+                if (item.StationId == id)
+                    x++;
+            }
+            return x;
+        }
+
     }
 }

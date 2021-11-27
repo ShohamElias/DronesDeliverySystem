@@ -31,15 +31,15 @@ namespace IBL
             return parcelBO;
 
         }
-        public void AddParcel( int sender, int target, WeightCategories w, Priorities p) //מה הוא בכלל צרי לקבל
+        public void AddParcel(Parcel p /*int sender, int target, WeightCategories w, Priorities p*/) //מה הוא בכלל צרי לקבל
         {
             IDAL.DO.Parcel par = new IDAL.DO.Parcel()
             {
                 //Id = newParcel.Id,
-                SenderId =sender,
-                TargetId = target,
-                Weight = (IDAL.DO.WeightCategories)w,
-                Priority = (IDAL.DO.Priorities)p,
+                SenderId =p.Sender.Id,
+                TargetId = p.Target.Id,
+                Weight = (IDAL.DO.WeightCategories)p.Weight,
+                Priority = (IDAL.DO.Priorities)p.Priority,
                 Requested = DateTime.Now,
                // DroneId = null,
                 PickedUp = new DateTime(0,0,0),
