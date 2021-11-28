@@ -75,16 +75,45 @@ namespace IBL
         public IEnumerable<Customer> GetAllCustomers()
         {
             return from item in AccessIdal.GetALLCustomer()
-                   select new Customer()
-                   {
-                       Id = item.Id,
-                       Name = item.Name,
-                       Phone = item.Phone,
-                       CustLocation = new Location() { Longitude = item.Longitude, Lattitude = item.Lattitude },  //////??????????
+                   orderby item.Id
+                   select GetCustomer(item.Id);
+                   //select new Customer()
+                   //{
+                   //    Id = item.Id,
+                   //    Name = item.Name,
+                   //    Phone = item.Phone,
+                   //    CustLocation = new Location() { Longitude = item.Longitude, Lattitude = item.Lattitude },  //////??????????
 
-                   };
+                   //};
         }
 
-
+        public Customer GetCustomer(int id)
+        {
+            if (!AccessIdal.CheckCustomer(id))
+                throw new BadIdException("customer");
+            IDAL.DO.Customer c = AccessIdal.GetCustomer(id);
+            
+            Customer cb = new Customer()
+            {
+                Id = id,
+                CustLocation = new Location() { Lattitude = c.Lattitude, Longitude = c.Longitude },
+                Name = c.Name,
+                Phone = c.Phone,
+                // parcelFromCustomer= new 
+                //foreachhhhhh
+                
+            };
+            foreach (Parcel item in GetAllParcels())
+            {
+                if (item.Sender.Id == c.Id)
+                    cb.parcelFromCustomer.Add(item);
+            }
+            foreach (Parcel item in GetAllParcels())
+            {
+                if (item.Target.Id == c.Id)
+                    cb.parcelToCustomer.Add(item);
+            }
+            return cb;
+        }
     }
 }

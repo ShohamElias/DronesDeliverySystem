@@ -24,8 +24,8 @@ namespace IBL
 
                 throw new BadIdException("station");
             }
-            s.CopyPropertiesTo(parcelBO);
-            parcelDO.CopyPropertiesTo(parcelBO);
+            //s.CopyPropertiesTo(parcelBO);
+            //parcelDO.CopyPropertiesTo(parcelBO);
             //stationBO.DronesinCharge= from sic in AccessIdal.GetALLDrone(sic=> sic.Id==Id )
             //                          let 
             return parcelBO;

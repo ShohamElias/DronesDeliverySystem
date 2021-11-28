@@ -43,7 +43,29 @@ namespace IBL
 
                 throw new BadIdException("Drone");
             }
-            return droneDoBoAdapter(d);
+            //return droneDoBoAdapter(d);
+            DroneToList dt = DronesBL.Find(x => x.Id == id);
+
+            Drone db = new Drone()
+            {
+                Id = id,
+                Model = d.Model,
+                MaxWeight = (WeightCategories)d.MaxWeight,
+                Status = dt.Status,
+                Battery = dt.Battery,
+                CurrentLocation = dt.CurrentLocation,
+                CurrentParcel = new ParcelInTransfer()
+                {
+                    Id = dt.IdOfParcel,
+                    Sender = GetParcel(dt.IdOfParcel).Sender,////deep????
+                    Target = GetParcel(dt.IdOfParcel).Target,
+                    Weight = GetParcel(dt.IdOfParcel).Weight,
+                    Priority = GetParcel(dt.IdOfParcel).Priority,
+
+
+                }
+
+            };
            /* //Drone droneBL = new Drone();
             //try
             //{
@@ -67,13 +89,24 @@ namespace IBL
         }
             public void AddDrone(Drone d, int stationId/*int id, string model, WeightCategories w, int stationId*/)
         {
-            IDAL.DO.Drone droneDO = new IDAL.DO.Drone();
-            droneDO.CopyPropertiesTo(droneDO);
-            droneDO.Battery = rand.Next(20, 41); //@@@
-            droneDO.Status=(IDAL.DO.DroneStatuses)2; //@@@
+            if (!AccessIdal.CheckStation(stationId))
+                throw new BadIdException("station");
             IDAL.DO.Station s = AccessIdal.GetStation(stationId);
-            droneDO.Lattitude = s.Lattitude;
-            droneDO.Longitude = s.Longitude;
+
+            IDAL.DO.Drone droneDO = new IDAL.DO.Drone()
+            {
+                Id = d.Id,
+                 Model = d.Model,
+                MaxWeight = (IDAL.DO.WeightCategories)w,                
+                Lattitude = s.Lattitude,
+                Longitude = s.Longitude
+            };
+            // droneDO.CopyPropertiesTo(droneDO);
+            // droneDO.Battery = rand.Next(20, 41); //@@@
+            //droneDO.Status=(IDAL.DO.DroneStatuses)2; //@@@
+            
+            if (s.ChargeSlots <= 0)
+                throw;
             try
             {
                 AccessIdal.AddDrone(droneDO);
