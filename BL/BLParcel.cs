@@ -60,25 +60,29 @@ namespace IBL
         public IEnumerable<Parcel> GetAllParcels()
         {
             return from item in AccessIdal.GetALLParcel()
-                   select new Parcel()
-                   {
-                       Id = item.Id,
-                       Sender = new CustomerInParcel() { Id = item.Id, CustomerName = AccessIdal.GetCustomer(item.SenderId).Name },
-                       Target = new CustomerInParcel() { Id = item.Id, CustomerName = AccessIdal.GetCustomer(item.TargetId).Name },
-                       DroneParcel = new DroneInParcel() { Id = item.DroneId, Battery = AccessIdal.GetDrone(item.DroneId).Battery, CurrentLocation = new Location() { Lattitude = AccessIdal.GetDrone(item.DroneId).Lattitude, Longitude= AccessIdal.GetDrone(item.DroneId).Lattitude } }, ////????
-                       //???
-                      Weight= (WeightCategories)item.Weight,
-                      Priority=(Priorities)item.Priority,
-                      Requested=item.Requested,
-                      Delivered=item.Delivered,
-                      PickedUp=item.PickedUp,
-                      Scheduled=item.Scheduled
-                      
-             
-                   };
+                   orderby item.Id
+                   select GetParcel(item.Id);
         }
 
-
-
+        public Parcel GetParcel(int id)
+        {
+            if (!AccessIdal.CheckParcel(id))
+                throw new BadIdException("parcel doesnt exist");
+            IDAL.DO.Parcel p = AccessIdal.GetParcel(id);
+            Parcel pl = new Parcel()
+            {
+                Id=p.Id,
+                Sender = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.SenderId).Name, Id = p.Id },
+                Target = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.TargetId).Name, Id = p.Id },
+                DroneParcel=new DroneInParcel() { Battery=GetDrone(p.DroneId).Battery,Id=p.DroneId,CurrentLocation=GetDrone(p.DroneId).CurrentLocation},
+                Weight= (WeightCategories)p.Weight,
+                Priority= (Priorities)p.Priority,
+                Requested=p.Requested,
+                Scheduled=p.Scheduled,
+                Delivered=p.Delivered,
+                PickedUp=p.PickedUp
+            };
+            return pl;
+        }
     }
 }

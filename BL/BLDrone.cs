@@ -160,6 +160,13 @@ namespace IBL
             if (!AccessIdal.CheckDrone(id))
                 throw new IDAL.DO.BadIdException("doesnt exust");
             IDAL.DO.Drone d = AccessIdal.GetDrone(id);
+            DroneToList dt = DronesBL.Find(x => x.Id == id);
+            if (dt.Status != DroneStatuses.Available)
+                throw;
+            //station and battery
+
+            IDAL.DO.Station s = dis(dt.CurrentLocation.Longitude, dt.CurrentLocation.Lattitude);
+
          //   if(d.Status==)
         }
 

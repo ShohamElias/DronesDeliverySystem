@@ -73,5 +73,22 @@ namespace IBL
             }
 
         }
+
+        private IDAL.DO.Station dis(double lon, double lat)
+        {
+            double max=0, d = 0;
+            int ids=0;
+            foreach (IDAL.DO.Station  item in AccessIdal.GetALLStation())
+            {
+                d = AccessIdal.StationDistance(lat, lon, item.Id);
+                if(d<max)
+                {
+                    max = d;
+                    ids = item.Id;
+                }
+            }
+
+            return AccessIdal.GetStation(ids);
+        }
     }
 }
