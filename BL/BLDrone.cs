@@ -82,6 +82,19 @@ namespace IBL
             {
                 throw new IDExistsException("Drone");
             }
+
+            DroneToList dt = new DroneToList()
+            {
+                Id = droneDO.Id,
+                Battery = rand.Next(20, 41),
+                Status = DroneStatuses.Maintenance,
+                CurrentLocation = new Location() { Lattitude = s.Lattitude, Longitude = s.Longitude },
+                MaxWeight = d.MaxWeight,
+                Model = droneDO.Model,
+                IdOfParcel = -1
+
+            };
+            DronesBL.Add(dt);
             //IDAL.DO.Station s = AccessIdal.GetStation(stationId);
 
             //IDAL.DO.Drone newDrone = new IDAL.DO.Drone()
