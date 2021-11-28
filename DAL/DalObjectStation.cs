@@ -24,11 +24,21 @@ namespace DalObject
             return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);//sending to the func to calculate
         }
 
+        public void UpdateStation(Station newD)
+        {
+            Station d2 = DataSource.StationsList.Find(x => x.Id == newD.Id); //finding the station by its id
+            if (d2.Id != newD.Id)
+                throw new IDAL.DO.BadIdException(newD.Id, "This Station does not exist");
+            DataSource.StationsList.Remove(d2);
+            DataSource.StationsList.Add(newD);
+        }
+
+
         /// <summary>
         /// the function adds a new station to the list 
         /// </summary>
         /// <param name="s">the given object</param>
-        public  void AddStation(Station s)
+        public void AddStation(Station s)
         {
             Station s2 = DataSource.StationsList.Find(x => x.Id == s.Id); //finding the station by its id
             if (s2.Id == s.Id)

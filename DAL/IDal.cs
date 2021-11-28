@@ -10,6 +10,8 @@ namespace IDAL
     {
         #region Customer
         void AddCustomer(DO.Customer cus);
+        public void UpdateCustomer(DO.Customer newD);
+
         public DO.Customer GetCustomer(int id);
         public bool CheckCustomer(int id);
         double CustomerDistance(double lat, double lon1, int id);
@@ -26,6 +28,8 @@ namespace IDAL
         void DroneToCharge(int droneId, int stationId);
         void EndingCharge(int droneId);
         string ShowOneDrone(int _id);
+        public void UpdateDrone(DO.Drone newD);
+        double[] ElectricityUse();
         IEnumerable<DO.Drone> ListDrone();
         public IEnumerable<DO.Drone> GetALLDrone();
 
@@ -33,7 +37,7 @@ namespace IDAL
 
         #region Parcel
         void AddParcel(DO.Parcel per);
-
+        public void UpdateParcel(DO.Parcel newD);
         public DO.Parcel GetParcel(int id);
         public bool CheckParcel(int id);
         void PickParcel(int parcelId);
@@ -45,6 +49,7 @@ namespace IDAL
 
         #region Station
         double StationDistance(double lat, double lon1, int id);
+        public void UpdateStation(DO.Station newD);
         void AddStation(DO.Station s);
         public DO.Station GetStation(int id);
         public bool CheckStation(int id);

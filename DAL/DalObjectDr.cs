@@ -9,8 +9,22 @@ namespace DalObject
 {
     public partial class DalObject : IDAL.IDal
     {
+        public double[] ElectricityUse()
+        {
+            double[] arr= new double[] { DataSource.Config.empty, DataSource.Config.light, DataSource.Config.medium, DataSource.Config.heavy, DataSource.Config.chargeRate };
+            return arr;
+        }
+        
+        public void UpdateDrone(Drone newD)
+        {
+            Drone d2 = DataSource.DroneList.Find(x => x.Id == newD.Id); //finding the station by its id
+            if (d2.Id != newD.Id)
+                throw new IDAL.DO.BadIdException(newD.Id, "This drone does not exist");
+            DataSource.DroneList.Remove(d2);
+            DataSource.DroneList.Add(newD);
+        }
 
-        public Drone GetDrone(int id)
+    public Drone GetDrone(int id)
         {
             if (!CheckDrone(id))
                 throw new IDAL.DO.BadIdException(id, "Drone id doesnt exist: ");
@@ -68,9 +82,9 @@ namespace DalObject
             Drone d = DataSource.DroneList.Find(x => x.Id == droneId);//finding the drone
             if (d.Id != droneId)
                 throw new IDAL.DO.BadIdException(droneId, "This drone id doesnt exists");
-            DataSource.DroneList.Remove(d);
-            d.Status = DroneStatuses.Maintenance; //changing to the needed status
-            DataSource.DroneList.Add(d);
+            //DataSource.DroneList.Remove(d);
+            //d.Status = DroneStatuses.Maintenance; //changing to the needed status
+            //DataSource.DroneList.Add(d);
             Station s = DataSource.StationsList.Find(x => x.Id == stationId);//finding the station
             if (s.Id != stationId)
                 throw new IDAL.DO.BadIdException(stationId, "This station id doesnt exists");
@@ -95,7 +109,7 @@ namespace DalObject
             Drone d = DataSource.DroneList.Find(x => x.Id == droneId);//finding the drone
             if (d.Id != droneId)
                 throw new IDAL.DO.BadIdException(droneId, "This drone id doesnt exists");
-            d.Status = DroneStatuses.Available;//changing its status
+            //d.Status = DroneStatuses.Available;//changing its status
             DroneCharge dc = DataSource.DChargeList.Find(x => x.DroneId == droneId);//finding the dronecharge object
             Station sta1 = DataSource.StationsList.Find(x => x.Id == dc.StationId);//finsding the station he was charged at
             sta1.ChargeSlots++;//adding an empty charge slot

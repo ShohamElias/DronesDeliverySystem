@@ -16,11 +16,15 @@ namespace DalObject
             //internal static int customersI = 0;
             //internal static int parcelsI = 0;
             //public static int countIdParcel = 1;
-           // public static int availableStations = 0;
-
+            // public static int availableStations = 0;
+            internal static int empty = 0;
+            internal static int light = 0;
+            internal static int heavy = 0;
+            internal static int medium = 0;
+            internal static int chargeRate = 0;
         }
 
-        
+
         internal static Random rand = new Random(DateTime.Now.Millisecond);//random
         //lists for the objects
         internal static List<Drone> DroneList = new List<Drone>();
@@ -39,8 +43,8 @@ namespace DalObject
                     Id = rand.Next(1000, 10001),
                     Model = "",
                     MaxWeight = (WeightCategories)rand.Next(3),
-                    Status = (DroneStatuses)rand.Next(3),
-                    Battery = rand.Next(101)
+                    //Status = (DroneStatuses)rand.Next(3),
+                    //Battery = rand.Next(101)
                 };
                 DroneList.Add(d);//adding to the list
             }

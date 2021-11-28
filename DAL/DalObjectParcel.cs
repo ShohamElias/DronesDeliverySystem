@@ -22,6 +22,15 @@ namespace DalObject
             DataSource.ParcelsList.Add(per);
         }
 
+        public void UpdateParcel(Parcel newD)
+        {
+            Parcel d2 = DataSource.ParcelsList.Find(x => x.Id == newD.Id); //finding the station by its id
+            if (d2.Id != newD.Id)
+                throw new IDAL.DO.BadIdException(newD.Id, "This Parcel does not exist");
+            DataSource.ParcelsList.Remove(d2);
+            DataSource.ParcelsList.Add(newD);
+        }
+
         public Parcel GetParcel(int id)
         {
             if (!CheckParcel(id))

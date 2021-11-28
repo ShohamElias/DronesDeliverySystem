@@ -89,8 +89,16 @@ namespace DalObject
                 throw new IDAL.DO.IDExistsException(cus.Id, "This parcel id already exists");
             DataSource.CustomersList.Add( cus);
         }
-       
-       
+
+        public void UpdateCustomer(Customer newD)
+        {
+            Customer d2 = DataSource.CustomersList.Find(x => x.Id == newD.Id); //finding the station by its id
+            if (d2.Id != newD.Id)
+                throw new IDAL.DO.BadIdException(newD.Id, "This Customer does not exist");
+            DataSource.CustomersList.Remove(d2);
+            DataSource.CustomersList.Add(newD);
+        }
+
         /// <summary>
         /// the function gets an id and prints the customer with the same id
         /// </summary>

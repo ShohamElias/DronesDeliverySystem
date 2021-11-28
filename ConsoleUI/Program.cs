@@ -48,9 +48,9 @@ namespace ConsoleUI
                                 Drone d = new Drone();//creating an empty drone and getting inputs for values
                                 d.Id = Convert.ToInt32(Console.ReadLine());
                                 d.Model= Console.ReadLine();
-                                d.Status= (DroneStatuses)Convert.ToInt32(Console.ReadLine());
+                                //d.Status= (DroneStatuses)Convert.ToInt32(Console.ReadLine());######################
                                 d.MaxWeight= (WeightCategories)Convert.ToInt32(Console.ReadLine());
-                                d.Battery= Convert.ToInt32(Console.ReadLine());
+                                //d.Battery= Convert.ToInt32(Console.ReadLine());###########################
                                 dal.AddDrone(d);//sending to the func to add to the list
                                 break;
                             case AddOpt.AddStation://adding a station
