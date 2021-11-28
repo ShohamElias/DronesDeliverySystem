@@ -34,6 +34,8 @@ namespace IBL
         }
         public void AddStation( Station s/*int id, string name,Location l*/ )
         {
+            if (!AccessIdal.CheckStation(s.Id))
+                throw new BadIdException("station");
             IDAL.DO.Station newS = new IDAL.DO.Station()
             { 
                 Id=s.Id,
@@ -65,15 +67,56 @@ namespace IBL
                     s.Name = name;
                 //Station t=get
                 int n = AccessIdal.NumOfChargingNow(id);
-                if (numOfChargingSlots > 0)
+                if (numOfChargingSlots >=n)
                     s.ChargeSlots = numOfChargingSlots - n;
-                //update
+                AccessIdal.UpdateStation(s);
             }
             catch (IDAL.DO.BadIdException)
             {
 
                 throw new BadIdException("station");
             }
+        }
+
+        public Station GetStation(int id)
+        {
+            IDAL.DO.Station s;
+            try
+            {
+               s = AccessIdal.GetStation(id);
+            }
+            catch (IDAL.DO.BadIdException)
+            {
+
+                throw new BadIdException("station");
+            }
+            Station sb = new Station()
+            {
+                Id = id,
+                StationLocation = new Location() { Lattitude = s.Lattitude, Longitude = s.Longitude },
+                Name = s.Name,
+                ChargeSlots = s.ChargeSlots
+
+            };
+
+            foreach (Drone item in GetAllDrones())
+            {
+                if(item.CurrentLocation.Longitude==sb.StationLocation.Longitude)
+                    if(item.CurrentLocation.Lattitude == sb.StationLocation.Lattitude)
+                    {
+                        DroneCharge dc = new DroneCharge() { Battery = item.Battery, DroneId = item.Id };
+                        sb.DronesinCharge.Add(dc);
+                    }
+            }
+
+            return sb;
+        }
+
+        public IEnumerable<Station> GetAllStations()
+        {
+            return from item in AccessIdal.GetALLStation()
+                   orderby item.Id
+                   select GetStation(item.Id);
         }
     }
 }

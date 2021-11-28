@@ -33,6 +33,16 @@ namespace DalObject
             return d;
         }
 
+        public DroneCharge GetDroneCharge(int id)
+        {
+            return DataSource.DChargeList.Find(x => x.DroneId == id);
+        }
+
+        public void DeleteDroneCharge(int id)
+        {
+            DataSource.DChargeList.Remove(DataSource.DChargeList.Find(x => x.DroneId == id));
+        }
+
         public bool CheckDrone(int id)
         {
             return DataSource.DroneList.Any(d => d.Id== id);
@@ -143,5 +153,9 @@ namespace DalObject
             return temp;
         }
 
+        public  int GetChargeRate()
+        {
+            return DataSource.Config.chargeRate;
+        }
     }
 }

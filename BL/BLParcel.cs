@@ -84,5 +84,23 @@ namespace IBL
             };
             return pl;
         }
+
+
+        private Parcel closest(Drone d)
+        {
+            double max = 10000000000000, k = 0;
+            int ids = 0;
+            foreach (IDAL.DO.Parcel item in AccessIdal.GetALLParcel())
+            {
+                k = AccessIdal.StationDistance(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, item.Id);
+                if (k < max)
+                {
+                    max = k;
+                    ids = item.Id;
+                }
+            }
+
+            return GetParcel(ids);
+        }
     }
 }

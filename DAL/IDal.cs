@@ -27,6 +27,8 @@ namespace IDAL
         void LinkParcelToDrone(int parcelId, int droneId);
         void DroneToCharge(int droneId, int stationId);
         void EndingCharge(int droneId);
+        public   int GetChargeRate();
+
         string ShowOneDrone(int _id);
         public void UpdateDrone(DO.Drone newD);
         double[] ElectricityUse();
@@ -57,6 +59,12 @@ namespace IDAL
         IEnumerable<DO.Station> ListStation();
         public IEnumerable<DO.Station> GetALLStation();
         int NumOfChargingNow(int x);
+        double getDistanceFromLatLonInKm();
+
+        #endregion
+        #region DroneCharge
+        DO.DroneCharge GetDroneCharge(int id);
+        public void DeleteDroneCharge(int id);
 
         #endregion
 

@@ -21,7 +21,7 @@ namespace DalObject
             internal static int light = 0;
             internal static int heavy = 0;
             internal static int medium = 0;
-            internal static int chargeRate = 0;
+            internal static int chargeRate = 60;
         }
 
 
@@ -32,7 +32,7 @@ namespace DalObject
         internal static List<Customer> CustomersList = new List<Customer>();
         internal static List<Parcel> ParcelsList = new List<Parcel>();
         internal static List<DroneCharge> DChargeList = new List<DroneCharge>();
-
+       
 
         private static void createDrone(int num)//the function creates a given number of drones and adds them to the list
         {
