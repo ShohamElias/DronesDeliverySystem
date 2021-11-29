@@ -120,8 +120,8 @@ namespace IBL
                 Id = d.Id,
                 Model = d.Model,
                 MaxWeight = (IDAL.DO.WeightCategories)d.MaxWeight,                
-                Lattitude = s.Lattitude,
-                Longitude = s.Longitude
+               // Lattitude = s.Lattitude,
+               // Longitude = s.Longitude
             };
             // droneDO.CopyPropertiesTo(droneDO);
             // droneDO.Battery = rand.Next(20, 41); //@@@
@@ -222,13 +222,13 @@ namespace IBL
                 throw;
             //station and battery
 
-            IDAL.DO.Station s = dis(dt.CurrentLocation.Longitude, dt.CurrentLocation.Lattitude);
-            Location l = new Location() { Lattitude = s.Lattitude, Longitude = s.Longitude };
+           Station s = dis(dt.CurrentLocation.Longitude, dt.CurrentLocation.Lattitude);
+            Location l = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
             double b = amountOfbattery(GetDrone(id), l);
             if (b < dt.Battery)
                 throw; //אין מספיק בטריה
             dt.Battery -= b;
-            dt.CurrentLocation = new Location() { Lattitude = s.Lattitude, Longitude = s.Longitude };
+            dt.CurrentLocation = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
             dt.Status = DroneStatuses.Maintenance;
             // DronesBL.Remove()
             //  UpdateDrone()
@@ -277,19 +277,37 @@ namespace IBL
             Drone d = GetDrone(id);
             if (d.Status != DroneStatuses.Available)
                 throw;
-            if(GetAllParcels().Any(x=>x.Priority==Priorities.TBN))
+            IEnumerable<Parcel> par = GetAllParcels();
+            Parcel p = par.First();
+            foreach (var item in par)
             {
-                if(GetAllParcels().Any(x=>x.Weight==d.MaxWeight))
-                {
-                    Parcel p = closest(d);
-                    double b = amountOfbattery(d, GetCustomer(p.Sender.Id).CustLocation);
-                    double b2 = amountOfbatteryFrom(d, GetCustomer(p.Sender.Id).CustLocation, GetCustomer(p.Target.Id).CustLocation);
-                    Station st = dis(GetCustomer(p.Target.Id).CustLocation.Longitude, GetCustomer(p.Target.Id).CustLocation.Lattitude);
-                    double b3 = amountOfbatteryFrom(d, GetCustomer(p.Target.Id).CustLocation, st.StationLocation);
-                    if(b+b2+b3>d.Battery)
-                        //throw ot just change ?? like flag=true; else ||flag==true
-                }
+                if (item.Priority > p.Priority)
+                    p = item;
+                else if (item.Priority == p.Priority && item.Weight > p.Weight && item.Weight <= d.MaxWeight)
+                    p = item;
+                double dis = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(p.Sender.Id).CustLocation.Lattitude, GetCustomer(p.Sender.Id).CustLocation.Longitude);
+                double dis2 = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(item.Sender.Id).CustLocation.Lattitude, GetCustomer(item.Sender.Id).CustLocation.Longitude);
+
+                else if (item.Priority == p.Priority && item.Weight == p.Weight && dis2 < dis)
+                    p = item;
             }
+            p.DroneParcel=new DroneInParcel() { Id=d.Id, Battery=d.Battery, 
+               // CurrentLocation=
+                }
+
+            //if(GetAllParcels().Any(x=>x.Priority==Priorities.TBN))
+            //{
+            //    if(GetAllParcels().Any(x=>x.Weight==d.MaxWeight))
+            //    {
+            //        Parcel p = closest(d);
+            //        double b = amountOfbattery(d, GetCustomer(p.Sender.Id).CustLocation);
+            //        double b2 = amountOfbatteryFrom(d, GetCustomer(p.Sender.Id).CustLocation, GetCustomer(p.Target.Id).CustLocation);
+            //        Station st = dis(GetCustomer(p.Target.Id).CustLocation.Longitude, GetCustomer(p.Target.Id).CustLocation.Lattitude);
+            //        double b3 = amountOfbatteryFrom(d, GetCustomer(p.Target.Id).CustLocation, st.StationLocation);
+            //        if(b+b2+b3>d.Battery)
+            //            //throw ot just change ?? like flag=true; else ||flag==true
+            //    }
+            //}
         }
     }
 }
