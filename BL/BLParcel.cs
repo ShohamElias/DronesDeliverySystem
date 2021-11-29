@@ -88,7 +88,7 @@ namespace IBL
 
         private Parcel closest(Drone d)
         {
-            double max = 10000000000000, k = 0;
+            double max = 1000000000, k = 0;
             int ids = 0;
             foreach (IDAL.DO.Parcel item in AccessIdal.GetALLParcel())
             {

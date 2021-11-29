@@ -27,7 +27,7 @@ namespace IBL
                                                Model = item.Model,
                                                MaxWeight = (WeightCategories)item.MaxWeight,
                                                Status = 0,
-                                               CurrentLocation = new Location() { Lattitude = item.Lattitude, Longitude = item.Longitude },
+                                               //CurrentLocation = new Location() { Lattitude = item.Lattitude, Longitude = item.Longitude },
                                                // IdOfParcel=item.
                                                Battery = rand.Next(20, 41),
                                                IdOfParcel=-1
@@ -126,7 +126,7 @@ namespace IBL
         {
             double[] arr = AccessIdal.ElectricityUse();
             double s;
-            s = getDistanceFromLatLonInKm(L.Lattitude, l.Longitude, L2.Lattitude, L2.Lattitude);
+            s = getDistanceFromLatLonInKm(l.Lattitude, l.Longitude, L2.Lattitude, L2.Lattitude);
 
             if (d.Status == DroneStatuses.Available)
             {
