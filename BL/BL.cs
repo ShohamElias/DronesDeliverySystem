@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace IBL
 {
-    public partial class BL/*: IBL.IBL*/
+    public partial class BL: IBL/*: IBL.IBL*/
     {
         // public IDAL.IDal dl;
         public IDAL.IDal AccessIdal;
@@ -40,15 +40,20 @@ namespace IBL
                 {
                     if(AccessIdal.CheckParcel(item.IdOfParcel))
                     {
-                        item.Status = (DroneStatuses)2;
-                        //battery status
+                        item.Status = DroneStatuses.Delivery;
+                        Station s = closestStation(item.CurrentLocation.Longitude, item.CurrentLocation.Lattitude);
+                        Drone dd = GetDrone(item.Id);
+                        double ba = amountOfbattery(dd,dd.CurrentLocation, s.StationLocation);
+                        item.Battery = rand.Next((int)ba, 101);
                         IDAL.DO.Parcel p = AccessIdal.GetParcel(item.IdOfParcel);
                         DateTime d = new DateTime(0, 0, 0);
-                        if(p.PickedUp==d)
+                        if (p.PickedUp == d)
                         {
-                            //פונק של מרחק
+                           
+                            item.CurrentLocation = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
+                          
                         }
-                        else if(p.Delivered==d)
+                        else if (p.Delivered == d)
                         {
                             IDAL.DO.Customer c = AccessIdal.GetCustomer(p.SenderId);
 
@@ -58,26 +63,36 @@ namespace IBL
                 }
                 if(item.Status!=DroneStatuses.Delivery)
                 {
-                    //avaitabal/maintains
+                    int x = rand.Next(0, 1);
+                    if (x == 1)
+                        item.Status = DroneStatuses.Delivery;
+                    else
+                        item.Status = DroneStatuses.Maintenance;
                 }
                 if(item.Status == DroneStatuses.Maintenance)
                 {
-                    //הגרלה בין תחנות
+                    IEnumerable<Station> ss = GetAllStations();
+                    int index = rand.Next(0, ss.Count());
+                    item.CurrentLocation = new Location() { Lattitude = ss.ElementAt(index).StationLocation.Lattitude, Longitude = ss.ElementAt(index).StationLocation.Longitude };
                     item.Battery = rand.Next(20, 41);
                 
                 }
                 if (item.Status == DroneStatuses.Available)
                 {
-                    //הגרלות הגרלות
+                    //הגרלות הגרלות#############################33
+                    Station s = closestStation(item.CurrentLocation.Longitude, item.CurrentLocation.Lattitude);
+                    Drone dd = GetDrone(item.Id);
+                    double ba = amountOfbattery(dd,dd.CurrentLocation, s.StationLocation);
+
                 }
 
             }
 
         }
 
-        private Station dis(double lon, double lat)
+        private Station closestStation(double lon, double lat)
         {
-            double max=0, d = 0;
+            double max=10000000000000000000, d = 0;
             int ids=0;
             foreach (IDAL.DO.Station  item in AccessIdal.GetALLStation())
             {
@@ -88,41 +103,10 @@ namespace IBL
                     ids = item.Id;
                 }
             }
-
             return GetStation(ids);
         }
 
-        private double amountOfbattery(Drone d,Location l)
-        {
-            double[] arr = AccessIdal.ElectricityUse();
-            double s;
-            s = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, l.Lattitude, l.Lattitude);
-
-            if (d.Status == DroneStatuses.Available)
-            {
-                s *= arr[0];
-            }
-            else
-            {
-                switch (d.MaxWeight)
-                {
-                    case WeightCategories.Light:
-                        s *= arr[1];
-                        break;
-                    case WeightCategories.Medium:
-                        s *= arr[2];
-                        break;
-                    case WeightCategories.Heavy:
-                        s *= arr[3];
-                        break;
-                    default:
-                        break;
-                }
-            }
-            return s;
-        }
-
-        private double amountOfbatteryFrom(Drone d, Location l,Location L2)
+        private double amountOfbattery(Drone d, Location l,Location L2)
         {
             double[] arr = AccessIdal.ElectricityUse();
             double s;

@@ -50,7 +50,7 @@ namespace IBL
             }
             catch (IDAL.DO.IDExistsException)
             {
-               throw new IDExistsException("customer");
+               throw new IDExistsException("customer");//#########################
             }
         }
         public void UpdateCustomer(int cusId, string cusName, string cusPhone)
@@ -64,33 +64,32 @@ namespace IBL
                     cus.Name = cusName;
                 if (cusPhone != "")
                     cus.Phone = cusPhone;
-                //AccessIdal.
+                AccessIdal.UpdateCustomer(cus);
             }
             catch (IDAL.DO.BadIdException)
             {
 
-                throw new BadIdException("customer");
+                throw new BadIdException("customer"); //##############
             }
         }
         public IEnumerable<Customer> GetAllCustomers()
         {
             return from item in AccessIdal.GetALLCustomer()
                    orderby item.Id
-                   select GetCustomer(item.Id);
-                   //select new Customer()
-                   //{
-                   //    Id = item.Id,
-                   //    Name = item.Name,
-                   //    Phone = item.Phone,
-                   //    CustLocation = new Location() { Longitude = item.Longitude, Lattitude = item.Lattitude },  //////??????????
+                   select GetCustomer(item.Id);                  
+        }
 
-                   //};
+        public IEnumerable<Customer> GetAllCustomersThatHasDeliveredParcels()
+        {
+            return from item in AccessIdal.GetALLCustomer()
+                   orderby item.Id
+                   select GetCustomer(item.Id);
         }
 
         public Customer GetCustomer(int id)
         {
             if (!AccessIdal.CheckCustomer(id))
-                throw new BadIdException("customer");
+                throw new BadIdException("customer"); //##################
             IDAL.DO.Customer c = AccessIdal.GetCustomer(id);
             
             Customer cb = new Customer()
@@ -98,10 +97,7 @@ namespace IBL
                 Id = id,
                 CustLocation = new Location() { Lattitude = c.Lattitude, Longitude = c.Longitude },
                 Name = c.Name,
-                Phone = c.Phone,
-                // parcelFromCustomer= new 
-                //foreachhhhhh
-                
+                Phone = c.Phone,     
             };
             foreach (Parcel item in GetAllParcels())
             {
