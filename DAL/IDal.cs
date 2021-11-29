@@ -11,7 +11,6 @@ namespace IDAL
         #region Customer
         void AddCustomer(DO.Customer cus);
         public void UpdateCustomer(DO.Customer newD);
-
         public DO.Customer GetCustomer(int id);
         public bool CheckCustomer(int id);
         double CustomerDistance(double lat, double lon1, int id);
@@ -59,12 +58,17 @@ namespace IDAL
         IEnumerable<DO.Station> ListStation();
         public IEnumerable<DO.Station> GetALLStation();
         int NumOfChargingNow(int x);
-        double getDistanceFromLatLonInKm();
+        double getDistanceFromLatLonInKm(double lat, double long1, double lat2, double long2 );
 
         #endregion
+
         #region DroneCharge
+
         DO.DroneCharge GetDroneCharge(int id);
         public void DeleteDroneCharge(int id);
+        public void AddDroneCharge(DO.DroneCharge dc);
+        public void UpdateDroneCharge(DO.DroneCharge dc);
+        public bool CheckDC(int id);
 
         #endregion
 

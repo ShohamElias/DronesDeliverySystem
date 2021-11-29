@@ -36,7 +36,7 @@ namespace IBL
             IDAL.DO.Parcel par = new IDAL.DO.Parcel()
             {
                 //Id = newParcel.Id,
-                SenderId =p.Sender.Id,
+                SenderId = p.Sender.Id,
                 TargetId = p.Target.Id,
                 Weight = (IDAL.DO.WeightCategories)p.Weight,
                 Priority = (IDAL.DO.Priorities)p.Priority,

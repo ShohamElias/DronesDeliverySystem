@@ -9,6 +9,8 @@ namespace DalObject
 {
     public partial class DalObject : IDAL.IDal
     {
+       
+
         /// <summary>
         /// the function gets a location and station id, and calculates the distance between the station and location
         /// </summary>

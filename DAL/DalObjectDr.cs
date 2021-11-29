@@ -33,15 +33,6 @@ namespace DalObject
             return d;
         }
 
-        public DroneCharge GetDroneCharge(int id)
-        {
-            return DataSource.DChargeList.Find(x => x.DroneId == id);
-        }
-
-        public void DeleteDroneCharge(int id)
-        {
-            DataSource.DChargeList.Remove(DataSource.DChargeList.Find(x => x.DroneId == id));
-        }
 
         public bool CheckDrone(int id)
         {
@@ -65,6 +56,7 @@ namespace DalObject
                 throw new IDAL.DO.IDExistsException(d.Id, "This parcel id already exists");
             DataSource.DroneList.Add(d);
         }
+
         /// <summary>
         ///the function gets a parcel and a drone and linked them (the parcel will be delivered by this drone)
         /// </summary>
@@ -156,6 +148,43 @@ namespace DalObject
         public  int GetChargeRate()
         {
             return DataSource.Config.chargeRate;
+        }
+
+
+
+        public DroneCharge GetDroneCharge(int id)
+        {
+            if (!CheckDC(id))
+                throw new IDAL.DO.BadIdException(id, "This drone does not exist in drone charges list: ");
+            return DataSource.DChargeList.Find(x => x.DroneId == id);
+        }
+
+        public void DeleteDroneCharge(int id)
+        {
+            DataSource.DChargeList.Remove(GetDroneCharge(id));
+        }
+
+        public void AddDroneCharge(DroneCharge dc)
+        {
+            DroneCharge d2 = DataSource.DChargeList.Find(x => x.DroneId == dc.DroneId); //finding the station by its id
+            if (d2.DroneId == dc.DroneId)
+                throw new IDAL.DO.IDExistsException(dc.DroneId, "This drone id already in charge");
+            DataSource.DChargeList.Add(dc);
+        }
+
+        public void UpdateDroneCharge(DroneCharge dc)
+        {
+            DroneCharge d2 = DataSource.DChargeList.Find(x => x.DroneId == dc.DroneId); //finding the station by its id
+            if (d2.DroneId != dc.DroneId)
+                throw new IDAL.DO.BadIdException(dc.DroneId, "This drone does not exist in drone charges list");
+            DataSource.DChargeList.Remove(d2);
+            DataSource.DChargeList.Add(dc);
+        }
+
+        public bool CheckDC(int id)
+        {
+            return DataSource.DChargeList.Any(d => d.DroneId == id);
+
         }
     }
 }

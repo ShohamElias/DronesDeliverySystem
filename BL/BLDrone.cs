@@ -128,7 +128,7 @@ namespace IBL
             //droneDO.Status=(IDAL.DO.DroneStatuses)2; //@@@
             
             if (s.ChargeSlots <= 0)
-                throw;
+                throw new StationProblemException(s.Id, "there is no empty charge slot");
             try
             {
                 AccessIdal.AddDrone(droneDO);
@@ -213,20 +213,20 @@ namespace IBL
         public void DroneToCharge(int id)
         {
             if (!AccessIdal.CheckDrone(id))
-                throw new IDAL.DO.BadIdException("doesnt exust");
+                throw new IDAL.DO.BadIdException("doesnt exist");
             IDAL.DO.Drone d = AccessIdal.GetDrone(id);
             DroneToList dt = DronesBL.Find(x => x.Id == id);
             DronesBL.Remove(dt);
 
             if (dt.Status != DroneStatuses.Available)
-                throw;
+                throw new WrongDroneStatException(id, "this drone is not available");
             //station and battery
 
            Station s = dis(dt.CurrentLocation.Longitude, dt.CurrentLocation.Lattitude);
             Location l = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
             double b = amountOfbattery(GetDrone(id), l);
             if (b < dt.Battery)
-                throw; //אין מספיק בטריה
+                throw new BatteryIssueException(dt.Id, "there wasnt enough battery"); //אין מספיק בטריה
             dt.Battery -= b;
             dt.CurrentLocation = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
             dt.Status = DroneStatuses.Maintenance;
@@ -256,10 +256,10 @@ namespace IBL
         public void EndCharging(int id, int timeI)
         {
             if (!AccessIdal.CheckDrone(id))
-                throw;
+                throw new IDAL.DO.BadIdException(id, "this drone doesnt exist");
             Drone d = GetDrone(id);
             if (d.Status != DroneStatuses.Maintenance)
-                throw;
+                throw new WrongDroneStatException(id, "this drone is not in charge");
             d.Battery += timeI * chargeRate;
             d.Status = DroneStatuses.Available;
             IDAL.DO.DroneCharge dc = AccessIdal.GetDroneCharge(id);
@@ -276,7 +276,7 @@ namespace IBL
                 throw new BadIdException("drone");
             Drone d = GetDrone(id);
             if (d.Status != DroneStatuses.Available)
-                throw;
+                throw new WrongDroneStatException(id, "this drone is not available");
             IEnumerable<Parcel> par = GetAllParcels();
             Parcel p = par.First();
             foreach (var item in par)
@@ -291,9 +291,9 @@ namespace IBL
                 else if (item.Priority == p.Priority && item.Weight == p.Weight && dis2 < dis)
                     p = item;
             }
-            p.DroneParcel=new DroneInParcel() { Id=d.Id, Battery=d.Battery, 
-               // CurrentLocation=
-                }
+            p.DroneParcel = new DroneInParcel() { Id = d.Id, Battery = d.Battery,
+                // CurrentLocation=
+            };
 
             //if(GetAllParcels().Any(x=>x.Priority==Priorities.TBN))
             //{
