@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace IBL
 {
-    public partial class BL: IBL.IBL
+    public partial class BL/*: IBL.IBL*/
     {
         // public IDAL.IDal dl;
         public IDAL.IDal AccessIdal;
