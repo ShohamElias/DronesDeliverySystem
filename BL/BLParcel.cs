@@ -103,10 +103,10 @@ namespace IBL
             {
                 d= GetDrone(id);
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                throw;
+                throw new BadIdException("Drone"); //exception e, throw e?????
             }
             DroneToList dt = DronesBL.Find(x => x.Id == id);
             DronesBL.Remove(dt);
@@ -132,7 +132,7 @@ namespace IBL
 
             }
             else
-                throw;
+                throw new WrongDroneStatException("there was an issue, parcel couldnt be picked");//########
         }
 
         public void DeliveringParcel(int id)
@@ -146,9 +146,8 @@ namespace IBL
             {
                 p = GetParcel(dt.IdOfParcel);
             }
-            catch (BadIdException)
+            catch (BadIdException )
             {
-
                 throw new BadIdException("parcel"); //####################
             }
             Drone d = GetDrone(id);

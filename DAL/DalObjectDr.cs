@@ -186,5 +186,11 @@ namespace DalObject
             return DataSource.DChargeList.Any(d => d.DroneId == id);
 
         }
+
+        public IEnumerable<DroneCharge> GetALLDroneCharges()
+        {
+            return from d in DataSource.DChargeList
+                   select d;
+        }
     }
 }
