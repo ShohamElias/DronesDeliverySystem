@@ -161,6 +161,8 @@ namespace DalObject
 
         public void DeleteDroneCharge(int id)
         {
+            if (!CheckDC(id))
+                throw new IDAL.DO.BadIdException(id, "This drone does not exist in drone charges list: ");
             DataSource.DChargeList.Remove(GetDroneCharge(id));
         }
 

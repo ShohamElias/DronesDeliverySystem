@@ -99,10 +99,10 @@ namespace IBL
 
             };
 
-            foreach (Drone item in GetAllDrones())
+            foreach (IDAL.DO.DroneCharge item in get())
             {
-                if(item.CurrentLocation.Longitude==sb.StationLocation.Longitude)
-                    if(item.CurrentLocation.Lattitude == sb.StationLocation.Lattitude)
+                if(AccessIdal.GetDroneCharge(item.Id).StationId==sb.Id)
+              
                     {
                         DroneCharge dc = new DroneCharge() { Battery = item.Battery, DroneId = item.Id };
                         sb.DronesinCharge.Add(dc);

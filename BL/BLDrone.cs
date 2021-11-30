@@ -200,8 +200,8 @@ namespace IBL
                     p = item;
                 else if (item.Priority == p.Priority && item.Weight > p.Weight && (WeightCategories) item.Weight <= d.MaxWeight)
                     p = item;
-                double dist = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(p.Sender.Id).CustLocation.Lattitude, GetCustomer(p.Sender.Id).CustLocation.Longitude);
-                double dist2 = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(item.Sender.Id).CustLocation.Lattitude, GetCustomer(item.Sender.Id).CustLocation.Longitude);
+                double dist = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(p.SenderId).CustLocation.Lattitude, GetCustomer(p.SenderId).CustLocation.Longitude);
+                double dist2 = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(item.SenderId).CustLocation.Lattitude, GetCustomer(item.SenderId).CustLocation.Longitude);
 
                  if (item.Priority == p.Priority && item.Weight == p.Weight && dist2 < dist)
                     p = item;
@@ -218,7 +218,7 @@ namespace IBL
 
             }
             if (!flag)
-                throw; //no mach parcel for drone ##########
+               // throw; //no mach parcel for drone ##########
             p2.DroneId = d.Id;
             //p2.DroneParcel = new DroneInParcel() { Id = d.Id, Battery = d.Battery, CurrentLocation = new Location() { Lattitude = d.CurrentLocation.Lattitude, Longitude = d.CurrentLocation.Longitude } };
             p2.Scheduled = DateTime.Now;

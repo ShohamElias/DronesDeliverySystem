@@ -33,7 +33,7 @@ namespace IBL
                                                IdOfParcel=-1
                                                
 
-                                           });
+                                           }).ToList();
             foreach(DroneToList item in DronesBL)
             {
                 if(item.IdOfParcel!=-1)

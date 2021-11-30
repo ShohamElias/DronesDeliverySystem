@@ -131,8 +131,8 @@ namespace IBL
                 UpdateParcel(p);
 
             }
-            else
-                throw;
+            //else
+                //throw;
         }
 
         public void DeliveringParcel(int id)
