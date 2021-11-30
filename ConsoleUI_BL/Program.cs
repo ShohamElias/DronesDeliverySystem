@@ -17,6 +17,7 @@ namespace ConsoleUI_BL
             MenuOpt mo;
             int option, neededId;
             Console.WriteLine("1-5 \n 0: exit, 1: add, 2:update, 3:print one, 4:print list");
+            Console.WriteLine("ckckc");
             bool flag = int.TryParse(Console.ReadLine(), out option);//getting a chosen action from the user
             mo = (MenuOpt)option;
             while (option < 6)//we have 6 differnt options of sactions, so whie the user chose one of them
