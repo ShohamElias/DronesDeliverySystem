@@ -33,7 +33,10 @@ namespace IBL
         }
         public Drone GetDrone(int id)
         {
+
             IDAL.DO.Drone d;
+            if (id == 0)
+                return new Drone();
             try
             {
                 d = AccessIdal.GetDrone(id);
@@ -53,6 +56,7 @@ namespace IBL
                 Status = dt.Status,
                 Battery = dt.Battery,
                 CurrentLocation = dt.CurrentLocation,
+                
                 CurrentParcel = new ParcelInTransfer()
                 {
                     Id = dt.IdOfParcel,
@@ -86,8 +90,8 @@ namespace IBL
             {
                 Id = d.Id,
                 Model = d.Model,
-                MaxWeight = (IDAL.DO.WeightCategories)d.MaxWeight,                
-            };                   
+                MaxWeight = (IDAL.DO.WeightCategories)d.MaxWeight,
+            };
             if (s.ChargeSlots <= 0)
                 throw new StationProblemException(s.Id, "there is no empty charge slot");//############
             try
@@ -110,14 +114,14 @@ namespace IBL
                 IdOfParcel = -1
             };
             DronesBL.Add(dt);
-            
+
         }
         public IEnumerable<Drone> GetAllDrones()
         {
             return from droneDO in AccessIdal.GetALLDrone()
                    orderby droneDO.Id
                    select droneDoBoAdapter(droneDO);
-       }
+        }
 
         public void UpdateDrone(int id, string m)
         {
@@ -146,18 +150,18 @@ namespace IBL
             DronesBL.Remove(dt);
             if (dt.Status != DroneStatuses.Available)
                 throw new WrongDroneStatException(id, "this drone is not available"); ///########
-           Station s = closestStation(dt.CurrentLocation.Longitude, dt.CurrentLocation.Lattitude);
-           Location l = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
+            Station s = closestStation(dt.CurrentLocation.Longitude, dt.CurrentLocation.Lattitude);
+            Location l = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
             double b = amountOfbattery(GetDrone(id), GetDrone(id).CurrentLocation, l);
             if (b < dt.Battery)
                 throw new BatteryIssueException(dt.Id, "there wasnt enough battery"); //אין מספיק בטריה#####
             dt.Battery -= b;
             dt.CurrentLocation = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
             dt.Status = DroneStatuses.Maintenance;
-            
+
             DronesBL.Add(dt);
             Station ss = GetStation(s.Id);
-            DroneCharge dc = new DroneCharge() { Battery = dt.Battery, DroneId = dt.Id };            
+            DroneCharge dc = new DroneCharge() { Battery = dt.Battery, DroneId = dt.Id };
             ss.DronesinCharge.Add(dc);
             IDAL.DO.DroneCharge dic = new IDAL.DO.DroneCharge()
             {
@@ -191,22 +195,22 @@ namespace IBL
             Drone d = GetDrone(id);
             if (d.Status != DroneStatuses.Available)
                 throw new WrongDroneStatException(id, "this drone is not available");
-            IEnumerable<IDAL.DO.Parcel> par =AccessIdal.GetALLParcel();
-             IDAL.DO.Parcel p = par.First(),p2=par.First();
+            IEnumerable<IDAL.DO.Parcel> par = AccessIdal.GetALLParcel();
+            IDAL.DO.Parcel p = par.First(), p2 = par.First();
             bool flag = false;
             foreach (var item in par)
             {
                 if (item.Priority > p.Priority)
                     p = item;
-                else if (item.Priority == p.Priority && item.Weight > p.Weight && (WeightCategories) item.Weight <= d.MaxWeight)
+                else if (item.Priority == p.Priority && item.Weight > p.Weight && (WeightCategories)item.Weight <= d.MaxWeight)
                     p = item;
                 double dist = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(p.SenderId).CustLocation.Lattitude, GetCustomer(p.SenderId).CustLocation.Longitude);
                 double dist2 = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(item.SenderId).CustLocation.Lattitude, GetCustomer(item.SenderId).CustLocation.Longitude);
 
-                 if (item.Priority == p.Priority && item.Weight == p.Weight && dist2 < dist)
+                if (item.Priority == p.Priority && item.Weight == p.Weight && dist2 < dist)
                     p = item;
 
-                double b = amountOfbattery(d,d.CurrentLocation, GetCustomer(p.SenderId).CustLocation);
+                double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.SenderId).CustLocation);
                 double b2 = amountOfbattery(d, GetCustomer(p.SenderId).CustLocation, GetCustomer(p.TargetId).CustLocation);
                 Station st = closestStation(GetCustomer(p.TargetId).CustLocation.Longitude, GetCustomer(p.TargetId).CustLocation.Lattitude);
                 double b3 = amountOfbattery(d, GetCustomer(p.TargetId).CustLocation, st.StationLocation);
@@ -229,5 +233,21 @@ namespace IBL
             dt.IdOfParcel = p2.Id;
             DronesBL.Add(dt);
         }
+
+        public string ShowOneDrone(int _id)
+        {
+            Drone s = GetDrone(_id); //finding the station by its id
+            return s.ToString();
+        }
+
+        //public IEnumerable<Drone> ListDrone()
+        //{
+        //    List<Drone> temp = new();
+        //    foreach (Drone item in DataSource.DroneList)
+        //    {
+        //        temp.Add(item);
+        //    }
+        //    return temp;
+        //}
     }
 }

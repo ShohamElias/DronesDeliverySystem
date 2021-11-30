@@ -151,5 +151,12 @@ namespace IBL
             double d = R * c; // Distance in km
             return d;
         }
+
+        public IEnumerable<IDAL.DO.DroneCharge> GetAllDroneCharges()
+        {
+            return from item in AccessIdal.GetALLDroneCharges()
+                   orderby item.DroneId
+                   select AccessIdal.GetDroneCharge(item.DroneId);
+        }
     }
 }

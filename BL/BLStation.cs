@@ -32,17 +32,17 @@ namespace IBL
             return stationBO;
        
         }
-        public void AddStation( Station s/*int id, string name,Location l*/ )
+        public void AddStation( Station s)
         {
-            if (!AccessIdal.CheckStation(s.Id))
-                throw new BadIdException("station");
+            if (AccessIdal.CheckStation(s.Id))
+                throw new IDAL.DO.IDExistsException("station");
             IDAL.DO.Station newS = new IDAL.DO.Station()
             { 
                 Id=s.Id,
                 Name=s.Name,
                 Lattitude=s.StationLocation.Lattitude,
                 Longitude=s.StationLocation.Longitude,
-                ChargeSlots=0,
+                ChargeSlots=s.ChargeSlots,//למה עשית =0?????????
                 //רשימה מאיפה? זה דיאייאל לא ביאל
             };
             try
@@ -99,12 +99,12 @@ namespace IBL
 
             };
 
-            foreach (IDAL.DO.DroneCharge item in get())
+            foreach (IDAL.DO.DroneCharge item in GetAllDroneCharges())///############
             {
-                if(AccessIdal.GetDroneCharge(item.Id).StationId==sb.Id)
+                if(AccessIdal.GetDroneCharge(item.DroneId).StationId==sb.Id)
               
                     {
-                        DroneCharge dc = new DroneCharge() { Battery = item.Battery, DroneId = item.Id };
+                        DroneCharge dc = new DroneCharge() { Battery = GetDrone(item.DroneId).Battery, DroneId = item.DroneId };
                         sb.DronesinCharge.Add(dc);
                     }
             }
@@ -117,6 +117,12 @@ namespace IBL
             return from item in AccessIdal.GetALLStation()
                    orderby item.Id
                    select GetStation(item.Id);
+        }
+
+        public string ShowOneStation(int _id)
+        {
+            Station s = GetStation( _id); //finding the station by its id
+            return s.ToString();
         }
     }
 }

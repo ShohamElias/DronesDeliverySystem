@@ -51,6 +51,8 @@ namespace DalObject
 
         public Customer GetCustomer(int id)
         {
+            if (id == 0)
+                return new Customer();
             if (!CheckCustomer(id))
                 throw new IDAL.DO.BadIdException(id, "Customer id doesnt exist: ");
 

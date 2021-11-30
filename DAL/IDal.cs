@@ -63,7 +63,7 @@ namespace IDAL
         #endregion
 
         #region DroneCharge
-
+        public IEnumerable<DO.DroneCharge> GetALLDroneCharges();
         DO.DroneCharge GetDroneCharge(int id);
         public void DeleteDroneCharge(int id);
         public void AddDroneCharge(DO.DroneCharge dc);

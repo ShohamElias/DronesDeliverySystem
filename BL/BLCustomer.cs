@@ -111,5 +111,11 @@ namespace IBL
             }
             return cb;
         }
+
+        public string ShowOneCustomer(int _id)
+        {
+            Customer s = GetCustomer(_id); //finding the station by its id
+            return s.ToString();
+        }
     }
 }
