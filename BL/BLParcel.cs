@@ -33,20 +33,32 @@ namespace IBL
         }
         public void AddParcel(Parcel p /*int sender, int target, WeightCategories w, Priorities p*/) //מה הוא בכלל צרי לקבל
         {
-            IDAL.DO.Parcel par = new IDAL.DO.Parcel()
-            {
-                Id = p.Id,
-                SenderId = p.Sender.Id,
-                TargetId = p.Target.Id,
-                Weight = (IDAL.DO.WeightCategories)p.Weight,
-                Priority = (IDAL.DO.Priorities)p.Priority,
-                Requested = DateTime.Now,
-               // DroneId = null,
-                PickedUp = new DateTime(0,0,0),
-                Scheduled = new DateTime(0, 0, 0),
-                Delivered = new DateTime(0, 0, 0)
+            DateTime d = new DateTime();
+            IDAL.DO.Parcel par = new IDAL.DO.Parcel();
+            par.Id = p.Id;
+            par.SenderId = p.Sender.Id;
+            par.TargetId = p.Target.Id;
+            par.Weight = (IDAL.DO.WeightCategories)p.Weight;
+            par.Priority = (IDAL.DO.Priorities)p.Priority;
+            par.Requested = DateTime.Now;
+            // DroneId = null,
+            par.PickedUp = d;// new DateTime(0, 0, 0);
+            par.Scheduled = d;// new DateTime(0, 0, 0);
+            par.Delivered = d;// new DateTime(0, 0, 0);
 
-            };
+            //{
+            //    Id = p.Id,
+            //    SenderId = p.Sender.Id,
+            //    TargetId = p.Target.Id,
+            //    Weight = (IDAL.DO.WeightCategories)p.Weight,
+            //    Priority = (IDAL.DO.Priorities)p.Priority,
+            //    Requested = DateTime.Now,
+            //   // DroneId = null,
+            //    PickedUp = new DateTime(0,0,0),
+            //    Scheduled = new DateTime(0, 0, 0),
+            //    Delivered = new DateTime(0, 0, 0)
+
+            //};
             try
             {
                 AccessIdal.AddParcel(par);

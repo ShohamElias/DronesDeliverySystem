@@ -136,7 +136,7 @@ namespace IBL
         {
             return from droneDO in AccessIdal.GetALLDrone()
                    orderby droneDO.Id
-                   select droneDoBoAdapter(droneDO);
+                   select GetDrone(droneDO.Id);
         }
 
         public void UpdateDrone(int id, string m)
