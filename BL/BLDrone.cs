@@ -155,10 +155,13 @@ namespace IBL
 
                 throw new BadIdException("drone");
             }
-            for(int i =0; i<DronesBL.Count(); i++)
+
+            //int i = DronesBL.FindIndex(x => x.Id == id);
+            //DronesBL.ElementAt(i).Model = m;
+            for (int i = 0; i < DronesBL.Count(); i++)
             {
-                if (id==DronesBL[i].Id)
-                    DronesBL[i].Model=m;
+                if (id == DronesBL[i].Id)
+                    DronesBL[i].Model = m;
             }
         }
 
