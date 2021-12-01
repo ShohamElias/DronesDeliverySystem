@@ -65,9 +65,9 @@ namespace IBL
                 {
                     int x = rand.Next(0, 1);
                     if (x == 1)
-                        item.Status = DroneStatuses.Delivery;
+                        item.Status = DroneStatuses.Available;//YOU WROTY DELIVEREY, WHY????#####
                     else
-                        item.Status = DroneStatuses.Maintenance;
+                        item.Status = DroneStatuses.Available;////////////////////////###########FOR NOW, SUPPOSED TO BE MAINTANCE
                 }
                 if(item.Status == DroneStatuses.Maintenance)
                 {
@@ -80,6 +80,12 @@ namespace IBL
                 if (item.Status == DroneStatuses.Available)
                 {
                     //הגרלות הגרלות#############################33
+                    if (item.CurrentLocation == null)
+                    {
+                        item.CurrentLocation = new Location();
+                        item.CurrentLocation.Lattitude = rand.Next(30, 33) + ((double)rand.Next(0, 1000000) / 1000000);
+                        item.CurrentLocation.Longitude = rand.Next(34, 36) + ((double)rand.Next(0, 1000000) / 1000000);
+                    }
                     Station s = closestStation(item.CurrentLocation.Longitude, item.CurrentLocation.Lattitude);
                     Drone dd = GetDrone(item.Id);
                     double ba = amountOfbattery(dd,dd.CurrentLocation, s.StationLocation);

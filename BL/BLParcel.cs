@@ -98,9 +98,6 @@ namespace IBL
             Parcel pl = new Parcel()
             {
                 Id = p.Id,
-                Sender = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.SenderId).Name, Id = p.Id },
-                Target = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.TargetId).Name, Id = p.Id },
-                DroneParcel = new DroneInParcel() { Battery = find(p.DroneId).Battery, Id = p.DroneId, CurrentLocation = GetDrone(p.DroneId).CurrentLocation },
                 Weight = (WeightCategories)p.Weight,
                 Priority = (Priorities)p.Priority,
                 Requested = p.Requested,
@@ -108,6 +105,18 @@ namespace IBL
                 Delivered = p.Delivered,
                 PickedUp = p.PickedUp
             };
+            if (p.SenderId != 0)
+            {
+                pl.Sender = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.SenderId).Name, Id = p.Id };
+                pl.Target = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.TargetId).Name, Id = p.Id };
+                pl.DroneParcel = new DroneInParcel() { Battery = GetDrone(p.DroneId).Battery, Id = p.DroneId, CurrentLocation = GetDrone(p.DroneId).CurrentLocation };
+            }
+            else
+            {
+                pl.Sender = new CustomerInParcel();
+                pl.Target = new CustomerInParcel() ;
+                pl.DroneParcel = new DroneInParcel();
+            }
             
             return pl;
         }

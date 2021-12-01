@@ -47,7 +47,6 @@ namespace IBL
                 throw new BadIdException("Drone"); //###############33
             }
             DroneToList dt = DronesBL.Find(x => x.Id == id);
-
             Drone db = new Drone()
             {
                 Id = id,
@@ -56,28 +55,37 @@ namespace IBL
                 Status = dt.Status,
                 Battery = dt.Battery,
                 CurrentLocation = dt.CurrentLocation,
-                
-                CurrentParcel = new ParcelInTransfer()
+            };
+            db.CurrentParcel = new ParcelInTransfer()
+            {
+                Id = dt.IdOfParcel,
+                Weight = GetParcel(dt.IdOfParcel).Weight,
+                Priority = GetParcel(dt.IdOfParcel).Priority,
+            };
+            if (dt.IdOfParcel != -1)
+            {
+                db.CurrentParcel.Sender = new CustomerInParcel() { Id = GetParcel(dt.IdOfParcel).Sender.Id, CustomerName = GetParcel(dt.IdOfParcel).Sender.CustomerName };
+                db.CurrentParcel.Target = new CustomerInParcel() { Id = GetParcel(dt.IdOfParcel).Target.Id, CustomerName = GetParcel(dt.IdOfParcel).Target.CustomerName };
+                IDAL.DO.Customer c = AccessIdal.GetCustomer(GetParcel(dt.IdOfParcel).Sender.Id);
+                db.CurrentParcel.PickingLocation = new Location()
                 {
-                    Id = dt.IdOfParcel,
-                    Sender = new CustomerInParcel() { Id = GetParcel(dt.IdOfParcel).Sender.Id, CustomerName = GetParcel(dt.IdOfParcel).Sender.CustomerName },
-                    Target = new CustomerInParcel() { Id = GetParcel(dt.IdOfParcel).Target.Id, CustomerName = GetParcel(dt.IdOfParcel).Target.CustomerName },
-                    Weight = GetParcel(dt.IdOfParcel).Weight,
-                    Priority = GetParcel(dt.IdOfParcel).Priority
-                }
-            };
-            IDAL.DO.Customer c = AccessIdal.GetCustomer(GetParcel(dt.IdOfParcel).Sender.Id);
-            db.CurrentParcel.PickingLocation = new Location()
+                    Lattitude = c.Lattitude,
+                    Longitude = c.Longitude
+                };
+                c = AccessIdal.GetCustomer(GetParcel(dt.IdOfParcel).Target.Id);
+                db.CurrentParcel.TargetLocation = new Location()
+                {
+                    Longitude = c.Longitude,
+                    Lattitude = c.Lattitude
+                };
+            }
+            else
             {
-                Lattitude = c.Lattitude,
-                Longitude = c.Longitude
-            };
-            c = AccessIdal.GetCustomer(GetParcel(dt.IdOfParcel).Target.Id);
-            db.CurrentParcel.TargetLocation = new Location()
-            {
-                Longitude = c.Longitude,
-                Lattitude = c.Lattitude
-            };
+                db.CurrentParcel.Sender = new CustomerInParcel();
+                db.CurrentParcel.Target = new CustomerInParcel();
+                db.CurrentParcel.PickingLocation = new Location();
+                db.CurrentParcel.TargetLocation = new Location();
+            }
 
             return db;
         }
@@ -139,6 +147,11 @@ namespace IBL
 
                 throw new BadIdException("drone");
             }
+            for(int i =0; i<DronesBL.Count(); i++)
+            {
+                if (id==DronesBL[i].Id)
+                    DronesBL[i].Model=m;
+            }
         }
 
         public void DroneToCharge(int id)
@@ -147,14 +160,14 @@ namespace IBL
                 throw new IDAL.DO.BadIdException("doesnt exist"); ///######
             IDAL.DO.Drone d = AccessIdal.GetDrone(id);
             DroneToList dt = DronesBL.Find(x => x.Id == id);
-            DronesBL.Remove(dt);
             if (dt.Status != DroneStatuses.Available)
                 throw new WrongDroneStatException(id, "this drone is not available"); ///########
             Station s = closestStation(dt.CurrentLocation.Longitude, dt.CurrentLocation.Lattitude);
             Location l = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
-            double b = amountOfbattery(GetDrone(id), GetDrone(id).CurrentLocation, l);
-            if (b < dt.Battery)
+            double b = amountOfbattery(GetDrone(id), dt.CurrentLocation, l);
+            if (b > dt.Battery)
                 throw new BatteryIssueException(dt.Id, "there wasnt enough battery"); //אין מספיק בטריה#####
+            DronesBL.Remove(dt);
             dt.Battery -= b;
             dt.CurrentLocation = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
             dt.Status = DroneStatuses.Maintenance;
@@ -240,14 +253,14 @@ namespace IBL
             return s.ToString();
         }
 
-        //public IEnumerable<Drone> ListDrone()
-        //{
-        //    List<Drone> temp = new();
-        //    foreach (Drone item in DataSource.DroneList)
-        //    {
-        //        temp.Add(item);
-        //    }
-        //    return temp;
-        //}
+        public IEnumerable<DroneToList> ListDrone()
+        {
+            List<DroneToList> temp = new();
+            foreach (DroneToList item in DronesBL)
+            {
+                temp.Add(item);
+            }
+            return temp;
+        }
     }
 }

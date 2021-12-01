@@ -18,9 +18,9 @@ namespace DalObject
             //public static int countIdParcel = 1;
             // public static int availableStations = 0;
             internal static int empty = 0;
-            internal static int light = 0;
-            internal static int heavy = 0;
-            internal static int medium = 0;
+            internal static int light = 2;
+            internal static int heavy = 5;
+            internal static int medium = 3;
             internal static int chargeRate = 60;
         }
 
@@ -57,8 +57,8 @@ namespace DalObject
                 Parcel p = new Parcel()//creating the parcel
                 {
                     Id = rand.Next(1000, 10001),
-                    SenderId = 0,
-                    TargetId = 0,
+                    SenderId = CustomersList[rand.Next(10)].Id,
+                    TargetId = CustomersList[rand.Next(10)].Id,
                     Weight = (WeightCategories)rand.Next(3),
                     Priority = (Priorities)rand.Next(2),
                     Requested = DateTime.Now,
@@ -113,8 +113,9 @@ namespace DalObject
             
             createStation(2);
             createDrone(5);
-            createParcel(3);
             creacustomer(10);
+            createParcel(5);
+
         }
     }
 }
