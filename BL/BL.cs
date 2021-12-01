@@ -63,11 +63,11 @@ namespace IBL
                 }
                 if(item.Status!=DroneStatuses.Delivery)
                 {
-                    int x = rand.Next(0, 1);
+                    int x = rand.Next(0, 2);
                     if (x == 1)
                         item.Status = DroneStatuses.Available;//YOU WROTY DELIVEREY, WHY????#####
                     else
-                        item.Status = DroneStatuses.Available;////////////////////////###########FOR NOW, SUPPOSED TO BE MAINTANCE
+                        item.Status = DroneStatuses.Maintenance;
                 }
                 if(item.Status == DroneStatuses.Maintenance)
                 {

@@ -26,6 +26,14 @@ namespace IBL
             }
             s.CopyPropertiesTo(droneBO);
             droneDO.CopyPropertiesTo(droneBO);
+            for(int i=0; i<DronesBL.Count(); i++)//#########IDK IF ITS SUPPOSED TO BE LIKE THAT, BUT YOU DIDNT COPY THE SADOT OF THE BL
+            {
+                if(id== DronesBL[i].Id)
+                {
+                    droneBO.Status = DronesBL[i].Status;
+                    droneBO.Battery = DronesBL[i].Battery;
+                }
+            }
             //stationBO.DronesinCharge= from sic in AccessIdal.GetALLDrone(sic=> sic.Id==Id )
             //                          let 
             return droneBO;

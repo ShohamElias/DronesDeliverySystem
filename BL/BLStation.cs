@@ -28,7 +28,8 @@ namespace IBL
             //stationBO.DronesinCharge= from sic in AccessIdal.GetALLDrone(sic=> sic.Id==Id )
             //                          let 
             stationBO.DronesinCharge = new List<DroneCharge>();
-            
+            DroneCharge dc= new DroneCharge();
+            stationBO.DronesinCharge.Add(dc);
             return stationBO;
        
         }
@@ -95,8 +96,9 @@ namespace IBL
                 Id = id,
                 StationLocation = new Location() { Lattitude = s.Lattitude, Longitude = s.Longitude },
                 Name = s.Name,
-                ChargeSlots = s.ChargeSlots
-
+                ChargeSlots = s.ChargeSlots,
+                DronesinCharge = new List<DroneCharge>()
+              
             };
 
             foreach (IDAL.DO.DroneCharge item in GetAllDroneCharges())///############
