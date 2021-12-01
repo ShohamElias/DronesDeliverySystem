@@ -197,17 +197,26 @@ namespace IBL
         {
             if (!AccessIdal.CheckDrone(id))
                 throw new IDAL.DO.BadIdException(id, "this drone doesnt exist"); //#######
-            Drone d = GetDrone(id);
-            if (d.Status != DroneStatuses.Maintenance)
-                throw new WrongDroneStatException(id, "this drone is not in charge"); //#####
-            d.Battery += timeI * chargeRate;
-            d.Status = DroneStatuses.Available;
+            for (int i = 0; i < DronesBL.Count(); i++)
+            {
+                if (id == DronesBL[i].Id)
+                {
+                    if (DronesBL[i].Status != DroneStatuses.Maintenance)
+                        throw new WrongDroneStatException(id, "this drone is not in charge"); //#####
+                    DronesBL[i].Status=DroneStatuses.Available;
+                    DronesBL[i].Battery += timeI * chargeRate;
+                }
+            }
+            //d.Battery += timeI * chargeRate;
+            //d.Status = DroneStatuses.Available;
             IDAL.DO.DroneCharge dc = AccessIdal.GetDroneCharge(id);
             Station s = GetStation(dc.StationId);
             s.ChargeSlots++;
-            AccessIdal.DeleteDroneCharge(id);
+            AccessIdal.EndingCharge(id);
             Updatestation(s.Id, "", s.ChargeSlots);
         }
+
+        
 
         public void LinkDroneToParcel(int id)
         {

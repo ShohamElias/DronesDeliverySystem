@@ -30,8 +30,8 @@ namespace IBL
                         + "\"";
 
                 double degrees2 = (CustLocation.Longitude);//converting to sexagesimal
-                double minutes2 = (degrees - (int)degrees) * 60;//converting the minutes by multiplying by the base number
-                double seconds2 = (minutes - (int)minutes) * 60;//converting the seconds by multiplying by the base number
+                double minutes2 = (degrees2 - (int)degrees2) * 60;//converting the minutes by multiplying by the base number
+                double seconds2 = (minutes2 - (int)minutes2) * 60;//converting the seconds by multiplying by the base number
                 string longi = (int)degrees2 + "° " + (int)minutes2 + "'" + (((int)(seconds2 * 1000)) / (float)1000)
                         + "\"";
                 return $"Customer: Id = {Id}, Name = {Name}, Phone ={Phone}, Longitude = {longi}, Lattitude = {lati}";
