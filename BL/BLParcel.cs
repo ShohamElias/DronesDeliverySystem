@@ -169,7 +169,8 @@ namespace IBL
                 throw new BadIdException("Drone"); //exception e, throw e?????
             }
             DroneToList dt = DronesBL.Find(x => x.Id == id);
-            DronesBL.Remove(dt);
+            DroneToList dss= DronesBL.Find(x => x.Id == id);
+            
             Parcel p;
             try
             {
@@ -179,7 +180,7 @@ namespace IBL
             {
                 throw new BadIdException("parcel"); //################3
             }
-            DateTime dtm = new DateTime(0, 0, 0);
+            DateTime dtm = new DateTime();
             if (d.Status == DroneStatuses.Delivery && p.Scheduled != dtm)
             {
                 double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Sender.Id).CustLocation);
@@ -187,19 +188,21 @@ namespace IBL
                 dt.CurrentLocation.Lattitude = GetCustomer(p.Sender.Id).CustLocation.Lattitude;
                 dt.CurrentLocation.Longitude = GetCustomer(p.Sender.Id).CustLocation.Longitude;
                 p.PickedUp = DateTime.Now;
+                DronesBL.Remove(dss);
                 DronesBL.Add(dt);
                 UpdateParcel(p);
 
             }
             else
                 throw new WrongDroneStatException("there was an issue, parcel couldnt be picked");//########
+            
         }
 
         public void DeliveringParcel(int id)
         {
             if (!AccessIdal.CheckDrone(id))
                 throw new BadIdException("drone doesnt exist");
-            DateTime dtm = new DateTime(0, 0, 0);
+            DateTime dtm = new DateTime();
             DroneToList dt = DronesBL.Find(x => x.Id == id);
             Parcel p;
             try
@@ -211,8 +214,7 @@ namespace IBL
                 throw new BadIdException("parcel"); //####################
             }
             Drone d = GetDrone(id);
-            DronesBL.Remove(dt);
-            if (dt.Status == DroneStatuses.Delivery && p.PickedUp == dtm)
+            if (dt.Status == DroneStatuses.Delivery && p.PickedUp != dtm)
             {
                 double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Target.Id).CustLocation);
                 dt.Battery -= b;
@@ -221,6 +223,7 @@ namespace IBL
                 dt.Status = DroneStatuses.Available;
                 p.Delivered = DateTime.Now;
                 UpdateParcel(p);
+                DronesBL.Remove(DronesBL.Find(x => x.Id == id));
                 DronesBL.Add(dt);
 
             }
