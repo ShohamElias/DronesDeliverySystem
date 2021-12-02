@@ -230,28 +230,38 @@ namespace IBL
                 throw new WrongDroneStatException(id, "this drone is not available");
             IEnumerable<IDAL.DO.Parcel> par = AccessIdal.GetALLParcel();
             IDAL.DO.Parcel p = par.First(), p2 = par.First();
-            bool flag = false;
+            bool flag=false ,flag2 = false;
             foreach (var item in par)
             {
                 if (item.Priority > p.Priority)
+                {
                     p = item;
+                    flag2 = true;
+                }
                 else if (item.Priority == p.Priority && item.Weight > p.Weight && (WeightCategories)item.Weight <= d.MaxWeight)
+                {
                     p = item;
+                    flag2 = true;
+                }
                 double dist = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(p.SenderId).CustLocation.Lattitude, GetCustomer(p.SenderId).CustLocation.Longitude);
                 double dist2 = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(item.SenderId).CustLocation.Lattitude, GetCustomer(item.SenderId).CustLocation.Longitude);
 
                 if (item.Priority == p.Priority && item.Weight == p.Weight && dist2 < dist)
+                {
                     p = item;
+                    flag2 = true;
+                }
 
                 double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.SenderId).CustLocation);
                 double b2 = amountOfbattery(d, GetCustomer(p.SenderId).CustLocation, GetCustomer(p.TargetId).CustLocation);
                 Station st = closestStation(GetCustomer(p.TargetId).CustLocation.Longitude, GetCustomer(p.TargetId).CustLocation.Lattitude);
                 double b3 = amountOfbattery(d, GetCustomer(p.TargetId).CustLocation, st.StationLocation);
-                if (d.Battery >= b + b2 + b3)
+                if (d.Battery >= b + b2 + b3 &&flag2)
                 {
                     p2 = p;
                     flag = true;
                 }
+                flag2 = false;
 
             }
             if (!flag)
