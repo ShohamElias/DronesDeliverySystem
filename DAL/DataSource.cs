@@ -62,7 +62,7 @@ namespace DalObject
                     Weight = (WeightCategories)rand.Next(3),
                     Priority = (Priorities)rand.Next(2),
                     Requested = DateTime.Now,
-                    DroneId =DroneList[rand.Next(5)].Id,
+                    DroneId =0,
                     Scheduled = DateTime.Now,
                     PickedUp = DateTime.Now,
                     Delivered = DateTime.Now
