@@ -105,7 +105,7 @@ namespace IBL
             catch (IDAL.DO.BadIdException)
             {
 
-                throw new BadIdException(id,"parcel");
+                throw new BadIdException(id, "parcel");
             }
             Parcel pl = new Parcel()
             {
@@ -119,17 +119,29 @@ namespace IBL
             };
             if (p.SenderId != 0)
             {
-                pl.Sender = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.SenderId).Name, Id = p.Id };
-                pl.Target = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.TargetId).Name, Id = p.Id };
-                pl.DroneParcel = new DroneInParcel() { Battery = GetDrone(p.DroneId).Battery, Id = p.DroneId, CurrentLocation = GetDrone(p.DroneId).CurrentLocation };
+                pl.Sender = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.SenderId).Name, Id = p.SenderId };
+                pl.Target = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.TargetId).Name, Id = p.TargetId };
+                if (p.DroneId > 0)
+                {
+                    DroneToList dt = DronesBL.Find(x => x.Id == p.DroneId);
+                    pl.DroneParcel = new DroneInParcel() { Battery = dt.Battery, Id = p.DroneId, CurrentLocation = new Location() { Longitude = dt.CurrentLocation.Longitude, Lattitude = dt.CurrentLocation.Lattitude } };
+                }
+
+
+
             }
-            else
+            else if (p.SenderId == 0)
             {
                 pl.Sender = new CustomerInParcel();
-                pl.Target = new CustomerInParcel() ;
+                pl.Target = new CustomerInParcel();
                 pl.DroneParcel = new DroneInParcel();
             }
-            
+
+            if (p.DroneId <= 0)
+            {
+                pl.DroneParcel = new DroneInParcel() { Id = 0 };
+            }
+
             return pl;
         }
 
@@ -140,8 +152,8 @@ namespace IBL
             pDO.Requested = p.Requested;
             pDO.Scheduled = p.Scheduled;
             pDO.Delivered = p.Delivered;
-            if(!AccessIdal.CheckDrone(p.DroneParcel.Id))
-               pDO.DroneId = p.DroneParcel.Id; //error if null?
+            if (!AccessIdal.CheckDrone(p.DroneParcel.Id))
+                pDO.DroneId = p.DroneParcel.Id; //error if null?
             AccessIdal.UpdateParcel(pDO);
         }
         public void PickParcel(int id)
@@ -149,7 +161,7 @@ namespace IBL
             Drone d;
             try
             {
-                d= GetDrone(id);
+                d = GetDrone(id);
             }
             catch (Exception e)
             {
@@ -161,16 +173,16 @@ namespace IBL
             Parcel p;
             try
             {
-                 p = GetParcel(dt.IdOfParcel);
-            } 
-            catch(BadIdException)
+                p = GetParcel(dt.IdOfParcel);
+            }
+            catch (BadIdException)
             {
                 throw new BadIdException("parcel"); //################3
             }
             DateTime dtm = new DateTime(0, 0, 0);
             if (d.Status == DroneStatuses.Delivery && p.Scheduled != dtm)
             {
-                double b = amountOfbattery(d,d.CurrentLocation, GetCustomer(p.Sender.Id).CustLocation);
+                double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Sender.Id).CustLocation);
                 d.Battery -= b;
                 dt.CurrentLocation.Lattitude = GetCustomer(p.Sender.Id).CustLocation.Lattitude;
                 dt.CurrentLocation.Longitude = GetCustomer(p.Sender.Id).CustLocation.Longitude;
@@ -194,15 +206,15 @@ namespace IBL
             {
                 p = GetParcel(dt.IdOfParcel);
             }
-            catch (BadIdException )
+            catch (BadIdException)
             {
                 throw new BadIdException("parcel"); //####################
             }
             Drone d = GetDrone(id);
             DronesBL.Remove(dt);
-            if(dt.Status==DroneStatuses.Delivery&&p.PickedUp==dtm)
+            if (dt.Status == DroneStatuses.Delivery && p.PickedUp == dtm)
             {
-               double b = amountOfbattery(d,d.CurrentLocation, GetCustomer(p.Target.Id).CustLocation);
+                double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Target.Id).CustLocation);
                 dt.Battery -= b;
                 dt.CurrentLocation.Lattitude = GetCustomer(p.Target.Id).CustLocation.Lattitude;
                 dt.CurrentLocation.Longitude = GetCustomer(p.Target.Id).CustLocation.Longitude;
@@ -218,6 +230,13 @@ namespace IBL
         {
             Parcel s = GetParcel(_id); //finding the station by its id
             return s.ToString();
+        }
+
+        public IEnumerable<Parcel> GetAllUnmachedParcels()
+        {
+            return from item in GetAllParcels()
+                   where item.DroneParcel.Id == 0
+                   select GetParcel(item.Id);
         }
     }
 }

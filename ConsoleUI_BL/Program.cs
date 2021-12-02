@@ -25,6 +25,7 @@ namespace ConsoleUI_BL
             mo = (MenuOpt)option;
             while (option < 6)//we have 6 differnt options of sactions, so whie the user chose one of them
             {
+                Console.WriteLine("kakakkaka");
                 try
                 {
                     switch (mo)
@@ -197,7 +198,7 @@ namespace ConsoleUI_BL
                                     }
                                     break;
                                 case ShowListOpt.ShowParcel://printing the parcels list
-                                    List<Parcel> ListParcel = bl.GetAllParcels().ToList();
+                                      List<Parcel> ListParcel = bl.GetAllParcels().ToList();
                                     foreach (Parcel item in ListParcel)
                                     {
                                         Console.WriteLine(item);
@@ -214,7 +215,7 @@ namespace ConsoleUI_BL
                                     List<Parcel> ListP = bl.GetAllParcels().ToList();
                                     foreach (Parcel item in ListP)
                                     {
-                                        if (item.DroneParcel == null)
+                                        if (item.DroneParcel.Id == 0)
                                             Console.WriteLine(item);
                                     }
                                     break;
@@ -268,7 +269,8 @@ namespace ConsoleUI_BL
                 catch (Exception)
                 {
 
-                    throw;
+                    // throw;
+                    Console.WriteLine("ERROR");
                 }
                 
                 Console.WriteLine("again");//another action

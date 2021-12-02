@@ -99,6 +99,8 @@ namespace IBL
                 Name = c.Name,
                 Phone = c.Phone,     
             };
+            cb.parcelToCustomer = new List<Parcel>();
+            cb.parcelFromCustomer = new List<Parcel>();
             foreach (Parcel item in GetAllParcels())
             {
                 if (item.Sender.Id == c.Id)
@@ -116,6 +118,13 @@ namespace IBL
         {
             Customer s = GetCustomer(_id); //finding the station by its id
             return s.ToString();
+        }
+
+        public IEnumerable<Customer> GetAllCusromerRecived()
+        {
+            return from item in GetAllCustomers()
+                   where item.parcelToCustomer.Count > 0
+                   select GetCustomer(item.Id);
         }
     }
 }

@@ -228,7 +228,7 @@ namespace IBL
             Drone d = GetDrone(id);
             if (d.Status != DroneStatuses.Available)
                 throw new WrongDroneStatException(id, "this drone is not available");
-            IEnumerable<IDAL.DO.Parcel> par = AccessIdal.GetALLParcel();
+            IEnumerable<IDAL.DO.Parcel> par = AccessIdal.GetAllUnMachedParcel();
             IDAL.DO.Parcel p = par.First(), p2 = par.First();
             bool flag=false ,flag2 = false;
             foreach (var item in par)

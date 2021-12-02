@@ -37,6 +37,7 @@ namespace IDAL
         #endregion
 
         #region Parcel
+        public IEnumerable<DO.Parcel> GetAllUnMachedParcel();
         void AddParcel(DO.Parcel per);
         public void UpdateParcel(DO.Parcel newD);
         public DO.Parcel GetParcel(int id);
