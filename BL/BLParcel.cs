@@ -10,6 +10,11 @@ namespace IBL
 {
     public partial class BL
     {
+        /// <summary>
+        /// adapter- gets a DO parcel and returns a BO parcel
+        /// </summary>
+        /// <param name="parcelDO"></param> the DO parcel
+        /// <returns></returns> BO parcel
         private Parcel parcelDoBoAdapter(IDAL.DO.Parcel parcelDO)
         {
             Parcel parcelBO = new Parcel();
@@ -24,14 +29,14 @@ namespace IBL
 
                 throw new BadIdException("station");
             }
-            //s.CopyPropertiesTo(parcelBO);
-            //parcelDO.CopyPropertiesTo(parcelBO);
-            //stationBO.DronesinCharge= from sic in AccessIdal.GetALLDrone(sic=> sic.Id==Id )
-            //                          let 
             return parcelBO;
 
         }
-        public void AddParcel(Parcel p /*int sender, int target, WeightCategories w, Priorities p*/) //מה הוא בכלל צרי לקבל
+        /// <summary>
+        /// gets a parcel and add it to the list
+        /// </summary>
+        /// <param name="p"></param>
+        public void AddParcel(Parcel p ) 
         {
             DateTime d = new DateTime();
             IDAL.DO.Parcel par = new IDAL.DO.Parcel();
@@ -41,62 +46,39 @@ namespace IBL
             par.Weight = (IDAL.DO.WeightCategories)p.Weight;
             par.Priority = (IDAL.DO.Priorities)p.Priority;
             par.Requested = DateTime.Now;
-            // DroneId = null,
-            par.PickedUp = d;// new DateTime(0, 0, 0);
-            par.Scheduled = d;// new DateTime(0, 0, 0);
-            par.Delivered = d;// new DateTime(0, 0, 0);
+  
+            par.PickedUp = d;
+            par.Scheduled = d;
+            par.Delivered = d;
 
-            //{
-            //    Id = p.Id,
-            //    SenderId = p.Sender.Id,
-            //    TargetId = p.Target.Id,
-            //    Weight = (IDAL.DO.WeightCategories)p.Weight,
-            //    Priority = (IDAL.DO.Priorities)p.Priority,
-            //    Requested = DateTime.Now,
-            //   // DroneId = null,
-            //    PickedUp = new DateTime(0,0,0),
-            //    Scheduled = new DateTime(0, 0, 0),
-            //    Delivered = new DateTime(0, 0, 0)
-
-            //};
             try
             {
                 AccessIdal.AddParcel(par);
             }
             catch (IDAL.DO.IDExistsException)
             {
-                throw new IDExistsException("parcel");
+                throw new IDExistsException(par.Id,"this parcel already exists");
             }
         }
-
+        /// <summary>
+        /// returns all the parcel in the list
+        /// </summary>
+        /// <returns></returns> list of parcels
         public IEnumerable<Parcel> GetAllParcels()
         {
             return from item in AccessIdal.GetALLParcel()
                    orderby item.Id
                    select GetParcel(item.Id);
         }
-
+        /// <summary>
+        /// gets and id of a parcel and returns the parcel
+        /// </summary>
+        /// <param name="id"></param> id of parcel
+        /// <returns></returns> parcel
         public Parcel GetParcel(int id)
         {
             if (id == -1)
                 return new Parcel();
-            //if (!AccessIdal.CheckParcel(id))
-            //    throw new BadIdException("parcel doesnt exist");
-            //IDAL.DO.Parcel p = AccessIdal.GetParcel(id);
-            //Parcel pl = new Parcel()
-            //{
-            //    Id=p.Id,
-            //    Sender = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.SenderId).Name, Id = p.Id },
-            //    Target = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.TargetId).Name, Id = p.Id },
-            //    DroneParcel=new DroneInParcel() { Battery=GetDrone(p.DroneId).Battery,Id=p.DroneId,CurrentLocation=GetDrone(p.DroneId).CurrentLocation},
-            //    Weight= (WeightCategories)p.Weight,
-            //    Priority= (Priorities)p.Priority,
-            //    Requested=p.Requested,
-            //    Scheduled=p.Scheduled,
-            //    Delivered=p.Delivered,
-            //    PickedUp=p.PickedUp
-            //};
-            //return pl;
             IDAL.DO.Parcel p;
             try
             {
@@ -105,7 +87,7 @@ namespace IBL
             catch (IDAL.DO.BadIdException)
             {
 
-                throw new BadIdException(id, "parcel");
+                throw new BadIdException(id, "this parcel doesn't exist");
             }
             Parcel pl = new Parcel()
             {
@@ -144,7 +126,10 @@ namespace IBL
 
             return pl;
         }
-
+        /// <summary>
+        /// gets a parcel and update it
+        /// </summary>
+        /// <param name="p"></param> the parcel
         public void UpdateParcel(Parcel p)
         {
             IDAL.DO.Parcel pDO = AccessIdal.GetParcel(p.Id);
@@ -156,6 +141,10 @@ namespace IBL
                 pDO.DroneId = p.DroneParcel.Id; //error if null?
             AccessIdal.UpdateParcel(pDO);
         }
+        /// <summary>
+        /// gets and id of drone and update the parcel to be picked
+        /// </summary>
+        /// <param name="id"></param> id of drone
         public void PickParcel(int id)
         {
             Drone d;
@@ -163,10 +152,10 @@ namespace IBL
             {
                 d = GetDrone(id);
             }
-            catch (Exception e)
+            catch (IDAL.DO.BadIdException)
             {
 
-                throw new BadIdException("Drone"); //exception e, throw e?????
+                throw new BadIdException(id,"this Drone doesn;t exist"); 
             }
             DroneToList dt = DronesBL.Find(x => x.Id == id);
             DroneToList dss= DronesBL.Find(x => x.Id == id);
@@ -178,7 +167,7 @@ namespace IBL
             }
             catch (BadIdException)
             {
-                throw new BadIdException("parcel"); //################3
+                throw new BadIdException(dt.IdOfParcel,"this parcel doesn't exist");
             }
             DateTime dtm = new DateTime();
             if (d.Status == DroneStatuses.Delivery && p.Scheduled != dtm)
@@ -197,11 +186,14 @@ namespace IBL
                 throw new WrongDroneStatException("there was an issue, parcel couldnt be picked");//########
             
         }
-
+        /// <summary>
+        /// gets an id of drone and update its parcel to be delivered
+        /// </summary>
+        /// <param name="id"></param> id of drone
         public void DeliveringParcel(int id)
         {
             if (!AccessIdal.CheckDrone(id))
-                throw new BadIdException("drone doesnt exist");
+                throw new BadIdException(id, "drone doesnt exist");
             DateTime dtm = new DateTime();
             DroneToList dt = DronesBL.Find(x => x.Id == id);
             Parcel p;
@@ -211,7 +203,7 @@ namespace IBL
             }
             catch (BadIdException)
             {
-                throw new BadIdException("parcel"); //####################
+                throw new BadIdException(dt.IdOfParcel,"this parcel doesnt exist"); 
             }
             Drone d = GetDrone(id);
             if (dt.Status == DroneStatuses.Delivery && p.PickedUp != dtm)
@@ -228,13 +220,20 @@ namespace IBL
 
             }
         }
-
+        /// <summary>
+        /// gets an id of parcel and returns a string output
+        /// </summary>
+        /// <param name="_id"></param> id of parcel
+        /// <returns></returns> string of the parcel items
         public string ShowOneParcel(int _id)
         {
             Parcel s = GetParcel(_id); //finding the station by its id
             return s.ToString();
         }
-
+        /// <summary>
+        /// returbs all of the unmached parcels
+        /// </summary>
+        /// <returns></returns> list of parcels
         public IEnumerable<Parcel> GetAllUnmachedParcels()
         {
             return from item in GetAllParcels()

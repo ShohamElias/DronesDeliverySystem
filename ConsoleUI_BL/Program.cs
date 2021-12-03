@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using IBL.BO;
 namespace ConsoleUI_BL
 {
-      class Program
+    class Program
     {
         //the menue options for each case
         enum MenuOpt { Exit, Add, Update, ShowOne, ShowList, CalculateD}
@@ -232,45 +232,14 @@ namespace ConsoleUI_BL
                             }
                             break;
 
-                        //case MenuOpt.CalculateD:
-                        //    Console.WriteLine("1-2");
-                        //    CalcOPT calc;
-                        //    flag = int.TryParse(Console.ReadLine(), out option);
-                        //    calc = (CalcOPT)option;
-                        //    int idS;
-                        //    double lat, lon;
-                        //    switch (calc)//calc options:
-                        //    {
-                        //        case CalcOPT.Exit:
-                        //            break;
-                        //        case CalcOPT.CustomerS://distance from location to customer
-                        //            Console.WriteLine("choose customer, id, and insert lat and lon");
-                        //            idS = int.Parse(Console.ReadLine());//getting customer id
-                        //            lat = double.Parse(Console.ReadLine());//getting location
-                        //            lon = double.Parse(Console.ReadLine());
-                        //            dal.CustomerDistance(lat, lon, idS);
-                        //            break;
-                        //        case CalcOPT.stationD://distance from location to station
-                        //            Console.WriteLine("choose station, id, and insert lat and lon");
-                        //            idS = int.Parse(Console.ReadLine());//getting station id
-                        //             lat = double.Parse(Console.ReadLine());//getting location
-                        //             lon = double.Parse(Console.ReadLine());
-                        //            Console.WriteLine( (float)dal.StationDistance(lat, lon, idS));
-                        //            break;
-
-                        //        default:
-                        //            break;
-                        //    }
-                        //    break;
+                   
                         default:
                             break;
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-
-                    // throw;
-                    Console.WriteLine("ERROR");
+                    Console.WriteLine(e);
                 }
                 
                 Console.WriteLine("again");//another action
