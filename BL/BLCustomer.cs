@@ -14,26 +14,25 @@ namespace IBL
         /// <summary>
         /// adapter from dal to bl object
         /// </summary>
-        /// <param name="customerDO"></param>
-        /// <returns></returns>
+        /// <param name="customerDO"></param> DO object
+        /// <returns></returns> BO object
         private Customer customerDoBoAdapter(IDAL.DO.Customer customerDO)
         {
             Customer customerBO = new Customer();
             int id = customerDO.Id;
             IDAL.DO.Customer s;
-            try //???
+            try 
             {
                 s = AccessIdal.GetCustomer(id);
             }
             catch (IDAL.DO.BadIdException)
             {
 
-                throw new BadIdException("station");
+                throw new BadIdException("customer");
             }
             s.CopyPropertiesTo(customerBO);
             customerDO.CopyPropertiesTo(customerBO);
-            //stationBO.DronesinCharge= from sic in AccessIdal.GetALLDrone(sic=> sic.Id==Id )
-            //                          let 
+ 
             return customerBO;
 
         }
@@ -59,7 +58,7 @@ namespace IBL
             }
             catch (IDAL.DO.IDExistsException)
             {
-               throw new IDExistsException("customer");//#########################
+               throw new IDExistsException(newCus.Id,"this customer already exists");//#########################
             }
         }
         /// <summary>
@@ -73,7 +72,7 @@ namespace IBL
             try
             {
                 if (!AccessIdal.CheckCustomer(cusId))
-                    throw new IDAL.DO.BadIdException("doesnt exist");
+                    throw new IDAL.DO.BadIdException(cusId, "this customer doesn't exist");
                 IDAL.DO.Customer cus = AccessIdal.GetCustomer(cusId);
                 if (cusName != "")
                     cus.Name = cusName;
@@ -84,7 +83,7 @@ namespace IBL
             catch (IDAL.DO.BadIdException)
             {
 
-                throw new BadIdException("customer"); //##############
+                throw new BadIdException(cusId,"this customer doesn't exist");
             }
         }
         /// <summary>
@@ -116,7 +115,7 @@ namespace IBL
         public Customer GetCustomer(int id)
         {
             if (!AccessIdal.CheckCustomer(id))
-                throw new BadIdException(id, "customer"); //##################
+                throw new BadIdException(id, "this customer doesn't"); 
             IDAL.DO.Customer c = AccessIdal.GetCustomer(id);
             
             Customer cb = new Customer()
@@ -153,7 +152,7 @@ namespace IBL
         /// <summary>
         /// the funxtion returns all the customers that has received parcels
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns> list of customer
         public IEnumerable<Customer> GetAllCusromerRecived()
         {
             return from item in GetAllCustomers()

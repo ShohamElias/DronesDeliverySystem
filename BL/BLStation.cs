@@ -12,8 +12,8 @@ namespace IBL
         /// <summary>
         /// the func is an adpater from dal object to a bl object of station
         /// </summary>
-        /// <param name="stationDO"></param>
-        /// <returns></returns>
+        /// <param name="stationDO"></param> DAL station
+        /// <returns></returns> bl station
         private Station stationDoBoAdapter(IDAL.DO.Station stationDO)
         {
             Station stationBO = new Station();
@@ -46,7 +46,7 @@ namespace IBL
         public void AddStation( Station s)
         {
             if (AccessIdal.CheckStation(s.Id))
-                throw new IDAL.DO.IDExistsException("station");
+                throw new IDAL.DO.IDExistsException(s.Id,"this station already exists");
             IDAL.DO.Station newS = new IDAL.DO.Station()
             { 
                 Id=s.Id,
@@ -77,7 +77,7 @@ namespace IBL
             try
             {
                 if (!AccessIdal.CheckStation(id))
-                    throw new IDAL.DO.BadIdException(id, "doesmt exist");
+                    throw new IDAL.DO.BadIdException(id, "this station doesnt exist");
                 IDAL.DO.Station s = AccessIdal.GetStation(id);
                 if (name != "")
                     s.Name = name;
@@ -108,7 +108,7 @@ namespace IBL
             catch (IDAL.DO.BadIdException)
             {
 
-                throw new BadIdException("station");
+                throw new BadIdException(id,"this station doesnt exists");
             }
             Station sb = new Station()
             {

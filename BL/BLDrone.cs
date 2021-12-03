@@ -62,7 +62,7 @@ namespace IBL
             catch (IDAL.DO.BadIdException)
             {
 
-                throw new BadIdException("Drone"); //###############33
+                throw new BadIdException(id,"this Drone doesn't exists"); 
             }
             DroneToList dt = DronesBL.Find(x => x.Id == id);
             Drone db = new Drone()
@@ -115,7 +115,7 @@ namespace IBL
         public void AddDrone(Drone d, int stationId)
         {
             if (!AccessIdal.CheckStation(stationId))
-                throw new BadIdException("station"); //#################3
+                throw new BadIdException(stationId,"this station doesn't exist"); 
             IDAL.DO.Station s = AccessIdal.GetStation(stationId);
             IDAL.DO.Drone droneDO = new IDAL.DO.Drone()
             {
@@ -124,14 +124,14 @@ namespace IBL
                 MaxWeight = (IDAL.DO.WeightCategories)d.MaxWeight,
             };
             if (s.ChargeSlots <= 0)
-                throw new StationProblemException(s.Id, "there is no empty charge slot");//############
+                throw new StationProblemException(s.Id, "there is no empty charge slot");
             try
             {
                 AccessIdal.AddDrone(droneDO);
             }
             catch (IDAL.DO.IDExistsException)
             {
-                throw new IDExistsException("Drone"); ///##############
+                throw new IDExistsException(droneDO.Id,"this Drone already exists"); ///##############
             }
 
             DroneToList dt = new DroneToList()
@@ -165,7 +165,7 @@ namespace IBL
         public void UpdateDrone(int id, string m)
         {
             if (!AccessIdal.CheckDrone(id))
-                throw new BadIdException("dont exist");
+                throw new BadIdException(id,"this dronedont exist");
             try
             {
                 IDAL.DO.Drone d = AccessIdal.GetDrone(id);
@@ -176,7 +176,7 @@ namespace IBL
             catch (IDAL.DO.BadIdException)
             {
 
-                throw new BadIdException("drone");
+                throw new BadIdException(id,"this drone doesnt exists");
             }
 
             int i = DronesBL.FindIndex(x => x.Id == id);
@@ -296,9 +296,8 @@ namespace IBL
             if (!flag)
                 throw new Exception("no match was found"); //no mach parcel for drone ##########
             p2.DroneId = d.Id;
-            //p2.DroneParcel = new DroneInParcel() { Id = d.Id, Battery = d.Battery, CurrentLocation = new Location() { Lattitude = d.CurrentLocation.Lattitude, Longitude = d.CurrentLocation.Longitude } };
             p2.Scheduled = DateTime.Now;
-            AccessIdal.UpdateParcel(p2);  //maybe we should go straight to DAL.Update
+            AccessIdal.UpdateParcel(p2);  
             DroneToList dt = DronesBL.Find(x => x.Id == d.Id);
             DronesBL.Remove(dt);
             dt.Status = DroneStatuses.Delivery;
@@ -309,10 +308,10 @@ namespace IBL
         /// gets an id os drone and returns a string output
         /// </summary>
         /// <param name="_id"></param> id of drone
-        /// <returns></returns> string of the drone items
+        /// <returns></returns> string of the drone details
         public string ShowOneDrone(int _id)
         {
-            Drone s = GetDrone(_id); //finding the station by its id
+            Drone s = GetDrone(_id); //finding the drone by its id
             return s.ToString();
         }
         /// <summary>
