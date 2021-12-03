@@ -9,6 +9,11 @@ namespace IBL
 {
    public partial class BL
     {
+        /// <summary>
+        /// the func is an adpater from dal object to a bl object of station
+        /// </summary>
+        /// <param name="stationDO"></param>
+        /// <returns></returns>
         private Station stationDoBoAdapter(IDAL.DO.Station stationDO)
         {
             Station stationBO = new Station();
@@ -33,6 +38,11 @@ namespace IBL
             return stationBO;
        
         }
+
+        /// <summary>
+        /// the func gets a station and adds it to the db on dal
+        /// </summary>
+        /// <param name="s"></param>
         public void AddStation( Station s)
         {
             if (AccessIdal.CheckStation(s.Id))
@@ -43,7 +53,7 @@ namespace IBL
                 Name=s.Name,
                 Lattitude=s.StationLocation.Lattitude,
                 Longitude=s.StationLocation.Longitude,
-                ChargeSlots=s.ChargeSlots,//למה עשית =0?????????
+                ChargeSlots=s.ChargeSlots,
                 //רשימה מאיפה? זה דיאייאל לא ביאל
             };
             try
@@ -56,13 +66,18 @@ namespace IBL
                 throw new IDExistsException("Station");
             }
         }
-
+        /// <summary>
+        /// the func get an id and info of a ststion and updates it
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="numOfChargingSlots"></param>
         public void Updatestation(int id, string name, int numOfChargingSlots)
         {
             try
             {
                 if (!AccessIdal.CheckStation(id))
-                    throw new IDAL.DO.BadIdException("doesmt exist");
+                    throw new IDAL.DO.BadIdException(id, "doesmt exist");
                 IDAL.DO.Station s = AccessIdal.GetStation(id);
                 if (name != "")
                     s.Name = name;
@@ -75,10 +90,14 @@ namespace IBL
             catch (IDAL.DO.BadIdException)
             {
 
-                throw new BadIdException("station");
+                throw new BadIdException(id,"station");
             }
         }
-
+        /// <summary>
+        /// the func get a station id and returns the station the id belongs to
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Station GetStation(int id)
         {
             IDAL.DO.Station s;
@@ -113,14 +132,23 @@ namespace IBL
 
             return sb;
         }
+        /// <summary>
+        ///  the functions returs all the stations
 
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Station> GetAllStations()
         {
             return from item in AccessIdal.GetALLStation()
                    orderby item.Id
                    select GetStation(item.Id);
         }
+        /// <summary>
+        ///         ///  the functions gets an id and returs the station the id belongs to
 
+        /// </summary>
+        /// <param name="_id"></param>
+        /// <returns></returns>
         public string ShowOneStation(int _id)
         {
             Station s = GetStation( _id); //finding the station by its id

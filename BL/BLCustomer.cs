@@ -11,6 +11,11 @@ namespace IBL
 {
     public partial class BL 
     {
+        /// <summary>
+        /// adapter from dal to bl object
+        /// </summary>
+        /// <param name="customerDO"></param>
+        /// <returns></returns>
         private Customer customerDoBoAdapter(IDAL.DO.Customer customerDO)
         {
             Customer customerBO = new Customer();
@@ -32,6 +37,10 @@ namespace IBL
             return customerBO;
 
         }
+        /// <summary>
+        /// creating a bl customer and adding it to the dal too
+        /// </summary>
+        /// <param name="newCustomer"></param>
         public void AddCustomer(Customer newCustomer)
         {
             
@@ -53,6 +62,12 @@ namespace IBL
                throw new IDExistsException("customer");//#########################
             }
         }
+        /// <summary>
+        /// updating the bl customer: name and phone, by its id, and sending to change on the dal level 
+        /// </summary>
+        /// <param name="cusId"></param>
+        /// <param name="cusName"></param>
+        /// <param name="cusPhone"></param>
         public void UpdateCustomer(int cusId, string cusName, string cusPhone)
         {
             try
@@ -72,13 +87,20 @@ namespace IBL
                 throw new BadIdException("customer"); //##############
             }
         }
+        /// <summary>
+        /// thre function returns all the customers
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Customer> GetAllCustomers()
         {
             return from item in AccessIdal.GetALLCustomer()
                    orderby item.Id
                    select GetCustomer(item.Id);                  
         }
-
+        /// <summary>
+        /// the function returns all the customers that have deievered parcels
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Customer> GetAllCustomersThatHasDeliveredParcels()
         {
             return from item in AccessIdal.GetALLCustomer()
@@ -86,10 +108,15 @@ namespace IBL
                    select GetCustomer(item.Id);
         }
 
+        /// <summary>
+        /// the functions gets an id and returs the customer the id belongs to
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Customer GetCustomer(int id)
         {
             if (!AccessIdal.CheckCustomer(id))
-                throw new BadIdException("customer"); //##################
+                throw new BadIdException(id, "customer"); //##################
             IDAL.DO.Customer c = AccessIdal.GetCustomer(id);
             
             Customer cb = new Customer()
@@ -113,13 +140,20 @@ namespace IBL
             }
             return cb;
         }
-
+        /// <summary>
+        /// the functions gets an id and returns the information of customer the id belongs to
+        /// </summary>
+        /// <param name="_id"></param>
+        /// <returns></returns>
         public string ShowOneCustomer(int _id)
         {
             Customer s = GetCustomer(_id); //finding the station by its id
             return s.ToString();
         }
-
+        /// <summary>
+        /// the funxtion returns all the customers that has received parcels
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Customer> GetAllCusromerRecived()
         {
             return from item in GetAllCustomers()
