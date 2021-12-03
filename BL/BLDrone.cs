@@ -10,6 +10,11 @@ namespace IBL
 {
     public partial class BL
     {
+        /// <summary>
+        /// adapter- gets a DO drone and returns a BO drone
+        /// </summary>
+        /// <param name="droneDO"></param> the DO drone
+        /// <returns></returns> BO drone
         private Drone droneDoBoAdapter(IDAL.DO.Drone droneDO)
         {
             Drone droneBO = new Drone();
@@ -39,6 +44,11 @@ namespace IBL
             return droneBO;
 
         }
+       /// <summary>
+       /// the func gets an id of drone and returns the drone
+       /// </summary>
+       /// <param name="id"></param> id of a drone
+       /// <returns></returns>
         public Drone GetDrone(int id)
         {
 
@@ -97,7 +107,12 @@ namespace IBL
 
             return db;
         }
-        public void AddDrone(Drone d, int stationId) ////*int id, string model, WeightCategories w, int stationId*/ -- input in cunsuleBL
+        /// <summary>
+        /// the func gets a drone and add it to the list
+        /// </summary>
+        /// <param name="d"></param> the drone we add
+        /// <param name="stationId"></param> anid of station to charge the drone
+        public void AddDrone(Drone d, int stationId)
         {
             if (!AccessIdal.CheckStation(stationId))
                 throw new BadIdException("station"); //#################3
@@ -132,13 +147,21 @@ namespace IBL
             DronesBL.Add(dt);
 
         }
+        /// <summary>
+        /// the func returns all of the drones
+        /// </summary>
+        /// <returns></returns>list of drones
         public IEnumerable<Drone> GetAllDrones()
         {
             return from droneDO in AccessIdal.GetALLDrone()
                    orderby droneDO.Id
                    select GetDrone(droneDO.Id);
         }
-
+        /// <summary>
+        /// the func gets a drone id and update it
+        /// </summary>
+        /// <param name="id"></param> the id of the drone
+        /// <param name="m"></param> the model name - the new one to update
         public void UpdateDrone(int id, string m)
         {
             if (!AccessIdal.CheckDrone(id))
@@ -158,17 +181,16 @@ namespace IBL
 
             int i = DronesBL.FindIndex(x => x.Id == id);
             DronesBL.ElementAt(i).Model = m;
-            //for (int i = 0; i < DronesBL.Count(); i++)
-            //{
-            //    if (id == DronesBL[i].Id)
-            //        DronesBL[i].Model = m;
-            //}
+            
         }
-
+        /// <summary>
+        /// the func gets an id of drone and charge it in the clothest station
+        /// </summary>
+        /// <param name="id"></param> the id of the drone
         public void DroneToCharge(int id)
         {
             if (!AccessIdal.CheckDrone(id))
-                throw new IDAL.DO.BadIdException("doesnt exist"); ///######
+                throw new IDAL.DO.BadIdException(id, "this drone doesnt exist"); 
             IDAL.DO.Drone d = AccessIdal.GetDrone(id);
             DroneToList dt = DronesBL.Find(x => x.Id == id);
             if (dt.Status != DroneStatuses.Available)
@@ -196,7 +218,12 @@ namespace IBL
             ss.ChargeSlots--;
             Updatestation(ss.Id, "", ss.ChargeSlots);
         }
-        public void EndCharging(int id, int timeI)//timeI-hours? if it is we need to do modulu 60 in consul (time/60+time%60)
+        /// <summary>
+        /// the func gets a drone id and end its charging
+        /// </summary>
+        /// <param name="id"></param> the id of the drone
+        /// <param name="timeI"></param> the amount of time it was charging (updating the battery)
+        public void EndCharging(int id, int timeI)
         {
             if (!AccessIdal.CheckDrone(id))
                 throw new IDAL.DO.BadIdException(id, "this drone doesnt exist"); //#######
@@ -219,12 +246,14 @@ namespace IBL
             Updatestation(s.Id, "", s.ChargeSlots);
         }
 
-        
-
+        /// <summary>
+        /// the func gets an id of a drone and link a parcel to it
+        /// </summary>
+        /// <param name="id"></param> the id of the drone
         public void LinkDroneToParcel(int id)
         {
             if (!AccessIdal.CheckDrone(id))
-                throw new BadIdException(id, "drone");
+                throw new BadIdException(id, "this drone doesn't exist");
             Drone d = GetDrone(id);
             if (d.Status != DroneStatuses.Available)
                 throw new WrongDroneStatException(id, "this drone is not available");
@@ -246,7 +275,7 @@ namespace IBL
                 double dist = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(p.SenderId).CustLocation.Lattitude, GetCustomer(p.SenderId).CustLocation.Longitude);
                 double dist2 = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(item.SenderId).CustLocation.Lattitude, GetCustomer(item.SenderId).CustLocation.Longitude);
 
-                if (item.Priority == p.Priority && item.Weight == p.Weight && dist2 < dist)
+                if (item.Priority == p.Priority && item.Weight == p.Weight && dist2 <=dist)
                 {
                     p = item;
                     flag2 = true;
@@ -276,13 +305,20 @@ namespace IBL
             dt.IdOfParcel = p2.Id;
             DronesBL.Add(dt);
         }
-
+        /// <summary>
+        /// gets an id os drone and returns a string output
+        /// </summary>
+        /// <param name="_id"></param> id of drone
+        /// <returns></returns> string of the drone items
         public string ShowOneDrone(int _id)
         {
             Drone s = GetDrone(_id); //finding the station by its id
             return s.ToString();
         }
-
+        /// <summary>
+        /// the func retuens the list of drones in the constructor
+        /// </summary>
+        /// <returns></returns> list of drones
         public IEnumerable<DroneToList> ListDrone()
         {
             List<DroneToList> temp = new();
