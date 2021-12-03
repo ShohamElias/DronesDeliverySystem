@@ -33,20 +33,32 @@ namespace IBL
         }
         public void AddParcel(Parcel p /*int sender, int target, WeightCategories w, Priorities p*/) //מה הוא בכלל צרי לקבל
         {
-            IDAL.DO.Parcel par = new IDAL.DO.Parcel()
-            {
-                Id = p.Id,
-                SenderId = p.Sender.Id,
-                TargetId = p.Target.Id,
-                Weight = (IDAL.DO.WeightCategories)p.Weight,
-                Priority = (IDAL.DO.Priorities)p.Priority,
-                Requested = DateTime.Now,
-               // DroneId = null,
-                //PickedUp = new DateTime(0,0,0),
-                //Scheduled = new DateTime(0, 0, 0),
-                //Delivered = new DateTime(0, 0, 0)
+            DateTime d = new DateTime();
+            IDAL.DO.Parcel par = new IDAL.DO.Parcel();
+            par.Id = p.Id;
+            par.SenderId = p.Sender.Id;
+            par.TargetId = p.Target.Id;
+            par.Weight = (IDAL.DO.WeightCategories)p.Weight;
+            par.Priority = (IDAL.DO.Priorities)p.Priority;
+            par.Requested = DateTime.Now;
+            // DroneId = null,
+            par.PickedUp = d;// new DateTime(0, 0, 0);
+            par.Scheduled = d;// new DateTime(0, 0, 0);
+            par.Delivered = d;// new DateTime(0, 0, 0);
 
-            };
+            //{
+            //    Id = p.Id,
+            //    SenderId = p.Sender.Id,
+            //    TargetId = p.Target.Id,
+            //    Weight = (IDAL.DO.WeightCategories)p.Weight,
+            //    Priority = (IDAL.DO.Priorities)p.Priority,
+            //    Requested = DateTime.Now,
+            //   // DroneId = null,
+            //    PickedUp = new DateTime(0,0,0),
+            //    Scheduled = new DateTime(0, 0, 0),
+            //    Delivered = new DateTime(0, 0, 0)
+
+            //};
             try
             {
                 AccessIdal.AddParcel(par);
@@ -112,18 +124,7 @@ namespace IBL
                 if (p.DroneId > 0)
                 {
                     DroneToList dt = DronesBL.Find(x => x.Id == p.DroneId);
-                    pl.DroneParcel = new DroneInParcel()
-                    {
-                        Battery = dt.Battery,
-                        Id = p.DroneId,
-                        CurrentLocation = new Location()
-                    };
-                    if (dt.CurrentLocation != null)
-                    {
-                        pl.DroneParcel.CurrentLocation.Longitude = dt.CurrentLocation.Longitude;
-                        pl.DroneParcel.CurrentLocation.Lattitude = dt.CurrentLocation.Lattitude;
-                    }
-                       
+                    pl.DroneParcel = new DroneInParcel() { Battery = dt.Battery, Id = p.DroneId, CurrentLocation = new Location() { Longitude = dt.CurrentLocation.Longitude, Lattitude = dt.CurrentLocation.Lattitude } };
                 }
 
 
@@ -139,7 +140,6 @@ namespace IBL
             if (p.DroneId <= 0)
             {
                 pl.DroneParcel = new DroneInParcel() { Id = 0 };
-                pl.DroneParcel.CurrentLocation = new Location();
             }
 
             return pl;
@@ -152,8 +152,8 @@ namespace IBL
             pDO.Requested = p.Requested;
             pDO.Scheduled = p.Scheduled;
             pDO.Delivered = p.Delivered;
-            if(!AccessIdal.CheckDrone(p.DroneParcel.Id))
-               pDO.DroneId = p.DroneParcel.Id; //error if null?
+            if (!AccessIdal.CheckDrone(p.DroneParcel.Id))
+                pDO.DroneId = p.DroneParcel.Id; //error if null?
             AccessIdal.UpdateParcel(pDO);
         }
         public void PickParcel(int id)
@@ -161,7 +161,7 @@ namespace IBL
             Drone d;
             try
             {
-                d= GetDrone(id);
+                d = GetDrone(id);
             }
             catch (Exception e)
             {
@@ -169,58 +169,61 @@ namespace IBL
                 throw new BadIdException("Drone"); //exception e, throw e?????
             }
             DroneToList dt = DronesBL.Find(x => x.Id == id);
-            DronesBL.Remove(dt);
+            DroneToList dss= DronesBL.Find(x => x.Id == id);
+            
             Parcel p;
             try
             {
-                 p = GetParcel(dt.IdOfParcel);
-            } 
-            catch(BadIdException)
+                p = GetParcel(dt.IdOfParcel);
+            }
+            catch (BadIdException)
             {
                 throw new BadIdException("parcel"); //################3
             }
-            DateTime dtm = new DateTime(0, 0, 0);
+            DateTime dtm = new DateTime();
             if (d.Status == DroneStatuses.Delivery && p.Scheduled != dtm)
             {
-                double b = amountOfbattery(d,d.CurrentLocation, GetCustomer(p.Sender.Id).CustLocation);
+                double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Sender.Id).CustLocation);
                 d.Battery -= b;
                 dt.CurrentLocation.Lattitude = GetCustomer(p.Sender.Id).CustLocation.Lattitude;
                 dt.CurrentLocation.Longitude = GetCustomer(p.Sender.Id).CustLocation.Longitude;
                 p.PickedUp = DateTime.Now;
+                DronesBL.Remove(dss);
                 DronesBL.Add(dt);
                 UpdateParcel(p);
 
             }
             else
                 throw new WrongDroneStatException("there was an issue, parcel couldnt be picked");//########
+            
         }
 
         public void DeliveringParcel(int id)
         {
             if (!AccessIdal.CheckDrone(id))
-                throw new BadIdException(id, "drone doesnt exist");
-            DateTime dtm = new DateTime(0, 0, 0);
+                throw new BadIdException("drone doesnt exist");
+            DateTime dtm = new DateTime();
             DroneToList dt = DronesBL.Find(x => x.Id == id);
             Parcel p;
             try
             {
                 p = GetParcel(dt.IdOfParcel);
             }
-            catch (BadIdException )
+            catch (BadIdException)
             {
                 throw new BadIdException("parcel"); //####################
             }
             Drone d = GetDrone(id);
-            DronesBL.Remove(dt);
-            if(dt.Status==DroneStatuses.Delivery&&p.PickedUp==dtm)
+            if (dt.Status == DroneStatuses.Delivery && p.PickedUp != dtm)
             {
-               double b = amountOfbattery(d,d.CurrentLocation, GetCustomer(p.Target.Id).CustLocation);
+                double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Target.Id).CustLocation);
                 dt.Battery -= b;
                 dt.CurrentLocation.Lattitude = GetCustomer(p.Target.Id).CustLocation.Lattitude;
                 dt.CurrentLocation.Longitude = GetCustomer(p.Target.Id).CustLocation.Longitude;
                 dt.Status = DroneStatuses.Available;
                 p.Delivered = DateTime.Now;
                 UpdateParcel(p);
+                DronesBL.Remove(DronesBL.Find(x => x.Id == id));
                 DronesBL.Add(dt);
 
             }
@@ -230,6 +233,13 @@ namespace IBL
         {
             Parcel s = GetParcel(_id); //finding the station by its id
             return s.ToString();
+        }
+
+        public IEnumerable<Parcel> GetAllUnmachedParcels()
+        {
+            return from item in GetAllParcels()
+                   where item.DroneParcel.Id == 0
+                   select GetParcel(item.Id);
         }
     }
 }

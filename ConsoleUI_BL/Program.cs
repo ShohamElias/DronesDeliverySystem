@@ -197,7 +197,7 @@ namespace ConsoleUI_BL
                                     }
                                     break;
                                 case ShowListOpt.ShowParcel://printing the parcels list
-                                    List<Parcel> ListParcel = bl.GetAllParcels().ToList();
+                                      List<Parcel> ListParcel = bl.GetAllParcels().ToList();
                                     foreach (Parcel item in ListParcel)
                                     {
                                         Console.WriteLine(item);
@@ -269,6 +269,7 @@ namespace ConsoleUI_BL
                 {
 
                     Console.WriteLine(e);
+                    Console.WriteLine("ERROR");
                 }
                 
                 Console.WriteLine("again");//another action

@@ -46,7 +46,7 @@ namespace IBL
                         double ba = amountOfbattery(dd,dd.CurrentLocation, s.StationLocation);
                         item.Battery = rand.Next((int)ba, 101);
                         IDAL.DO.Parcel p = AccessIdal.GetParcel(item.IdOfParcel);
-                        DateTime d = new DateTime(0, 0, 0);
+                        DateTime d = new DateTime();
                         if (p.PickedUp == d)
                         {
                            
@@ -79,7 +79,11 @@ namespace IBL
                 }
                 if (item.Status == DroneStatuses.Available)
                 {
-                    //הגרלות הגרלות#############################33
+                    //IEnumerable<Customer> cc = GetAllCustomers();
+                    //int index = rand.Next(0, cc.Count());
+                    //item.CurrentLocation = new Location() { Lattitude = cc.ElementAt(index).CustLocation.Lattitude, Longitude = cc.ElementAt(index).CustLocation.Longitude };
+
+                    ////הגרלות הגרלות#############################33
                     if (item.CurrentLocation == null)
                     {
                         item.CurrentLocation = new Location();

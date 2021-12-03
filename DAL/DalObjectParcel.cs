@@ -51,6 +51,14 @@ namespace DalObject
                    select p;
         }
 
+        public IEnumerable<Parcel> GetAllUnMachedParcel()
+        {
+
+            return from item in GetALLParcel()
+                   where item.DroneId == 0
+                   select GetParcel(item.Id);
+        }
+
         /// <summary>
         /// the function update a parcel that was picked and the drone that picked it
         /// </summary>
