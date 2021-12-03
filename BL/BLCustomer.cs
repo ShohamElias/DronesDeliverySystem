@@ -99,6 +99,8 @@ namespace IBL
                 Name = c.Name,
                 Phone = c.Phone,     
             };
+            cb.parcelToCustomer = new List<Parcel>();
+            cb.parcelFromCustomer = new List<Parcel>();
             foreach (Parcel item in GetAllParcels())
             {
                 if (item.Sender.Id == c.Id)

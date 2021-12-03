@@ -214,7 +214,7 @@ namespace ConsoleUI_BL
                                     List<Parcel> ListP = bl.GetAllParcels().ToList();
                                     foreach (Parcel item in ListP)
                                     {
-                                        if (item.DroneParcel == null)
+                                        if (item.DroneParcel.Id == 0)
                                             Console.WriteLine(item);
                                     }
                                     break;
@@ -265,10 +265,10 @@ namespace ConsoleUI_BL
                             break;
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
 
-                    throw;
+                    Console.WriteLine(e);
                 }
                 
                 Console.WriteLine("again");//another action

@@ -221,7 +221,7 @@ namespace IBL
         public void LinkDroneToParcel(int id)
         {
             if (!AccessIdal.CheckDrone(id))
-                throw new BadIdException("drone");
+                throw new BadIdException(id, "drone");
             Drone d = GetDrone(id);
             if (d.Status != DroneStatuses.Available)
                 throw new WrongDroneStatException(id, "this drone is not available");

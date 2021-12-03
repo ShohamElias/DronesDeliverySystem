@@ -42,9 +42,9 @@ namespace IBL
                 Priority = (IDAL.DO.Priorities)p.Priority,
                 Requested = DateTime.Now,
                // DroneId = null,
-                PickedUp = new DateTime(0,0,0),
-                Scheduled = new DateTime(0, 0, 0),
-                Delivered = new DateTime(0, 0, 0)
+                //PickedUp = new DateTime(0,0,0),
+                //Scheduled = new DateTime(0, 0, 0),
+                //Delivered = new DateTime(0, 0, 0)
 
             };
             try
@@ -93,7 +93,7 @@ namespace IBL
             catch (IDAL.DO.BadIdException)
             {
 
-                throw new BadIdException(id,"parcel");
+                throw new BadIdException(id, "parcel");
             }
             Parcel pl = new Parcel()
             {
@@ -107,17 +107,41 @@ namespace IBL
             };
             if (p.SenderId != 0)
             {
-                pl.Sender = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.SenderId).Name, Id = p.Id };
-                pl.Target = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.TargetId).Name, Id = p.Id };
-                pl.DroneParcel = new DroneInParcel() { Battery = GetDrone(p.DroneId).Battery, Id = p.DroneId, CurrentLocation = GetDrone(p.DroneId).CurrentLocation };
+                pl.Sender = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.SenderId).Name, Id = p.SenderId };
+                pl.Target = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.TargetId).Name, Id = p.TargetId };
+                if (p.DroneId > 0)
+                {
+                    DroneToList dt = DronesBL.Find(x => x.Id == p.DroneId);
+                    pl.DroneParcel = new DroneInParcel()
+                    {
+                        Battery = dt.Battery,
+                        Id = p.DroneId,
+                        CurrentLocation = new Location()
+                    };
+                    if (dt.CurrentLocation != null)
+                    {
+                        pl.DroneParcel.CurrentLocation.Longitude = dt.CurrentLocation.Longitude;
+                        pl.DroneParcel.CurrentLocation.Lattitude = dt.CurrentLocation.Lattitude;
+                    }
+                       
+                }
+
+
+
             }
-            else
+            else if (p.SenderId == 0)
             {
                 pl.Sender = new CustomerInParcel();
-                pl.Target = new CustomerInParcel() ;
+                pl.Target = new CustomerInParcel();
                 pl.DroneParcel = new DroneInParcel();
             }
-            
+
+            if (p.DroneId <= 0)
+            {
+                pl.DroneParcel = new DroneInParcel() { Id = 0 };
+                pl.DroneParcel.CurrentLocation = new Location();
+            }
+
             return pl;
         }
 
@@ -174,7 +198,7 @@ namespace IBL
         public void DeliveringParcel(int id)
         {
             if (!AccessIdal.CheckDrone(id))
-                throw new BadIdException("drone doesnt exist");
+                throw new BadIdException(id, "drone doesnt exist");
             DateTime dtm = new DateTime(0, 0, 0);
             DroneToList dt = DronesBL.Find(x => x.Id == id);
             Parcel p;
