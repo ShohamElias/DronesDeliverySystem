@@ -275,7 +275,7 @@ namespace IBL
                 double dist = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(p.SenderId).CustLocation.Lattitude, GetCustomer(p.SenderId).CustLocation.Longitude);
                 double dist2 = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(item.SenderId).CustLocation.Lattitude, GetCustomer(item.SenderId).CustLocation.Longitude);
 
-                if (item.Priority == p.Priority && item.Weight == p.Weight && dist2 < dist)
+                if (item.Priority == p.Priority && item.Weight == p.Weight && dist2 <=dist)
                 {
                     p = item;
                     flag2 = true;
