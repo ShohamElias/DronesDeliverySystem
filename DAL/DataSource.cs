@@ -63,9 +63,9 @@ namespace DalObject
                     Priority = (Priorities)rand.Next(2),
                     Requested = DateTime.Now,
                     DroneId =0,
-                    Scheduled = DateTime.Now,
-                    PickedUp = DateTime.Now,
-                    Delivered = DateTime.Now
+                    Scheduled =new DateTime(),
+                    PickedUp = new DateTime(),
+                    Delivered = new DateTime()
                 };
                 ParcelsList.Add(p);
             }

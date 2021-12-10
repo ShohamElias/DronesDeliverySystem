@@ -71,11 +71,14 @@ namespace IBL
                 }
                 if(item.Status == DroneStatuses.Maintenance)
                 {
+                    
                     IEnumerable<Station> ss = GetAllStations();
                     int index = rand.Next(0, ss.Count());
                     item.CurrentLocation = new Location() { Lattitude = ss.ElementAt(index).StationLocation.Lattitude, Longitude = ss.ElementAt(index).StationLocation.Longitude };
                     item.Battery = rand.Next(20, 41);
-                
+                    IDAL.DO.DroneCharge dc = new IDAL.DO.DroneCharge() { DroneId = item.Id, StationId = ss.ElementAt(index).Id };
+                    AccessIdal.AddDroneCharge(dc);
+
                 }
                 if (item.Status == DroneStatuses.Available)
                 {
@@ -143,7 +146,7 @@ namespace IBL
                         break;
                 }
             }
-            return s;
+            return s/100   ;
         }
         private double Deg2rad(double deg)
         {

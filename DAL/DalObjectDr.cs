@@ -189,9 +189,10 @@ namespace DalObject
 
         }
 
-        public IEnumerable<DroneCharge> GetALLDroneCharges()
+        public IEnumerable<DroneCharge> GetALLDroneCharges(/*Predicate<DroneCharge> P*/)
         {
             return from d in DataSource.DChargeList
+                   //where P(d)
                    select d;
         }
     }
