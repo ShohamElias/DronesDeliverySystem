@@ -44,7 +44,7 @@ namespace ConsoleUI
                         {
                             case AddOpt.Exit: return;//if wants to exit
                             case AddOpt.AddDrone://adding a drone
-                                Console.WriteLine("is, model, status, maxweight, battery,");
+                                Console.WriteLine("id, model, status, maxweight, battery,");
                                 Drone d = new Drone();//creating an empty drone and getting inputs for values
                                 d.Id = Convert.ToInt32(Console.ReadLine());
                                 d.Model= Console.ReadLine();
@@ -55,6 +55,7 @@ namespace ConsoleUI
                                 break;
                             case AddOpt.AddStation://adding a station
                                 Station s = new Station();//creating an empty station and getting inputs for values
+                                Console.WriteLine("id, name, lang, lat, charge slot number,");
                                 s.Id = (Convert.ToInt32(Console.ReadLine()));
                                 s.Name = Console.ReadLine();
                                 s.Lattitude = Convert.ToInt64(Console.ReadLine());
@@ -63,6 +64,7 @@ namespace ConsoleUI
                                dal.AddStation(s);//sending to the func to add to the list
                                 break;
                             case AddOpt.AddParcel://adding a parcel
+                                Console.WriteLine("id, trget id, weight, priority, sender id");
                                 Parcel per = new Parcel();//creating an empty parcel and getting inputs for values
                                 per.Id = Convert.ToInt32(Console.ReadLine());
                                 per.TargetId = Convert.ToInt32(Console.ReadLine());
@@ -77,6 +79,7 @@ namespace ConsoleUI
                                 dal.AddParcel(per);//sending to the func to add to the list
                                 break;
                             case AddOpt.AddCustomer://adding a customer
+                                Console.WriteLine("id, name, lat, long , phone");
                                 Customer cus = new Customer();//creating an empty customer and getting inputs for values
                                 cus.Id = Convert.ToInt32(Console.ReadLine());
                                 cus.Name = Console.ReadLine();

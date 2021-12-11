@@ -73,11 +73,11 @@ namespace DalObject
         /// </summary>
         /// <param name="_id"></param>
         /// <returns></returns>
-        public string ShowOneStation(int _id)
+        public Station ShowOneStation(int _id)
         {
             Station s = DataSource.StationsList.Find(x => x.Id == _id); //finding the station by its id
             if (s.Id == _id)
-                return s.ToString();
+                return s;
             else
                 throw new IDAL.DO.BadIdException(_id, "This id doesnt exists");
         }

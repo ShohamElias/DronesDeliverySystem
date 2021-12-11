@@ -71,7 +71,9 @@ namespace DalObject
             if (d.Id != droneId)
                 throw new IDAL.DO.BadIdException(droneId, "This drone id doesnt exists");
             p.DroneId = droneId; //adding the drone id to the parcel
+            DataSource.ParcelsList.Remove(p);
             p.Scheduled = DateTime.Now;
+            DataSource.ParcelsList.Add(p);
         }
 
         /// <summary>
@@ -122,11 +124,11 @@ namespace DalObject
         /// </summary>
         /// <param name="_id"></param>the wanted drone
         /// <returns></returns>
-        public string ShowOneDrone(int _id)
+        public Drone ShowOneDrone(int _id)
         {
             Drone d = DataSource.DroneList.Find(x => x.Id == _id); //finding the drone by its id
             if (d.Id == _id)
-                return d.ToString();
+                return d;
             else
                 throw new IDAL.DO.BadIdException(_id, "This id doesnt exists");
         }

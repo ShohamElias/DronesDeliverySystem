@@ -84,8 +84,9 @@ namespace DalObject
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
             if (p.Id != parcelId) 
                 throw new IDAL.DO.BadIdException(parcelId, "This parcel id doesnt exists");
-            p.Delivered = DateTime.Now; //adding delivering time
-            Drone d = DataSource.DroneList.Find(x => x.Id == p.DroneId); //finding the drone that was connected to the parcel by its id
+            DataSource.ParcelsList.Remove(p);
+            p.Delivered = DateTime.Now;
+            DataSource.ParcelsList.Add(p); Drone d = DataSource.DroneList.Find(x => x.Id == p.DroneId); //finding the drone that was connected to the parcel by its id
             //d.Status = DroneStatuses.Available;   //updating its status###################
 
         }
@@ -96,11 +97,11 @@ namespace DalObject
         /// </summary>
         /// <param name="_id"></param>the given parcels id 
         /// <returns></returns>
-        public string ShowOneParcel(int _id)
+        public Parcel ShowOneParcel(int _id)
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == _id); //finding the parcel by its id
             if (p.Id == _id)
-                return p.ToString();
+                return p;
             else
                 throw new IDAL.DO.BadIdException(_id, "This id doesnt exists");
         }

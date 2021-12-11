@@ -106,11 +106,11 @@ namespace DalObject
         /// </summary>
         /// <param name="_id"></param>
         /// <returns></returns>
-        public  string ShowOneCustomer(int _id) 
+        public  Customer ShowOneCustomer(int _id) 
         {
             Customer c = DataSource.CustomersList.Find(x => x.Id == _id); //finding the customer by its id
             if (c.Id == _id)
-                return c.ToString();
+                return c;
             else
                 throw new IDAL.DO.BadIdException(_id, "This id doesnt exists");
         }

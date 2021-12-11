@@ -14,7 +14,7 @@ namespace IDAL
         public DO.Customer GetCustomer(int id);
         public bool CheckCustomer(int id);
         double CustomerDistance(double lat, double lon1, int id);
-        string ShowOneCustomer(int _id);
+        DO.Customer ShowOneCustomer(int _id);
         IEnumerable<DO.Customer> ListCustomer();
         public IEnumerable<DO.Customer> GetALLCustomer();
         #endregion
@@ -26,9 +26,9 @@ namespace IDAL
         void LinkParcelToDrone(int parcelId, int droneId);
         void DroneToCharge(int droneId, int stationId);
         void EndingCharge(int droneId);
-        public   int GetChargeRate();
+        public  int GetChargeRate();
 
-        string ShowOneDrone(int _id);
+        DO.Drone ShowOneDrone(int _id);
         public void UpdateDrone(DO.Drone newD);
         double[] ElectricityUse();
         IEnumerable<DO.Drone> ListDrone();
@@ -44,7 +44,7 @@ namespace IDAL
         public bool CheckParcel(int id);
         void PickParcel(int parcelId);
         void DeliveringParcel(int parcelId);
-        string ShowOneParcel(int _id);
+        DO.Parcel ShowOneParcel(int _id);
         IEnumerable<DO.Parcel> ListParcel();
         public IEnumerable<DO.Parcel> GetALLParcel();
         #endregion
@@ -55,7 +55,7 @@ namespace IDAL
         void AddStation(DO.Station s);
         public DO.Station GetStation(int id);
         public bool CheckStation(int id);
-        string ShowOneStation(int _id);
+        DO.Station ShowOneStation(int _id);
         IEnumerable<DO.Station> ListStation();
         public IEnumerable<DO.Station> GetALLStation();
         int NumOfChargingNow(int x);
