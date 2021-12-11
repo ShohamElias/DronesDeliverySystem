@@ -140,19 +140,19 @@ namespace ConsoleUI
                             case ShowONEOpt.Exit:
                                 break;
                             case ShowONEOpt.ShowDrone://printing a chosen drone
-                                id = Console.Read();
+                                id = Convert.ToInt32(Console.ReadLine());
                                 Console.WriteLine(dal.ShowOneDrone(id));
                                 break;
                             case ShowONEOpt.ShowStation://printing a chosen station
-                                id = Console.Read();
-                                 Console.WriteLine(dal.ShowOneStation(id));
+                                id = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine(dal.ShowOneStation(id));
                                 break;
                             case ShowONEOpt.ShowParcel://printing a chosen parcel
-                                id = Console.Read();
+                                id = Convert.ToInt32(Console.ReadLine());
                                 Console.WriteLine(dal.ShowOneParcel(id));
                                 break;
                             case ShowONEOpt.ShowCustomer://printing a chosen customer
-                                id = Console.Read();
+                                id = Convert.ToInt32(Console.ReadLine());
                                 Console.WriteLine(dal.ShowOneCustomer(id));
                                 break;
                             default:
