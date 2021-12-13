@@ -130,5 +130,12 @@ namespace DalObject
             //return temp;
             return DataSource.CustomersList.ToList();
         }
+
+        public IEnumerable<Customer> GetALLCustomersBy(Predicate<Customer> P)
+        {
+            return from d in DataSource.CustomersList
+                   where P(d)
+                   select d;
+        }
     }
 }

@@ -37,6 +37,8 @@ namespace IDAL
         #endregion
 
         #region Parcel
+        IEnumerable<DO.Parcel> GetALLParcelsBy(Predicate<DO.Parcel> P);
+
         public IEnumerable<DO.Parcel> GetAllUnMachedParcel();
         void AddParcel(DO.Parcel per);
         public void UpdateParcel(DO.Parcel newD);
@@ -50,6 +52,8 @@ namespace IDAL
         #endregion
 
         #region Station
+        IEnumerable<DO.Station> GetALLStationsBy(Predicate<DO.Station> P);
+
         double StationDistance(double lat, double lon1, int id);
         public void UpdateStation(DO.Station newD);
         void AddStation(DO.Station s);

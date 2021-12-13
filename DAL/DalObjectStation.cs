@@ -107,5 +107,11 @@ namespace DalObject
             return x;
         }
 
+        public IEnumerable<Station> GetALLStationsBy(Predicate<Station> P)
+        {
+            return from d in DataSource.StationsList
+                   where P(d)
+                   select d;
+        }
     }
 }

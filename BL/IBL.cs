@@ -46,6 +46,8 @@ namespace IBL
         #endregion
 
         #region Station
+         IEnumerable<BO.Station> GetStationsforNoEmpty();
+
         public void AddStation(BO.Station s);
         public void Updatestation(int id, string name, int numOfChargingSlots);
         public BO.Station GetStation(int id);

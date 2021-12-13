@@ -194,17 +194,16 @@ namespace IBL
             IDAL.DO.Drone d = AccessIdal.GetDrone(id);
             DroneToList dt = DronesBL.Find(x => x.Id == id);
             if (dt.Status != DroneStatuses.Available)
-                throw new WrongDroneStatException(id, "this drone is not available"); ///########
+                throw new WrongDroneStatException(id, "this drone is not available"); 
             Station s = closestStation(dt.CurrentLocation.Longitude, dt.CurrentLocation.Lattitude);
             Location l = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
             double b = amountOfbattery(GetDrone(id), dt.CurrentLocation, l);
             if (b > dt.Battery)
-                throw new BatteryIssueException(dt.Id, "there wasnt enough battery"); //אין מספיק בטריה#####
+                throw new BatteryIssueException(dt.Id, "there wasnt enough battery"); 
             DronesBL.Remove(dt);
             dt.Battery -= b;
             dt.CurrentLocation = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
             dt.Status = DroneStatuses.Maintenance;
-
             DronesBL.Add(dt);
             Station ss = GetStation(s.Id);
             DroneCharge dc = new DroneCharge() { Battery = dt.Battery, DroneId = dt.Id };
@@ -216,8 +215,10 @@ namespace IBL
             };
             AccessIdal.AddDroneCharge(dic);
             ss.ChargeSlots--;
-            Updatestation(ss.Id, "", ss.ChargeSlots);
+            
+            Updatestation(ss.Id, ss.Name, ss.ChargeSlots);
         }
+
         /// <summary>
         /// the func gets a drone id and end its charging
         /// </summary>

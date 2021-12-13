@@ -211,18 +211,17 @@ namespace ConsoleUI_BL
                                     }
                                     break;
                                 case ShowListOpt.UnmatchedParcels://printing all the unmatced parcels 
-                                    List<Parcel> ListP = bl.GetAllParcels().ToList();
+                                    List<Parcel> ListP = bl.GetAllUnmachedParcels().ToList();
                                     foreach (Parcel item in ListP)
                                     {
-                                        if (item.DroneParcel.Id == 0)
+                                        //if (item.DroneParcel.Id == 0)
                                             Console.WriteLine(item);
                                     }
                                     break;
                                 case ShowListOpt.EmptySlots://printing all the stations that has empty slots
-                                    List<Station> StationsList = bl.GetAllStations().ToList();
+                                    List<Station> StationsList = bl.GetStationsforNoEmpty().ToList();
                                     foreach (Station item in StationsList)
                                     {
-                                        if (item.ChargeSlots != 0)
                                             Console.WriteLine(item);
                                     }
                                     break;

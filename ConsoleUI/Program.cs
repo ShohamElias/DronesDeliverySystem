@@ -70,12 +70,12 @@ namespace ConsoleUI
                                 per.TargetId = Convert.ToInt32(Console.ReadLine());
                                 per.Weight = (WeightCategories)Convert.ToInt32(Console.ReadLine());
                                 per.Priority = (Priorities)Convert.ToInt32(Console.ReadLine());
-                                per.Requested =DateTime.Now;
+                                per.Requested = null;
                                 per.DroneId =0;
                                 per.SenderId = Convert.ToInt32(Console.ReadLine());
-                                per.Scheduled = DateTime.Today;
-                                per.PickedUp = DateTime.Today;
-                                per.Delivered = DateTime.Today;
+                                per.Scheduled = null;
+                                per.PickedUp = null;
+                                per.Delivered = null;
                                 dal.AddParcel(per);//sending to the func to add to the list
                                 break;
                             case AddOpt.AddCustomer://adding a customer

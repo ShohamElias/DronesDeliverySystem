@@ -38,18 +38,17 @@ namespace IBL
         /// <param name="p"></param>
         public void AddParcel(Parcel p ) 
         {
-            DateTime d = new DateTime();
             IDAL.DO.Parcel par = new IDAL.DO.Parcel();
             par.Id = p.Id;
             par.SenderId = p.Sender.Id;
             par.TargetId = p.Target.Id;
             par.Weight = (IDAL.DO.WeightCategories)p.Weight;
             par.Priority = (IDAL.DO.Priorities)p.Priority;
-            par.Requested = DateTime.Now;
+            par.Requested = null;
   
-            par.PickedUp = d;
-            par.Scheduled = d;
-            par.Delivered = d;
+            par.PickedUp = null;
+            par.Scheduled = null;
+            par.Delivered = null;
 
             try
             {
@@ -169,8 +168,7 @@ namespace IBL
             {
                 throw new BadIdException(dt.IdOfParcel,"this parcel doesn't exist");
             }
-            DateTime dtm = new DateTime();
-            if (d.Status == DroneStatuses.Delivery && p.Scheduled != dtm)
+            if (d.Status == DroneStatuses.Delivery && p.Scheduled != null)
             {
                 double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Sender.Id).CustLocation);
                 d.Battery -= b;
@@ -194,7 +192,6 @@ namespace IBL
         {
             if (!AccessIdal.CheckDrone(id))
                 throw new BadIdException(id, "drone doesnt exist");
-            DateTime dtm = new DateTime();
             DroneToList dt = DronesBL.Find(x => x.Id == id);
             Parcel p;
             try
@@ -206,7 +203,7 @@ namespace IBL
                 throw new BadIdException(dt.IdOfParcel,"this parcel doesnt exist"); 
             }
             Drone d = GetDrone(id);
-            if (dt.Status == DroneStatuses.Delivery && p.PickedUp != dtm)
+            if (dt.Status == DroneStatuses.Delivery && p.PickedUp != null)
             {
                 double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Target.Id).CustLocation);
                 dt.Battery -= b;
@@ -236,9 +233,22 @@ namespace IBL
         /// <returns></returns> list of parcels
         public IEnumerable<Parcel> GetAllUnmachedParcels()
         {
-            return from item in GetAllParcels()
-                   where item.DroneParcel.Id == 0
-                   select GetParcel(item.Id);
+            return from sic in AccessIdal.GetALLParcelsBy(sic => sic.DroneId == 0)
+                   let crs = AccessIdal.GetParcel(sic.Id)
+                   select new BO.Parcel()
+                   {
+                       Id = crs.Id,
+                       DroneParcel = new DroneInParcel() { CurrentLocation = GetDrone(crs.DroneId).CurrentLocation, Battery = GetDrone(crs.DroneId).Battery, Id = crs.DroneId },
+                       Sender = new CustomerInParcel() { Id = crs.SenderId, CustomerName = GetCustomer(crs.SenderId).Name },
+                       Target = new CustomerInParcel() { Id = crs.TargetId, CustomerName = GetCustomer(crs.TargetId).Name },
+                       Requested = crs.Requested,
+                       Scheduled = crs.Scheduled,
+                       PickedUp = crs.PickedUp,
+                       Delivered = crs.Delivered,
+                       Weight = (BO.WeightCategories)((int)crs.Weight),
+                       Priority=(BO.Priorities)crs.Priority
+                   };
+
         }
     }
 }

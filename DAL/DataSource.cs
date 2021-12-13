@@ -61,11 +61,11 @@ namespace DalObject
                     TargetId = CustomersList[rand.Next(10)].Id,
                     Weight = (WeightCategories)rand.Next(3),
                     Priority = (Priorities)rand.Next(2),
-                    Requested = DateTime.Now,
+                    Requested = null,
                     DroneId =0,
-                    Scheduled =new DateTime(),
-                    PickedUp = new DateTime(),
-                    Delivered = new DateTime()
+                    Scheduled =null,
+                    PickedUp = null,
+                    Delivered = null
                 };
                 ParcelsList.Add(p);
             }

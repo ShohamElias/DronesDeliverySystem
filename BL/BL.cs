@@ -46,7 +46,7 @@ namespace IBL
                         double ba = amountOfbattery(dd,dd.CurrentLocation, s.StationLocation);
                         item.Battery = rand.Next((int)ba, 101);
                         IDAL.DO.Parcel p = AccessIdal.GetParcel(item.IdOfParcel);
-                        DateTime d = new DateTime();
+                        DateTime? d = null;
                         if (p.PickedUp == d)
                         {
                            

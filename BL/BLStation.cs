@@ -82,9 +82,9 @@ namespace IBL
                 if (name != "")
                     s.Name = name;
                 //Station t=get
-                int n = AccessIdal.NumOfChargingNow(id);
-                if (numOfChargingSlots >=n)
-                    s.ChargeSlots = numOfChargingSlots - n;
+                //int n = AccessIdal.NumOfChargingNow(id);
+                //if (numOfChargingSlots >=n)###############doing problems!
+                s.ChargeSlots = numOfChargingSlots/* - n*/;
                 AccessIdal.UpdateStation(s);
             }
             catch (IDAL.DO.BadIdException)
@@ -137,6 +137,21 @@ namespace IBL
 
         /// </summary>
         /// <returns></returns>
+        /// 
+        public IEnumerable<Station> GetStationsforNoEmpty()
+        {
+            return from sic in AccessIdal.GetALLStationsBy(sic => sic.ChargeSlots == 0)
+                   let crs = AccessIdal.GetStation(sic.Id)
+                   select new BO.Station()
+                   {
+                       Id = crs.Id,
+                       Name = crs.Name,
+                       StationLocation = new Location() {Lattitude= crs.Lattitude, Longitude= crs.Longitude },
+                       ChargeSlots = crs.ChargeSlots
+                       
+                   };
+        }
+
         public IEnumerable<Station> GetAllStations()
         {
             return from item in AccessIdal.GetALLStation()

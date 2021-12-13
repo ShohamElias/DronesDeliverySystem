@@ -72,7 +72,7 @@ namespace DalObject
                 throw new IDAL.DO.BadIdException(droneId, "This drone id doesnt exists");
             p.DroneId = droneId; //adding the drone id to the parcel
             DataSource.ParcelsList.Remove(p);
-            p.Scheduled = DateTime.Now;
+            p.Scheduled = null;
             DataSource.ParcelsList.Add(p);
         }
 
@@ -86,9 +86,6 @@ namespace DalObject
             Drone d = DataSource.DroneList.Find(x => x.Id == droneId);//finding the drone
             if (d.Id != droneId)
                 throw new IDAL.DO.BadIdException(droneId, "This drone id doesnt exists");
-            //DataSource.DroneList.Remove(d);
-            //d.Status = DroneStatuses.Maintenance; //changing to the needed status
-            //DataSource.DroneList.Add(d);
             Station s = DataSource.StationsList.Find(x => x.Id == stationId);//finding the station
             if (s.Id != stationId)
                 throw new IDAL.DO.BadIdException(stationId, "This station id doesnt exists");
@@ -194,7 +191,13 @@ namespace DalObject
         public IEnumerable<DroneCharge> GetALLDroneCharges(/*Predicate<DroneCharge> P*/)
         {
             return from d in DataSource.DChargeList
-                   //where P(d)
+                       //where P(d)
+                   select d;
+        }
+        public IEnumerable<Drone> GetALLDronesBy(Predicate<Drone> P)
+        {
+            return from d in DataSource.DroneList
+                  where P(d)
                    select d;
         }
     }
