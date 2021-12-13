@@ -44,7 +44,7 @@ namespace ConsoleUI
                         {
                             case AddOpt.Exit: return;//if wants to exit
                             case AddOpt.AddDrone://adding a drone
-                                Console.WriteLine("id, model, status, maxweight, battery,");
+                                Console.WriteLine("id, model, maxweight,");
                                 Drone d = new Drone();//creating an empty drone and getting inputs for values
                                 d.Id = Convert.ToInt32(Console.ReadLine());
                                 d.Model= Console.ReadLine();
@@ -104,11 +104,13 @@ namespace ConsoleUI
                             case UpdateOpt.Exit:
                                 break;
                             case UpdateOpt.linkParcelToDrone://linking a parcel to a drone (the parcel will be sent by it)
-                                parcelid = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine("please enter parcel id and drone id");
+                                parcelid = Convert.ToInt32(Console.ReadLine());       
                                 droneId = Convert.ToInt32(Console.ReadLine());
                                 dal.LinkParcelToDrone(parcelid, droneId);//sending the id to the funct that will link them
                                 break;
                             case UpdateOpt.PickParcel://updating a parcel to be picked
+                                Console.WriteLine("please enter parcel id");
                                 parcelid = Convert.ToInt32(Console.ReadLine());//getting the id parcel
                                 dal.PickParcel(parcelid);//sending to the func to update it
                                 break;
@@ -117,11 +119,20 @@ namespace ConsoleUI
                                 dal.DeliveringParcel(parcelid);//sending to the func to update it
                                 break;
                             case UpdateOpt.DroneToCharge://sending a chosen drone to charge
+                                Console.WriteLine("please enter Drone id");
                                 parcelid = Convert.ToInt32(Console.ReadLine());
+                                List<Station> StationsList = dal.ListStation().ToList();
+                                foreach (Station item in StationsList)
+                                {
+                                    if (item.ChargeSlots != 0)
+                                        Console.WriteLine(item);
+                                }
+                                Console.WriteLine(" please choose a station id");
                                 stationId = Convert.ToInt32(Console.ReadLine());
                                 dal.DroneToCharge(parcelid, stationId);//sending to the func to update it
                                 break;
                             case UpdateOpt.EndingCharge://ending the charge of a drone
+                                Console.WriteLine("please enter Drone id");
                                 parcelid = Convert.ToInt32(Console.ReadLine());
                                 dal.EndingCharge(parcelid);//sending the chosen parcel's id to the func to update it
                                 break;
@@ -132,6 +143,7 @@ namespace ConsoleUI
 
                     case MenuOpt.ShowOne:
                         ShowONEOpt soo;
+                        Console.WriteLine("1-4  \n 1:Drone, 2:Station, 3:Parcel, 4:Customer");
                         int id;
                         flag = int.TryParse(Console.ReadLine(), out option);
                         soo = (ShowONEOpt)option;
@@ -140,18 +152,22 @@ namespace ConsoleUI
                             case ShowONEOpt.Exit:
                                 break;
                             case ShowONEOpt.ShowDrone://printing a chosen drone
+                                Console.WriteLine("please enter Drone id:");
                                 id = Convert.ToInt32(Console.ReadLine());
-                                Console.WriteLine(dal.ShowOneDrone(id));
+                                Console.WriteLine(dal.GetDrone(id));
                                 break;
                             case ShowONEOpt.ShowStation://printing a chosen station
+                                Console.WriteLine("please enter Station id:");
                                 id = Convert.ToInt32(Console.ReadLine());
                                 Console.WriteLine(dal.ShowOneStation(id));
                                 break;
                             case ShowONEOpt.ShowParcel://printing a chosen parcel
+                                Console.WriteLine("please enter Parcel id:");
                                 id = Convert.ToInt32(Console.ReadLine());
                                 Console.WriteLine(dal.ShowOneParcel(id));
                                 break;
                             case ShowONEOpt.ShowCustomer://printing a chosen customer
+                                Console.WriteLine("please enter Customer id:");
                                 id = Convert.ToInt32(Console.ReadLine());
                                 Console.WriteLine(dal.ShowOneCustomer(id));
                                 break;
@@ -161,7 +177,7 @@ namespace ConsoleUI
 
                         break;
                     case MenuOpt.ShowList:
-                        Console.WriteLine("1-6");
+                        Console.WriteLine("1-6  \n 1:Drone List, 2: Station List, 3:Parcel List, 4:Customer List, 5: Unmmached parcels List, 6: Stations with empty slots list");
                         ShowListOpt slo;
                         flag = int.TryParse(Console.ReadLine(), out option);
                         slo = (ShowListOpt)option;

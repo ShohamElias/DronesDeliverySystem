@@ -66,13 +66,13 @@ namespace DalObject
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
             if (p.Id != parcelId)
-                throw new IDAL.DO.BadIdException(droneId, "This parcel id doesnt exists");
+                throw new IDAL.DO.BadIdException(parcelId, "This parcel id doesnt exists");
             Drone d = DataSource.DroneList.Find(x => x.Id == droneId);//finding the drone
             if (d.Id != droneId)
                 throw new IDAL.DO.BadIdException(droneId, "This drone id doesnt exists");
-            p.DroneId = droneId; //adding the drone id to the parcel
             DataSource.ParcelsList.Remove(p);
-            p.Scheduled = null;
+            p.DroneId = droneId; //adding the drone id to the parcel
+            p.Scheduled = DateTime.Now;
             DataSource.ParcelsList.Add(p);
         }
 
@@ -98,7 +98,7 @@ namespace DalObject
                 StationId = stationId
             };
             DataSource.DChargeList.Add(dc);//adding it to the list
-            Console.WriteLine(s.ChargeSlots);
+            //Console.WriteLine(s.ChargeSlots);
         }
 
         /// <summary>
@@ -121,14 +121,14 @@ namespace DalObject
         /// </summary>
         /// <param name="_id"></param>the wanted drone
         /// <returns></returns>
-        public Drone ShowOneDrone(int _id)
-        {
-            Drone d = DataSource.DroneList.Find(x => x.Id == _id); //finding the drone by its id
-            if (d.Id == _id)
-                return d;
-            else
-                throw new IDAL.DO.BadIdException(_id, "This id doesnt exists");
-        }
+        //public Drone ShowOneDrone(int _id)
+        //{
+        //    Drone d = DataSource.DroneList.Find(x => x.Id == _id); //finding the drone by its id
+        //    if (d.Id == _id)
+        //        return d;
+        //    else
+        //        throw new IDAL.DO.BadIdException(_id, "This id doesnt exists");
+        //}
 
         /// <summary>
         /// the func create a copy of the drones list and returns it

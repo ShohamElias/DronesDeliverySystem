@@ -28,7 +28,7 @@ namespace IDAL
         void EndingCharge(int droneId);
         public  int GetChargeRate();
 
-        DO.Drone ShowOneDrone(int _id);
+       // DO.Drone ShowOneDrone(int _id);
         public void UpdateDrone(DO.Drone newD);
         double[] ElectricityUse();
         IEnumerable<DO.Drone> ListDrone();
