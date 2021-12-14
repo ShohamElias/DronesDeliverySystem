@@ -31,7 +31,7 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new DroneListShow(bl).Show();
+            new DronesListShow(bl).Show();
         }
     }
 }

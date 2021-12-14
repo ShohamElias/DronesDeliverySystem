@@ -15,21 +15,14 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for DroneListShow.xaml
+    /// Interaction logic for DronesListShow.xaml
     /// </summary>
-    public partial class DroneListShow : Window
+    public partial class DronesListShow : Window
     {
-        IBL.IBL bl;
-        public DroneListShow()
+        public DronesListShow(IBL.IBL _bl)
         {
             InitializeComponent();
-        }
-
-        public DroneListShow(IBL.IBL _bl)
-        {
-            InitializeComponent();
-             bl = _bl;
-            DronesListView.ItemsSource = bl.GetAllDrones();
+            DronesListView.ItemsSource = _bl.GetAllDrones();
         }
     }
 }
