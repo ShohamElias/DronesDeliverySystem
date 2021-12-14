@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="DroneListShow" Height="450" Width="800">
-    <Grid Margin="0,-4,0,4">
-        <Grid Name="MainGrid" Margin="0,-2,0,2">
+        Title="DroneListShow" Height="640" Width="800">
+    <Grid>
+        <Grid Name="MainGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50*"/>
                 <RowDefinition Height="400*"/>
             </Grid.RowDefinitions>
-            <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+            <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+VerticalAlignment="Stretch" Width="auto">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -20,7 +21,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
             </Grid>
-            <ListView x:Name="DronesListView" Grid.Row="1" Margin="39,83,39,131">
+            <ListView x:Name="DronesListView" Grid.Row="1" Margin="66,121,66,190">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>

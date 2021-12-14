@@ -26,6 +26,12 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
+            bl = new IBL.BL();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new DroneListShow(bl).Show();
         }
     }
 }
