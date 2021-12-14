@@ -18,6 +18,7 @@ namespace IBL
         public void LinkDroneToParcel(int id);
         public string ShowOneDrone(int _id); /// <returns></returns> list of drones
         public IEnumerable<BO.DroneToList> ListDrone();
+        public IEnumerable<BO.DroneToList> GetDroneBy(Predicate<BO.DroneToList> P);
 
         #endregion
 

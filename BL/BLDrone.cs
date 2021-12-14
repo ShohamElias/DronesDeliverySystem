@@ -328,5 +328,12 @@ namespace IBL
             }
             return temp;
         }
+
+        public IEnumerable<DroneToList> GetDroneBy(Predicate<DroneToList> P)
+        {
+            return from d in DronesBL
+                   where P(d)
+                   select d;
+        }
     }
 }

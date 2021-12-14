@@ -93,50 +93,57 @@ namespace ConsoleUI_BL
                             UpdateOpt upp;
                             flag = int.TryParse(Console.ReadLine(), out option);
                             upp = (UpdateOpt)option;
-                            int parcelid, droneId, stationId, time;
+                            int parcelid, Id, stationId, time;
                             string nameChange;
                             switch (upp)//update options:
                             {
                                 case UpdateOpt.Exit:
                                     break;
                                 case UpdateOpt.linkParcelToDrone://linking a parcel to a drone (the parcel will be sent by it)
-                                                                 //parcelid = Convert.ToInt32(Console.ReadLine());
-                                    droneId = Convert.ToInt32(Console.ReadLine());
-                                    bl.LinkDroneToParcel(droneId);//sending the id to the funct that will link them
+                                    Console.WriteLine("please enter drone id");
+                                    Id = Convert.ToInt32(Console.ReadLine());
+                                    bl.LinkDroneToParcel(Id);//sending the id to the funct that will link them
                                     break;
                                 case UpdateOpt.PickParcel://updating a parcel to be picked
-                                    parcelid = Convert.ToInt32(Console.ReadLine());//getting the id parcel
+                                    Console.WriteLine("please enter drone id");
+                                    parcelid = Convert.ToInt32(Console.ReadLine());//getting the id drone
                                     bl.PickParcel(parcelid);//sending to the func to update it
                                     break;
                                 case UpdateOpt.DeliveringParcel://updating a parcel to be delivered
+                                    Console.WriteLine("please enter drone id");
                                     parcelid = Convert.ToInt32(Console.ReadLine());
                                     bl.DeliveringParcel(parcelid);//sending to the func to update it
                                     break;
                                 case UpdateOpt.DroneToCharge://sending a chosen drone to charge
-                                    droneId = Convert.ToInt32(Console.ReadLine());
-                                    bl.DroneToCharge(droneId);//sending to the func to update it
+                                    Console.WriteLine("please enter drone id");
+                                    Id = Convert.ToInt32(Console.ReadLine());
+                                    bl.DroneToCharge(Id);//sending to the func to update it
                                     break;
                                 case UpdateOpt.EndingCharge://ending the charge of a drone
-                                    droneId = Convert.ToInt32(Console.ReadLine());
+                                    Console.WriteLine("please enter drone id");
+                                    Id = Convert.ToInt32(Console.ReadLine());
                                     time = Convert.ToInt32(Console.ReadLine());//what time means???##########
-                                    bl.EndCharging(droneId, time);//sending the chosen parcel's id to the func to update it
+                                    bl.EndCharging(Id, time);//sending the chosen parcel's id to the func to update it
                                     break;
-                                case UpdateOpt.DroneModel://sending a chosen drone to charge
-                                    droneId = Convert.ToInt32(Console.ReadLine());
+                                case UpdateOpt.DroneModel://sending a chosen drone to change its model
+                                    Console.WriteLine("please enter drone id and the new model");
+                                    Id = Convert.ToInt32(Console.ReadLine());
                                     nameChange = Console.ReadLine();
-                                    bl.UpdateDrone(droneId, nameChange);//sending to the func to update it
+                                    bl.UpdateDrone(Id, nameChange);//sending to the func to update it
                                     break;
-                                case UpdateOpt.Station://ending the charge of a drone
-                                    droneId = Convert.ToInt32(Console.ReadLine());
-                                    nameChange = Console.ReadLine();
-                                    time = Convert.ToInt32(Console.ReadLine());//time= chargingslots
-                                    bl.Updatestation(droneId, nameChange, time);//sending the chosen parcel's id to the func to update it
-                                    break;
-                                case UpdateOpt.Customer://ending the charge of a drone
-                                    droneId = Convert.ToInt32(Console.ReadLine());
+                                case UpdateOpt.Station:
+                                    Console.WriteLine("please enter station id, name and number of charge slots");
+                                    Id = Convert.ToInt32(Console.ReadLine());
                                     nameChange = Console.ReadLine();
                                     time = Convert.ToInt32(Console.ReadLine());//time= chargingslots
-                                    bl.UpdateCustomer(droneId, nameChange, time.ToString());//sending the chosen parcel's id to the func to update it
+                                    bl.Updatestation(Id, nameChange, time);//sending the chosen parcel's id to the func to update it
+                                    break;
+                                case UpdateOpt.Customer:
+                                    Console.WriteLine("please enter customer id. name, phone ");
+                                    Id = Convert.ToInt32(Console.ReadLine());
+                                    nameChange = Console.ReadLine();
+                                    time = Convert.ToInt32(Console.ReadLine());//time= phone
+                                    bl.UpdateCustomer(Id, nameChange, time.ToString());//sending the chosen parcel's id to the func to update it
                                     break;
                                 default:
                                     break;
@@ -144,6 +151,7 @@ namespace ConsoleUI_BL
                             break;
 
                         case MenuOpt.ShowOne:
+                            Console.WriteLine("1-4  \n 1:Drone, 2:Station, 3:Parcel, 4:Customer");
                             ShowONEOpt soo;
                             int id;
                             flag = int.TryParse(Console.ReadLine(), out option);
@@ -153,18 +161,22 @@ namespace ConsoleUI_BL
                                 case ShowONEOpt.Exit:
                                     break;
                                 case ShowONEOpt.ShowDrone://printing a chosen drone
+                                    Console.WriteLine("please enter Drone id:");
                                     id = int.Parse(Console.ReadLine());
                                     Console.WriteLine(bl.ShowOneDrone(id));
                                     break;
                                 case ShowONEOpt.ShowStation://printing a chosen station
+                                    Console.WriteLine("please enter station id:");
                                     id = int.Parse(Console.ReadLine());
                                     Console.WriteLine(bl.ShowOneStation(id));
                                     break;
                                 case ShowONEOpt.ShowParcel://printing a chosen parcel
+                                    Console.WriteLine("please enter parcel id:");
                                     id = int.Parse(Console.ReadLine());
                                     Console.WriteLine(bl.ShowOneParcel(id));
                                     break;
                                 case ShowONEOpt.ShowCustomer://printing a chosen customer
+                                    Console.WriteLine("please enter customer id:");
                                     id = int.Parse(Console.ReadLine());
                                     Console.WriteLine(bl.ShowOneCustomer(id));
                                     break;
@@ -175,6 +187,8 @@ namespace ConsoleUI_BL
                             break;
                         case MenuOpt.ShowList:
                             Console.WriteLine("1-6");
+                            Console.WriteLine("1-6  \n 1:Drone List, 2: Station List, 3:Parcel List, 4:Customer List, 5: Unmmached parcels List, 6: Stations with empty slots list");
+
                             ShowListOpt slo;
                             flag = int.TryParse(Console.ReadLine(), out option);
                             slo = (ShowListOpt)option;

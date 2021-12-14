@@ -6,7 +6,24 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="DroneShow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Margin="0,0,0,-6">
+        <Label x:Name="label" Content="Id" Margin="48,20,655,376"/>
+        <Label x:Name="label1" Content="model" Margin="48,307,655,89"/>
+        <Label x:Name="label2" Content="Battery" Margin="48,253,655,143"/>
+        <Label x:Name="label3" Content="Maximum Weight" Margin="48,351,641,45"/>
+        <Label x:Name="label4" Content="Status" Margin="48,62,655,334"/>
+        <Label x:Name="label5" Content="Delivery" Margin="49,111,654,285"/>
+        <Label x:Name="label6" Content="Latitude" Margin="49,160,654,236"/>
+        <Label x:Name="label7" Content="Lomgtitude" Margin="49,209,653,187" RenderTransformOrigin="0,0"/>
+        <ComboBox x:Name="WeightSelector" HorizontalAlignment="Left" Margin="194,307,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox2" HorizontalAlignment="Left" Margin="194,164,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.249,0.144"/>
+        <TextBox x:Name="textBox3" HorizontalAlignment="Left" Margin="194,213,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox4" HorizontalAlignment="Left" Margin="194,257,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox5" HorizontalAlignment="Left" Margin="194,355,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="StatusSelector" HorizontalAlignment="Left" Margin="194,64,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="194,24,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Margin="194,115,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.202,0.976"/>
+        <Button x:Name="button" Content="Add" HorizontalAlignment="Left" Margin="575,62,0,0" VerticalAlignment="Top" Width="100" Click="button_Click"/>
+
     </Grid>
 </Window>
