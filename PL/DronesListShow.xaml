@@ -23,7 +23,7 @@ VerticalAlignment="Stretch" Width="auto">
                 <ComboBox x:Name="StatusSelector" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="StatusSelector_SelectionChanged"/>
                 <ComboBox x:Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelector_SelectionChanged"/>
             </Grid>
-            <ListView x:Name="DronesListView" Grid.Row="1" Margin="66,121,66,190">
+            <ListView x:Name="DronesListView" Grid.Row="1" Margin="66,121,66,190" SelectionChanged="DronesListView_SelectionChanged" MouseDoubleClick="DronesListView_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>

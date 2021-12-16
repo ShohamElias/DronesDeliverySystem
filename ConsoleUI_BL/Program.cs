@@ -128,8 +128,8 @@ namespace ConsoleUI_BL
                                 case UpdateOpt.EndingCharge://ending the charge of a drone
                                     Console.WriteLine("please enter drone id");
                                     Id = Convert.ToInt32(Console.ReadLine());
-                                    time = Convert.ToInt32(Console.ReadLine());//what time means???##########
-                                    bl.EndCharging(Id, time);//sending the chosen parcel's id to the func to update it
+                                  //  time = Convert.ToInt32(Console.ReadLine());//what time means???##########
+                                    bl.EndCharging(Id);//sending the chosen parcel's id to the func to update it
                                     break;
                                 case UpdateOpt.DroneModel://sending a chosen drone to change its model
                                     Console.WriteLine("please enter drone id and the new model");

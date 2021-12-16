@@ -11,7 +11,7 @@ namespace IBL
     {
         // public IDAL.IDal dl;
         public IDAL.IDal AccessIdal;
-        List<DroneToList> DronesBL;
+        public List<DroneToList> DronesBL;
         internal static Random rand;//random
         internal static int chargeRate;
 

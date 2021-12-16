@@ -18,6 +18,7 @@ namespace IBL
             public ParcelInTransfer CurrentParcel { get; set; }
             public Location CurrentLocation { get; set; }
 
+
             public override string ToString()
             {
                 return $"Drone:  Id = {Id}, Model = {Model}, MaxWeight = {MaxWeight}, Status = {Status}, Battery = {Battery}";

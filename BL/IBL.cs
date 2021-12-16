@@ -14,10 +14,10 @@ namespace IBL
         public void AddDrone(BO.Drone d, int x);
         public void UpdateDrone(int id, string m);
         public void DroneToCharge(int id);
-        public void EndCharging(int id, int timeI);
+        public void EndCharging(int id/*, int timeI*/);
         public void LinkDroneToParcel(int id);
         public IEnumerable<BO.DroneToList> ListDrone();
-        public IEnumerable<BO.DroneToList> GetDroneBy(Predicate<BO.DroneToList> P);
+        public IEnumerable<BO.Drone> GetDroneBy(Predicate<BO.Drone> P);
 
         #endregion
 

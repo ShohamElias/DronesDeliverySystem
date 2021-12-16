@@ -204,6 +204,7 @@ namespace IBL
             dt.Battery -= b;
             dt.CurrentLocation = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
             dt.Status = DroneStatuses.Maintenance;
+            dt.TimeCharge = DateTime.Now;
             DronesBL.Add(dt);
             Station ss = GetStation(s.Id);
             DroneCharge dc = new DroneCharge() { Battery = dt.Battery, DroneId = dt.Id };
@@ -224,20 +225,27 @@ namespace IBL
         /// </summary>
         /// <param name="id"></param> the id of the drone
         /// <param name="timeI"></param> the amount of time it was charging (updating the battery)
-        public void EndCharging(int id, int timeI)
+        public void EndCharging(int id)
         {
             if (!AccessIdal.CheckDrone(id))
                 throw new IDAL.DO.BadIdException(id, "this drone doesnt exist"); //#######
-            for (int i = 0; i < DronesBL.Count(); i++)
-            {
-                if (id == DronesBL[i].Id)
-                {
-                    if (DronesBL[i].Status != DroneStatuses.Maintenance)
-                        throw new WrongDroneStatException(id, "this drone is not in charge"); //#####
-                    DronesBL[i].Status=DroneStatuses.Available;
-                    DronesBL[i].Battery += timeI * chargeRate;
-                }
-            }
+            DroneToList dt = DronesBL.Find(x => x.Id == id);
+            if (dt.Status != DroneStatuses.Maintenance)
+                throw new WrongDroneStatException(id, "this drone is not in charge"); //#####
+            
+            DronesBL.Remove(dt);
+            dt.Status = DroneStatuses.Available;
+          //  dt.Battery +=  * chargeRate;
+            //foreach (var item in DronesBL)
+            //{
+            //    if (id == item.Id)
+            //    {
+            //        if (item.Status != DroneStatuses.Maintenance)
+            //            throw new WrongDroneStatException(id, "this drone is not in charge"); //#####
+            //        item.Status=DroneStatuses.Available;
+            //        DronesBL[i].Battery +=(DateTime.Now- DronesBL[i].TimeCharge) * chargeRate;
+            //    }
+            //}
             //d.Battery += timeI * chargeRate;
             //d.Status = DroneStatuses.Available;
             IDAL.DO.DroneCharge dc = AccessIdal.GetDroneCharge(id);
@@ -320,9 +328,9 @@ namespace IBL
             return temp;
         }
 
-        public IEnumerable<DroneToList> GetDroneBy(Predicate<DroneToList> P)
+        public IEnumerable<Drone> GetDroneBy(Predicate<Drone> P)
         {
-            return from d in DronesBL
+            return from d in GetAllDrones()
                    where P(d)
                    select d;
         }
