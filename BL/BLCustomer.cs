@@ -139,16 +139,7 @@ namespace IBL
             }
             return cb;
         }
-        /// <summary>
-        /// the functions gets an id and returns the information of customer the id belongs to
-        /// </summary>
-        /// <param name="_id"></param>
-        /// <returns></returns>
-        public string ShowOneCustomer(int _id)
-        {
-            Customer s = GetCustomer(_id); //finding the station by its id
-            return s.ToString();
-        }
+
         /// <summary>
         /// the funxtion returns all the customers that has received parcels
         /// </summary>

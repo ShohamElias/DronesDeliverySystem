@@ -116,19 +116,7 @@ namespace DalObject
             sta1.ChargeSlots++;//adding an empty charge slot
             DataSource.DChargeList.Remove(dc);//removing from the list
         }
-        /// <summary>
-        /// the function gets an id and prints the drone with the same id
-        /// </summary>
-        /// <param name="_id"></param>the wanted drone
-        /// <returns></returns>
-        //public Drone ShowOneDrone(int _id)
-        //{
-        //    Drone d = DataSource.DroneList.Find(x => x.Id == _id); //finding the drone by its id
-        //    if (d.Id == _id)
-        //        return d;
-        //    else
-        //        throw new IDAL.DO.BadIdException(_id, "This id doesnt exists");
-        //}
+
 
         /// <summary>
         /// the func create a copy of the drones list and returns it

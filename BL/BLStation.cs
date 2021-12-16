@@ -7,7 +7,7 @@ using IBL.BO;
 
 namespace IBL
 {
-   public partial class BL
+    public partial class BL
     {
         /// <summary>
         /// the func is an adpater from dal object to a bl object of station
@@ -19,9 +19,9 @@ namespace IBL
             Station stationBO = new Station();
             int id = stationDO.Id;
             IDAL.DO.Station s;
-            try //???
+            try 
             {
-                 s = AccessIdal.GetStation(id);
+                s = AccessIdal.GetStation(id);
             }
             catch (IDAL.DO.BadIdException)
             {
@@ -30,31 +30,28 @@ namespace IBL
             }
             s.CopyPropertiesTo(stationBO);
             stationDO.CopyPropertiesTo(stationBO);
-            //stationBO.DronesinCharge= from sic in AccessIdal.GetALLDrone(sic=> sic.Id==Id )
-            //                          let 
             stationBO.DronesinCharge = new List<DroneCharge>();
-            DroneCharge dc= new DroneCharge();
+            DroneCharge dc = new DroneCharge();
             stationBO.DronesinCharge.Add(dc);
             return stationBO;
-       
+
         }
 
         /// <summary>
         /// the func gets a station and adds it to the db on dal
         /// </summary>
         /// <param name="s"></param>
-        public void AddStation( Station s)
+        public void AddStation(Station s)
         {
             if (AccessIdal.CheckStation(s.Id))
-                throw new IDAL.DO.IDExistsException(s.Id,"this station already exists");
+                throw new IDAL.DO.IDExistsException(s.Id, "this station already exists");
             IDAL.DO.Station newS = new IDAL.DO.Station()
-            { 
-                Id=s.Id,
-                Name=s.Name,
-                Lattitude=s.StationLocation.Lattitude,
-                Longitude=s.StationLocation.Longitude,
-                ChargeSlots=s.ChargeSlots,
-                //רשימה מאיפה? זה דיאייאל לא ביאל
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Lattitude = s.StationLocation.Lattitude,
+                Longitude = s.StationLocation.Longitude,
+                ChargeSlots = s.ChargeSlots,
             };
             try
             {
@@ -90,7 +87,7 @@ namespace IBL
             catch (IDAL.DO.BadIdException)
             {
 
-                throw new BadIdException(id,"station");
+                throw new BadIdException(id, "station");
             }
         }
         /// <summary>
@@ -103,12 +100,12 @@ namespace IBL
             IDAL.DO.Station s;
             try
             {
-               s = AccessIdal.GetStation(id);
+                s = AccessIdal.GetStation(id);
             }
             catch (IDAL.DO.BadIdException)
             {
 
-                throw new BadIdException(id,"this station doesnt exists");
+                throw new BadIdException(id, "this station doesnt exists");
             }
             Station sb = new Station()
             {
@@ -117,17 +114,16 @@ namespace IBL
                 Name = s.Name,
                 ChargeSlots = s.ChargeSlots,
                 DronesinCharge = new List<DroneCharge>()
-              
+
             };
 
-            foreach (IDAL.DO.DroneCharge item in GetAllDroneCharges())///############
+            foreach (IDAL.DO.DroneCharge item in GetAllDroneCharges())
             {
-                if(AccessIdal.GetDroneCharge(item.DroneId).StationId==sb.Id)
-              
-                    {
-                        DroneCharge dc = new DroneCharge() { Battery = GetDrone(item.DroneId).Battery, DroneId = item.DroneId };
-                        sb.DronesinCharge.Add(dc);
-                    }
+                if (AccessIdal.GetDroneCharge(item.DroneId).StationId == sb.Id)
+                {
+                    DroneCharge dc = new DroneCharge() { Battery = GetDrone(item.DroneId).Battery, DroneId = item.DroneId };
+                    sb.DronesinCharge.Add(dc);
+                }
             }
 
             return sb;
@@ -139,35 +135,22 @@ namespace IBL
         /// 
         public IEnumerable<Station> GetStationsforNoEmpty()
         {
-            return from sic in AccessIdal.GetALLStationsBy(sic => sic.ChargeSlots == 0)
+            return from sic in AccessIdal.GetALLStationsBy(sic => sic.ChargeSlots != 0)
                    let crs = AccessIdal.GetStation(sic.Id)
-                   select new BO.Station()
-                   {
-                       Id = crs.Id,
-                       Name = crs.Name,
-                       StationLocation = new Location() {Lattitude= crs.Lattitude, Longitude= crs.Longitude },
-                       ChargeSlots = crs.ChargeSlots
-                       
-                   };
+                   select GetStation(crs.Id);
         }
-       
 
+        /// <summary>
+        /// the func returns all of the stations
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Station> GetAllStations()
         {
             return from item in AccessIdal.GetALLStation()
                    orderby item.Id
                    select GetStation(item.Id);
         }
-        /// <summary>
-        ///         ///  the functions gets an id and returs the station the id belongs to
-
-        /// </summary>
-        /// <param name="_id"></param>
-        /// <returns></returns>
-        public string ShowOneStation(int _id)
-        {
-            Station s = GetStation( _id); //finding the station by its id
-            return s.ToString();
-        }
+       
+       
     }
 }

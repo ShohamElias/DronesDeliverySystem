@@ -41,11 +41,17 @@ namespace ConsoleUI_BL
                             {
                                 case AddOpt.Exit: return;//if wants to exit
                                 case AddOpt.AddDrone://adding a drone
-                                    Console.WriteLine("id, model, maxweight, STATION ID");
+                                    Console.WriteLine("id, model, maxweight");
                                     Drone d = new Drone();//creating an empty drone and getting inputs for values
                                     d.Id = Convert.ToInt32(Console.ReadLine());
                                     d.Model = Console.ReadLine();
                                     d.MaxWeight = (WeightCategories)Convert.ToInt32(Console.ReadLine());
+                                    List<Station> StationsList = bl.GetStationsforNoEmpty().ToList();
+                                    foreach (Station item in StationsList)
+                                    {
+                                        Console.WriteLine(item);
+                                    }
+                                    Console.WriteLine("choose a station id");
                                     neededId = Convert.ToInt32(Console.ReadLine());
                                     bl.AddDrone(d, neededId);//sending to the func to add to the list################### why theres no regular add??????
                                     break;
@@ -163,22 +169,22 @@ namespace ConsoleUI_BL
                                 case ShowONEOpt.ShowDrone://printing a chosen drone
                                     Console.WriteLine("please enter Drone id:");
                                     id = int.Parse(Console.ReadLine());
-                                    Console.WriteLine(bl.ShowOneDrone(id));
+                                    Console.WriteLine(bl.GetDrone(id));
                                     break;
                                 case ShowONEOpt.ShowStation://printing a chosen station
                                     Console.WriteLine("please enter station id:");
                                     id = int.Parse(Console.ReadLine());
-                                    Console.WriteLine(bl.ShowOneStation(id));
+                                    Console.WriteLine(bl.GetStation(id));
                                     break;
                                 case ShowONEOpt.ShowParcel://printing a chosen parcel
                                     Console.WriteLine("please enter parcel id:");
                                     id = int.Parse(Console.ReadLine());
-                                    Console.WriteLine(bl.ShowOneParcel(id));
+                                    Console.WriteLine(bl.GetParcel(id));
                                     break;
                                 case ShowONEOpt.ShowCustomer://printing a chosen customer
                                     Console.WriteLine("please enter customer id:");
                                     id = int.Parse(Console.ReadLine());
-                                    Console.WriteLine(bl.ShowOneCustomer(id));
+                                    Console.WriteLine(bl.GetCustomer(id));
                                     break;
                                 default:
                                     break;

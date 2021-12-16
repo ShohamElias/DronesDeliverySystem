@@ -24,6 +24,7 @@ namespace PL
         {
             InitializeComponent();
             bl = _bl;
+
             StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.DroneStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
         }

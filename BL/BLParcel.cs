@@ -217,16 +217,7 @@ namespace IBL
 
             }
         }
-        /// <summary>
-        /// gets an id of parcel and returns a string output
-        /// </summary>
-        /// <param name="_id"></param> id of parcel
-        /// <returns></returns> string of the parcel details
-        public string ShowOneParcel(int _id)
-        {
-            Parcel s = GetParcel(_id); //finding the station by its id
-            return s.ToString();
-        }
+
         /// <summary>
         /// returbs all of the unmached parcels
         /// </summary>

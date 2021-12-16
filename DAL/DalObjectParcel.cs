@@ -92,19 +92,6 @@ namespace DalObject
         }
 
        
-        /// <summary>
-        /// the function gets an id and prints the parcel with the same id
-        /// </summary>
-        /// <param name="_id"></param>the given parcels id 
-        /// <returns></returns>
-        public Parcel ShowOneParcel(int _id)
-        {
-            Parcel p = DataSource.ParcelsList.Find(x => x.Id == _id); //finding the parcel by its id
-            if (p.Id == _id)
-                return p;
-            else
-                throw new IDAL.DO.BadIdException(_id, "This id doesnt exists");
-        }
 
         /// <summary>
         /// the func create a copy of the parcel list and returns it

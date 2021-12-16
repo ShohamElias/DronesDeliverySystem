@@ -16,7 +16,6 @@ namespace IBL
         public void DroneToCharge(int id);
         public void EndCharging(int id, int timeI);
         public void LinkDroneToParcel(int id);
-        public string ShowOneDrone(int _id); /// <returns></returns> list of drones
         public IEnumerable<BO.DroneToList> ListDrone();
         public IEnumerable<BO.DroneToList> GetDroneBy(Predicate<BO.DroneToList> P);
 
@@ -29,7 +28,6 @@ namespace IBL
 
         public IEnumerable<BO.Customer> GetAllCustomersThatHasDeliveredParcels();
         public BO.Customer GetCustomer(int id);
-        public string ShowOneCustomer(int _id);
         public IEnumerable<BO.Customer> GetAllCusromerRecived();
 
         #endregion
@@ -41,7 +39,6 @@ namespace IBL
         public void UpdateParcel(BO.Parcel p);
         public void PickParcel(int id);
         public void DeliveringParcel(int id);
-        public string ShowOneParcel(int _id);
         public IEnumerable<BO.Parcel> GetAllUnmachedParcels();
 
         #endregion
@@ -51,9 +48,7 @@ namespace IBL
 
         public void AddStation(BO.Station s);
         public void Updatestation(int id, string name, int numOfChargingSlots);
-        public BO.Station GetStation(int id);
         public IEnumerable<BO.Station> GetAllStations();
-        public string ShowOneStation(int _id);
             #endregion
 
         }

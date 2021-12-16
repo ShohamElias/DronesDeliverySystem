@@ -305,16 +305,7 @@ namespace IBL
             dt.IdOfParcel = p2.Id;
             DronesBL.Add(dt);
         }
-        /// <summary>
-        /// gets an id os drone and returns a string output
-        /// </summary>
-        /// <param name="_id"></param> id of drone
-        /// <returns></returns> string of the drone details
-        public string ShowOneDrone(int _id)
-        {
-            Drone s = GetDrone(_id); //finding the drone by its id
-            return s.ToString();
-        }
+
         /// <summary>
         /// the func retuens the list of drones in the constructor
         /// </summary>

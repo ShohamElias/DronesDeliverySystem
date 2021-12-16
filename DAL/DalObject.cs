@@ -101,19 +101,7 @@ namespace DalObject
             DataSource.CustomersList.Add(newD);
         }
 
-        /// <summary>
-        /// the function gets an id and prints the customer with the same id
-        /// </summary>
-        /// <param name="_id"></param>
-        /// <returns></returns>
-        public  Customer ShowOneCustomer(int _id) 
-        {
-            Customer c = DataSource.CustomersList.Find(x => x.Id == _id); //finding the customer by its id
-            if (c.Id == _id)
-                return c;
-            else
-                throw new IDAL.DO.BadIdException(_id, "This id doesnt exists");
-        }
+ 
 
         /// <summary>
         /// the function rturns a copy of the Customer List

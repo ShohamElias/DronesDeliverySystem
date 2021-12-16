@@ -68,19 +68,6 @@ namespace DalObject
                    select stat;
         }
 
-        /// <summary>
-        /// the function gets an id and prints the station with the same id
-        /// </summary>
-        /// <param name="_id"></param>
-        /// <returns></returns>
-        public Station ShowOneStation(int _id)
-        {
-            Station s = DataSource.StationsList.Find(x => x.Id == _id); //finding the station by its id
-            if (s.Id == _id)
-                return s;
-            else
-                throw new IDAL.DO.BadIdException(_id, "This id doesnt exists");
-        }
 
         /// <summary>
         /// the func create a copy of the stations list and returns it
