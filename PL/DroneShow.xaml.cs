@@ -27,6 +27,7 @@ namespace PL
             InitializeComponent();
             bl = _bl;
             //textBox1.Text =" ";
+            
             AddUpdateButton.Content = "Add";
             idtextbox.Text = "";
             modelTextbox.Text = "";
@@ -146,7 +147,8 @@ namespace PL
             else if (d.Status == IBL.BO.DroneStatuses.Maintenance)
                 bl.EndCharging(d.Id);
             else
-            { //massagebox
+            {
+                MessageBox.Show("Couldnt complete task");//massagebox
             }
             this.Close(); 
         }
