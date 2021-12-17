@@ -21,6 +21,7 @@ namespace PL
     {
         IBL.IBL bl;
         IBL.BO.Drone d;
+        bool updateflag = false;
         public DroneShow(IBL.IBL _bl)
         {
             InitializeComponent();
@@ -96,14 +97,23 @@ namespace PL
             }
             else
             {
-                ChargingButton.Visibility = Visibility.Hidden;
-                DeliveryButton.Visibility = Visibility.Hidden;
-                idtextbox.Visibility = Visibility.Visible;
-                idLable.Visibility = Visibility.Visible;
-                modelTextbox.Visibility = Visibility.Visible;
-                modelLable.Visibility = Visibility.Visible;
-
-                idtextbox.Text = d.Id.ToString();
+                if (updateflag == false)
+                {
+                    ChargingButton.Visibility = Visibility.Hidden;
+                    DeliveryButton.Visibility = Visibility.Hidden;
+                    idtextbox.Visibility = Visibility.Visible;
+                    idLable.Visibility = Visibility.Visible;
+                    modelTextbox.Visibility = Visibility.Visible;
+                    modelLable.Visibility = Visibility.Visible;
+                    updateflag = true;
+                    idtextbox.Text = d.Id.ToString();
+                }
+                else
+                {
+                    updateflag = false;
+                    bl.UpdateDrone(d.Id, modelTextbox.Text);
+                    this.Close();
+                }
               //  idtextbox.ena
             }
             
@@ -125,6 +135,14 @@ namespace PL
 
         private void ChargingButton_Click(object sender, RoutedEventArgs e)
         {
+            if (d.Status == IBL.BO.DroneStatuses.Available)
+                bl.DroneToCharge(d.Id);
+            else if (d.Status == IBL.BO.DroneStatuses.Maintenance)
+                bl.EndCharging(d.Id);
+            else
+            { //massagebox
+            }
+            this.Close(); 
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -135,16 +153,17 @@ namespace PL
             {
                 IBL.BO.Parcel p = bl.GetParcel(d.CurrentParcel.Id);
                 if (p.PickedUp == null)
-                    bl.PickParcel(p.Id);
+                    bl.PickParcel(d.Id);
                 else if (p.Delivered == null)
-                    bl.DeliveringParcel(p.Id);
+                    bl.DeliveringParcel(d.Id);
             }
+            this.Close();
+
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            bl.UpdateDrone(d.Id, modelTextbox.Text);
-            this.Close();
+           
         }
 
         //private void Button_Click_1(object sender, RoutedEventArgs e)

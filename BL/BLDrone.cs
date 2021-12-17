@@ -235,19 +235,8 @@ namespace IBL
             
             DronesBL.Remove(dt);
             dt.Status = DroneStatuses.Available;
-          //  dt.Battery +=  * chargeRate;
-            //foreach (var item in DronesBL)
-            //{
-            //    if (id == item.Id)
-            //    {
-            //        if (item.Status != DroneStatuses.Maintenance)
-            //            throw new WrongDroneStatException(id, "this drone is not in charge"); //#####
-            //        item.Status=DroneStatuses.Available;
-            //        DronesBL[i].Battery +=(DateTime.Now- DronesBL[i].TimeCharge) * chargeRate;
-            //    }
-            //}
-            //d.Battery += timeI * chargeRate;
-            //d.Status = DroneStatuses.Available;
+            TimeSpan timeSpan = dt.TimeCharge - DateTime.Now;
+            dt.Battery += timeSpan.TotalHours * chargeRate;
             IDAL.DO.DroneCharge dc = AccessIdal.GetDroneCharge(id);
             Station s = GetStation(dc.StationId);
             s.ChargeSlots++;
