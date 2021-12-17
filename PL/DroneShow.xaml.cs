@@ -33,7 +33,8 @@ namespace PL
             LattextBox.Text = "";
             Lontextbox.Text = "";
             BatteryTextBox.Text = "";
-
+            stationCombo.Visibility = Visibility.Hidden;
+            stationLable.Visibility = Visibility.Hidden;
             ChargingButton.Visibility = Visibility.Hidden;
             DeliveryButton.Visibility = Visibility.Hidden;
             StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.DroneStatuses));
@@ -54,6 +55,8 @@ namespace PL
             Lontextbox.Text = "";
             BatteryTextBox.Text = "";
 
+            stationCombo.Visibility = Visibility.Hidden;
+            stationLable.Visibility = Visibility.Hidden;
 
             idtextbox.Visibility = Visibility.Hidden;
             modelTextbox.Visibility = Visibility.Hidden;
@@ -81,6 +84,9 @@ namespace PL
             // IBL.BO.Station s = bl.GetStationsforNoEmpty().First();
             if (AddUpdateButton.Content.Equals("Add"))
             {
+                int stid = 0;
+                if (stationCombo.SelectedIndex != -1)
+                    stid = stationCombo.SelectedIndex;
                 bl.AddDrone(new IBL.BO.Drone()
                 {
                     Id = Convert.ToInt32(idtextbox.Text.ToString()),
@@ -92,7 +98,7 @@ namespace PL
                     CurrentLocation = null
 
 
-                }, 0);
+                }, stid);
                 this.Close(); ;//station id, how???
             }
             else
@@ -164,6 +170,29 @@ namespace PL
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
            
+        }
+
+        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(StatusSelector.SelectedIndex==2)
+            {
+                stationCombo.Visibility = Visibility.Visible;
+                stationLable.Visibility = Visibility.Visible;
+                stationCombo.ItemsSource = bl.GetAllStations();
+                latlable.Visibility = Visibility.Hidden;
+                label7.Visibility = Visibility.Hidden;
+                LattextBox.Visibility = Visibility.Hidden;
+                Lontextbox.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                LattextBox.Visibility = Visibility.Visible;
+                Lontextbox.Visibility = Visibility.Visible;
+                latlable.Visibility = Visibility.Visible;
+                label7.Visibility = Visibility.Visible;
+                stationCombo.Visibility = Visibility.Hidden;
+                stationLable.Visibility = Visibility.Hidden;
+            }
         }
 
         //private void Button_Click_1(object sender, RoutedEventArgs e)

@@ -12,22 +12,24 @@
             <ColumnDefinition Width="123*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="idLable" Content="Id" Margin="48,20,409,376"/>
-        <Label x:Name="Batterylable" Content="Battery" Margin="48,246,409,150"/>
-        <Label x:Name="WeightLable" Content="Maximum Weight" Margin="48,288,395,108"/>
+        <Label x:Name="Batterylable" Content="Battery" Margin="48,188,409,208"/>
+        <Label x:Name="WeightLable" Content="Maximum Weight" Margin="48,148,395,248"/>
         <Label x:Name="statuslablle" Content="Status" Margin="48,101,409,295"/>
         <Label x:Name="modelLable" Content="Model" Margin="49,60,408,336"/>
-        <Label x:Name="latlable" Content="Latitude" Margin="49,153,408,243"/>
-        <Label x:Name="label7" Content="Lomgtitude" Margin="49,202,407,194" RenderTransformOrigin="0,0"/>
-        <ComboBox x:Name="WeightSelector" HorizontalAlignment="Left" Margin="194,292,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="LattextBox" HorizontalAlignment="Left" Margin="194,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.249,0.144"/>
-        <TextBox x:Name="Lontextbox" HorizontalAlignment="Left" Margin="194,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="BatteryTextBox" HorizontalAlignment="Left" Margin="194,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="StatusSelector" HorizontalAlignment="Left" Margin="194,103,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="latlable" Content="Latitude" Margin="49,228,408,168"/>
+        <Label x:Name="label7" Content="Lomgtitude" Margin="49,263,407,133" RenderTransformOrigin="0,0"/>
+        <ComboBox x:Name="WeightSelector" HorizontalAlignment="Left" Margin="194,152,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="LattextBox" HorizontalAlignment="Left" Margin="194,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.249,0.144"/>
+        <TextBox x:Name="Lontextbox" HorizontalAlignment="Left" Margin="194,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="BatteryTextBox" HorizontalAlignment="Left" Margin="194,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="StatusSelector" HorizontalAlignment="Left" Margin="194,103,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="StatusSelector_SelectionChanged"/>
         <TextBox x:Name="idtextbox" HorizontalAlignment="Left" Margin="194,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="modelTextbox" HorizontalAlignment="Left" Margin="194,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.202,0.976"/>
         <Button x:Name="AddUpdateButton" Content="Add" HorizontalAlignment="Left" Margin="21,62,0,0" VerticalAlignment="Top" Width="100" Click="button_Click" Grid.Column="1"/>
         <Button x:Name="DeliveryButton" Content="Next delivery step" Grid.Column="1" HorizontalAlignment="Left" Height="18" Margin="21,106,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_1"/>
         <Button x:Name="ChargingButton" Content="Charge/Discharge" Grid.Column="1" HorizontalAlignment="Left" Margin="21,147,0,0" VerticalAlignment="Top" Width="102" Click="ChargingButton_Click"/>
+        <ComboBox x:Name="stationCombo" HorizontalAlignment="Left" Margin="424,102,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="stationLable" Content="Select Station" HorizontalAlignment="Left" Margin="337,100,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

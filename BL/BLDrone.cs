@@ -114,8 +114,7 @@ namespace IBL
         /// <param name="stationId"></param> anid of station to charge the drone
         public void AddDrone(Drone d, int stationId)
         {
-            if (!AccessIdal.CheckStation(stationId))
-                throw new BadIdException(stationId,"this station doesn't exist"); 
+            
             IDAL.DO.Station s = AccessIdal.GetStation(stationId);
             IDAL.DO.Drone droneDO = new IDAL.DO.Drone()
             {
@@ -123,6 +122,8 @@ namespace IBL
                 Model = d.Model,
                 MaxWeight = (IDAL.DO.WeightCategories)d.MaxWeight,
             };
+            if (d.CurrentLocation!=null && !AccessIdal.CheckStation(stationId))
+                throw new BadIdException(stationId, "this station doesn't exist");
             if (s.ChargeSlots <= 0)
                 throw new StationProblemException(s.Id, "there is no empty charge slot");
             try
@@ -139,11 +140,14 @@ namespace IBL
                 Id = droneDO.Id,
                 Battery = rand.Next(20, 41),
                 Status = DroneStatuses.Maintenance,
-                CurrentLocation = new Location() { Lattitude = s.Lattitude, Longitude = s.Longitude },
                 MaxWeight = d.MaxWeight,
                 Model = droneDO.Model,
                 IdOfParcel = -1
             };
+            if (d.CurrentLocation == null)
+                dt.CurrentLocation = new Location() { Lattitude = s.Lattitude, Longitude = s.Longitude };
+            else
+                dt.CurrentLocation = d.CurrentLocation;
             DronesBL.Add(dt);
 
         }
@@ -230,13 +234,15 @@ namespace IBL
             if (!AccessIdal.CheckDrone(id))
                 throw new IDAL.DO.BadIdException(id, "this drone doesnt exist"); //#######
             DroneToList dt = DronesBL.Find(x => x.Id == id);
+            DroneToList dss = DronesBL.Find(x => x.Id == id);
             if (dt.Status != DroneStatuses.Maintenance)
                 throw new WrongDroneStatException(id, "this drone is not in charge"); //#####
-            
             DronesBL.Remove(dt);
+
             dt.Status = DroneStatuses.Available;
-            TimeSpan timeSpan = dt.TimeCharge - DateTime.Now;
+            TimeSpan timeSpan = DateTime.Now- dt.TimeCharge ;
             dt.Battery += timeSpan.TotalHours * chargeRate;
+            DronesBL.Add(dt);
             IDAL.DO.DroneCharge dc = AccessIdal.GetDroneCharge(id);
             Station s = GetStation(dc.StationId);
             s.ChargeSlots++;
