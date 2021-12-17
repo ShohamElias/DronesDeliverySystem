@@ -237,11 +237,12 @@ namespace IBL
             DroneToList dss = DronesBL.Find(x => x.Id == id);
             if (dt.Status != DroneStatuses.Maintenance)
                 throw new WrongDroneStatException(id, "this drone is not in charge"); //#####
-            DronesBL.Remove(dt);
-
+           // DronesBL.Remove(dt);
             dt.Status = DroneStatuses.Available;
             TimeSpan timeSpan = DateTime.Now- dt.TimeCharge ;
             dt.Battery += timeSpan.TotalHours * chargeRate;
+            DronesBL.Remove(dss);
+
             DronesBL.Add(dt);
             IDAL.DO.DroneCharge dc = AccessIdal.GetDroneCharge(id);
             Station s = GetStation(dc.StationId);

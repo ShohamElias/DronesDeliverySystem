@@ -121,7 +121,8 @@ namespace IBL
             {
                 if (AccessIdal.GetDroneCharge(item.DroneId).StationId == sb.Id)
                 {
-                    DroneCharge dc = new DroneCharge() { Battery = GetDrone(item.DroneId).Battery, DroneId = item.DroneId };
+                    DroneCharge dc = new DroneCharge() {  DroneId = item.DroneId };
+                    dc.Battery = GetDrone(item.DroneId).Battery;
                     sb.DronesinCharge.Add(dc);
                 }
             }
