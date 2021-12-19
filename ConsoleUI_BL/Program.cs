@@ -67,11 +67,17 @@ namespace ConsoleUI_BL
                                     bl.AddStation(s);//sending to the func to add to the list
                                     break;
                                 case AddOpt.AddParcel://adding a parcel
-                                    Console.WriteLine("id, trget id, weight, priority, sender id");
+                                    Console.WriteLine("enter trget id, weight, priority, sender id");
+                                    Console.WriteLine("choose target and sender from the list:");
+                                    List<Customer> ListCustomer = bl.GetAllCustomers().ToList();
+                                    foreach (Customer item in ListCustomer)
+                                    {
+                                        Console.WriteLine(item);
+                                    }
                                     Parcel per = new Parcel();//creating an empty parcel and getting inputs for values
                                     per.Sender = new CustomerInParcel();
                                     per.Target = new CustomerInParcel();
-                                    per.Id = Convert.ToInt32(Console.ReadLine());
+                                    per.Id =0;
                                     per.Target.Id = Convert.ToInt32(Console.ReadLine());
                                     per.Weight = (WeightCategories)Convert.ToInt32(Console.ReadLine());
                                     per.Priority = (Priorities)Convert.ToInt32(Console.ReadLine());
@@ -192,7 +198,6 @@ namespace ConsoleUI_BL
 
                             break;
                         case MenuOpt.ShowList:
-                            Console.WriteLine("1-6");
                             Console.WriteLine("1-6  \n 1:Drone List, 2: Station List, 3:Parcel List, 4:Customer List, 5: Unmmached parcels List, 6: Stations with empty slots list");
 
                             ShowListOpt slo;

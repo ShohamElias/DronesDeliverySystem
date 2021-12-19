@@ -39,25 +39,28 @@ namespace IBL
         public void AddParcel(Parcel p ) 
         {
             IDAL.DO.Parcel par = new IDAL.DO.Parcel();
-            par.Id = p.Id;
-            par.SenderId = p.Sender.Id;
-            par.TargetId = p.Target.Id;
+            try
+            {
+                GetCustomer(p.Sender.Id);
+                GetCustomer(p.Target.Id);
+
+            }
+            catch (IDAL.DO.BadIdException)
+            {
+                throw new BadIdException(p.Sender.Id, "this target or sender  ID doesnt exists");
+            }
             par.Weight = (IDAL.DO.WeightCategories)p.Weight;
             par.Priority = (IDAL.DO.Priorities)p.Priority;
             par.Requested = null;
-  
+            par.Id = p.Id;
+            par.SenderId = p.Sender.Id;
+            par.TargetId = p.Target.Id;
             par.PickedUp = null;
+
             par.Scheduled = null;
             par.Delivered = null;
-
-            try
-            {
-                AccessIdal.AddParcel(par);
-            }
-            catch (IDAL.DO.IDExistsException)
-            {
-                throw new IDExistsException(par.Id,"this parcel already exists");
-            }
+            AccessIdal.AddParcel(par);
+            
         }
         /// <summary>
         /// returns all the parcel in the list
@@ -172,6 +175,9 @@ namespace IBL
             {
                 double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Sender.Id).CustLocation);
                 d.Battery -= b;
+                dt.Battery -= b;
+                if (dt.Battery < 0)
+                    dt.Battery = 0;
                 dt.CurrentLocation.Lattitude = GetCustomer(p.Sender.Id).CustLocation.Lattitude;
                 dt.CurrentLocation.Longitude = GetCustomer(p.Sender.Id).CustLocation.Longitude;
                 p.PickedUp = DateTime.Now;
@@ -207,6 +213,8 @@ namespace IBL
             {
                 double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Target.Id).CustLocation);
                 dt.Battery -= b;
+                if (dt.Battery < 0)
+                    dt.Battery = 0;
                 dt.CurrentLocation.Lattitude = GetCustomer(p.Target.Id).CustLocation.Lattitude;
                 dt.CurrentLocation.Longitude = GetCustomer(p.Target.Id).CustLocation.Longitude;
                 dt.Status = DroneStatuses.Available;
@@ -216,6 +224,8 @@ namespace IBL
                 DronesBL.Add(dt);
 
             }
+            else
+                throw new Exception("there was an issue with the parcel or drone status");
         }
 
         /// <summary>

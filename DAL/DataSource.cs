@@ -7,7 +7,7 @@ using IDAL.DO;
 
 namespace DalObject
 {
-    public class DataSource
+    internal class DataSource
     {
         internal class Config
         {
@@ -15,7 +15,7 @@ namespace DalObject
             //internal static int stationsI = 0;
             //internal static int customersI = 0;
             //internal static int parcelsI = 0;
-            //public static int countIdParcel = 1;
+            public static int countIdParcel = 1000;
             // public static int availableStations = 0;
             internal static int empty = 0;
             internal static int light = 2;
@@ -56,7 +56,7 @@ namespace DalObject
             {
                 Parcel p = new Parcel()//creating the parcel
                 {
-                    Id = rand.Next(1000, 10001),
+                    Id = Config.countIdParcel++,
                     SenderId = CustomersList[rand.Next(10)].Id,
                     TargetId = CustomersList[rand.Next(10)].Id,
                     Weight = (WeightCategories)rand.Next(3),

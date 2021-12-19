@@ -75,7 +75,7 @@ namespace DalObject
         public   double CustomerDistance(double lat, double lon1, int id) 
         {
             Customer d = DataSource.CustomersList.Find(x => x.Id == id);//finding the customer
-            if (d.Id == id)
+            if (d.Id != id)
                 throw new IDAL.DO.BadIdException(id, "This id doesnt exists");
             return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);//sending to the func to calculate
         }

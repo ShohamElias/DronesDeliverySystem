@@ -241,6 +241,8 @@ namespace IBL
             dt.Status = DroneStatuses.Available;
             TimeSpan timeSpan = DateTime.Now- dt.TimeCharge ;
             dt.Battery += timeSpan.TotalHours * chargeRate;
+            if (dt.Battery >= 100)
+                dt.Battery = 100;
             DronesBL.Remove(dss);
 
             DronesBL.Add(dt);

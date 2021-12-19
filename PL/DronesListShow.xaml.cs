@@ -36,7 +36,7 @@ namespace PL
             int choice = Convert.ToInt32(str);
             //DronesListView.ItemsSource = bl.GetDroneBy()//#########
             Predicate<IBL.BO.Drone> p;
-            if (StatusSelector.SelectedIndex != -1)
+            if (WeightSelector.SelectedIndex != -1)
                 p = s => s.MaxWeight == (IBL.BO.WeightCategories)WeightSelector.SelectedIndex && s.Status == (IBL.BO.DroneStatuses)StatusSelector.SelectedIndex;
             else
                p = s => s.Status == (IBL.BO.DroneStatuses)StatusSelector.SelectedIndex;
