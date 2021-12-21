@@ -148,6 +148,15 @@ namespace IBL
                 dt.CurrentLocation = new Location() { Lattitude = s.Lattitude, Longitude = s.Longitude };
             else
                 dt.CurrentLocation = d.CurrentLocation;
+            IDAL.DO.DroneCharge dic = new IDAL.DO.DroneCharge()
+            {
+                DroneId = d.Id,
+                StationId = s.Id
+            };
+            AccessIdal.AddDroneCharge(dic);
+            s.ChargeSlots--;
+
+            Updatestation(s.Id, s.Name, s.ChargeSlots);
             DronesBL.Add(dt);
 
         }
@@ -198,7 +207,7 @@ namespace IBL
             IDAL.DO.Drone d = AccessIdal.GetDrone(id);
             DroneToList dt = DronesBL.Find(x => x.Id == id);
             if (dt.Status != DroneStatuses.Available)
-                throw new WrongDroneStatException(id, "this drone is not available"); 
+                throw new WrongDroneStatException(id, "this drone is already charging or in a delivery -> not available"); 
             Station s = closestStation(dt.CurrentLocation.Longitude, dt.CurrentLocation.Lattitude);
             Location l = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
             double b = amountOfbattery(GetDrone(id), dt.CurrentLocation, l);

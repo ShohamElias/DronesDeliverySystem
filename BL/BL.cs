@@ -10,7 +10,7 @@ namespace IBL
     public partial class BL: IBL/*: IBL.IBL*/
     {
         // public IDAL.IDal dl;
-        public IDAL.IDal AccessIdal;
+        internal IDAL.IDal AccessIdal;
         public List<DroneToList> DronesBL;
         internal static Random rand;//random
         internal static int chargeRate;

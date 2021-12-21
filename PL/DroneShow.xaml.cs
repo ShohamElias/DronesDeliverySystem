@@ -85,6 +85,7 @@ namespace PL
             // IBL.BO.Station s = bl.GetStationsforNoEmpty().First();
             if (AddUpdateButton.Content.Equals("Add"))
             {
+              //  IBL.BO.Station s = stationCombo.SelectionBoxItem();
                 int stid = 0;
                 if (stationCombo.SelectedIndex != -1)
                     stid = stationCombo.SelectedIndex;
