@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="DronesListShow" Height="640" Width="800">
-    <Grid>
-        <Grid Name="MainGrid">
+        Title="DronesListShow" Height="640" Width="800" Activated="Window_Activated">
+    <Grid Background="#FFDFFBF8">
+        <Grid Name="MainGrid" Margin="0,68,0,-68" Background="#FFDFFBF8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50*"/>
                 <RowDefinition Height="400*"/>
@@ -22,15 +22,19 @@ VerticalAlignment="Stretch" Width="auto">
                 </Grid.ColumnDefinitions >
                 <ComboBox x:Name="StatusSelector" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="StatusSelector_SelectionChanged"/>
                 <ComboBox x:Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelector_SelectionChanged"/>
+                <Label x:Name="statusLable"  Content="Status"  HorizontalAlignment="Left" Margin="146,20,0,0" VerticalAlignment="Top" FontFamily="Lucida Fax" FontWeight="Normal"/>
+                <Label Content="Weight" Grid.Column="1" HorizontalAlignment="Left" Margin="181,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontFamily="Levenim MT" FontWeight="Normal"/>
             </Grid>
-            <ListView x:Name="DronesListView" Grid.Row="1" Margin="66,121,66,190" SelectionChanged="DronesListView_SelectionChanged" MouseDoubleClick="DronesListView_MouseDoubleClick">
+            <ListView x:Name="DronesListView" Margin="66,69,66,311" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.RowSpan="2" Background="#FFE9FCFA">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Center" Margin="0,435,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.573,0.31" Height="39" Width="146" Click="AddDrone_Click"/>
+
+
+            <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Center" Margin="0,341,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.573,0.31" Height="39" Width="444" Click="AddDrone_Click"/>
 
         </Grid>
 

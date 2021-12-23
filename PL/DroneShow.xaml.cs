@@ -21,25 +21,36 @@ namespace PL
     {
         IBL.IBL bl;
         IBL.BO.Drone d;
+        IEnumerable<IBL.BO.Station> s;
         bool updateflag = false;
+
+        
         public DroneShow(IBL.IBL _bl)
         {
             InitializeComponent();
             bl = _bl;
             //textBox1.Text =" ";
-            
+             s = bl.GetAllStations();
+
             AddUpdateButton.Content = "Add";
             idtextbox.Text = "";
             modelTextbox.Text = "";
             LattextBox.Text = "";
             Lontextbox.Text = "";
             BatteryTextBox.Text = "";
+            idtextbox.IsEnabled = true;
+            LattextBox.IsEnabled = true;
+            Lontextbox.IsEnabled = true;
+            BatteryTextBox.IsEnabled = true;
+            StatusSelector.IsEnabled = true;
+
             stationCombo.Visibility = Visibility.Hidden;
             stationLable.Visibility = Visibility.Hidden;
             ChargingButton.Visibility = Visibility.Hidden;
             DeliveryButton.Visibility = Visibility.Hidden;
             StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.DroneStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
+        
         }
 
         public DroneShow(IBL.IBL _bl, IBL.BO.Drone _d)
@@ -50,14 +61,24 @@ namespace PL
             AddUpdateButton.Content = "Update";
             ChargingButton.Visibility = Visibility.Visible;
             DeliveryButton.Visibility = Visibility.Visible;
-            idtextbox.Text = "";
-            modelTextbox.Text = "";
-            LattextBox.Text = "";
-            Lontextbox.Text = "";
-            BatteryTextBox.Text = "";
+
+
+            idtextbox.Text =d.Id.ToString();
+            modelTextbox.Text = d.Model.ToString();
+            LattextBox.Text = d.CurrentLocation.Lattitude.ToString();
+            Lontextbox.Text = d.CurrentLocation.Longitude.ToString();
+            BatteryTextBox.Text = d.Battery.ToString();
+           
+            idtextbox.IsEnabled = false;
+            LattextBox.IsEnabled = false;
+            Lontextbox.IsEnabled = false;
+            BatteryTextBox.IsEnabled = false;
+            stationCombo.IsEnabled = false;
 
             stationCombo.Visibility = Visibility.Hidden;
             stationLable.Visibility = Visibility.Hidden;
+            //stationCombo.Visibility = Visibility.Hidden;
+            //stationLable.Visibility = Visibility.Hidden;
 
             idtextbox.Visibility = Visibility.Hidden;
             modelTextbox.Visibility = Visibility.Hidden;
@@ -71,13 +92,24 @@ namespace PL
             statuslablle.Visibility = Visibility.Hidden;
             Batterylable.Visibility = Visibility.Hidden;
             latlable.Visibility = Visibility.Hidden;
-            label7.Visibility = Visibility.Hidden;
+           
             WeightLable.Visibility = Visibility.Hidden;
 
 
             // textBox1.Text = " ";
             StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.DroneStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
+            StatusSelector.SelectedItem = d.Status;
+            WeightSelector.SelectedItem = d.MaxWeight;
+
+            stationCombo.Visibility = Visibility.Hidden;
+            stationLable.Visibility = Visibility.Hidden;
+
+            LattextBox.Visibility = Visibility.Hidden;
+            Lontextbox.Visibility = Visibility.Hidden;
+            label7.Visibility = Visibility.Hidden;
+            latlable.Visibility = Visibility.Hidden;
+
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -85,11 +117,11 @@ namespace PL
             // IBL.BO.Station s = bl.GetStationsforNoEmpty().First();
             if (AddUpdateButton.Content.Equals("Add"))
             {
+
               //  IBL.BO.Station s = stationCombo.SelectionBoxItem();
                 int stid = 0;
-                if (stationCombo.SelectedIndex != -1)
-                    stid = stationCombo.SelectedIndex;
-                bl.AddDrone(new IBL.BO.Drone()
+                
+                IBL.BO.Drone db = new IBL.BO.Drone()
                 {
                     Id = Convert.ToInt32(idtextbox.Text.ToString()),
                     Battery = Convert.ToInt32(BatteryTextBox.Text.ToString()),
@@ -98,9 +130,14 @@ namespace PL
                     Status = (IBL.BO.DroneStatuses)Convert.ToInt32(StatusSelector.SelectedIndex.ToString()),
                     CurrentParcel = null,
                     CurrentLocation = null
-
-
-                }, stid);
+                };
+                if (stationCombo.SelectedIndex != -1)
+                {
+                    stid = s.ElementAt(stationCombo.SelectedIndex).Id;
+                }
+                else
+                    db.CurrentLocation = new IBL.BO.Location() { Lattitude = Convert.ToInt32(LattextBox.Text.ToString()), Longitude = Convert.ToInt32(Lontextbox.Text.ToString()) };
+                bl.AddDrone(db, stid);
                 this.Close(); ;//station id, how???
             }
             else
@@ -114,7 +151,19 @@ namespace PL
                     modelTextbox.Visibility = Visibility.Visible;
                     modelLable.Visibility = Visibility.Visible;
                     updateflag = true;
-                    idtextbox.Text = d.Id.ToString();
+                    //idtextbox.Text = d.Id.ToString();
+                    LattextBox.Visibility = Visibility.Visible;
+                    Lontextbox.Visibility = Visibility.Visible;
+                    BatteryTextBox.Visibility = Visibility.Visible;
+                    StatusSelector.Visibility = Visibility.Visible;
+                    WeightSelector.Visibility = Visibility.Visible;
+                    idLable.Visibility = Visibility.Visible;
+                    modelLable.Visibility = Visibility.Visible;
+                    statuslablle.Visibility = Visibility.Visible;
+                    Batterylable.Visibility = Visibility.Visible;
+                    latlable.Visibility = Visibility.Visible;
+                    label7.Visibility = Visibility.Visible;
+                    WeightLable.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -181,7 +230,7 @@ namespace PL
             {
                 stationCombo.Visibility = Visibility.Visible;
                 stationLable.Visibility = Visibility.Visible;
-                stationCombo.ItemsSource = bl.GetAllStations();
+                stationCombo.ItemsSource = s;
                 latlable.Visibility = Visibility.Hidden;
                 label7.Visibility = Visibility.Hidden;
                 LattextBox.Visibility = Visibility.Hidden;

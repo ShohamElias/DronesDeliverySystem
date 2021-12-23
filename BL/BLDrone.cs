@@ -31,9 +31,9 @@ namespace IBL
             }
             s.CopyPropertiesTo(droneBO);
             droneDO.CopyPropertiesTo(droneBO);
-            for(int i=0; i<DronesBL.Count(); i++)//#########IDK IF ITS SUPPOSED TO BE LIKE THAT, BUT YOU DIDNT COPY THE SADOT OF THE BL
+            for (int i = 0; i < DronesBL.Count(); i++)//#########IDK IF ITS SUPPOSED TO BE LIKE THAT, BUT YOU DIDNT COPY THE SADOT OF THE BL
             {
-                if(id== DronesBL[i].Id)
+                if (id == DronesBL[i].Id)
                 {
                     droneBO.Status = DronesBL[i].Status;
                     droneBO.Battery = DronesBL[i].Battery;
@@ -44,11 +44,11 @@ namespace IBL
             return droneBO;
 
         }
-       /// <summary>
-       /// the func gets an id of drone and returns the drone
-       /// </summary>
-       /// <param name="id"></param> id of a drone
-       /// <returns></returns>
+        /// <summary>
+        /// the func gets an id of drone and returns the drone
+        /// </summary>
+        /// <param name="id"></param> id of a drone
+        /// <returns></returns>
         public Drone GetDrone(int id)
         {
 
@@ -62,7 +62,7 @@ namespace IBL
             catch (IDAL.DO.BadIdException)
             {
 
-                throw new BadIdException(id,"this Drone doesn't exists"); 
+                throw new BadIdException(id, "this Drone doesn't exists");
             }
             DroneToList dt = DronesBL.Find(x => x.Id == id);
             Drone db = new Drone()
@@ -114,49 +114,56 @@ namespace IBL
         /// <param name="stationId"></param> anid of station to charge the drone
         public void AddDrone(Drone d, int stationId)
         {
-            
-            IDAL.DO.Station s = AccessIdal.GetStation(stationId);
+
+            // IDAL.DO.Station s = AccessIdal.GetStation(stationId);
             IDAL.DO.Drone droneDO = new IDAL.DO.Drone()
             {
                 Id = d.Id,
                 Model = d.Model,
                 MaxWeight = (IDAL.DO.WeightCategories)d.MaxWeight,
             };
-            if (d.CurrentLocation!=null && !AccessIdal.CheckStation(stationId))
-                throw new BadIdException(stationId, "this station doesn't exist");
-            if (s.ChargeSlots <= 0)
-                throw new StationProblemException(s.Id, "there is no empty charge slot");
+            //if (d.CurrentLocation != null && !AccessIdal.CheckStation(stationId))
+            //    throw new BadIdException(stationId, "this station doesn't exist");
+            //if (s.ChargeSlots <= 0)
+            //    throw new StationProblemException(s.Id, "there is no empty charge slot");
             try
             {
                 AccessIdal.AddDrone(droneDO);
             }
             catch (IDAL.DO.IDExistsException)
             {
-                throw new IDExistsException(droneDO.Id,"this Drone already exists"); ///##############
+                throw new IDExistsException(droneDO.Id, "this Drone already exists"); ///##############
             }
 
             DroneToList dt = new DroneToList()
             {
                 Id = droneDO.Id,
-                Battery = rand.Next(20, 41),
-                Status = DroneStatuses.Maintenance,
+                Battery = d.Battery,
+                Status = d.Status,
                 MaxWeight = d.MaxWeight,
                 Model = droneDO.Model,
-                IdOfParcel = -1
-            };
-            if (d.CurrentLocation == null)
-                dt.CurrentLocation = new Location() { Lattitude = s.Lattitude, Longitude = s.Longitude };
-            else
-                dt.CurrentLocation = d.CurrentLocation;
-            IDAL.DO.DroneCharge dic = new IDAL.DO.DroneCharge()
-            {
-                DroneId = d.Id,
-                StationId = s.Id
-            };
-            AccessIdal.AddDroneCharge(dic);
-            s.ChargeSlots--;
+                IdOfParcel = -1,
+                CurrentLocation = d.CurrentLocation,
+                
 
-            Updatestation(s.Id, s.Name, s.ChargeSlots);
+        };
+            //if (d.CurrentLocation == null)
+            //    dt.CurrentLocation = new Location() { Lattitude = s.Lattitude, Longitude = s.Longitude };
+            //else
+            if (d.Status == DroneStatuses.Maintenance)
+            {
+                IDAL.DO.Station s = AccessIdal.GetStation(stationId);
+
+                IDAL.DO.DroneCharge dic = new IDAL.DO.DroneCharge()
+                {
+                    DroneId = d.Id,
+                    StationId = s.Id
+                };
+                AccessIdal.AddDroneCharge(dic);
+                s.ChargeSlots--;
+
+                Updatestation(s.Id, s.Name, s.ChargeSlots);
+            }
             DronesBL.Add(dt);
 
         }

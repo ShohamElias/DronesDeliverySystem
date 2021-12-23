@@ -25,7 +25,7 @@ namespace PL
             InitializeComponent();
             DronesListView.ItemsSource = _bl.GetAllDrones();
             bl = _bl;
-            
+
             StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.DroneStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
         }
@@ -39,7 +39,7 @@ namespace PL
             if (WeightSelector.SelectedIndex != -1)
                 p = s => s.MaxWeight == (IBL.BO.WeightCategories)WeightSelector.SelectedIndex && s.Status == (IBL.BO.DroneStatuses)StatusSelector.SelectedIndex;
             else
-               p = s => s.Status == (IBL.BO.DroneStatuses)StatusSelector.SelectedIndex;
+                p = s => s.Status == (IBL.BO.DroneStatuses)StatusSelector.SelectedIndex;
             DronesListView.ItemsSource = bl.GetDroneBy(p);
         }
 
@@ -48,12 +48,7 @@ namespace PL
             string str = WeightSelector.SelectedIndex.ToString();
             int choice = Convert.ToInt32(str);
 
-            //switch (str)
-            //{
-
-            //    default:
-            //        break;
-            //}
+           
             Predicate<IBL.BO.Drone> p;
             if (StatusSelector.SelectedIndex != -1)
                 p = s => s.MaxWeight == (IBL.BO.WeightCategories)WeightSelector.SelectedIndex && s.Status == (IBL.BO.DroneStatuses)StatusSelector.SelectedIndex;
@@ -66,21 +61,39 @@ namespace PL
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
             new DroneShow(bl).ShowDialog();
-            DronesListView.ItemsSource = bl.GetAllDrones();
-        }
-
-        private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
         }
+
 
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             //  IBL.BO.Drone d= DronesListView.InputHitTest(e.XButton1, e.XButton2);
             ListViewItem item = sender as ListViewItem;
             IBL.BO.Drone d = DronesListView.SelectedItem as IBL.BO.Drone;
-            if(d!=null)
-                new DroneShow(bl,d).Show();
+            if (d != null)
+                new DroneShow(bl, d).Show();
         }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            Predicate<IBL.BO.Drone> p = null;
+            if (StatusSelector.SelectedIndex != -1 && WeightSelector.SelectedIndex != -1)
+                p = s => s.MaxWeight == (IBL.BO.WeightCategories)WeightSelector.SelectedIndex && s.Status == (IBL.BO.DroneStatuses)StatusSelector.SelectedIndex;
+            else if (WeightSelector.SelectedIndex != -1)
+                p = s => s.MaxWeight == (IBL.BO.WeightCategories)WeightSelector.SelectedIndex;
+            else if (StatusSelector.SelectedIndex != -1)
+                p = s => s.Status == (IBL.BO.DroneStatuses)StatusSelector.SelectedIndex;
+
+            if (p == null)
+                DronesListView.ItemsSource = bl.GetAllDrones();
+            else
+                DronesListView.ItemsSource = bl.GetDroneBy(p);
+
+        }
+
+        //private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+
+        //}
     }
 }
