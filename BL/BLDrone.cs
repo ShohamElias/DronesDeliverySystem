@@ -44,6 +44,7 @@ namespace IBL
             return droneBO;
 
         }
+
         /// <summary>
         /// the func gets an id of drone and returns the drone
         /// </summary>
@@ -107,6 +108,7 @@ namespace IBL
 
             return db;
         }
+
         /// <summary>
         /// the func gets a drone and add it to the list
         /// </summary>
@@ -176,6 +178,7 @@ namespace IBL
           
 
         }
+
         /// <summary>
         /// the func returns all of the drones
         /// </summary>
@@ -186,6 +189,7 @@ namespace IBL
                    orderby droneDO.Id
                    select GetDrone(droneDO.Id);
         }
+
         /// <summary>
         /// the func gets a drone id and update it
         /// </summary>
@@ -212,6 +216,7 @@ namespace IBL
             DronesBL.ElementAt(i).Model = m;
             
         }
+
         /// <summary>
         /// the func gets an id of drone and charge it in the clothest station
         /// </summary>
