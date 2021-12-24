@@ -23,7 +23,7 @@
         <TextBox x:Name="Lontextbox" HorizontalAlignment="Left" Margin="194,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="BatteryTextBox" HorizontalAlignment="Left" Margin="194,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="StatusSelector" HorizontalAlignment="Left" Margin="194,103,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="StatusSelector_SelectionChanged"/>
-        <TextBox x:Name="idtextbox" HorizontalAlignment="Left" Margin="194,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="idtextbox" HorizontalAlignment="Left" Margin="194,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="idtextbox_TextChanged" TextInput="idtextbox_TextInput"/>
         <TextBox x:Name="modelTextbox" HorizontalAlignment="Left" Margin="194,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.202,0.976"/>
         <Button x:Name="AddUpdateButton" Content="Add" HorizontalAlignment="Left" Margin="21,62,0,0" VerticalAlignment="Top" Width="100" Click="button_Click" Grid.Column="1"/>
         <Button x:Name="DeliveryButton" Content="Next delivery step" Grid.Column="1" HorizontalAlignment="Left" Height="18" Margin="21,106,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_1"/>

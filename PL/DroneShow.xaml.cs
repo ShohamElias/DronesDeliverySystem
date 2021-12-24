@@ -22,6 +22,7 @@ namespace PL
         IBL.IBL bl;
         IBL.BO.Drone d;
         IEnumerable<IBL.BO.Station> s;
+      //  Predicate<IBL.BO.Station> p;
         bool updateflag = false;
 
         
@@ -30,7 +31,8 @@ namespace PL
             InitializeComponent();
             bl = _bl;
             //textBox1.Text =" ";
-             s = bl.GetAllStations();
+           // p = l => l.ChargeSlots > 0;
+             s = bl.GetStationsforNoEmpty();
 
             AddUpdateButton.Content = "Add";
             idtextbox.Text = "";
@@ -101,6 +103,9 @@ namespace PL
             WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
             StatusSelector.SelectedItem = d.Status;
             WeightSelector.SelectedItem = d.MaxWeight;
+
+            StatusSelector.IsEnabled = false;
+            WeightSelector.IsEnabled = false;
 
             stationCombo.Visibility = Visibility.Hidden;
             stationLable.Visibility = Visibility.Hidden;
@@ -245,6 +250,36 @@ namespace PL
                 stationCombo.Visibility = Visibility.Hidden;
                 stationLable.Visibility = Visibility.Hidden;
             }
+        }
+        public  bool IsnumberChar(string c)
+        {
+            for (int i = 0; i < c.Length; i++)
+            {
+                if ((c[i] < '0' && c[i] > '9') || (c[i] != '\b'))
+                    return false;
+                
+            }
+            return true;
+        }
+
+        private void idtextbox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (IsnumberChar(idtextbox.Text))
+                e.Handled = true;
+            else
+            {
+                MessageBox.Show("incorect input");
+                idtextbox.Text = "";
+            }
+        }
+
+        private void idtextbox_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (IsnumberChar(e.Text))
+                e.Handled = true;
+            else
+                e.Handled = false;
+
         }
 
         //private void Button_Click_1(object sender, RoutedEventArgs e)

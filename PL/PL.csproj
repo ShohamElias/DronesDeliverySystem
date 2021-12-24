@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="f56bcec6-a20d-4d2c-a07f-512eb2566234.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="f56bcec6-a20d-4d2c-a07f-512eb2566234.jpg" />
   </ItemGroup>
 
 </Project>

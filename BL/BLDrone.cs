@@ -153,7 +153,7 @@ namespace IBL
             if (d.Status == DroneStatuses.Maintenance)
             {
                 IDAL.DO.Station s = AccessIdal.GetStation(stationId);
-
+                dt.CurrentLocation = new Location() { Lattitude = s.Lattitude, Longitude = s.Longitude };
                 IDAL.DO.DroneCharge dic = new IDAL.DO.DroneCharge()
                 {
                     DroneId = d.Id,
@@ -164,7 +164,16 @@ namespace IBL
 
                 Updatestation(s.Id, s.Name, s.ChargeSlots);
             }
+            bool k=false;
+            if (dt.Status == DroneStatuses.Delivery)
+            {
+                dt.Status = DroneStatuses.Available;
+                k = true;
+            }
             DronesBL.Add(dt);
+            if (k)
+                LinkDroneToParcel(dt.Id);
+          
 
         }
         /// <summary>
