@@ -334,8 +334,8 @@ namespace PL
             {
                 if (!IsnumberChar(BatteryTextBox.Text.ToString()))
                     throw new IBL.BO.BadInputException("battery can include only numbers");
-                if(int.Parse(c)>100 || int.Parse(c) < 0)
-                    throw new IBL.BO.BadInputException("battery should bt between 0-100");
+                if(c.Length>0 &&(int.Parse(c)>100 || int.Parse(c) < 0))
+                    throw new IBL.BO.BadInputException("battery should be between 0-100");
             }
             catch (Exception ex)
             {
