@@ -123,7 +123,7 @@ namespace IBL
         {
             double[] arr = AccessIdal.ElectricityUse();
             double s;
-            s = getDistanceFromLatLonInKm(l.Lattitude, l.Longitude, L2.Lattitude, L2.Lattitude);
+            s = getDistanceFromLatLonInKm(l.Lattitude, l.Longitude, L2.Lattitude, L2.Longitude);
 
             if (d.Status == DroneStatuses.Available)
             {

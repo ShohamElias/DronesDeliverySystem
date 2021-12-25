@@ -331,7 +331,7 @@ namespace IBL
 
             }
             if (!flag)
-                throw new Exception("no match was found"); //no mach parcel for drone ##########
+                throw new NoMatchException("no match was found"); //no mach parcel for drone ##########
             p2.DroneId = d.Id;
             p2.Scheduled = DateTime.Now;
             AccessIdal.UpdateParcel(p2);  

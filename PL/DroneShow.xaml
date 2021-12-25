@@ -19,9 +19,9 @@
         <Label x:Name="latlable" Content="Latitude" Margin="49,228,408,168"/>
         <Label x:Name="label7" Content="Lomgtitude" Margin="49,263,407,133" RenderTransformOrigin="0,0"/>
         <ComboBox x:Name="WeightSelector" HorizontalAlignment="Left" Margin="194,152,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="LattextBox" HorizontalAlignment="Left" Margin="194,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.249,0.144"/>
-        <TextBox x:Name="Lontextbox" HorizontalAlignment="Left" Margin="194,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="BatteryTextBox" HorizontalAlignment="Left" Margin="194,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="LattextBox" HorizontalAlignment="Left" Margin="194,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.249,0.144" TextChanged="LattextBox_TextChanged"/>
+        <TextBox x:Name="Lontextbox" HorizontalAlignment="Left" Margin="194,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Lontextbox_TextChanged"/>
+        <TextBox x:Name="BatteryTextBox" HorizontalAlignment="Left" Margin="194,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="BatteryTextBox_TextChanged"/>
         <ComboBox x:Name="StatusSelector" HorizontalAlignment="Left" Margin="194,103,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="StatusSelector_SelectionChanged"/>
         <TextBox x:Name="idtextbox" HorizontalAlignment="Left" Margin="194,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="idtextbox_TextChanged" TextInput="idtextbox_TextInput"/>
         <TextBox x:Name="modelTextbox" HorizontalAlignment="Left" Margin="194,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.202,0.976"/>

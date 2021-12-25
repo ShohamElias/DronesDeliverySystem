@@ -17,7 +17,7 @@ namespace DalObject
             //internal static int parcelsI = 0;
             public static int countIdParcel = 1000;
             // public static int availableStations = 0;
-            internal static int empty = 0;
+            internal static int empty = 1;
             internal static int light = 2;
             internal static int heavy = 5;
             internal static int medium = 3;

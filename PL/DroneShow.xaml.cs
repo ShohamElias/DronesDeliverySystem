@@ -33,7 +33,7 @@ namespace PL
             //textBox1.Text =" ";
            // p = l => l.ChargeSlots > 0;
              s = bl.GetStationsforNoEmpty();
-
+           
             AddUpdateButton.Content = "Add";
             idtextbox.Text = "";
             modelTextbox.Text = "";
@@ -119,66 +119,79 @@ namespace PL
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            // IBL.BO.Station s = bl.GetStationsforNoEmpty().First();
-            if (AddUpdateButton.Content.Equals("Add"))
+            try
+            {
+                if (AddUpdateButton.Content.Equals("Add"))
+                {
+                    string c = BatteryTextBox.Text;
+                    if (int.Parse(c) > 100 || int.Parse(c) < 0)
+                    {
+                       throw new IBL.BO.BadInputException("battery should be between 0-100");
+                       c = "100";
+                       idtextbox.Text = c;
+                    }
+
+                    int stid = 0;
+                    IBL.BO.Drone db = new IBL.BO.Drone()
+                    {
+                        Id = Convert.ToInt32(idtextbox.Text.ToString()),
+                        Battery = Convert.ToInt32(BatteryTextBox.Text.ToString()),
+                        Model = modelTextbox.Text.ToString(),
+                        MaxWeight = (IBL.BO.WeightCategories)Convert.ToInt32(WeightSelector.SelectedIndex.ToString()),
+                        Status = (IBL.BO.DroneStatuses)Convert.ToInt32(StatusSelector.SelectedIndex.ToString()),
+                        CurrentParcel = null,
+                        CurrentLocation = null
+                    };
+                    if (stationCombo.SelectedIndex != -1)
+                    {
+                        stid = s.ElementAt(stationCombo.SelectedIndex).Id;
+                    }
+                    else
+                        db.CurrentLocation = new IBL.BO.Location() { Lattitude = double.Parse(LattextBox.Text.ToString()), Longitude = double.Parse(Lontextbox.Text.ToString()) };
+                    bl.AddDrone(db, stid);
+                    this.Close(); ;//station id, how???
+                }
+                else
+                {
+                    if (updateflag == false)
+                    {
+                        ChargingButton.Visibility = Visibility.Hidden;
+                        DeliveryButton.Visibility = Visibility.Hidden;
+                        idtextbox.Visibility = Visibility.Visible;
+                        idLable.Visibility = Visibility.Visible;
+                        modelTextbox.Visibility = Visibility.Visible;
+                        modelLable.Visibility = Visibility.Visible;
+                        updateflag = true;
+                        //idtextbox.Text = d.Id.ToString();
+                        LattextBox.Visibility = Visibility.Visible;
+                        Lontextbox.Visibility = Visibility.Visible;
+                        BatteryTextBox.Visibility = Visibility.Visible;
+                        StatusSelector.Visibility = Visibility.Visible;
+                        WeightSelector.Visibility = Visibility.Visible;
+                        idLable.Visibility = Visibility.Visible;
+                        modelLable.Visibility = Visibility.Visible;
+                        statuslablle.Visibility = Visibility.Visible;
+                        Batterylable.Visibility = Visibility.Visible;
+                        latlable.Visibility = Visibility.Visible;
+                        label7.Visibility = Visibility.Visible;
+                        WeightLable.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        updateflag = false;
+                        bl.UpdateDrone(d.Id, modelTextbox.Text);
+                        this.Close();
+                    }
+                    //  idtextbox.ena
+                }
+            }
+            catch (Exception ex)
             {
 
-              //  IBL.BO.Station s = stationCombo.SelectionBoxItem();
-                int stid = 0;
-                
-                IBL.BO.Drone db = new IBL.BO.Drone()
-                {
-                    Id = Convert.ToInt32(idtextbox.Text.ToString()),
-                    Battery = Convert.ToInt32(BatteryTextBox.Text.ToString()),
-                    Model = modelTextbox.Text.ToString(),
-                    MaxWeight = (IBL.BO.WeightCategories)Convert.ToInt32(WeightSelector.SelectedIndex.ToString()),
-                    Status = (IBL.BO.DroneStatuses)Convert.ToInt32(StatusSelector.SelectedIndex.ToString()),
-                    CurrentParcel = null,
-                    CurrentLocation = null
-                };
-                if (stationCombo.SelectedIndex != -1)
-                {
-                    stid = s.ElementAt(stationCombo.SelectedIndex).Id;
-                }
-                else
-                    db.CurrentLocation = new IBL.BO.Location() { Lattitude = Convert.ToInt32(LattextBox.Text.ToString()), Longitude = Convert.ToInt32(Lontextbox.Text.ToString()) };
-                bl.AddDrone(db, stid);
-                this.Close(); ;//station id, how???
+                MessageBox.Show(ex.ToString());
             }
-            else
-            {
-                if (updateflag == false)
-                {
-                    ChargingButton.Visibility = Visibility.Hidden;
-                    DeliveryButton.Visibility = Visibility.Hidden;
-                    idtextbox.Visibility = Visibility.Visible;
-                    idLable.Visibility = Visibility.Visible;
-                    modelTextbox.Visibility = Visibility.Visible;
-                    modelLable.Visibility = Visibility.Visible;
-                    updateflag = true;
-                    //idtextbox.Text = d.Id.ToString();
-                    LattextBox.Visibility = Visibility.Visible;
-                    Lontextbox.Visibility = Visibility.Visible;
-                    BatteryTextBox.Visibility = Visibility.Visible;
-                    StatusSelector.Visibility = Visibility.Visible;
-                    WeightSelector.Visibility = Visibility.Visible;
-                    idLable.Visibility = Visibility.Visible;
-                    modelLable.Visibility = Visibility.Visible;
-                    statuslablle.Visibility = Visibility.Visible;
-                    Batterylable.Visibility = Visibility.Visible;
-                    latlable.Visibility = Visibility.Visible;
-                    label7.Visibility = Visibility.Visible;
-                    WeightLable.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    updateflag = false;
-                    bl.UpdateDrone(d.Id, modelTextbox.Text);
-                    this.Close();
-                }
-              //  idtextbox.ena
-            }
-            
+
+
         }
 
         private void DeliveryButton_Click(object sender, RoutedEventArgs e)
@@ -197,29 +210,46 @@ namespace PL
 
         private void ChargingButton_Click(object sender, RoutedEventArgs e)
         {
-            if (d.Status == IBL.BO.DroneStatuses.Available)
-                bl.DroneToCharge(d.Id);
-            else if (d.Status == IBL.BO.DroneStatuses.Maintenance)
-                bl.EndCharging(d.Id);
-            else
+            try
             {
-                MessageBox.Show("Couldnt complete task");//massagebox
+                if (d.Status == IBL.BO.DroneStatuses.Available)
+                    bl.DroneToCharge(d.Id);
+                else if (d.Status == IBL.BO.DroneStatuses.Maintenance)
+                    bl.EndCharging(d.Id);
+                else
+                {
+                    MessageBox.Show("Couldnt complete task");//massagebox
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+           
             this.Close(); 
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (d.Status == IBL.BO.DroneStatuses.Available)
-                bl.LinkDroneToParcel(d.Id);
-            else if (d.Status == IBL.BO.DroneStatuses.Delivery)
+            try
             {
-                IBL.BO.Parcel p = bl.GetParcel(d.CurrentParcel.Id);
-                if (p.PickedUp == null)
-                    bl.PickParcel(d.Id);
-                else if (p.Delivered == null)
-                    bl.DeliveringParcel(d.Id);
+                if (d.Status == IBL.BO.DroneStatuses.Available)
+                    bl.LinkDroneToParcel(d.Id);
+                else if (d.Status == IBL.BO.DroneStatuses.Delivery)
+                {
+                    IBL.BO.Parcel p = bl.GetParcel(d.CurrentParcel.Id);
+                    if (p.PickedUp == null)
+                        bl.PickParcel(d.Id);
+                    else if (p.Delivered == null)
+                        bl.DeliveringParcel(d.Id);
+                }
             }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+           
             this.Close();
 
         }
@@ -240,6 +270,7 @@ namespace PL
                 label7.Visibility = Visibility.Hidden;
                 LattextBox.Visibility = Visibility.Hidden;
                 Lontextbox.Visibility = Visibility.Hidden;
+                
             }
             else
             {
@@ -251,35 +282,101 @@ namespace PL
                 stationLable.Visibility = Visibility.Hidden;
             }
         }
-        public  bool IsnumberChar(string c)
+        public bool IsnumberChar(string c)
         {
             for (int i = 0; i < c.Length; i++)
             {
-                if ((c[i] < '0' && c[i] > '9') || (c[i] != '\b'))
+                if ((c[i] < '0' || c[i] > '9') && (c[i] != '\b'))
                     return false;
-                
+
+            }
+            return true;
+        }
+        public bool IsnumberCharLoc(string c)
+        {
+            for (int i = 0; i < c.Length; i++)
+            {
+                if ((c[i] < '0' || c[i] > '9') && (c[i] != '\b') && (c[i] != '.'))
+                    return false;
+
             }
             return true;
         }
 
         private void idtextbox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (IsnumberChar(idtextbox.Text))
-                e.Handled = true;
-            else
+            string c=idtextbox.Text;
+            try
             {
-                MessageBox.Show("incorect input");
-                idtextbox.Text = "";
+                if (!IsnumberChar(idtextbox.Text.ToString()))
+                    throw new IBL.BO.BadIdException("ID can include only numbers");
+               
             }
+            catch (Exception ex)
+            {
+                c= c.Remove(c.Length - 1);
+                idtextbox.Text = c;
+                MessageBox.Show(ex.ToString());
+            }
+
         }
 
         private void idtextbox_TextInput(object sender, TextCompositionEventArgs e)
         {
-            if (IsnumberChar(e.Text))
-                e.Handled = true;
-            else
-                e.Handled = false;
+           
 
+        }
+
+        private void BatteryTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string c = BatteryTextBox.Text;
+            try
+            {
+                if (!IsnumberChar(BatteryTextBox.Text.ToString()))
+                    throw new IBL.BO.BadInputException("battery can include only numbers");
+                if(int.Parse(c)>100 || int.Parse(c) < 0)
+                    throw new IBL.BO.BadInputException("battery should bt between 0-100");
+            }
+            catch (Exception ex)
+            {
+                c = "0";
+                BatteryTextBox.Text = c;
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void LattextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string c = LattextBox.Text;
+            try
+            {
+                if (!IsnumberCharLoc(LattextBox.Text.ToString()))
+                    throw new IBL.BO.BadInputException(c,"location can include only numbers");
+                
+            }
+            catch (Exception ex)
+            {
+                c = "0";
+                LattextBox.Text = c;
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void Lontextbox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string c = Lontextbox.Text;
+            try
+            {
+                if (!IsnumberCharLoc(Lontextbox.Text.ToString()))
+                    throw new IBL.BO.BadInputException(c, "location can include only numbers");
+
+            }
+            catch (Exception ex)
+            {
+                c = "0";
+                Lontextbox.Text = c;
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         //private void Button_Click_1(object sender, RoutedEventArgs e)
