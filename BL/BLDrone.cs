@@ -235,7 +235,7 @@ namespace IBL
             if (b > dt.Battery)
                 throw new BatteryIssueException(dt.Id, "there wasnt enough battery"); 
             DronesBL.Remove(dt);
-            dt.Battery -= b;
+            dt.Battery -= Convert.ToInt32(b);
             dt.CurrentLocation = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
             dt.Status = DroneStatuses.Maintenance;
             dt.TimeCharge = DateTime.Now;
@@ -270,7 +270,7 @@ namespace IBL
            // DronesBL.Remove(dt);
             dt.Status = DroneStatuses.Available;
             TimeSpan timeSpan = DateTime.Now- dt.TimeCharge ;
-            dt.Battery += timeSpan.TotalHours * chargeRate;
+            dt.Battery += Convert.ToInt32( timeSpan.TotalHours * chargeRate);
             if (dt.Battery >= 100)
                 dt.Battery = 100;
             DronesBL.Remove(dss);

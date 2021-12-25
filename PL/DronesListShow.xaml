@@ -6,26 +6,38 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="DronesListShow" Height="640" Width="800" Activated="Window_Activated">
-    <Grid Background="#FFDFFBF8">
-        <Grid Name="MainGrid" Margin="0,68,0,-68" Background="#FFDFFBF8">
+    <Grid Background="#FFE8F8FA">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="18*"/>
+            <ColumnDefinition Width="108*"/>
+            <ColumnDefinition Width="550*"/>
+            <ColumnDefinition Width="121*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Name="MainGrid" Margin="1,4,-4,-4" Background="#FFE8F8FA" Grid.ColumnSpan="4" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="116*"/>
+                <ColumnDefinition Width="575*"/>
+                <ColumnDefinition Width="109*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50*"/>
                 <RowDefinition Height="400*"/>
             </Grid.RowDefinitions>
-            <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-VerticalAlignment="Stretch" Width="auto">
+            <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="3">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="37*"/>
+                    <ColumnDefinition Width="13*"/>
+                    <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions >
                 <ComboBox x:Name="StatusSelector" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="StatusSelector_SelectionChanged"/>
-                <ComboBox x:Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelector_SelectionChanged"/>
+                <ComboBox x:Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelector_SelectionChanged" Grid.ColumnSpan="2" Margin="40,0,0,0"/>
                 <Label x:Name="statusLable"  Content="Status"  HorizontalAlignment="Left" Margin="146,20,0,0" VerticalAlignment="Top" FontFamily="Lucida Fax" FontWeight="Normal"/>
-                <Label Content="Weight" Grid.Column="1" HorizontalAlignment="Left" Margin="181,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontFamily="Levenim MT" FontWeight="Normal"/>
+                <Label Content="Weight" Grid.Column="1" HorizontalAlignment="Left" Margin="181,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontFamily="Lucida Fax" FontWeight="Normal"/>
             </Grid>
-            <ListView x:Name="DronesListView" Margin="66,69,66,311" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.RowSpan="2" Background="#FFE9FCFA">
+            <ListView x:Name="DronesListView" Margin="66,69,66,311" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.RowSpan="2" Background="White" Grid.ColumnSpan="3">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>
@@ -34,7 +46,7 @@ VerticalAlignment="Stretch" Width="auto">
             </ListView>
 
 
-            <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Center" Margin="0,341,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.573,0.31" Height="39" Width="444" Click="AddDrone_Click"/>
+            <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Left" Margin="62,341,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.573,0.31" Height="39" Width="444" Click="AddDrone_Click" Grid.Column="1" Background="#FFF9F7F7"/>
 
         </Grid>
 

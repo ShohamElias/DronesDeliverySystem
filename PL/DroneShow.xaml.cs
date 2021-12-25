@@ -61,6 +61,19 @@ namespace PL
             bl = _bl;
             d = _d;
             AddUpdateButton.Content = "Update";
+            if (_d.Status == (IBL.BO.DroneStatuses)2) 
+            {
+                ChargingButton.Content = "Discharge Drone";
+                DeliveryButton.IsEnabled = false;
+
+            }
+            else
+                ChargingButton.Content = "Charge Drone";
+            if (_d.Status == (IBL.BO.DroneStatuses)0)
+                DeliveryButton.Content = "Pick a Parcel";
+            else
+                DeliveryButton.Content = "Next delivery step";
+
             ChargingButton.Visibility = Visibility.Visible;
             DeliveryButton.Visibility = Visibility.Visible;
 
@@ -124,7 +137,7 @@ namespace PL
                 if (AddUpdateButton.Content.Equals("Add"))
                 {
                     string c = BatteryTextBox.Text;
-                    if (int.Parse(c) > 100 || int.Parse(c) < 0)
+                    if (double.Parse(c) > 100 || double.Parse(c) < 0)
                     {
                        throw new IBL.BO.BadInputException("battery should be between 0-100");
                        c = "100";
@@ -135,7 +148,7 @@ namespace PL
                     IBL.BO.Drone db = new IBL.BO.Drone()
                     {
                         Id = Convert.ToInt32(idtextbox.Text.ToString()),
-                        Battery = Convert.ToInt32(BatteryTextBox.Text.ToString()),
+                        Battery = double.Parse(BatteryTextBox.Text.ToString()),
                         Model = modelTextbox.Text.ToString(),
                         MaxWeight = (IBL.BO.WeightCategories)Convert.ToInt32(WeightSelector.SelectedIndex.ToString()),
                         Status = (IBL.BO.DroneStatuses)Convert.ToInt32(StatusSelector.SelectedIndex.ToString()),
@@ -149,6 +162,7 @@ namespace PL
                     else
                         db.CurrentLocation = new IBL.BO.Location() { Lattitude = double.Parse(LattextBox.Text.ToString()), Longitude = double.Parse(Lontextbox.Text.ToString()) };
                     bl.AddDrone(db, stid);
+                    MessageBox.Show("Successfully completed the task.");
                     this.Close(); ;//station id, how???
                 }
                 else
@@ -180,6 +194,7 @@ namespace PL
                     {
                         updateflag = false;
                         bl.UpdateDrone(d.Id, modelTextbox.Text);
+                        MessageBox.Show("Successfully completed the task.");
                         this.Close();
                     }
                     //  idtextbox.ena
@@ -191,21 +206,32 @@ namespace PL
                 MessageBox.Show(ex.ToString());
             }
 
-
         }
 
         private void DeliveryButton_Click(object sender, RoutedEventArgs e)
         {
-            if (d.Status == IBL.BO.DroneStatuses.Available)
-                bl.LinkDroneToParcel(d.Id);
-            else if (d.Status == IBL.BO.DroneStatuses.Delivery)
+            try
             {
-                IBL.BO.Parcel p = bl.GetParcel(d.CurrentParcel.Id);
-                if (p.PickedUp == null)
-                    bl.PickParcel(p.Id);
-                else if (p.Delivered == null)
-                    bl.DeliveringParcel(p.Id);
+                if (d.Status == IBL.BO.DroneStatuses.Available)
+                    bl.LinkDroneToParcel(d.Id);
+                else if (d.Status == IBL.BO.DroneStatuses.Delivery)
+                {
+                    IBL.BO.Parcel p = bl.GetParcel(d.CurrentParcel.Id);
+                    if (p.PickedUp == null)
+                        bl.PickParcel(d.Id);
+                    else if (p.Delivered == null)
+                        bl.DeliveringParcel(d.Id);
+                }
+                MessageBox.Show("Successfully completed the task.");
+
             }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+
+            this.Close();
         }
 
         private void ChargingButton_Click(object sender, RoutedEventArgs e)
@@ -216,16 +242,15 @@ namespace PL
                     bl.DroneToCharge(d.Id);
                 else if (d.Status == IBL.BO.DroneStatuses.Maintenance)
                     bl.EndCharging(d.Id);
-                else
-                {
-                    MessageBox.Show("Couldnt complete task");//massagebox
-                }
+                MessageBox.Show("Successfully completed the task.");
+                
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+
             }
-           
+
             this.Close(); 
         }
 
@@ -243,6 +268,8 @@ namespace PL
                     else if (p.Delivered == null)
                         bl.DeliveringParcel(d.Id);
                 }
+                MessageBox.Show("Successfully completed the task.");
+
             }
             catch (Exception ex)
             {
@@ -309,7 +336,7 @@ namespace PL
             try
             {
                 if (!IsnumberChar(idtextbox.Text.ToString()))
-                    throw new IBL.BO.BadIdException("ID can include only numbers");
+                    throw new IBL.BO.BadInputException(c,"ID can include only numbers");
                
             }
             catch (Exception ex)
@@ -332,8 +359,8 @@ namespace PL
             string c = BatteryTextBox.Text;
             try
             {
-                if (!IsnumberChar(BatteryTextBox.Text.ToString()))
-                    throw new IBL.BO.BadInputException("battery can include only numbers");
+                if (!IsnumberCharLoc(BatteryTextBox.Text.ToString()))
+                    throw new IBL.BO.BadInputException(c,"battery can include only numbers");
                 if(c.Length>0 &&(int.Parse(c)>100 || int.Parse(c) < 0))
                     throw new IBL.BO.BadInputException("battery should be between 0-100");
             }
@@ -377,6 +404,11 @@ namespace PL
                 Lontextbox.Text = c;
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void button_Click_3(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
 
         //private void Button_Click_1(object sender, RoutedEventArgs e)
