@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IDAL
-{
     namespace DO
     {
         public enum WeightCategories { Light, Medium, Heavy }
@@ -13,4 +11,4 @@ namespace IDAL
         public enum Priorities {Tba,TBN }
     }
 
-}
+

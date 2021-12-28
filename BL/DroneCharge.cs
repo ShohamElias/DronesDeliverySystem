@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL
+namespace BO
 {
-    namespace BO
-    {
         public class DroneCharge //is this drone in charge?
         {
             public int DroneId { get; set; }
@@ -23,7 +21,6 @@ namespace IBL
             //}
 
         }
-
-    }
+ }
    
-}
+

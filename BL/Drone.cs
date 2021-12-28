@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL
-{
-    namespace BO
-    {
+ namespace BO
+ {
         public class Drone
         {
             public int Id { get; set; }
@@ -24,6 +22,5 @@ namespace IBL
                 return $"Drone:  Id = {Id}, Model = {Model}, MaxWeight = {MaxWeight}, Status = {Status}, Battery = {Battery}";
             }
         }
+ }
 
-    }
-}

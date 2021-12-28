@@ -3,27 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
-namespace IBL
+namespace BlApi
 {
-    public partial class BL
+     partial class BL
     {
         /// <summary>
         /// the func is an adpater from dal object to a bl object of station
         /// </summary>
         /// <param name="stationDO"></param> DAL station
         /// <returns></returns> bl station
-        private Station stationDoBoAdapter(IDAL.DO.Station stationDO)
+        private Station stationDoBoAdapter(DO.Station stationDO)
         {
             Station stationBO = new Station();
             int id = stationDO.Id;
-            IDAL.DO.Station s;
+            DO.Station s;
             try 
             {
                 s = AccessIdal.GetStation(id);
             }
-            catch (IDAL.DO.BadIdException)
+            catch (DO.BadIdException)
             {
 
                 throw new BadIdException("station");
@@ -44,8 +44,8 @@ namespace IBL
         public void AddStation(Station s)
         {
             if (AccessIdal.CheckStation(s.Id))
-                throw new IDAL.DO.IDExistsException(s.Id, "this station already exists");
-            IDAL.DO.Station newS = new IDAL.DO.Station()
+                throw new DO.IDExistsException(s.Id, "this station already exists");
+            DO.Station newS = new DO.Station()
             {
                 Id = s.Id,
                 Name = s.Name,
@@ -57,7 +57,7 @@ namespace IBL
             {
                 AccessIdal.AddStation(newS);
             }
-            catch (IDAL.DO.IDExistsException)
+            catch (DO.IDExistsException)
             {
 
                 throw new IDExistsException("Station");
@@ -74,8 +74,8 @@ namespace IBL
             try
             {
                 if (!AccessIdal.CheckStation(id))
-                    throw new IDAL.DO.BadIdException(id, "this station doesnt exist");
-                IDAL.DO.Station s = AccessIdal.GetStation(id);
+                    throw new DO.BadIdException(id, "this station doesnt exist");
+                DO.Station s = AccessIdal.GetStation(id);
                 if (name != "")
                     s.Name = name;
                 //Station t=get
@@ -84,7 +84,7 @@ namespace IBL
                 s.ChargeSlots = numOfChargingSlots/* - n*/;
                 AccessIdal.UpdateStation(s);
             }
-            catch (IDAL.DO.BadIdException)
+            catch (DO.BadIdException)
             {
 
                 throw new BadIdException(id, "station");
@@ -97,12 +97,12 @@ namespace IBL
         /// <returns></returns>
         public Station GetStation(int id)
         {
-            IDAL.DO.Station s;
+            DO.Station s;
             try
             {
                 s = AccessIdal.GetStation(id);
             }
-            catch (IDAL.DO.BadIdException)
+            catch (DO.BadIdException)
             {
 
                 throw new BadIdException(id, "this station doesnt exists");
@@ -117,7 +117,7 @@ namespace IBL
 
             };
 
-            foreach (IDAL.DO.DroneCharge item in GetAllDroneCharges())
+            foreach (DO.DroneCharge item in GetAllDroneCharges())
             {
                 if (AccessIdal.GetDroneCharge(item.DroneId).StationId == sb.Id)
                 {

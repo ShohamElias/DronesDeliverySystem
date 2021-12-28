@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL
-{
-    namespace BO
-    {
+  namespace BO
+  {
         public class Customer
         {
             public int Id { get; set; }
@@ -40,5 +38,4 @@ namespace IBL
 
 
         }
-    }
-}
+  }

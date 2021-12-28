@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL
-{
-    namespace BO
+namespace BO
     {
         class ParcelAtCustomer
         {
@@ -19,4 +17,3 @@ namespace IBL
             public CustomerInParcel OtherCustomer { get; set; }
         }
     }
-}

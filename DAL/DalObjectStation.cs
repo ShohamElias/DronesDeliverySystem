@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
+using DO;
 
 namespace DalObject
 {
-    public partial class DalObject : IDAL.IDal
+     partial class DalObject : DalApi.IDal
     {
        
 
@@ -22,7 +22,7 @@ namespace DalObject
         {
             Station d = DataSource.StationsList.Find(x => x.Id == id);//finding the station in the list
             if (d.Id != id)
-                throw new IDAL.DO.BadIdException(id, "This id doesnt exists");
+                throw new DO.BadIdException(id, "This id doesnt exists");
             return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);//sending to the func to calculate
         }
 
@@ -30,7 +30,7 @@ namespace DalObject
         {
             Station d2 = DataSource.StationsList.Find(x => x.Id == newD.Id); //finding the station by its id
             if (d2.Id != newD.Id)
-                throw new IDAL.DO.BadIdException(newD.Id, "This Station does not exist");
+                throw new DO.BadIdException(newD.Id, "This Station does not exist");
             DataSource.StationsList.Remove(d2);
             DataSource.StationsList.Add(newD);
         }
@@ -44,14 +44,14 @@ namespace DalObject
         {
             Station s2 = DataSource.StationsList.Find(x => x.Id == s.Id); //finding the station by its id
             if (s2.Id == s.Id)
-                throw new IDAL.DO.IDExistsException(s.Id, "This id already exists");
+                throw new DO.IDExistsException(s.Id, "This id already exists");
             DataSource.StationsList.Add(s);
         }
 
         public Station GetStation(int id)
         {
             if (!CheckStation(id))
-                throw new IDAL.DO.BadIdException(id, "Station id doesnt exist: ");
+                throw new DO.BadIdException(id, "Station id doesnt exist: ");
 
             Station stat1 = DataSource.StationsList.Find(stat1 => stat1.Id == id);
             return stat1;

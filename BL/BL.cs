@@ -1,23 +1,26 @@
 ﻿using System;
-using IBL.BO;
+using BO;
 //using IDAL.DO;
 //using DalObject;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace IBL
+namespace BlApi
 {
-    public partial class BL: IBL/*: IBL.IBL*/
+    sealed partial class BL: IBL/*: IBL.IBL*/
     {
         // public IDAL.IDal dl;
-        internal IDAL.IDal AccessIdal;
+        internal static readonly IBL instance = new BL();
+        public static IBL Instance { get => instance; }
+
+        internal DalApi.IDal AccessIdal;
         public List<DroneToList> DronesBL;
         internal static Random rand;//random
         internal static int chargeRate;
 
         public BL()
         {
-            AccessIdal = new DalObject.DalObject();
+            AccessIdal = DalApi.DalFactory.GetDal("List");
             rand =  new Random(DateTime.Now.Millisecond);
             chargeRate = AccessIdal.GetChargeRate();
             DronesBL = (List<DroneToList>)(from item in AccessIdal.GetALLDrone()
@@ -45,7 +48,7 @@ namespace IBL
                         Drone dd = GetDrone(item.Id);
                         double ba = amountOfbattery(dd,dd.CurrentLocation, s.StationLocation);
                         item.Battery = rand.Next((int)ba, 101);
-                        IDAL.DO.Parcel p = AccessIdal.GetParcel(item.IdOfParcel);
+                        DO.Parcel p = AccessIdal.GetParcel(item.IdOfParcel);
                         DateTime? d = null;
                         if (p.PickedUp == d)
                         {
@@ -55,7 +58,7 @@ namespace IBL
                         }
                         else if (p.Delivered == d)
                         {
-                            IDAL.DO.Customer c = AccessIdal.GetCustomer(p.SenderId);
+                            DO.Customer c = AccessIdal.GetCustomer(p.SenderId);
 
                             item.CurrentLocation = new Location() { Lattitude = c.Lattitude, Longitude = c.Longitude };
                         }
@@ -76,7 +79,7 @@ namespace IBL
                     int index = rand.Next(0, ss.Count());
                     item.CurrentLocation = new Location() { Lattitude = ss.ElementAt(index).StationLocation.Lattitude, Longitude = ss.ElementAt(index).StationLocation.Longitude };
                     item.Battery = rand.Next(20, 41);
-                    IDAL.DO.DroneCharge dc = new IDAL.DO.DroneCharge() { DroneId = item.Id, StationId = ss.ElementAt(index).Id };
+                    DO.DroneCharge dc = new DO.DroneCharge() { DroneId = item.Id, StationId = ss.ElementAt(index).Id };
                     AccessIdal.AddDroneCharge(dc);
 
                 }
@@ -105,9 +108,9 @@ namespace IBL
 
         private Station closestStation(double lon, double lat)
         {
-            double max=10000000000000000000, d = 0;
+            double max=double.MaxValue, d = 0;
             int ids=0;
-            foreach (IDAL.DO.Station  item in AccessIdal.GetALLStation())
+            foreach (DO.Station  item in AccessIdal.GetALLStation())
             {
                 d = AccessIdal.StationDistance(lat, lon, item.Id);
                 if(d<max)
@@ -165,7 +168,7 @@ namespace IBL
             return d;
         }
 
-        public IEnumerable<IDAL.DO.DroneCharge> GetAllDroneCharges()
+        public IEnumerable<DO.DroneCharge> GetAllDroneCharges()
         {
             return from item in AccessIdal.GetALLDroneCharges()
                    orderby item.DroneId

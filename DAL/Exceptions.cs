@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IDAL.DO
+namespace DO
 {
     
 
@@ -46,5 +46,23 @@ namespace IDAL.DO
             override public string ToString()
             { return "ID already Exists:" + ID + "\n" + Message; }
         }
+
+    [Serializable]
+    public class BadGetException : Exception
+    {
+
+        public BadGetException(string message) : base(message) { }
+        //public BadGetException( string message, Exception inner) : base(message, inner);
+
+        //   protected BadIdException(int idSerializationInfo info, StreamingContext context)
+        //: base(info, context) { }
+        //   // special constructor for our custom exception
+       
+
+        override public string ToString()
+        { return "bad get:" +"\n" + Message; }
+    }
+
+
 
 }
