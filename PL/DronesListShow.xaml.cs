@@ -90,10 +90,5 @@ namespace PL
                 DronesListView.ItemsSource = bl.GetDroneBy(p);
 
         }
-
-        //private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-
-        //}
     }
 }
