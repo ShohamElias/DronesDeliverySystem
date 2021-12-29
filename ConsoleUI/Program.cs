@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-using IDAL.DO;
+using DO;
 using DalObject;
 using System.Linq;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace ConsoleUI
         enum CalcOPT { Exit, CustomerS, stationD }
         public static void PrintMenu()
         {
-            DalObject.DalObject dal = new();
+            DalApi.IDal dal =  DalApi.DalFactory.GetDal("List");
             bool flag2;
             MenuOpt mo;
             int option;

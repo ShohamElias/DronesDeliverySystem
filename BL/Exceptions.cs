@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL
-{
-    namespace BO
+namespace BO
     {
 
         [Serializable]
@@ -136,4 +134,3 @@ namespace IBL
             { return "problem with station:" + ID + "\n" + Message; }
         }
     }
-}

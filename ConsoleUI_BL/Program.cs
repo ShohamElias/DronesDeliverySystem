@@ -3,7 +3,7 @@
 
 using System.Linq;
 using System.Collections.Generic;
-using IBL.BO;
+using BO;
 namespace ConsoleUI_BL
 {
     class Program
@@ -16,7 +16,7 @@ namespace ConsoleUI_BL
         enum ShowListOpt { Exit, ShowDrone, ShowStation, ShowParcel, ShowCustomer, UnmatchedParcels, EmptySlots }
         public static void PrintMenu()
         {
-            IBL.BL bl = new();
+            BlApi.IBL bl = BlApi.BlFactory.GetBL();
             bool flag2;
             MenuOpt mo;
             int option, neededId;

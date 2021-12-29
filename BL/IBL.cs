@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL
+namespace BlApi
 {
     public interface IBL
     {
@@ -45,6 +45,7 @@ namespace IBL
 
         #region Station
          IEnumerable<BO.Station> GetStationsforNoEmpty();
+        public BO.Station GetStation(int id);
 
         public void AddStation(BO.Station s);
         public void Updatestation(int id, string name, int numOfChargingSlots);

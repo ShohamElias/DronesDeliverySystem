@@ -3,28 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
 
-namespace IBL
+namespace BlApi
 {
-    public partial class BL
+     partial class BL
     {
         /// <summary>
         /// adapter- gets a DO parcel and returns a BO parcel
         /// </summary>
         /// <param name="parcelDO"></param> the DO parcel
         /// <returns></returns> BO parcel
-        private Parcel parcelDoBoAdapter(IDAL.DO.Parcel parcelDO)
+        private Parcel parcelDoBoAdapter(DO.Parcel parcelDO)
         {
             Parcel parcelBO = new Parcel();
             int id = parcelDO.Id;
-            IDAL.DO.Parcel s;
+           DO.Parcel s;
             try //???
             {
                 s = AccessIdal.GetParcel(id);
             }
-            catch (IDAL.DO.BadIdException)
+            catch (DO.BadIdException)
             {
 
                 throw new BadIdException("station");
@@ -38,19 +38,19 @@ namespace IBL
         /// <param name="p"></param>
         public void AddParcel(Parcel p ) 
         {
-            IDAL.DO.Parcel par = new IDAL.DO.Parcel();
+            DO.Parcel par = new DO.Parcel();
             try
             {
                 GetCustomer(p.Sender.Id);
                 GetCustomer(p.Target.Id);
 
             }
-            catch (IDAL.DO.BadIdException)
+            catch (DO.BadIdException)
             {
                 throw new BadIdException(p.Sender.Id, "this target or sender  ID doesnt exists");
             }
-            par.Weight = (IDAL.DO.WeightCategories)p.Weight;
-            par.Priority = (IDAL.DO.Priorities)p.Priority;
+            par.Weight = (DO.WeightCategories)p.Weight;
+            par.Priority = (DO.Priorities)p.Priority;
             par.Requested = null;
             par.Id = p.Id;
             par.SenderId = p.Sender.Id;
@@ -82,12 +82,12 @@ namespace IBL
             if (id == -1)
                 return new Parcel();
 
-            IDAL.DO.Parcel p;
+            DO.Parcel p;
             try
             {
                 p = AccessIdal.GetParcel(id);
             }
-            catch (IDAL.DO.BadIdException)
+            catch (DO.BadIdException)
             {
 
                 throw new BadIdException(id, "this parcel doesn't exist");
@@ -135,7 +135,7 @@ namespace IBL
         /// <param name="p"></param> the parcel
         public void UpdateParcel(Parcel p)
         {
-            IDAL.DO.Parcel pDO = AccessIdal.GetParcel(p.Id);
+           DO.Parcel pDO = AccessIdal.GetParcel(p.Id);
             pDO.PickedUp = p.PickedUp;
             pDO.Requested = p.Requested;
             pDO.Scheduled = p.Scheduled;
@@ -155,7 +155,7 @@ namespace IBL
             {
                 d = GetDrone(id);
             }
-            catch (IDAL.DO.BadIdException)
+            catch (DO.BadIdException)
             {
 
                 throw new BadIdException(id,"this Drone doesn;t exist"); 

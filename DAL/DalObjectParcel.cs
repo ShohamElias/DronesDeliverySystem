@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
+using DO;
 
 namespace DalObject
 {
-    public partial class DalObject : IDAL.IDal
+     partial class DalObject : DalApi.IDal
     {
        
         /// <summary>
@@ -24,7 +24,7 @@ namespace DalObject
         {
             Parcel d2 = DataSource.ParcelsList.Find(x => x.Id == newD.Id); //finding the station by its id
             if (d2.Id != newD.Id)
-                throw new IDAL.DO.BadIdException(newD.Id, "This Parcel does not exist");
+                throw new DO.BadIdException(newD.Id, "This Parcel does not exist");
             DataSource.ParcelsList.Remove(d2);
             DataSource.ParcelsList.Add(newD);
         }
@@ -32,7 +32,7 @@ namespace DalObject
         public Parcel GetParcel(int id)
         {
             if (!CheckParcel(id))
-                throw new IDAL.DO.BadIdException(id, "Parcel id doesnt exist: ");
+                throw new DO.BadIdException(id, "Parcel id doesnt exist: ");
 
             Parcel p = DataSource.ParcelsList.Find(p => p.Id == id);
             return p;
@@ -65,7 +65,7 @@ namespace DalObject
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
             if (p.Id != parcelId)
-                throw new IDAL.DO.BadIdException(parcelId, "This parcel id doesnt exists");
+                throw new DO.BadIdException(parcelId, "This parcel id doesnt exists");
             DataSource.ParcelsList.Remove(p);
             p.PickedUp = DateTime.Now;
             DataSource.ParcelsList.Add(p);
@@ -81,7 +81,7 @@ namespace DalObject
         {
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
             if (p.Id != parcelId) 
-                throw new IDAL.DO.BadIdException(parcelId, "This parcel id doesnt exists");
+                throw new DO.BadIdException(parcelId, "This parcel id doesnt exists");
             DataSource.ParcelsList.Remove(p);
             p.Delivered = DateTime.Now;
             DataSource.ParcelsList.Add(p); Drone d = DataSource.DroneList.Find(x => x.Id == p.DroneId); //finding the drone that was connected to the parcel by its id

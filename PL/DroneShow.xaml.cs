@@ -19,14 +19,14 @@ namespace PL
     /// </summary>
     public partial class DroneShow : Window
     {
-        IBL.IBL bl;
-        IBL.BO.Drone d;
-        IEnumerable<IBL.BO.Station> s;
+        BlApi.IBL bl;
+        BO.Drone d;
+        IEnumerable<BO.Station> s;
       //  Predicate<IBL.BO.Station> p;
         bool updateflag = false;
 
         
-        public DroneShow(IBL.IBL _bl)
+        public DroneShow(BlApi.IBL _bl)
         {
             InitializeComponent();
             bl = _bl;
@@ -50,18 +50,18 @@ namespace PL
             stationLable.Visibility = Visibility.Hidden;
             ChargingButton.Visibility = Visibility.Hidden;
             DeliveryButton.Visibility = Visibility.Hidden;
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.DroneStatuses));
-            WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.DroneStatuses));
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
         
         }
 
-        public DroneShow(IBL.IBL _bl, IBL.BO.Drone _d)
+        public DroneShow(BlApi.IBL _bl, BO.Drone _d)
         {
             InitializeComponent();
             bl = _bl;
             d = _d;
             AddUpdateButton.Content = "Update";
-            if (_d.Status == (IBL.BO.DroneStatuses)2) 
+            if (_d.Status == (BO.DroneStatuses)2) 
             {
                 ChargingButton.Content = "Discharge Drone";
                 DeliveryButton.IsEnabled = false;
@@ -69,7 +69,7 @@ namespace PL
             }
             else
                 ChargingButton.Content = "Charge Drone";
-            if (_d.Status == (IBL.BO.DroneStatuses)0)
+            if (_d.Status == (BO.DroneStatuses)0)
                 DeliveryButton.Content = "Pick a Parcel";
             else
                 DeliveryButton.Content = "Next delivery step";
@@ -82,7 +82,7 @@ namespace PL
             modelTextbox.Text = d.Model.ToString();
             LattextBox.Text = d.CurrentLocation.Lattitude.ToString();
             Lontextbox.Text = d.CurrentLocation.Longitude.ToString();
-            BatteryTextBox.Text = d.Battery.ToString();
+            BatteryTextBox.Text = Convert.ToInt32(d.Battery).ToString();
            
             idtextbox.IsEnabled = false;
             LattextBox.IsEnabled = false;
@@ -112,8 +112,8 @@ namespace PL
 
 
             // textBox1.Text = " ";
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.DroneStatuses));
-            WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.DroneStatuses));
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             StatusSelector.SelectedItem = d.Status;
             WeightSelector.SelectedItem = d.MaxWeight;
 
@@ -139,19 +139,19 @@ namespace PL
                     string c = BatteryTextBox.Text;
                     if (double.Parse(c) > 100 || double.Parse(c) < 0)
                     {
-                       throw new IBL.BO.BadInputException("battery should be between 0-100");
+                       throw new BO.BadInputException("battery should be between 0-100");
                        c = "100";
                        idtextbox.Text = c;
                     }
 
                     int stid = 0;
-                    IBL.BO.Drone db = new IBL.BO.Drone()
+                    BO.Drone db = new BO.Drone()
                     {
                         Id = Convert.ToInt32(idtextbox.Text.ToString()),
                         Battery = double.Parse(BatteryTextBox.Text.ToString()),
                         Model = modelTextbox.Text.ToString(),
-                        MaxWeight = (IBL.BO.WeightCategories)Convert.ToInt32(WeightSelector.SelectedIndex.ToString()),
-                        Status = (IBL.BO.DroneStatuses)Convert.ToInt32(StatusSelector.SelectedIndex.ToString()),
+                        MaxWeight = (BO.WeightCategories)Convert.ToInt32(WeightSelector.SelectedIndex.ToString()),
+                        Status = (BO.DroneStatuses)Convert.ToInt32(StatusSelector.SelectedIndex.ToString()),
                         CurrentParcel = null,
                         CurrentLocation = null
                     };
@@ -160,7 +160,7 @@ namespace PL
                         stid = s.ElementAt(stationCombo.SelectedIndex).Id;
                     }
                     else
-                        db.CurrentLocation = new IBL.BO.Location() { Lattitude = double.Parse(LattextBox.Text.ToString()), Longitude = double.Parse(Lontextbox.Text.ToString()) };
+                        db.CurrentLocation = new BO.Location() { Lattitude = double.Parse(LattextBox.Text.ToString()), Longitude = double.Parse(Lontextbox.Text.ToString()) };
                     bl.AddDrone(db, stid);
                     MessageBox.Show("Successfully completed the task.");
                     this.Close(); ;//station id, how???
@@ -212,11 +212,11 @@ namespace PL
         {
             try
             {
-                if (d.Status == IBL.BO.DroneStatuses.Available)
+                if (d.Status == BO.DroneStatuses.Available)
                     bl.LinkDroneToParcel(d.Id);
-                else if (d.Status == IBL.BO.DroneStatuses.Delivery)
+                else if (d.Status == BO.DroneStatuses.Delivery)
                 {
-                    IBL.BO.Parcel p = bl.GetParcel(d.CurrentParcel.Id);
+                    BO.Parcel p = bl.GetParcel(d.CurrentParcel.Id);
                     if (p.PickedUp == null)
                         bl.PickParcel(d.Id);
                     else if (p.Delivered == null)
@@ -238,10 +238,12 @@ namespace PL
         {
             try
             {
-                if (d.Status == IBL.BO.DroneStatuses.Available)
+                if (d.Status == BO.DroneStatuses.Available)
                     bl.DroneToCharge(d.Id);
-                else if (d.Status == IBL.BO.DroneStatuses.Maintenance)
+                else if (d.Status == BO.DroneStatuses.Maintenance)
                     bl.EndCharging(d.Id);
+                else if (d.Status == BO.DroneStatuses.Delivery)
+                    throw new BO.WrongDroneStatException(d.Id, "cant charge a drone on delivery");
                 MessageBox.Show("Successfully completed the task.");
                 
             }
@@ -258,11 +260,11 @@ namespace PL
         {
             try
             {
-                if (d.Status == IBL.BO.DroneStatuses.Available)
+                if (d.Status == BO.DroneStatuses.Available)
                     bl.LinkDroneToParcel(d.Id);
-                else if (d.Status == IBL.BO.DroneStatuses.Delivery)
+                else if (d.Status == BO.DroneStatuses.Delivery)
                 {
-                    IBL.BO.Parcel p = bl.GetParcel(d.CurrentParcel.Id);
+                    BO.Parcel p = bl.GetParcel(d.CurrentParcel.Id);
                     if (p.PickedUp == null)
                         bl.PickParcel(d.Id);
                     else if (p.Delivered == null)
@@ -336,7 +338,7 @@ namespace PL
             try
             {
                 if (!IsnumberChar(idtextbox.Text.ToString()))
-                    throw new IBL.BO.BadInputException(c,"ID can include only numbers");
+                    throw new BO.BadInputException(c,"ID can include only numbers");
                
             }
             catch (Exception ex)
@@ -360,9 +362,9 @@ namespace PL
             try
             {
                 if (!IsnumberCharLoc(BatteryTextBox.Text.ToString()))
-                    throw new IBL.BO.BadInputException(c,"battery can include only numbers");
+                    throw new BO.BadInputException(c,"battery can include only numbers");
                 if(c.Length>0 &&(int.Parse(c)>100 || int.Parse(c) < 0))
-                    throw new IBL.BO.BadInputException("battery should be between 0-100");
+                    throw new BO.BadInputException("battery should be between 0-100");
             }
             catch (Exception ex)
             {
@@ -378,7 +380,7 @@ namespace PL
             try
             {
                 if (!IsnumberCharLoc(LattextBox.Text.ToString()))
-                    throw new IBL.BO.BadInputException(c,"location can include only numbers");
+                    throw new BO.BadInputException(c,"location can include only numbers");
                 
             }
             catch (Exception ex)
@@ -395,7 +397,7 @@ namespace PL
             try
             {
                 if (!IsnumberCharLoc(Lontextbox.Text.ToString()))
-                    throw new IBL.BO.BadInputException(c, "location can include only numbers");
+                    throw new BO.BadInputException(c, "location can include only numbers");
 
             }
             catch (Exception ex)

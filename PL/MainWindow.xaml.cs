@@ -22,11 +22,11 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        IBL.IBL bl; 
+        BlApi.IBL bl; 
         public MainWindow()
         {
             InitializeComponent();
-            bl = new IBL.BL();
+            bl = BlApi.BlFactory.GetBL();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

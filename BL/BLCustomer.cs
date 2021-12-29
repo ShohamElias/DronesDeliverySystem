@@ -4,28 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 //using IBAL.BO;
-using IBL.BO;
+using BO;
 //using IDAL.DO;
 
-namespace IBL
+namespace BlApi
 {
-    public partial class BL 
+     partial class BL 
     {
         /// <summary>
         /// adapter from dal to bl object
         /// </summary>
         /// <param name="customerDO"></param> DO object
         /// <returns></returns> BO object
-        private Customer customerDoBoAdapter(IDAL.DO.Customer customerDO)
+        private Customer customerDoBoAdapter(DO.Customer customerDO)
         {
             Customer customerBO = new Customer();
             int id = customerDO.Id;
-            IDAL.DO.Customer s;
+            DO.Customer s;
             try 
             {
                 s = AccessIdal.GetCustomer(id);
             }
-            catch (IDAL.DO.BadIdException)
+            catch (DO.BadIdException)
             {
 
                 throw new BadIdException("customer");
@@ -43,7 +43,7 @@ namespace IBL
         public void AddCustomer(Customer newCustomer)
         {
             
-            IDAL.DO.Customer newCus = new IDAL.DO.Customer()
+            DO.Customer newCus = new DO.Customer()
             {
                 Id = newCustomer.Id,
                 Name = newCustomer.Name,
@@ -56,7 +56,7 @@ namespace IBL
             {
                 AccessIdal.AddCustomer(newCus);
             }
-            catch (IDAL.DO.IDExistsException)
+            catch (DO.IDExistsException)
             {
                throw new IDExistsException(newCus.Id,"this customer already exists");//#########################
             }
@@ -72,15 +72,15 @@ namespace IBL
             try
             {
                 if (!AccessIdal.CheckCustomer(cusId))
-                    throw new IDAL.DO.BadIdException(cusId, "this customer doesn't exist");
-                IDAL.DO.Customer cus = AccessIdal.GetCustomer(cusId);
+                    throw new DO.BadIdException(cusId, "this customer doesn't exist");
+               DO.Customer cus = AccessIdal.GetCustomer(cusId);
                 if (cusName != "")
                     cus.Name = cusName;
                 if (cusPhone != "")
                     cus.Phone = cusPhone;
                 AccessIdal.UpdateCustomer(cus);
             }
-            catch (IDAL.DO.BadIdException)
+            catch (DO.BadIdException)
             {
 
                 throw new BadIdException(cusId,"this customer doesn't exist");
@@ -116,7 +116,7 @@ namespace IBL
         {
             if (!AccessIdal.CheckCustomer(id))
                 throw new BadIdException(id, "this customer doesn't"); 
-            IDAL.DO.Customer c = AccessIdal.GetCustomer(id);
+            DO.Customer c = AccessIdal.GetCustomer(id);
             
             Customer cb = new Customer()
             {

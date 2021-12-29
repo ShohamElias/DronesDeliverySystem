@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
+using DO;
+using DalApi;
 
 namespace DalObject
 {
-    public partial class DalObject : IDAL.IDal
+    sealed partial class DalObject : IDal
     {
+        internal static readonly IDal instance = new DalObject();
+        public static IDal Instance{ get => instance; }
         public DalObject()
         {
             DataSource.Intialize();
@@ -54,7 +57,7 @@ namespace DalObject
             if (id == 0)
                 return new Customer();
             if (!CheckCustomer(id))
-                throw new IDAL.DO.BadIdException(id, "Customer id doesnt exist: ");
+                throw new DO.BadIdException(id, "Customer id doesnt exist: ");
 
             Customer cust1 = DataSource.CustomersList.Find(cust1 => cust1.Id == id);
             return cust1;
@@ -76,7 +79,7 @@ namespace DalObject
         {
             Customer d = DataSource.CustomersList.Find(x => x.Id == id);//finding the customer
             if (d.Id != id)
-                throw new IDAL.DO.BadIdException(id, "This id doesnt exists");
+                throw new DO.BadIdException(id, "This id doesnt exists");
             return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);//sending to the func to calculate
         }
         
@@ -88,7 +91,7 @@ namespace DalObject
         {
             Customer c2 = DataSource.CustomersList.Find(x => x.Id == cus.Id); //finding the station by its id
             if (c2.Id == cus.Id)
-                throw new IDAL.DO.IDExistsException(cus.Id, "This parcel id already exists");
+                throw new DO.IDExistsException(cus.Id, "This parcel id already exists");
             DataSource.CustomersList.Add( cus);
         }
 
@@ -96,7 +99,7 @@ namespace DalObject
         {
             Customer d2 = DataSource.CustomersList.Find(x => x.Id == newD.Id); //finding the station by its id
             if (d2.Id != newD.Id)
-                throw new IDAL.DO.BadIdException(newD.Id, "This Customer does not exist");
+                throw new DO.BadIdException(newD.Id, "This Customer does not exist");
             DataSource.CustomersList.Remove(d2);
             DataSource.CustomersList.Add(newD);
         }
