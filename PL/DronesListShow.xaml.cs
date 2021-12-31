@@ -20,37 +20,31 @@ namespace PL
     public partial class DronesListShow : Window
     {
         BlApi.IBL bl;
-        public DronesListShow(BlApi.IBL _bl)
+        public DronesListShow(BlApi.IBL _bl) //constructor
         {
             InitializeComponent();
             DronesListView.ItemsSource = _bl.GetAllDrones();
             bl = _bl;
 
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.DroneStatuses));
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.DroneStatuses)); //filling the comboboxes
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string str = StatusSelector.SelectedIndex.ToString();
-            int choice = Convert.ToInt32(str);
-            //DronesListView.ItemsSource = bl.GetDroneBy()//#########
+           
             Predicate<BO.Drone> p;
-            if (WeightSelector.SelectedIndex != -1)
+            if (WeightSelector.SelectedIndex != -1) //if the weight selector is selected as well
                 p = s => s.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedIndex && s.Status == (BO.DroneStatuses)StatusSelector.SelectedIndex;
             else
                 p = s => s.Status == (BO.DroneStatuses)StatusSelector.SelectedIndex;
-            DronesListView.ItemsSource = bl.GetDroneBy(p);
+            DronesListView.ItemsSource = bl.GetDroneBy(p); //fill the list view
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string str = WeightSelector.SelectedIndex.ToString();
-            int choice = Convert.ToInt32(str);
-
-           
             Predicate<BO.Drone> p;
-            if (StatusSelector.SelectedIndex != -1)
+            if (StatusSelector.SelectedIndex != -1) //if the status selector is selected as well
                 p = s => s.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedIndex && s.Status == (BO.DroneStatuses)StatusSelector.SelectedIndex;
             else
                 p = s => s.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedIndex;
@@ -60,31 +54,30 @@ namespace PL
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
-            new DroneShow(bl).ShowDialog();
+            new DroneShow(bl).ShowDialog(); //opening the other window
 
         }
 
 
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //  IBL.BO.Drone d= DronesListView.InputHitTest(e.XButton1, e.XButton2);
             ListViewItem item = sender as ListViewItem;
             BO.Drone d = DronesListView.SelectedItem as BO.Drone;
             if (d != null)
-                new DroneShow(bl, d).Show();
+                new DroneShow(bl, d).Show(); //opening the options widow
         }
 
         private void Window_Activated(object sender, EventArgs e)
         {
             Predicate<BO.Drone> p = null;
-            if (StatusSelector.SelectedIndex != -1 && WeightSelector.SelectedIndex != -1)
-                p = s => s.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedIndex && s.Status == (BO.DroneStatuses)StatusSelector.SelectedIndex;
-            else if (WeightSelector.SelectedIndex != -1)
-                p = s => s.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedIndex;
+            if (StatusSelector.SelectedIndex != -1 && WeightSelector.SelectedIndex != -1) //if both of the combo boxes are selected
+                p = s => s.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedIndex && s.Status == (BO.DroneStatuses)StatusSelector.SelectedIndex; //create the predicate
+            else if (WeightSelector.SelectedIndex != -1) //if only one is selected
+                p = s => s.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedIndex; //create the predicate
             else if (StatusSelector.SelectedIndex != -1)
-                p = s => s.Status == (BO.DroneStatuses)StatusSelector.SelectedIndex;
+                p = s => s.Status == (BO.DroneStatuses)StatusSelector.SelectedIndex;//create the predicate
 
-            if (p == null)
+            if (p == null) //if the comboboxes werent selected
                 DronesListView.ItemsSource = bl.GetAllDrones();
             else
                 DronesListView.ItemsSource = bl.GetDroneBy(p);

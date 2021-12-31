@@ -270,7 +270,7 @@ namespace BlApi
            // DronesBL.Remove(dt);
             dt.Status = DroneStatuses.Available;
             TimeSpan timeSpan = DateTime.Now- dt.TimeCharge ;
-            dt.Battery += Convert.ToInt32( timeSpan.TotalHours * chargeRate);
+            dt.Battery += 10*( timeSpan.TotalHours * chargeRate);
             if (dt.Battery >= 100)
                 dt.Battery = 100;
             DronesBL.Remove(dss);
