@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="DronesListShow" Height="640" Width="800" Activated="Window_Activated">
     <Grid Background="#FFE8F8FA">
         <Grid.ColumnDefinitions>

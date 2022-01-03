@@ -19,9 +19,26 @@ namespace PL
     /// </summary>
     public partial class ParcelWindow : Window
     {
-        public ParcelWindow()
+        BlApi.IBL bl;
+        public ParcelWindow(BlApi.IBL _bl)
         {
             InitializeComponent();
+            bl = _bl;
+            parcelDataGrid.DataContext = _bl.GetAllParcels();
+            parcelDataGrid.IsReadOnly = true;
+        }
+
+        private void parcelDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BO.Parcel p = parcelDataGrid.SelectedItem as BO.Parcel;
+            if (p != null)
+                new ParcelShow(p,bl).Show();
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            parcelDataGrid.DataContext = bl.GetAllParcels();
+
         }
     }
 }

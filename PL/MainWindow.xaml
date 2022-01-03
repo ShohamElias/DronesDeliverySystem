@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="450" Width="590">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/f56bcec6-a20d-4d2c-a07f-512eb2566234.jpg"/>
         </Grid.Background>
         <Button Content="Drones List" HorizontalAlignment="Center" Margin="0,72,0,0" VerticalAlignment="Top" Height="43" Width="512" Click="Button_Click"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="48" Margin="39,178,0,0" VerticalAlignment="Top" Width="72" Click="Button_Click_1"/>
 
     </Grid>
 </Window>
