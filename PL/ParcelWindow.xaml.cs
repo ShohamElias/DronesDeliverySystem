@@ -24,21 +24,25 @@ namespace PL
         {
             InitializeComponent();
             bl = _bl;
-            parcelDataGrid.DataContext = _bl.GetAllParcels();
-            parcelDataGrid.IsReadOnly = true;
+            parcelListView.DataContext = _bl.GetAllParcels();
         }
 
         private void parcelDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            BO.Parcel p = parcelDataGrid.SelectedItem as BO.Parcel;
-            if (p != null)
-                new ParcelShow(p,bl).Show();
+           
         }
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            parcelDataGrid.DataContext = bl.GetAllParcels();
+            parcelListView.DataContext = bl.GetAllParcels();
 
+        }
+
+        private void parcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BO.Parcel p = parcelListView.SelectedItem as BO.Parcel;
+            if (p != null)
+                new ParcelShow(p, bl).Show();
         }
     }
 }

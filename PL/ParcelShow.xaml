@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
@@ -32,8 +31,8 @@
             <Label x:Name="deliveredLable" Content="Delivered:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="9" VerticalAlignment="Center"/>
             <DatePicker x:Name="deliveredDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="9" SelectedDate="{Binding Delivered, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
 
-            <Label Content="Drone in Parcel:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
-            <ComboBox x:Name="droneParcelComboBox" Grid.Column="1" DisplayMemberPath="DroneParcel" HorizontalAlignment="Left" Height="Auto" ItemsSource="{Binding}" Margin="3" Grid.Row="5" VerticalAlignment="Center" Width="120">
+            <Label x:Name="droneLable" Content="Drone in Parcel:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
+            <ComboBox x:Name="droneParcelComboBox" Grid.Column="1" DisplayMemberPath="DroneParcel" HorizontalAlignment="Left" Height="Auto" ItemsSource="{Binding }" Margin="3" Grid.Row="5" VerticalAlignment="Center" Width="120">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>
@@ -46,7 +45,7 @@
             <DatePicker x:Name="pickedUpDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="8" SelectedDate="{Binding PickedUp, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
 
             <Label Content="Priority:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
-            <ComboBox x:Name="priorityComboBox" Grid.Column="1" DisplayMemberPath="Priority" HorizontalAlignment="Left" Height="Auto" ItemsSource="{Binding}" Margin="1" Grid.Row="1" VerticalAlignment="Center" Width="120">
+            <ComboBox x:Name="priorityComboBox" Grid.Column="1"  HorizontalAlignment="Left"  SelectedItem="{Binding Priority}" Height="Auto" ItemsSource="{Binding }" Margin="1" Grid.Row="1" VerticalAlignment="Center" Width="120">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>
@@ -61,7 +60,7 @@
             <DatePicker x:Name="scheduledDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="6" SelectedDate="{Binding Scheduled, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
 
             <Label Content="Sender:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
-            <ComboBox x:Name="senderComboBox" Grid.Column="1" DisplayMemberPath="Sender" HorizontalAlignment="Left" Height="Auto" ItemsSource="{Binding}" Margin="3" Grid.Row="4" VerticalAlignment="Center" Width="120">
+            <ComboBox x:Name="senderComboBox" Grid.Column="1"  HorizontalAlignment="Left"  Height="Auto" ItemsSource="{Binding }" Margin="3" Grid.Row="4" VerticalAlignment="Center" Width="120">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>
@@ -70,7 +69,7 @@
             </ComboBox>
 
             <Label Content="Target:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
-            <ComboBox x:Name="targetComboBox" Grid.Column="1" DisplayMemberPath="Target" HorizontalAlignment="Left" Height="Auto" ItemsSource="{Binding}" Margin="3" Grid.Row="3" VerticalAlignment="Center" Width="120">
+            <ComboBox x:Name="targetComboBox" Grid.Column="1" HorizontalAlignment="Left"   Height="Auto" ItemsSource="{Binding }" Margin="3" Grid.Row="3" VerticalAlignment="Center" Width="120">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>
@@ -88,7 +87,6 @@
             </ComboBox>
         </Grid>
         <Button x:Name="addUpdateButton"
-  Style="{StaticResource MaterialDesignRaisedLightButton}"
   
   ToolTip="Resource name: MaterialDesignRaisedLightButton"
   Content="_LIGHT"

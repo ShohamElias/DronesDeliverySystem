@@ -21,6 +21,11 @@ namespace PL
     {
         BlApi.IBL bl;
 
+        public ParcelShow(BlApi.IBL _bl)
+        {
+
+        }
+
         public ParcelShow(BO.Parcel p, BlApi.IBL _bl)
         {
             InitializeComponent();
@@ -59,8 +64,32 @@ namespace PL
             }
             weightComboBox.ItemsSource= Enum.GetValues(typeof(BO.WeightCategories));
             priorityComboBox.ItemsSource= Enum.GetValues(typeof(BO.Priorities));
-            senderComboBox.DataContext = bl.GetAllCustomers();
-            targetComboBox.DataContext = bl.GetAllCustomers();
+            senderComboBox.ItemsSource = bl.GetAllCustomers();
+            targetComboBox.ItemsSource = bl.GetAllCustomers();
+            BO.Customer c = bl.GetCustomer(p.Sender.Id);
+            IEnumerable<BO.Customer> cc = bl.GetAllCustomers();
+            int index =0;
+            foreach (var item in cc)
+            {
+                if (p.Sender.Id == item.Id)
+                    break;
+                index++;
+            }
+            senderComboBox.SelectedIndex = index;
+            index = 0;
+            foreach (var item in cc)
+            {
+                if (p.Target.Id == item.Id)
+                    break;
+                index++;
+            }
+            targetComboBox.SelectedIndex = index;
+            if(p.DroneParcel.Id==0)
+            {
+                droneParcelComboBox.Visibility = Visibility.Collapsed;
+                droneLable.Visibility = Visibility.Collapsed;
+            }
+
         }
 
         private void addUpdateButton_Click(object sender, RoutedEventArgs e)
@@ -71,6 +100,15 @@ namespace PL
             }
             else if(addUpdateButton.Content == "Update")
             {
+                BO.Parcel p = new BO.Parcel()
+                {
+                    Id=int.Parse(idTextBox.Text),
+                    Weight=(BO.WeightCategories)weightComboBox.SelectedItem,
+                    Priority=(BO.Priorities)priorityComboBox.SelectedItem,
+                   
+                };
+                if(senderComboBox.SelectedIndex!=-1)
+                     
                 bl.UpdateParcel((BO.Parcel)parcelGrid.DataContext);
             }
         }
