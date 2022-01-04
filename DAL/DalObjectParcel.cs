@@ -42,7 +42,12 @@ namespace DalObject
         {
             return DataSource.ParcelsList.Any(p => p.Id == id);
         }
-
+        public void RemoveParcel(int id)
+        {
+            if (!CheckParcel(id))
+                throw new BadIdException(id, "this parcel doesnt exist");
+            DataSource.ParcelsList.Remove(GetParcel(id));
+        }
         public IEnumerable<Parcel> GetALLParcel()
         {
             return from p in DataSource.ParcelsList

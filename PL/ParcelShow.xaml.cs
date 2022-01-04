@@ -60,6 +60,7 @@ namespace PL
         {
             InitializeComponent();
             closingwin = true;
+            
             parcelGrid.DataContext = p;
             addUpdateButton.Content = "Cancel";
             bl = _bl;
@@ -80,6 +81,7 @@ namespace PL
             }
             else
             {
+                Removebutton.IsEnabled = false;
                 requestedDatePicker.Visibility = Visibility.Visible;
                 requestedlLable.Visibility = Visibility.Visible;
             }
@@ -199,6 +201,19 @@ namespace PL
         {
             closingwin = false;
             Close();
+        }
+
+        private void Removebutton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.RemoveParcel(int.Parse(idTextBox.Text.ToString()));
+
+            }
+            catch(Exception el)
+            {
+                Console.WriteLine(el);
+            }
         }
     }
 }

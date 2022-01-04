@@ -252,7 +252,19 @@ namespace BlApi
                    };
 
         }
+        public void RemoveParcel(int id)
+        {
+            try
+            {
+                AccessIdal.RemoveParcel(id);
+            }
+            catch(BadIdException)
+            {
+                throw new BadIdException(id, "This parcel doesnt exist");
+            }
+            
 
+        }
         public IEnumerable<Parcel> GetParcelBy(Predicate<Parcel> P)
         {
             return from d in GetAllParcels()
