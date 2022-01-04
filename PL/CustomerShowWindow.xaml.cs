@@ -76,6 +76,7 @@ namespace PL
                 bl.UpdateCustomer(int.Parse(idTextBox.Text), nameTextBox.Text, phoneTextBox.Text);
             }
             MessageBox.Show("Successfully completed the task.");
+            closingwin = false;
             this.Close();
         }
 
@@ -83,14 +84,14 @@ namespace PL
         {
             BO.Parcel c = SentList.SelectedItem as BO.Parcel;
             if (c != null)
-                new ParcelShow(c, bl).ShowDialog();
+                new ParcelShow(c, bl, "sender").ShowDialog();
         }
 
         private void ReceivedList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.Parcel c = ReceivedList.SelectedItem as BO.Parcel;
             if (c != null)
-                new ParcelShow(c, bl).ShowDialog();
+                new ParcelShow(c, bl, "target").ShowDialog();
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -102,6 +103,78 @@ namespace PL
         {
             closingwin = false;
             Close();
+        }
+
+        public bool IsnumberChar(string c) //the func checks if the string is a number
+        {
+            for (int i = 0; i < c.Length; i++)
+            {
+                if ((c[i] < '0' || c[i] > '9') && (c[i] != '\b'))
+                    return false;
+
+            }
+            return true;
+        }
+        public bool IsnumberCharLoc(string c) //the func checks if the string is a right input to location
+        {
+            for (int i = 0; i < c.Length; i++)
+            {
+                if ((c[i] < '0' || c[i] > '9') && (c[i] != '\b') && (c[i] != '.'))
+                    return false;
+
+            }
+            return true;
+        }
+
+        private void idTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string c = idTextBox.Text;
+            try //validatoin for id
+            {
+                if (!IsnumberChar(idTextBox.Text.ToString()))
+                    throw new BO.BadInputException(c, "ID can include only numbers");
+
+            }
+            catch (Exception ex)
+            {
+                c = c.Remove(c.Length - 1);
+                idTextBox.Text = c;
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void LongtitudeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string c = LongtitudeTextBox.Text;
+            try//validatoin for longtitude
+            {
+                if (!IsnumberCharLoc(LongtitudeTextBox.Text.ToString()))
+                    throw new BO.BadInputException(c, "location can include only numbers");
+
+            }
+            catch (Exception ex)
+            {
+                c = "0";
+                LongtitudeTextBox.Text = c;
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void LatitudeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string c = LatitudeTextBox.Text;
+            try //validatoin for lattitude
+            {
+                if (!IsnumberCharLoc(LatitudeTextBox.Text.ToString()))
+                    throw new BO.BadInputException(c, "location can include only numbers");
+
+            }
+            catch (Exception ex)
+            {
+                c = "0";
+                LatitudeTextBox.Text = c;
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

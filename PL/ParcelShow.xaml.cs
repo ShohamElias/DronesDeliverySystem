@@ -34,6 +34,7 @@ namespace PL
             idTextBox.Text = id.ToString();
             idTextBox.IsReadOnly = true;
             addUpdateButton.Content = "Add";
+            closingwin = false;
             bl = _bl;
             weightComboBox.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             priorityComboBox.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
@@ -46,7 +47,8 @@ namespace PL
             pickedUpLable.Visibility = Visibility.Collapsed;
             deliveredDatePicker.Visibility = Visibility.Collapsed;
             deliveredLable.Visibility = Visibility.Collapsed;
-            
+            Removebutton.Visibility = Visibility.Collapsed;
+
             droneLable.Visibility = Visibility.Collapsed;
             droneParcelComboBox.Visibility = Visibility.Collapsed;
             schedualLable.Visibility = Visibility.Collapsed;
@@ -57,7 +59,7 @@ namespace PL
             targetButton.Visibility = Visibility.Hidden;
         }
 
-        public ParcelShow(BO.Parcel p, BlApi.IBL _bl)
+        public ParcelShow(BO.Parcel p, BlApi.IBL _bl, string typeCust)
         {
             InitializeComponent();
             closingwin = true;
@@ -82,7 +84,6 @@ namespace PL
             }
             else
             {
-                Removebutton.IsEnabled = false;
                 requestedDatePicker.Visibility = Visibility.Visible;
                 requestedlLable.Visibility = Visibility.Visible;
             }
@@ -104,6 +105,7 @@ namespace PL
             }
             else
             {
+                Removebutton.IsEnabled = false;
                 dd = bl.GetAllDrones();
                 droneParcelComboBox.ItemsSource = null;
                 droneParcelComboBox.ItemsSource = dd;
@@ -147,6 +149,16 @@ namespace PL
                 droneLable.Visibility = Visibility.Collapsed;
             }
 
+            if (typeCust == "sender"|| typeCust=="target")
+            {
+                senderButton.Visibility = Visibility.Hidden;
+                targetButton.Visibility = Visibility.Hidden;
+                droneParcelComboBox.IsEnabled = false;
+                priorityComboBox.IsEnabled = false;
+                senderComboBox.IsEnabled = false;
+                targetComboBox.IsEnabled = false;
+                weightComboBox.IsEnabled = false;
+            }
         }
 
         
@@ -157,7 +169,11 @@ namespace PL
             {
                 BO.Parcel p = new BO.Parcel();
                 p.Id = parcelid;
-                
+                if (targetComboBox.SelectedItem==senderComboBox.SelectedItem)
+                {
+                    MessageBox.Show("The sender cant be the same as the target");
+                    return;
+                }
                 if (priorityComboBox.SelectedIndex != -1)
                     p.Priority = (BO.Priorities)priorityComboBox.SelectedItem;
                 if (weightComboBox.SelectedIndex != -1)
@@ -166,11 +182,15 @@ namespace PL
                    p.Sender = new BO.CustomerInParcel() {Id=cc.ElementAt(senderComboBox.SelectedIndex).Id,CustomerName= cc.ElementAt(senderComboBox.SelectedIndex).Name };
                if(targetComboBox.SelectedIndex!=-1)
                     p.Target = new BO.CustomerInParcel() { Id = cc.ElementAt(targetComboBox.SelectedIndex).Id, CustomerName = cc.ElementAt(targetComboBox.SelectedIndex).Name };
+                p.Requested = DateTime.Now;
                 bl.AddParcel(p);
+                MessageBox.Show("Successfully completed the task.");
+                closingwin = false;
                 this.Close();
             }
             else if (addUpdateButton.Content == "Cancel")
             {
+                closingwin = false;
                 this.Close();
             }
         }
@@ -210,12 +230,15 @@ namespace PL
             try
             {
                 bl.RemoveParcel(int.Parse(idTextBox.Text.ToString()));
-
+                MessageBox.Show("Successfully completed the task.");
+                closingwin = false;
+                this.Close();
             }
             catch(Exception el)
             {
                 Console.WriteLine(el);
             }
+            
         }
     }
 }

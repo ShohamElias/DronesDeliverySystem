@@ -51,7 +51,7 @@ namespace BlApi
             }
             par.Weight = (DO.WeightCategories)p.Weight;
             par.Priority = (DO.Priorities)p.Priority;
-            par.Requested = null;
+            par.Requested = p.Requested;
             par.Id = p.Id;
             par.SenderId = p.Sender.Id;
             par.TargetId = p.Target.Id;

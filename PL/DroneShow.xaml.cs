@@ -182,6 +182,7 @@ namespace PL
             }
             return true;
         }
+
         private void button_Click(object sender, RoutedEventArgs e) //add/update button click
         {
             try
@@ -215,6 +216,7 @@ namespace PL
                         db.CurrentLocation = new BO.Location() { Lattitude = double.Parse(LattextBox.Text.ToString()), Longitude = double.Parse(Lontextbox.Text.ToString()) };
                     bl.AddDrone(db, stid);
                     MessageBox.Show("Successfully completed the task.");
+                    closingwin = false;
                     this.Close();
                 }
                 else
@@ -247,6 +249,7 @@ namespace PL
                         updateflag = false;
                         bl.UpdateDrone(d.Id, modelTextbox.Text);
                         MessageBox.Show("Successfully completed the task.");
+                        closingwin = false;
                         this.Close();
                     }
 
@@ -283,7 +286,7 @@ namespace PL
 
                 MessageBox.Show(ex.ToString());
             }
-
+            closingwin = false;
             this.Close();
         }
 
@@ -305,7 +308,7 @@ namespace PL
                 MessageBox.Show(ex.ToString());
 
             }
-
+            closingwin = false;
             this.Close();
         }
 

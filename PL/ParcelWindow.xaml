@@ -101,6 +101,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="AddButton" Content="Button" HorizontalAlignment="Left" Margin="105,371,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button x:Name="AddButton" Content="Add a parcel" HorizontalAlignment="Center" Margin="0,349,0,0" VerticalAlignment="Top" Click="Button_Click" Width="156"/>
+        <ComboBox x:Name="PrioritySelector" HorizontalAlignment="Left" Margin="215,43,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="PrioritySelector_SelectionChanged"/>
+        <ComboBox x:Name="WeightSelector" HorizontalAlignment="Left" Margin="498,45,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="WeightSelector_SelectionChanged"/>
+        <Label x:Name="PriorityL" Content="Priority:" HorizontalAlignment="Left" Margin="125,41,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="WeightL" Content="Weight:" HorizontalAlignment="Left" Margin="419,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.586"/>
+        <Button x:Name="clearButton" Content="clear" HorizontalAlignment="Left" Margin="723,46,0,0" VerticalAlignment="Top" Click="clearButton_Click"/>
     </Grid>
 </Window>

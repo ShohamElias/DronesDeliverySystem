@@ -20,7 +20,7 @@ namespace PL
     public partial class CustomerListShow : Window
     {
         BlApi.IBL bl;
-        static bool flag = true;
+        bool flag = true;
         public CustomerListShow(BlApi.IBL _bl)
         {
             InitializeComponent();
