@@ -103,6 +103,7 @@ namespace PL
             else
             {
                 dd = bl.GetAllDrones();
+                droneParcelComboBox.ItemsSource = null;
                 droneParcelComboBox.ItemsSource = dd;
                 int _index = 0;
                 foreach (var item in dd)
