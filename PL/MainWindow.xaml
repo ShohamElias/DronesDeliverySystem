@@ -13,6 +13,7 @@
         </Grid.Background>
         <Button Content="Drones List" HorizontalAlignment="Center" Margin="0,72,0,0" VerticalAlignment="Top" Height="43" Width="512" Click="Button_Click"/>
         <Button Content="Button" HorizontalAlignment="Left" Height="48" Margin="39,178,0,0" VerticalAlignment="Top" Width="72" Click="Button_Click_1"/>
+        <Button x:Name="Customer" Content="Customer" HorizontalAlignment="Left" Margin="75,283,0,0" VerticalAlignment="Top" Click="Customer_Click"/>
 
     </Grid>
 </Window>

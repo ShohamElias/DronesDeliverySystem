@@ -252,5 +252,12 @@ namespace BlApi
                    };
 
         }
+
+        public IEnumerable<Parcel> GetParcelBy(Predicate<Parcel> P)
+        {
+            return from d in GetAllParcels()
+                   where P(d)
+                   select d;
+        }
     }
 }

@@ -61,7 +61,7 @@ namespace DalObject
                     TargetId = CustomersList[rand.Next(10)].Id,
                     Weight = (WeightCategories)rand.Next(3),
                     Priority = (Priorities)rand.Next(2),
-                    Requested = null,
+                    Requested = DateTime.Now,
                     DroneId =0,
                     Scheduled =null,
                     PickedUp = null,

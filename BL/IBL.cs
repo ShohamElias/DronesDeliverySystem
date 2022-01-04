@@ -33,6 +33,7 @@ namespace BlApi
         #endregion
 
         #region Parcel
+        public IEnumerable<BO.Parcel> GetParcelBy(Predicate<BO.Parcel> P);
         public void AddParcel(BO.Parcel p);
         public IEnumerable<BO.Parcel> GetAllParcels();
         public BO.Parcel GetParcel(int id);

@@ -1,0 +1,50 @@
+﻿<Window x:Class="PL.CustomerShowWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="CustomerShowWindow" Height="450" Width="800">
+    <Grid x:Name="customerGrid" HorizontalAlignment="Left" Margin="285,152,0,0" VerticalAlignment="Top" Height="217" RenderTransformOrigin="0.263,0.4" Width="434">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+        <Label Content="Id:" Grid.Column="0" HorizontalAlignment="Left" Margin="-174,-115,0,0" Grid.Row="0" VerticalAlignment="Top" Height="31" Width="25"/>
+        <TextBox x:Name="idTextBox" HorizontalAlignment="Left" Height="27" Margin="-92,-113,0,0" Grid.Row="0" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="130" Grid.ColumnSpan="2"/>
+        <Label Content="Name:" Grid.Column="0" HorizontalAlignment="Left" Margin="-174,-81,0,0" VerticalAlignment="Top" Height="31" Width="48"/>
+        <TextBox x:Name="nameTextBox" HorizontalAlignment="Left" Height="27" Margin="-92,-80,0,0" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="130" Grid.ColumnSpan="2"/>
+        <Label Content="Phone:" Grid.Column="0" HorizontalAlignment="Left" Margin="-174,-50,0,0" VerticalAlignment="Top" Height="30" Width="50"/>
+        <TextBox x:Name="phoneTextBox" HorizontalAlignment="Left" Height="27" Margin="-92,-49,0,0" Text="{Binding Phone, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="130" Grid.ColumnSpan="2"/>
+        <Label Content="Longtitude:" Grid.Column="0" HorizontalAlignment="Left" Margin="-174,-20,0,0" VerticalAlignment="Top" Height="31" Width="76"/>
+        <TextBox x:Name="LongtitudeTextBox" HorizontalAlignment="Left" Height="27" Margin="-92,-18,0,0" Text="{Binding CustLocation.Longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="130" Grid.ColumnSpan="2"/>
+        <Label Content="Latitude:" Grid.Column="0" HorizontalAlignment="Left" Margin="-174,0,0,0" VerticalAlignment="Center" Height="30" Grid.Row="2" Width="60"/>
+        <TextBox x:Name="LatitudeTextBox" HorizontalAlignment="Left" Height="27" Margin="-92,0,0,0" Text="{Binding CustLocation.Lattitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="130" Grid.ColumnSpan="2" Grid.Row="2"/>
+        <Label x:Name="SentParcels" Content="Sent Parcels" HorizontalAlignment="Left" Margin="-174,41,0,0" Grid.Row="4" VerticalAlignment="Top"/>
+        <Label x:Name="RecievedParcels" Content="Recieved Parcels" HorizontalAlignment="Left" Margin="-174,131,0,0" Grid.Row="4" VerticalAlignment="Top"/>
+        <ListView x:Name="SentList" HorizontalAlignment="Left" Height="59" Margin="-174,67,0,0" Grid.Row="4" VerticalAlignment="Top" Width="579" MouseDoubleClick="SentList_MouseDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView x:Name="ReceivedList" Grid.Row="4" Margin="-174,162,29,-50" MouseDoubleClick="ReceivedList_MouseDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="addUpdateButton" Content="add/update" HorizontalAlignment="Left" Margin="332,-80,0,0" VerticalAlignment="Top" Click="addUpdateButton_Click"/>
+    </Grid>
+</Window>

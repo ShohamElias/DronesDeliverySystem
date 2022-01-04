@@ -12,36 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PL;
 
-
-namespace PL
+namespace WpfApp1
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        BlApi.IBL bl; 
         public MainWindow()
         {
             InitializeComponent();
-            bl = BlApi.BlFactory.GetBL();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            new DronesListShow(bl).Show();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            new ParcelWindow(bl).Show();
-        }
-
-        private void Customer_Click(object sender, RoutedEventArgs e)
-        {
-            new CustomerListShow(bl).Show();
         }
     }
 }
