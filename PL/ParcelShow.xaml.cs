@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace PL
 {
     /// <summary>
@@ -104,6 +105,7 @@ namespace PL
             else
             {
                 dd = bl.GetAllDrones();
+                droneParcelComboBox.ItemsSource = null;
                 droneParcelComboBox.ItemsSource = dd;
                 int _index = 0;
                 foreach (var item in dd)

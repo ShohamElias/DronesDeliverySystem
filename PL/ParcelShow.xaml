@@ -32,7 +32,7 @@
             <DatePicker x:Name="deliveredDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="9" SelectedDate="{Binding Delivered, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" IsHitTestVisible="False"/>
 
             <Label x:Name="droneLable" Content="Drone in Parcel:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
-            <ComboBox x:Name="droneParcelComboBox" Grid.Column="1"  HorizontalAlignment="Left" Height="Auto" ItemsSource="{Binding }" Margin="3" Grid.Row="5" VerticalAlignment="Center" Width="120" IsEnabled="False">-->
+            <ComboBox x:Name="droneParcelComboBox" Grid.Column="1"  HorizontalAlignment="Left" Height="Auto"  Margin="3" Grid.Row="5" ItemsSource="{Binding }" VerticalAlignment="Center" Width="120" IsReadOnly="True" IsEnabled="False">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>

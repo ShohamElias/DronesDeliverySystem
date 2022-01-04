@@ -55,6 +55,9 @@ namespace PL
             StatusSelector.IsReadOnly = true;
             modelTextbox.IsReadOnly = true;
 
+            WeightSelector.IsEnabled = false;
+            StatusSelector.IsEnabled = false;
+
         }
         public DroneShow(BlApi.IBL _bl) //window opens as "ADD" opstion
         {
@@ -411,7 +414,8 @@ namespace PL
         private void button_Click_3(object sender, RoutedEventArgs e)
         {
             closingwin = false;
-
+            WeightSelector.IsEnabled = true;
+            StatusSelector.IsEnabled = true;
             this.Close();
         }
 
