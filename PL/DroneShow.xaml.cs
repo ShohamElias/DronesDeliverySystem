@@ -24,7 +24,36 @@ namespace PL
         IEnumerable<BO.Station> s;
         bool updateflag = false;
 
+        public DroneShow(BlApi.IBL _bl, BO.Drone _d,string s)
+        {
+            InitializeComponent();
+            d = _d;
+            AddUpdateButton.Visibility = Visibility.Hidden;
+            ChargingButton.Visibility = Visibility.Hidden;
+            DeliveryButton.Visibility = Visibility.Hidden;
 
+            idtextbox.Text = d.Id.ToString();
+            modelTextbox.Text = d.Model.ToString();
+            LattextBox.Text = d.CurrentLocation.Lattitude.ToString();
+            Lontextbox.Text = d.CurrentLocation.Longitude.ToString();
+            BatteryTextBox.Text = Convert.ToInt64(d.Battery).ToString();
+            modelTextbox.Text = d.Model;
+
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.DroneStatuses));
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
+            StatusSelector.SelectedItem = d.Status;
+            WeightSelector.SelectedItem = d.MaxWeight;
+
+            idtextbox.IsReadOnly = true;         
+            modelTextbox.IsReadOnly = true;
+            LattextBox.IsReadOnly = true;
+            Lontextbox.IsReadOnly = true;
+            BatteryTextBox.IsReadOnly = true;
+            WeightSelector.IsReadOnly = true;
+            StatusSelector.IsReadOnly = true;
+            modelTextbox.IsReadOnly = true;
+
+        }
         public DroneShow(BlApi.IBL _bl) //window opens as "ADD" opstion
         {
             InitializeComponent();
