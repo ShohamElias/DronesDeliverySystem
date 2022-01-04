@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace PL
     public partial class CustomerShowWindow : Window
     {
         BlApi.IBL bl;
+        static bool closingwin = true;
 
         public CustomerShowWindow(BO.Customer c, BlApi.IBL _bl, string typeWindow)
         {
@@ -79,7 +81,7 @@ namespace PL
         {
             BO.Parcel c = SentList.SelectedItem as BO.Parcel;
             if (c != null)
-                new ParcelShow(c, bl).Show();
+                new ParcelShow(c, bl).ShowDialog();
         }
 
         private void ReceivedList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -87,6 +89,17 @@ namespace PL
             BO.Parcel c = ReceivedList.SelectedItem as BO.Parcel;
             if (c != null)
                 new ParcelShow(c, bl).ShowDialog();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            e.Cancel = closingwin;
+        }
+
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            closingwin = false;
+            Close();
         }
     }
 }

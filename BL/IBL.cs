@@ -22,6 +22,8 @@ namespace BlApi
         #endregion
 
         #region Customer
+        public IEnumerable<BO.Customer> GetCustomerBy(Predicate<BO.Customer> P);
+
         public void AddCustomer(BO.Customer d);
         public void UpdateCustomer(int cusid, string cusName, string cusPhone);
         public IEnumerable<BO.Customer> GetAllCustomers();
