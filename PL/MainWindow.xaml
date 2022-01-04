@@ -11,9 +11,10 @@
         <Grid.Background>
             <ImageBrush ImageSource="/f56bcec6-a20d-4d2c-a07f-512eb2566234.jpg"/>
         </Grid.Background>
-        <Button Content="Drones" HorizontalAlignment="Left" Margin="80,62,0,0" VerticalAlignment="Top" Height="46" Width="90" Click="Button_Click"/>
-        <Button Content="Parcels" HorizontalAlignment="Center" Height="48" VerticalAlignment="Top" Width="90" Click="Button_Click_1" Margin="0,61,0,0"/>
-        <Button x:Name="Customer" Content="Customer" HorizontalAlignment="Left" Margin="405,62,0,0" VerticalAlignment="Top" Click="Customer_Click" Height="46" Width="83"/>
+        <Button Content="Drones" HorizontalAlignment="Left" Margin="184,65,0,0" VerticalAlignment="Top" Height="46" Width="90" Click="Button_Click"/>
+        <Button Content="Parcels" HorizontalAlignment="Left" Height="48" VerticalAlignment="Top" Width="90" Click="Button_Click_1" Margin="318,63,0,0"/>
+        <Button x:Name="Customer" Content="Customer" HorizontalAlignment="Left" Margin="446,63,0,0" VerticalAlignment="Top" Click="Customer_Click" Height="46" Width="83"/>
+        <Button x:Name="stationList" Content="Station" HorizontalAlignment="Left" Margin="50,67,0,0" VerticalAlignment="Top" Click="stationList_Click" Height="44" Width="78"/>
 
     </Grid>
 </Window>
