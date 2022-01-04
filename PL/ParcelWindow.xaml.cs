@@ -20,18 +20,15 @@ namespace PL
     public partial class ParcelWindow : Window
     {
         BlApi.IBL bl;
+        int nextid;
+        IEnumerable<BO.Parcel> pp;
         public ParcelWindow(BlApi.IBL _bl)
         {
             InitializeComponent();
             bl = _bl;
-            parcelListView.DataContext = _bl.GetAllParcels();
+           pp  = _bl.GetAllParcels();
+            parcelListView.DataContext =pp;
         }
-
-        private void parcelDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-           
-        }
-
         private void Window_Activated(object sender, EventArgs e)
         {
             parcelListView.DataContext = bl.GetAllParcels();
@@ -43,6 +40,12 @@ namespace PL
             BO.Parcel p = parcelListView.SelectedItem as BO.Parcel;
             if (p != null)
                 new ParcelShow(p, bl).Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            nextid = pp.Last().Id + 1;
+            new ParcelShow(bl, nextid).Show();
         }
     }
 }
