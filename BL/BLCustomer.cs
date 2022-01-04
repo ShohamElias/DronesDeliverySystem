@@ -150,5 +150,11 @@ namespace BlApi
                    where item.parcelToCustomer.Count > 0
                    select GetCustomer(item.Id);
         }
+        public IEnumerable<Customer> GetCustomerBy(Predicate<Customer> P)
+        {
+            return from d in GetAllCustomers()
+                   where P(d)
+                   select d;
+        }
     }
 }

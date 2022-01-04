@@ -20,12 +20,14 @@ namespace PL
     public partial class CustomerListShow : Window
     {
         BlApi.IBL bl;
-
+        static bool flag = true;
         public CustomerListShow(BlApi.IBL _bl)
         {
             InitializeComponent();
+            textBox.Text = "";
             CustomerListView.DataContext = _bl.GetAllCustomers();
             bl = _bl;
+            flag = false;
         }
 
         
@@ -46,6 +48,24 @@ namespace PL
         {
             CustomerListView.ItemsSource = bl.GetAllCustomers();
 
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (flag)
+                return;
+            string txtOrig = textBox.Text;
+            string upper = txtOrig.ToUpper();
+            string lower = txtOrig.ToLower();
+            Predicate<BO.Customer> p;
+            p = s => s.Name.StartsWith(lower) || s.Name.StartsWith(upper) || s.Name.Contains(txtOrig);
+            CustomerListView.ItemsSource = bl.GetCustomerBy(p);
+            
         }
     }
 }

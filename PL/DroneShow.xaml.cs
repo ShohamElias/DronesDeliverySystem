@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace PL
         BO.Drone d;
         IEnumerable<BO.Station> s;
         bool updateflag = false;
-
+        static bool closingwin = true;
 
         public DroneShow(BlApi.IBL _bl) //window opens as "ADD" opstion
         {
@@ -369,9 +370,16 @@ namespace PL
                 MessageBox.Show(ex.ToString());
             }
         }
+       
 
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            e.Cancel = closingwin;
+        }
         private void button_Click_3(object sender, RoutedEventArgs e)
         {
+            closingwin = false;
+
             this.Close();
         }
 
