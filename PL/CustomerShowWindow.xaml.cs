@@ -27,6 +27,7 @@ namespace PL
         {
             InitializeComponent();
             bl = _bl;
+            closingwin = true;
             customerGrid.DataContext = c;
             Predicate<BO.Parcel> p;
             p = s => s.Sender.Id == c.Id;
@@ -50,6 +51,7 @@ namespace PL
         {
             InitializeComponent();
             bl = _bl;
+            closingwin = true;
             addUpdateButton.Content = "Add";
             ReceivedList.Visibility = Visibility.Hidden;
             SentList.Visibility = Visibility.Hidden;

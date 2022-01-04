@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace PL
     public partial class ParcelShow : Window
     {
         BlApi.IBL bl;
-
+        static bool closingwin = true;
         public ParcelShow(BlApi.IBL _bl)
         {
 
@@ -29,6 +30,7 @@ namespace PL
         public ParcelShow(BO.Parcel p, BlApi.IBL _bl)
         {
             InitializeComponent();
+            closingwin = true;
             parcelGrid.DataContext = p;
             addUpdateButton.Content = "Update";
             bl = _bl;
@@ -111,6 +113,17 @@ namespace PL
                      
                 bl.UpdateParcel((BO.Parcel)parcelGrid.DataContext);
             }
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            e.Cancel = closingwin;
+        }
+
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            closingwin = false;
+            Close();
         }
     }
 }

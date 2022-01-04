@@ -30,6 +30,7 @@ namespace PL
         {
             InitializeComponent();
             bl = _bl;
+            closingwin = true;
 
             s = bl.GetStationsforNoEmpty();
 
@@ -57,6 +58,7 @@ namespace PL
         public DroneShow(BlApi.IBL _bl, BO.Drone _d) //window opens as "UPDATE" / option window
         {
             InitializeComponent();
+            closingwin = true;
             bl = _bl;
             d = _d;
             AddUpdateButton.Content = "Update";
