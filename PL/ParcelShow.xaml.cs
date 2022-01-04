@@ -25,6 +25,7 @@ namespace PL
         IEnumerable<BO.Customer> cc;
         IEnumerable<BO.Drone> dd;
         int parcelid;
+        bool closingwin = true;
         public ParcelShow(BlApi.IBL _bl,int id)
         {
             InitializeComponent();
