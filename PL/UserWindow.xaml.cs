@@ -32,6 +32,7 @@ namespace PL
             {
                 BO.Customer c = bl.GetCustomer(int.Parse(Id.Text.ToString()));
                 new CustomerShowWindow(c, bl, "User").Show();
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -43,6 +44,7 @@ namespace PL
         private void NewUserbutton_Click(object sender, RoutedEventArgs e)
         {
             new CustomerShowWindow(bl).Show();
+            this.Close();
         }
     }
 }

@@ -115,7 +115,7 @@ namespace BlApi
         public Customer GetCustomer(int id)
         {
             if (!AccessIdal.CheckCustomer(id))
-                throw new BadIdException(id, "this customer doesn't"); 
+                throw new BadIdException(id, "this customer doesn't exist!"); 
             DO.Customer c = AccessIdal.GetCustomer(id);
             
             Customer cb = new Customer()

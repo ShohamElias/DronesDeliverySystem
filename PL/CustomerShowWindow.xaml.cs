@@ -207,12 +207,16 @@ namespace PL
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            Predicate<BO.Parcel> p;
-            int c= int.Parse(idTextBox.Text.ToString());
-            p = s => s.Sender.Id == c;
-            SentList.ItemsSource = bl.GetParcelBy(p);
-            p = s => s.Target.Id == c && s.Delivered != null;
-            ReceivedList.ItemsSource = bl.GetParcelBy(p);
+            if (addUpdateButton.Content != "Add")
+            {
+                Predicate<BO.Parcel> p;
+                int c = int.Parse(idTextBox.Text.ToString());
+                p = s => s.Sender.Id == c;
+                SentList.ItemsSource = bl.GetParcelBy(p);
+                p = s => s.Target.Id == c && s.Delivered != null;
+                ReceivedList.ItemsSource = bl.GetParcelBy(p);
+            }
+           
         }
     }
 }
