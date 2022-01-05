@@ -24,22 +24,34 @@ namespace PL
         BlApi.IBL bl;
         IEnumerable<BO.Customer> cc;
         IEnumerable<BO.Drone> dd;
-        int parcelid;
         bool closingwin = true;
         public ParcelShow(BlApi.IBL _bl,int id)
         {
             InitializeComponent();
-            parcelid = id;
-            idTextBox.IsEnabled = true;          
-            idTextBox.Text = id.ToString();
-            idTextBox.IsReadOnly = true;
+            int num = 0;
             addUpdateButton.Content = "Add";
             closingwin = false;
             bl = _bl;
             weightComboBox.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             priorityComboBox.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
+            weightComboBox.IsEnabled = true;
+            priorityComboBox.IsEnabled = true;
+            senderComboBox.IsEnabled = true;
+            targetComboBox.IsEnabled = true;
             cc = bl.GetAllCustomers();
-            senderComboBox.ItemsSource = cc;
+            try
+            {
+                bl.GetCustomer(id);
+                Predicate<BO.Customer> p;
+                p = s => s.Id == id; //create the predicate
+                senderComboBox.ItemsSource = bl.GetCustomerBy(p);
+                senderComboBox.IsReadOnly = true;
+            }
+            catch (Exception)
+            {
+
+                senderComboBox.ItemsSource = cc;
+            }
             targetComboBox.ItemsSource = cc;
             requestedDatePicker.Visibility = Visibility.Collapsed;
             requestedlLable.Visibility = Visibility.Collapsed;
@@ -48,15 +60,19 @@ namespace PL
             deliveredDatePicker.Visibility = Visibility.Collapsed;
             deliveredLable.Visibility = Visibility.Collapsed;
             Removebutton.Visibility = Visibility.Collapsed;
-
             droneLable.Visibility = Visibility.Collapsed;
             droneParcelComboBox.Visibility = Visibility.Collapsed;
             schedualLable.Visibility = Visibility.Collapsed;
             scheduledDatePicker.Visibility = Visibility.Collapsed;
-
             droneinparcelButton.Visibility = Visibility.Hidden;
             senderButton.Visibility = Visibility.Hidden;
             targetButton.Visibility = Visibility.Hidden;
+
+            bl.GetNextParcel();
+            num = bl.GetNextParcel();
+            iDlabel.Content = num;
+            iDlabel.Visibility = Visibility.Visible;
+            idTextBox.Visibility = Visibility.Collapsed;
         }
 
         public ParcelShow(BO.Parcel p, BlApi.IBL _bl, string typeCust)
@@ -153,11 +169,6 @@ namespace PL
             {
                 senderButton.Visibility = Visibility.Hidden;
                 targetButton.Visibility = Visibility.Hidden;
-                droneParcelComboBox.IsEnabled = false;
-                priorityComboBox.IsEnabled = false;
-                senderComboBox.IsEnabled = false;
-                targetComboBox.IsEnabled = false;
-                weightComboBox.IsEnabled = false;
             }
         }
 
@@ -168,7 +179,7 @@ namespace PL
             if (addUpdateButton.Content == "Add")
             {
                 BO.Parcel p = new BO.Parcel();
-                p.Id = parcelid;
+                p.Id = bl.GetNextParcel()+1;
                 if (targetComboBox.SelectedItem==senderComboBox.SelectedItem)
                 {
                     MessageBox.Show("The sender cant be the same as the target");

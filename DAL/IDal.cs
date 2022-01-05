@@ -37,7 +37,7 @@ namespace DalApi
         #region Parcel
         IEnumerable<DO.Parcel> GetALLParcelsBy(Predicate<DO.Parcel> P);
         public void RemoveParcel(int id);
-
+        public int getParcelMax();
         public IEnumerable<DO.Parcel> GetAllUnMachedParcel();
         void AddParcel(DO.Parcel per);
         public void UpdateParcel(DO.Parcel newD);

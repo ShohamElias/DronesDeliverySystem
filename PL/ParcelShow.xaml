@@ -45,7 +45,7 @@
             <DatePicker x:Name="pickedUpDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="8" SelectedDate="{Binding PickedUp, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" IsHitTestVisible="False"/>
 
             <Label Content="Priority:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
-            <ComboBox x:Name="priorityComboBox" Grid.Column="1"  HorizontalAlignment="Left"  SelectedItem="{Binding Priority}" Height="Auto" ItemsSource="{Binding }" Margin="1" Grid.Row="1" VerticalAlignment="Center" Width="120">
+            <ComboBox x:Name="priorityComboBox" Grid.Column="1"  HorizontalAlignment="Left"  SelectedItem="{Binding Priority}" Height="Auto" ItemsSource="{Binding }" Margin="1" Grid.Row="1" VerticalAlignment="Center" Width="120" IsEnabled="False">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>
@@ -60,7 +60,7 @@
             <DatePicker x:Name="scheduledDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="6" SelectedDate="{Binding Scheduled, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" IsHitTestVisible="False"/>
 
             <Label Content="Sender:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
-            <ComboBox x:Name="senderComboBox" Grid.Column="1"  HorizontalAlignment="Left"  Height="Auto" ItemsSource="{Binding }" Margin="3" Grid.Row="4" VerticalAlignment="Center" Width="120">
+            <ComboBox x:Name="senderComboBox" Grid.Column="1"  HorizontalAlignment="Left"  Height="Auto" ItemsSource="{Binding }" Margin="3" Grid.Row="4" VerticalAlignment="Center" Width="120" IsEnabled="False">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>
@@ -69,7 +69,7 @@
             </ComboBox>
 
             <Label Content="Target:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
-            <ComboBox x:Name="targetComboBox" Grid.Column="1" HorizontalAlignment="Left"   Height="Auto" ItemsSource="{Binding }" Margin="3" Grid.Row="3" VerticalAlignment="Center" Width="120">
+            <ComboBox x:Name="targetComboBox" Grid.Column="1" HorizontalAlignment="Left"   Height="Auto" ItemsSource="{Binding }" Margin="3" Grid.Row="3" VerticalAlignment="Center" Width="120" IsEnabled="False">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>
@@ -78,13 +78,14 @@
             </ComboBox>
 
             <Label Content="Weight:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
-            <ComboBox x:Name="weightComboBox" Grid.Column="1"  HorizontalAlignment="Left" SelectedItem="{Binding Weight}" Height="Auto" ItemsSource="{Binding}" Margin="3" Grid.Row="2" VerticalAlignment="Center" Width="120">
+            <ComboBox x:Name="weightComboBox" Grid.Column="1"  HorizontalAlignment="Left" SelectedItem="{Binding Weight}" Height="Auto" ItemsSource="{Binding}" Margin="3" Grid.Row="2" VerticalAlignment="Center" Width="120" IsEnabled="False">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>
                     </ItemsPanelTemplate>
                 </ComboBox.ItemsPanel>
             </ComboBox>
+            <Label x:Name="iDlabel" Content="Label" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="118" Visibility="Collapsed"/>
         </Grid>
         <Button x:Name="addUpdateButton" Content="Add" HorizontalAlignment="Left" Margin="523,131,0,0" VerticalAlignment="Top" Click="addUpdateButton_Click_1" Width="111" RenderTransformOrigin="0.559,0.353"/>
         <Button x:Name="droneinparcelButton" Content="Show drone" HorizontalAlignment="Left" Height="24" Margin="10,217,0,0" VerticalAlignment="Top" Width="75" Click="droneinparcelButton_Click"/>

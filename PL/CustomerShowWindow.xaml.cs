@@ -35,6 +35,8 @@ namespace PL
             p = s => s.Target.Id == c.Id && s.Delivered!=null;
             ReceivedList.ItemsSource = bl.GetParcelBy(p);
             addUpdateButton.Content = typeWindow;
+            if (typeWindow == "User")
+                addUpdateButton.Content = "Update";
             if (typeWindow == "show")
             {
                 addUpdateButton.Visibility = Visibility.Collapsed;
@@ -43,8 +45,10 @@ namespace PL
                 LongtitudeTextBox.IsReadOnly = true;
                 phoneTextBox.IsReadOnly = true;
                 nameTextBox.IsReadOnly = true;
+                SendButton.Visibility = Visibility.Collapsed;
             }
 
+            
         }
 
         public CustomerShowWindow(BlApi.IBL _bl)
@@ -53,6 +57,12 @@ namespace PL
             bl = _bl;
             closingwin = true;
             addUpdateButton.Content = "Add";
+            SendButton.Visibility = Visibility.Collapsed;
+            idTextBox.Text = "";
+            nameTextBox.Text = "";
+            phoneTextBox.Text = "";
+            LongtitudeTextBox.Text = "";
+            LatitudeTextBox.Text = "";
             ReceivedList.Visibility = Visibility.Hidden;
             SentList.Visibility = Visibility.Hidden;
             SentParcels.Visibility = Visibility.Hidden;
@@ -62,22 +72,35 @@ namespace PL
 
         private void addUpdateButton_Click(object sender, RoutedEventArgs e)
         {
-            if (addUpdateButton.Content == "Add")
+            try
             {
-                BO.Customer cust= new BO.Customer();
-                cust.Id = int.Parse(idTextBox.Text);
-                cust.Name= nameTextBox.Text.ToString();
-                cust.Phone = phoneTextBox.Text.ToString();
-                cust.CustLocation = new BO.Location() { Lattitude = double.Parse(LongtitudeTextBox.Text.ToString()), Longitude = double.Parse(LatitudeTextBox.Text.ToString()) };
-                bl.AddCustomer(cust);
+                if (addUpdateButton.Content == "Add")
+                {
+                    BO.Customer cust = new BO.Customer();
+                    if (idTextBox.Text == "" || nameTextBox.Text == "" || phoneTextBox.Text == "" || LongtitudeTextBox.Text == "" || LatitudeTextBox.Text == "")
+                    {
+                        MessageBox.Show("Please fill all the fields!");
+                        return;
+                    }
+                    cust.Id = int.Parse(idTextBox.Text.ToString());
+                    cust.Name = nameTextBox.Text.ToString();
+                    cust.Phone = phoneTextBox.Text.ToString();
+                    cust.CustLocation = new BO.Location() { Lattitude = double.Parse(LongtitudeTextBox.Text.ToString()), Longitude = double.Parse(LatitudeTextBox.Text.ToString()) };
+                    bl.AddCustomer(cust);
+                }
+                else if (addUpdateButton.Content == "Update")
+                {
+                    bl.UpdateCustomer(int.Parse(idTextBox.Text), nameTextBox.Text, phoneTextBox.Text);
+                }
+                MessageBox.Show("Successfully completed the task.");
+                closingwin = false;
+                this.Close();
             }
-            else if (addUpdateButton.Content == "Update")
+            catch (Exception ex)
             {
-                bl.UpdateCustomer(int.Parse(idTextBox.Text), nameTextBox.Text, phoneTextBox.Text);
+                MessageBox.Show(ex.ToString());
             }
-            MessageBox.Show("Successfully completed the task.");
-            closingwin = false;
-            this.Close();
+            
         }
 
         private void SentList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -175,6 +198,21 @@ namespace PL
                 LatitudeTextBox.Text = c;
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void SendButton_Click(object sender, RoutedEventArgs e)
+        {
+            new ParcelShow(bl, int.Parse(idTextBox.Text)).Show();////מספר רץ בעיה
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            Predicate<BO.Parcel> p;
+            int c= int.Parse(idTextBox.Text.ToString());
+            p = s => s.Sender.Id == c;
+            SentList.ItemsSource = bl.GetParcelBy(p);
+            p = s => s.Target.Id == c && s.Delivered != null;
+            ReceivedList.ItemsSource = bl.GetParcelBy(p);
         }
     }
 }

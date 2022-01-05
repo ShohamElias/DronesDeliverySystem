@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="ParcelWindow" Height="450" Width="800" Activated="Window_Activated">
     <Grid>
+        
         <ListView x:Name="parcelListView" ItemsSource="{Binding}" Margin="10,94,0.333,126.667" SelectionMode="Single" MouseDoubleClick="parcelListView_MouseDoubleClick">
+           
             <ListView.ItemContainerStyle>
                 <Style>
                     <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>

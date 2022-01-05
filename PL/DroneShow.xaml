@@ -25,12 +25,11 @@
         <ComboBox x:Name="StatusSelector" HorizontalAlignment="Left" Margin="194,103,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="StatusSelector_SelectionChanged"/>
         <TextBox x:Name="idtextbox" HorizontalAlignment="Left" Margin="194,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="idtextbox_TextChanged"/>
         <TextBox x:Name="modelTextbox" HorizontalAlignment="Left" Margin="194,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.202,0.976"/>
-        <Button x:Name="AddUpdateButton" Content="Add" HorizontalAlignment="Left" Margin="21,62,0,0" VerticalAlignment="Top" Width="128" Click="button_Click" Grid.Column="1" Background="#FFF7F7F7"/>
-        <Button x:Name="DeliveryButton" Content="Next delivery step" Grid.Column="1" HorizontalAlignment="Left" Height="18" Margin="21,106,0,0" VerticalAlignment="Top" Width="128" Click="DeliveryButton_Click" Background="#FFF7F7F7"/>
-        <Button x:Name="ChargingButton" Content="Charge/Discharge" Grid.Column="1" HorizontalAlignment="Left" Margin="21,147,0,0" VerticalAlignment="Top" Width="128" Click="ChargingButton_Click" Background="#FFF7F7F7"/>
+        <Button x:Name="AddUpdateButton" Content="Add" HorizontalAlignment="Left" Margin="21,62,0,0" VerticalAlignment="Top" Width="128" Click="button_Click" Grid.Column="1" Background="{StaticResource MyButtonBackground}"/>
+        <Button x:Name="DeliveryButton" Content="Next delivery step" Grid.Column="1" HorizontalAlignment="Left" Height="18" Margin="21,106,0,0" VerticalAlignment="Top" Width="128" Click="DeliveryButton_Click" Background="{StaticResource MyButtonBackground}" />
+        <Button x:Name="ChargingButton" Content="Charge/Discharge" Grid.Column="1" HorizontalAlignment="Left" Margin="21,147,0,0" VerticalAlignment="Top" Width="128" Click="ChargingButton_Click" Background="{StaticResource MyButtonBackground}" />
         <ComboBox x:Name="stationCombo" HorizontalAlignment="Left" Margin="424,102,0,0" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="stationLable" Content="Select Station" HorizontalAlignment="Left" Margin="337,100,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="336,345,0,0" VerticalAlignment="Top" Click="button_Click_3" Width="128"/>
-
-    </Grid>
+        <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="336,345,0,0" VerticalAlignment="Top" Click="button_Click_3" Width="128" Background="{StaticResource MyButtonBackground}"/>
+      </Grid>
 </Window>

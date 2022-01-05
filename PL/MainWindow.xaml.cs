@@ -36,7 +36,7 @@ namespace PL
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new ParcelWindow(bl).Show();
+            new ParcelWindow(bl).ShowDialog();
         }
 
         private void Customer_Click(object sender, RoutedEventArgs e)
@@ -48,5 +48,11 @@ namespace PL
         {
             new StationListWindow(bl).Show();
         }
+
+        private void Userbutton_Click(object sender, RoutedEventArgs e)
+        {
+            new UserWindow(bl).Show();
+        }
+        
     }
 }

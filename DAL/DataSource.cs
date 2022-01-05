@@ -58,7 +58,6 @@ namespace DalObject
                 {
                     Id = Config.countIdParcel++,
                     SenderId = CustomersList[rand.Next(10)].Id,
-                    TargetId = CustomersList[rand.Next(10)].Id,
                     Weight = (WeightCategories)rand.Next(3),
                     Priority = (Priorities)rand.Next(2),
                     Requested = DateTime.Now,
@@ -67,6 +66,11 @@ namespace DalObject
                     PickedUp = null,
                     Delivered = null
                 };
+                do
+                {
+                    p.TargetId = CustomersList[rand.Next(10)].Id;
+
+                } while(p.TargetId==p.SenderId);
                 ParcelsList.Add(p);
             }
         }

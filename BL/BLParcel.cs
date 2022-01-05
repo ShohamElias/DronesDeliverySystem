@@ -265,6 +265,11 @@ namespace BlApi
             
 
         }
+        public int GetNextParcel()
+        {
+            parcelNum = AccessIdal.getParcelMax();
+            return parcelNum;
+        }
         public IEnumerable<Parcel> GetParcelBy(Predicate<Parcel> P)
         {
             return from d in GetAllParcels()

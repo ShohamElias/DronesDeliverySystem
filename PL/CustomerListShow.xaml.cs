@@ -28,6 +28,7 @@ namespace PL
             CustomerListView.DataContext = _bl.GetAllCustomers();
             bl = _bl;
             flag = false;
+           
         }
 
         

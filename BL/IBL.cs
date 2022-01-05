@@ -42,6 +42,7 @@ namespace BlApi
         public BO.Parcel GetParcel(int id);
         public void UpdateParcel(BO.Parcel p);
         public void PickParcel(int id);
+        public int GetNextParcel();
         public void DeliveringParcel(int id);
         public IEnumerable<BO.Parcel> GetAllUnmachedParcels();
 

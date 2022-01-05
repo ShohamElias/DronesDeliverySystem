@@ -57,17 +57,17 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn x:Name="parcelToCustomerColumn" Header="ParcelToCustomer"  Width="80">
+                    <GridViewColumn x:Name="parcelToCustomerColumn" Header="ParcelToCustomer"  Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding parcelToCustomer}" Margin="6,-1,-6,-1"/>
+                                <ComboBox ItemsSource="{Binding parcelToCustomer}" Margin="6,-1,-6,-1"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="parcelFromColumn" Header="ParcelFrom" Width="80">
+                    <GridViewColumn x:Name="parcelFromColumn" Header="ParcelFrom" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding parcelFromCustomer}" Margin="6,-1,-6,-1"/>
+                                <ComboBox ItemsSource="{Binding parcelFromCustomer}" Margin="6,-1,-6,-1"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

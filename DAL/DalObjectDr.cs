@@ -14,6 +14,10 @@ namespace DalObject
             double[] arr= new double[] { DataSource.Config.empty, DataSource.Config.light, DataSource.Config.medium, DataSource.Config.heavy, DataSource.Config.chargeRate };
             return arr;
         }
+        public int getParcelMax()
+        {
+            return DataSource.Config.countIdParcel;
+        }
         
         public void UpdateDrone(Drone newD)
         {

@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="CustomerShowWindow" Height="450" Width="800">
+        Title="CustomerShowWindow" Height="450" Width="800" Activated="Window_Activated">
     <Grid x:Name="customerGrid" HorizontalAlignment="Left" Margin="285,152,0,0" VerticalAlignment="Top" Height="217" RenderTransformOrigin="0.263,0.4" Width="434">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -20,7 +20,7 @@
 
         </Grid.RowDefinitions>
         <Label Content="Id:" Grid.Column="0" HorizontalAlignment="Left" Margin="-174,-115,0,0" Grid.Row="0" VerticalAlignment="Top" Height="31" Width="25"/>
-        <TextBox x:Name="idTextBox" HorizontalAlignment="Left" Height="27" Margin="-92,-113,0,0" Grid.Row="0" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="130" Grid.ColumnSpan="2" TextChanged="idTextBox_TextChanged"/>
+        <TextBox x:Name="idTextBox"  HorizontalAlignment="Left" Height="27" Margin="-92,-113,0,0" Grid.Row="0" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="130" Grid.ColumnSpan="2" TextChanged="idTextBox_TextChanged"/>
         <Label Content="Name:" Grid.Column="0" HorizontalAlignment="Left" Margin="-174,-81,0,0" VerticalAlignment="Top" Height="31" Width="48"/>
         <TextBox x:Name="nameTextBox" HorizontalAlignment="Left" Height="27" Margin="-92,-80,0,0" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="130" Grid.ColumnSpan="2"/>
         <Label Content="Phone:" Grid.Column="0" HorizontalAlignment="Left" Margin="-174,-50,0,0" VerticalAlignment="Top" Height="30" Width="50"/>
@@ -47,5 +47,6 @@
         </ListView>
         <Button x:Name="addUpdateButton" Content="add/update" HorizontalAlignment="Left" Margin="332,-80,0,0" VerticalAlignment="Top" Click="addUpdateButton_Click" Width="92"/>
         <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="332,-42,0,0" VerticalAlignment="Top" Click="cancelButton_Click" Width="92"/>
+        <Button x:Name="SendButton" Content="Send a parcel" HorizontalAlignment="Left" Margin="332,-113,0,0" VerticalAlignment="Top" Width="92" Click="SendButton_Click"/>
     </Grid>
 </Window>
