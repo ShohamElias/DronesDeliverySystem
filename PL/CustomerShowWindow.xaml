@@ -45,8 +45,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="addUpdateButton" Content="add/update" HorizontalAlignment="Left" Margin="332,-80,0,0" VerticalAlignment="Top" Click="addUpdateButton_Click" Width="92"/>
-        <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="332,-42,0,0" VerticalAlignment="Top" Click="cancelButton_Click" Width="92"/>
-        <Button x:Name="SendButton" Content="Send a parcel" HorizontalAlignment="Left" Margin="332,-113,0,0" VerticalAlignment="Top" Width="92" Click="SendButton_Click"/>
+        <Button x:Name="addUpdateButton" Content="add/update" HorizontalAlignment="Left" Margin="332,-80,0,0" VerticalAlignment="Top" Click="addUpdateButton_Click" Width="92" Background="{StaticResource MyButtonBackground}"/>
+        <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="332,-42,0,0" VerticalAlignment="Top" Click="cancelButton_Click" Width="92" Background="{StaticResource MyButtonBackground}"/>
+        <Button x:Name="SendButton" Content="Send a parcel" HorizontalAlignment="Left" Margin="332,-113,0,0" VerticalAlignment="Top" Width="92" Click="SendButton_Click" Background="{StaticResource MyButtonBackground}"/>
     </Grid>
 </Window>

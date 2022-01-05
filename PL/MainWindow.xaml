@@ -18,11 +18,11 @@
         <Grid.Background>
             <ImageBrush ImageSource="/f56bcec6-a20d-4d2c-a07f-512eb2566234.jpg"/>
         </Grid.Background>
-        <Button Style="{StaticResource myButtonStyle}" Content="Drones" HorizontalAlignment="Left" Margin="184,65,0,0" VerticalAlignment="Top" Height="46" Width="90" Click="Button_Click"/>
-        <Button Style="{StaticResource myButtonStyle}" Content="Parcels" HorizontalAlignment="Left" Height="48" VerticalAlignment="Top" Width="90" Click="Button_Click_1" Margin="318,63,0,0"/>
-        <Button Style="{StaticResource myButtonStyle}" x:Name="Customer" Content="Customer" HorizontalAlignment="Left" Margin="446,63,0,0" VerticalAlignment="Top" Click="Customer_Click" Height="46" Width="83"/>
-        <Button Style="{StaticResource myButtonStyle}" x:Name="stationList" Content="Station" HorizontalAlignment="Left" Margin="50,67,0,0" VerticalAlignment="Top" Click="stationList_Click" Height="44" Width="78"/>
-        <Button x:Name="Userbutton" Content="Get in as a user" HorizontalAlignment="Center" Margin="0,381,0,0" VerticalAlignment="Top" Click="Userbutton_Click"/>
+        <Button Style="{StaticResource myButtonStyle}" Content="Drones" HorizontalAlignment="Left" Margin="184,65,0,0" VerticalAlignment="Top" Height="46" Width="90" Click="Button_Click" Background="{StaticResource MyButtonBackground}"/>
+        <Button Style="{StaticResource myButtonStyle}" Content="Parcels" HorizontalAlignment="Left" Height="48" VerticalAlignment="Top" Width="90" Click="Button_Click_1" Margin="318,63,0,0" Background="{StaticResource MyButtonBackground}"/>
+        <Button Style="{StaticResource myButtonStyle}" x:Name="Customer" Content="Customer" HorizontalAlignment="Left" Margin="446,63,0,0" VerticalAlignment="Top" Click="Customer_Click" Height="46" Width="83" Background="{StaticResource MyButtonBackground}"/>
+        <Button Style="{StaticResource myButtonStyle}" x:Name="stationList" Content="Station" HorizontalAlignment="Left" Margin="50,67,0,0" VerticalAlignment="Top" Click="stationList_Click" Height="44" Width="78" Background="{StaticResource MyButtonBackground}"/>
+        <Button x:Name="Userbutton" Content="Get in as a user" HorizontalAlignment="Center" Margin="0,381,0,0" VerticalAlignment="Top" Click="Userbutton_Click" Background="{StaticResource MyButtonBackground}"/>
 
     </Grid>
 </Window>
