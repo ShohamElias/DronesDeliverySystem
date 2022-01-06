@@ -123,24 +123,25 @@ namespace PL
             Lontextbox.IsEnabled = false;
             BatteryTextBox.IsEnabled = false;
             stationCombo.IsEnabled = false;
+            modelTextbox.IsEnabled = false;
 
             stationCombo.Visibility = Visibility.Hidden;
             stationLable.Visibility = Visibility.Hidden;
 
-            idtextbox.Visibility = Visibility.Hidden;
-            modelTextbox.Visibility = Visibility.Hidden;
-            LattextBox.Visibility = Visibility.Hidden;
-            Lontextbox.Visibility = Visibility.Hidden;
-            BatteryTextBox.Visibility = Visibility.Hidden;
-            StatusSelector.Visibility = Visibility.Hidden;
-            WeightSelector.Visibility = Visibility.Hidden;
-            idLable.Visibility = Visibility.Hidden;
-            modelLable.Visibility = Visibility.Hidden;
-            statuslablle.Visibility = Visibility.Hidden;
-            Batterylable.Visibility = Visibility.Hidden;
-            latlable.Visibility = Visibility.Hidden;
+            //idtextbox.Visibility = Visibility.Hidden;
+            //modelTextbox.Visibility = Visibility.Hidden;
+            //LattextBox.Visibility = Visibility.Hidden;
+            //Lontextbox.Visibility = Visibility.Hidden;
+            //BatteryTextBox.Visibility = Visibility.Hidden;
+            //StatusSelector.Visibility = Visibility.Hidden;
+            //WeightSelector.Visibility = Visibility.Hidden;
+            //idLable.Visibility = Visibility.Hidden;
+            //modelLable.Visibility = Visibility.Hidden;
+            //statuslablle.Visibility = Visibility.Hidden;
+            //Batterylable.Visibility = Visibility.Hidden;
+            //latlable.Visibility = Visibility.Hidden;
 
-            WeightLable.Visibility = Visibility.Hidden;
+           // WeightLable.Visibility = Visibility.Hidden;
 
 
 
@@ -155,10 +156,10 @@ namespace PL
             stationCombo.Visibility = Visibility.Hidden;
             stationLable.Visibility = Visibility.Hidden;
 
-            LattextBox.Visibility = Visibility.Hidden;
-            Lontextbox.Visibility = Visibility.Hidden;
-            label7.Visibility = Visibility.Hidden;
-            latlable.Visibility = Visibility.Hidden;
+            //LattextBox.Visibility = Visibility.Hidden;
+            //Lontextbox.Visibility = Visibility.Hidden;
+            //label7.Visibility = Visibility.Hidden;
+            //latlable.Visibility = Visibility.Hidden;
 
         }
 
@@ -223,26 +224,32 @@ namespace PL
                 {
                     if (updateflag == false) //if we pressed the update button in order to change the name (before changing it) 
                     { //showing all the drone values
-                        ChargingButton.Visibility = Visibility.Hidden;
-                        DeliveryButton.Visibility = Visibility.Hidden;
-                        idtextbox.Visibility = Visibility.Visible;
-                        idLable.Visibility = Visibility.Visible;
-                        modelTextbox.Visibility = Visibility.Visible;
-                        modelLable.Visibility = Visibility.Visible;
+                        //ChargingButton.Visibility = Visibility.Hidden;
+                        //DeliveryButton.Visibility = Visibility.Hidden;
+                        //idtextbox.Visibility = Visibility.Visible;
+                        //idLable.Visibility = Visibility.Visible;
+                        //modelTextbox.Visibility = Visibility.Visible;
+                        //modelLable.Visibility = Visibility.Visible;
                         updateflag = true;
-
-                        LattextBox.Visibility = Visibility.Visible;
-                        Lontextbox.Visibility = Visibility.Visible;
-                        BatteryTextBox.Visibility = Visibility.Visible;
-                        StatusSelector.Visibility = Visibility.Visible;
-                        WeightSelector.Visibility = Visibility.Visible;
-                        idLable.Visibility = Visibility.Visible;
-                        modelLable.Visibility = Visibility.Visible;
-                        statuslablle.Visibility = Visibility.Visible;
-                        Batterylable.Visibility = Visibility.Visible;
-                        latlable.Visibility = Visibility.Visible;
-                        label7.Visibility = Visibility.Visible;
-                        WeightLable.Visibility = Visibility.Visible;
+                        idtextbox.IsEnabled = true;
+                        LattextBox.IsEnabled = true;
+                        Lontextbox.IsEnabled = true;
+                        BatteryTextBox.IsEnabled = true;
+                        StatusSelector.IsEnabled = true;
+                        modelTextbox.IsEnabled = true;
+                        WeightSelector.IsEnabled = true;
+                        //LattextBox.Visibility = Visibility.Visible;
+                        //Lontextbox.Visibility = Visibility.Visible;
+                        //BatteryTextBox.Visibility = Visibility.Visible;
+                        //StatusSelector.Visibility = Visibility.Visible;
+                        //WeightSelector.Visibility = Visibility.Visible;
+                        //idLable.Visibility = Visibility.Visible;
+                        //modelLable.Visibility = Visibility.Visible;
+                        //statuslablle.Visibility = Visibility.Visible;
+                        //Batterylable.Visibility = Visibility.Visible;
+                        //latlable.Visibility = Visibility.Visible;
+                        //label7.Visibility = Visibility.Visible;
+                        //WeightLable.Visibility = Visibility.Visible;
                     }
                     else //we changed the name and now we wanr an actual update
                     {

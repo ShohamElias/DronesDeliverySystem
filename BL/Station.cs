@@ -33,7 +33,11 @@ using System.Threading.Tasks;
                 return $"Station: Id = {Id}, Name = {Name}, Longitude = {longi}, Lattitude = {lati}, ChargeSlots = {ChargeSlots}";
             }
 
-        }
+        //public object DronesinCharge()
+        //{
+        //    throw new NotImplementedException();
+        //}
+    }
 
 
 

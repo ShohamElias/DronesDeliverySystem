@@ -19,18 +19,31 @@ namespace PL
     /// </summary>
     public partial class StationListWindow : Window
     {
+        BlApi.IBL bl;
         public StationListWindow(BlApi.IBL _bl)
         {
             InitializeComponent();
-            stationsToListListView.DataContext = from item in _bl.GetAllStations()
-                                                 select new BO.StationsToList()
-                                                 {
-                                                     Id = item.Id,
-                                                     Name = item.Name,
-                                                     StationLocation = item.StationLocation,
-                                                     EmptyChargeSlots = item.ChargeSlots,
-                                                     FullChargeSlots = item.DronesinCharge.Count
-                                                 };
+            stationListView.DataContext = _bl.GetAllStations();
+            bl = _bl;
+                                                 
+        }
+
+        private void stationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BO.Station s = stationListView.SelectedItem as BO.Station;
+            if (s != null)
+                new StationShoWindow(bl,s).Show();
+        }
+
+        private void addbutton_Click(object sender, RoutedEventArgs e)
+        {
+            new StationShoWindow(bl).Show();
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            stationListView.DataContext =bl.GetAllStations();
+
         }
     }
 }
