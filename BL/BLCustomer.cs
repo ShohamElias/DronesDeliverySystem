@@ -156,5 +156,44 @@ namespace BlApi
                    where P(d)
                    select d;
         }
+
+        public CustomerToList GetCustomerToList(int id)
+        {
+            if (!AccessIdal.CheckCustomer(id))
+                throw new BadIdException(id, "this customer doesn't exist!");
+
+            Customer c = GetCustomer(id);
+            CustomerToList ct = new CustomerToList()
+            {
+                Id = id,
+                Name = c.Name,
+                Phone = c.Phone,
+                ParcelsArrived=0,
+                ParcelsDelivered=0,
+                ParcelsOnTheWay=0,
+                PurcelsNotDelivered=0
+            };
+
+            foreach (var item in c.parcelFromCustomer)
+            {
+                if (item.Delivered != null)
+                    ct.ParcelsArrived++;
+                else
+                    ct.ParcelsOnTheWay++;
+            }
+
+            foreach (var item in c.parcelToCustomer)
+            {
+                if (item.Delivered != null)
+                    ct.ParcelsDelivered++;
+                else
+                    ct.PurcelsNotDelivered++;
+            }
+
+            return ct;
+        }
+
+
+
     }
 }

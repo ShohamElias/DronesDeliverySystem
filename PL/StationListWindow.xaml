@@ -19,7 +19,7 @@
                     <GridViewColumn x:Name="chargeSlotsColumn" Header="Charge Slots" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding ChargeSlots}" Margin="6,-1,-6,-1"/>
+                                <Label Content="{Binding EmptyChargeSlots}" Margin="6,-1,-6,-1"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -38,10 +38,10 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn x:Name="dronesinChargeColumn" Header="Dronesin Charge" Width="80">
+                    <GridViewColumn x:Name="fullchargeSlotsColumn" Header="Full Charge Slots" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ComboBox ItemsSource="{Binding DronesinCharge}" Margin="6,-1,-6,-1"/>
+                                <Label Content="{Binding FullChargeSlots}" Margin="-6,-1"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

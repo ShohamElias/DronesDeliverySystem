@@ -190,6 +190,19 @@ namespace BlApi
                    select GetDrone(droneDO.Id);
         }
 
+        public IEnumerable<DroneToList> GetAllDronesToList()
+        {
+            return from item in DronesBL
+                select DronesBL.Find(x=>x.Id==item.Id);
+        }
+
+        public IEnumerable<DroneToList> GetAllDronesToListBy(Predicate<DroneToList> P)
+        {
+            return from item in DronesBL
+                   where P(item)
+                   select DronesBL.Find(x => x.Id == item.Id);
+        }
+
         /// <summary>
         /// the func gets a drone id and update it
         /// </summary>

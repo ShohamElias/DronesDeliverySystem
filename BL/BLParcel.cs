@@ -8,7 +8,7 @@ using BO;
 
 namespace BlApi
 {
-     partial class BL
+    partial class BL
     {
         /// <summary>
         /// adapter- gets a DO parcel and returns a BO parcel
@@ -19,7 +19,7 @@ namespace BlApi
         {
             Parcel parcelBO = new Parcel();
             int id = parcelDO.Id;
-           DO.Parcel s;
+            DO.Parcel s;
             try //???
             {
                 s = AccessIdal.GetParcel(id);
@@ -36,7 +36,7 @@ namespace BlApi
         /// gets a parcel and add it to the list
         /// </summary>
         /// <param name="p"></param>
-        public void AddParcel(Parcel p ) 
+        public void AddParcel(Parcel p)
         {
             DO.Parcel par = new DO.Parcel();
             try
@@ -60,7 +60,7 @@ namespace BlApi
             par.Scheduled = null;
             par.Delivered = null;
             AccessIdal.AddParcel(par);
-            
+
         }
         /// <summary>
         /// returns all the parcel in the list
@@ -135,7 +135,7 @@ namespace BlApi
         /// <param name="p"></param> the parcel
         public void UpdateParcel(Parcel p)
         {
-           DO.Parcel pDO = AccessIdal.GetParcel(p.Id);
+            DO.Parcel pDO = AccessIdal.GetParcel(p.Id);
             pDO.PickedUp = p.PickedUp;
             pDO.Requested = p.Requested;
             pDO.Scheduled = p.Scheduled;
@@ -158,11 +158,11 @@ namespace BlApi
             catch (DO.BadIdException)
             {
 
-                throw new BadIdException(id,"this Drone doesn;t exist"); 
+                throw new BadIdException(id, "this Drone doesn;t exist");
             }
             DroneToList dt = DronesBL.Find(x => x.Id == id);
-            DroneToList dss= DronesBL.Find(x => x.Id == id);
-            
+            DroneToList dss = DronesBL.Find(x => x.Id == id);
+
             Parcel p;
             try
             {
@@ -170,7 +170,7 @@ namespace BlApi
             }
             catch (BadIdException)
             {
-                throw new BadIdException(dt.IdOfParcel,"this parcel doesn't exist");
+                throw new BadIdException(dt.IdOfParcel, "this parcel doesn't exist");
             }
             if (d.Status == DroneStatuses.Delivery && p.Scheduled != null)
             {
@@ -189,7 +189,7 @@ namespace BlApi
             }
             else
                 throw new WrongDroneStatException("there was an issue, parcel couldnt be picked");//########
-            
+
         }
         /// <summary>
         /// gets an id of drone and update its parcel to be delivered
@@ -207,7 +207,7 @@ namespace BlApi
             }
             catch (BadIdException)
             {
-                throw new BadIdException(dt.IdOfParcel,"this parcel doesnt exist"); 
+                throw new BadIdException(dt.IdOfParcel, "this parcel doesnt exist");
             }
             Drone d = GetDrone(id);
             if (dt.Status == DroneStatuses.Delivery && p.PickedUp != null)
@@ -248,7 +248,7 @@ namespace BlApi
                        PickedUp = crs.PickedUp,
                        Delivered = crs.Delivered,
                        Weight = (BO.WeightCategories)((int)crs.Weight),
-                       Priority=(BO.Priorities)crs.Priority
+                       Priority = (BO.Priorities)crs.Priority
                    };
 
         }
@@ -258,11 +258,11 @@ namespace BlApi
             {
                 AccessIdal.RemoveParcel(id);
             }
-            catch(BadIdException)
+            catch (BadIdException)
             {
                 throw new BadIdException(id, "This parcel doesnt exist");
             }
-            
+
 
         }
         public int GetNextParcel()
@@ -275,6 +275,52 @@ namespace BlApi
             return from d in GetAllParcels()
                    where P(d)
                    select d;
+        }
+
+        public IEnumerable<ParcelToList> GetAllParcelsToList()
+        {
+            return from d in GetAllParcels()              
+                   select GetParcelToList(d.Id);
+        }
+
+        public IEnumerable<ParcelToList> GetAllParcelsToListBy(Predicate<Parcel> P)
+        {
+            return from d in GetAllParcels()
+                   where P(d)
+                   select GetParcelToList(d.Id);
+        }
+
+        public ParcelToList GetParcelToList(int id)
+        {
+            Parcel p;
+            try
+            {
+                p = GetParcel(id);
+            }
+            catch (DO.BadIdException)
+            {
+
+                throw new BadIdException(id, "this Drone doesn;t exist");
+            }
+
+            ParcelToList pt = new ParcelToList()
+            {
+                Id = p.Id,
+                Priority = p.Priority,
+                Weight = p.Weight,
+                SenderName = p.Sender.CustomerName,
+                TargetName = p.Sender.CustomerName,
+            };
+
+            if (p.Delivered != null)
+                pt.Status = ParcelStatuses.Delivered;
+            else if (p.PickedUp != null)
+                pt.Status = ParcelStatuses.Collected;
+            else if (p.Scheduled != null)
+                pt.Status = ParcelStatuses.Associated;
+            else
+                pt.Status = ParcelStatuses.Defined;
+            return pt;
         }
     }
 }

@@ -25,7 +25,8 @@ namespace PL
         {
             InitializeComponent();
             textBox.Text = "";
-            CustomerListView.DataContext = _bl.GetAllCustomers();
+            CustomerListView.DataContext = from item in _bl.GetAllCustomers()
+                                           select _bl.GetCustomerToList(item.Id);
             bl = _bl;
             flag = false;
            
@@ -35,9 +36,9 @@ namespace PL
         
         private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            BO.Customer c = CustomerListView.SelectedItem as BO.Customer;
+            BO.CustomerToList c = CustomerListView.SelectedItem as BO.CustomerToList;
             if (c != null)
-                new CustomerShowWindow(c, bl, "Update").ShowDialog();
+                new CustomerShowWindow(bl.GetCustomer(c.Id), bl, "Update").ShowDialog();
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -47,7 +48,8 @@ namespace PL
 
         private void Window_Activated_1(object sender, EventArgs e)
         {
-            CustomerListView.ItemsSource = bl.GetAllCustomers();
+            CustomerListView.ItemsSource = from item in bl.GetAllCustomers()
+                                           select bl.GetCustomerToList(item.Id);
 
         }
 
@@ -65,8 +67,9 @@ namespace PL
             string lower = txtOrig.ToLower();
             Predicate<BO.Customer> p;
             p = s => s.Name.StartsWith(lower) || s.Name.StartsWith(upper) || s.Name.Contains(txtOrig);
-            CustomerListView.ItemsSource = bl.GetCustomerBy(p);
-            
+            CustomerListView.ItemsSource = from item in bl.GetCustomerBy(p)
+                                           select bl.GetCustomerToList(item.Id);
+
         }
     }
 }

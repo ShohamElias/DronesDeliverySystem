@@ -28,6 +28,7 @@ namespace BlApi
         public void UpdateCustomer(int cusid, string cusName, string cusPhone);
         public IEnumerable<BO.Customer> GetAllCustomers();
 
+        public BO.CustomerToList GetCustomerToList(int id);
         public IEnumerable<BO.Customer> GetAllCustomersThatHasDeliveredParcels();
         public BO.Customer GetCustomer(int id);
         public IEnumerable<BO.Customer> GetAllCusromerRecived();
@@ -42,6 +43,14 @@ namespace BlApi
         public BO.Parcel GetParcel(int id);
         public void UpdateParcel(BO.Parcel p);
         public void PickParcel(int id);
+        public BO.ParcelToList GetParcelToList(int id);
+        public IEnumerable<BO.ParcelToList> GetAllParcelsToList();
+        public IEnumerable<BO.ParcelToList> GetAllParcelsToListBy(Predicate<BO.Parcel> P);
+
+        public IEnumerable<BO.DroneToList> GetAllDronesToList();
+        public IEnumerable<BO.DroneToList> GetAllDronesToListBy(Predicate<BO.DroneToList> P);
+
+
         public int GetNextParcel();
         public void DeliveringParcel(int id);
         public IEnumerable<BO.Parcel> GetAllUnmachedParcels();

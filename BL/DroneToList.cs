@@ -17,7 +17,10 @@ using System.Threading.Tasks;
             public int IdOfParcel { get; set; }
             public DateTime TimeCharge { get; set; }
 
-
+        public override string ToString()
+        {
+            return $"Drone:  Id = {Id}, Model = {Model}, MaxWeight = {MaxWeight}, Status = {Status}, Battery = {Battery}, Lattiyude={CurrentLocation.Lattitude}, Longtitude={CurrentLocation.Longitude}";
         }
+    }
     }
 

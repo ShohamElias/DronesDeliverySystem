@@ -11,7 +11,6 @@ namespace BO
             public int Id { get; set; }
 
             public String SenderName { get; set; }
-
             public String TargetName { get; set; }
             public WeightCategories Weight { get; set; }
             public Priorities Priority { get; set; }

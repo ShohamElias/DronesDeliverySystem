@@ -23,16 +23,24 @@ namespace PL
         public StationListWindow(BlApi.IBL _bl)
         {
             InitializeComponent();
-            stationListView.DataContext = _bl.GetAllStations();
+            stationListView.DataContext = from item in _bl.GetAllStations()
+                                          select new BO.StationsToList()
+                                          {
+                                              Id = item.Id,
+                                              Name = item.Name,
+                                              EmptyChargeSlots = item.ChargeSlots,
+                                              FullChargeSlots = item.DronesinCharge.Count,
+                                              StationLocation = item.StationLocation
+                                          };
             bl = _bl;
                                                  
         }
 
         private void stationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            BO.Station s = stationListView.SelectedItem as BO.Station;
+            BO.StationsToList s = stationListView.SelectedItem as BO.StationsToList;
             if (s != null)
-                new StationShoWindow(bl,s).Show();
+                new StationShoWindow(bl,bl.GetStation(s.Id)).Show();
         }
 
         private void addbutton_Click(object sender, RoutedEventArgs e)
@@ -42,7 +50,15 @@ namespace PL
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            stationListView.DataContext =bl.GetAllStations();
+            stationListView.DataContext =from item in bl.GetAllStations()
+                                         select new BO.StationsToList()
+                                         {
+                                             Id=item.Id,
+                                             Name=item.Name,
+                                             EmptyChargeSlots=item.ChargeSlots,
+                                             FullChargeSlots=item.DronesinCharge.Count,
+                                             StationLocation=item.StationLocation
+                                         };
 
         }
     }

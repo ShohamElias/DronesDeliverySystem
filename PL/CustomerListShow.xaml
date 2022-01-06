@@ -49,37 +49,42 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn x:Name="LatitudeColumn" Header="Latitude"  Width="80">
+                    
+
+                    <GridViewColumn x:Name="arrivedcolumn" Header="Arrived Parcels"  Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding CustLocation.Lattitude}" Margin="6,-1,-6,-1"/>
+                                <Label Content="{Binding ParcelsArrived}" Margin="6,-1,-6,-1"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn x:Name="parcelToCustomerColumn" Header="ParcelToCustomer"  Width="100">
+                    <GridViewColumn x:Name="onthewayColumn" Header="On the way Parcels"  Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ComboBox ItemsSource="{Binding parcelToCustomer}" Margin="6,-1,-6,-1"/>
+                                <Label Content="{Binding ParcelsOnTheWay}" Margin="6,-1,-6,-1"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="parcelFromColumn" Header="ParcelFrom" Width="100">
+
+                    <GridViewColumn x:Name="deliveredcolumn" Header="Delivered Parcels"  Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ComboBox ItemsSource="{Binding parcelFromCustomer}" Margin="6,-1,-6,-1"/>
+                                <Label Content="{Binding ParcelsDelivered}" Margin="6,-1,-6,-1"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn x:Name="notdeliveredcolumn" Header="not Delivered Parcels"  Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding PurcelsNotDelivered}" Margin="6,-1,-6,-1"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
 
-                    <GridViewColumn x:Name="LongtitudeColumn" Header="Longitude" Width="80">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label Content="{Binding CustLocation.Longitude}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    
                 </GridView>
             </ListView.View>
         </ListView>
