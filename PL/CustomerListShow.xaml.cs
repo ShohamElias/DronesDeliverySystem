@@ -38,7 +38,7 @@ namespace PL
         {
             BO.CustomerToList c = CustomerListView.SelectedItem as BO.CustomerToList;
             if (c != null)
-                new CustomerShowWindow(bl.GetCustomer(c.Id), bl, "Update").ShowDialog();
+                new CustomerShowWindow(bl.GetCustomer(c.Id), bl, "Update").Show();
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

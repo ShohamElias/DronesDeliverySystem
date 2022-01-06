@@ -25,6 +25,7 @@ namespace PL
         IEnumerable<BO.Customer> cc;
         IEnumerable<BO.Drone> dd;
         bool closingwin = true;
+        BO.Parcel updatep; 
         public ParcelShow(BlApi.IBL _bl,int id)
         {
             InitializeComponent();
@@ -79,8 +80,8 @@ namespace PL
         {
             InitializeComponent();
             closingwin = true;
-            
             parcelGrid.DataContext = p;
+            updatep = p;
             addUpdateButton.Content = "Cancel";
             bl = _bl;
             if (p.PickedUp == null)
@@ -90,19 +91,10 @@ namespace PL
             }
             else
             {
-                pickedUpDatePicker.Visibility = Visibility.Visible;
-                pickedUpLable.Visibility = Visibility.Visible;
+                //pickedUpDatePicker.Visibility = Visibility.Visible;
+                //pickedUpLable.Visibility = Visibility.Visible;
             }
-            if (p.Requested == null)
-            {
-                requestedDatePicker.Visibility = Visibility.Collapsed;
-                requestedlLable.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                requestedDatePicker.Visibility = Visibility.Visible;
-                requestedlLable.Visibility = Visibility.Visible;
-            }
+            
             if (p.Delivered == null)
             {
                 deliveredDatePicker.Visibility = Visibility.Collapsed;
@@ -169,6 +161,22 @@ namespace PL
             {
                 senderButton.Visibility = Visibility.Hidden;
                 targetButton.Visibility = Visibility.Hidden;
+                addUpdateButton.Content = "Update";
+                if (pickedUpDatePicker != null)
+                {
+                    isPorD.Visibility = Visibility.Visible;
+                    IsActionCheck.Visibility = Visibility.Visible;
+                }
+                if(typeCust == "sender")
+                {
+                    IsActionCheck.IsChecked = p.IsPicked;
+                    isPorD.Content = "Parcel picked?";
+                }
+                else
+                {
+                    IsActionCheck.IsChecked = p.IsDelivered;
+                    isPorD.Content = "Parcel Delivered?";
+                }
             }
         }
 
@@ -201,6 +209,19 @@ namespace PL
             }
             else if (addUpdateButton.Content == "Cancel")
             {
+                closingwin = false;
+                this.Close();
+            }
+            else
+            {
+                if(isPorD.Content == "Parcel picked?")
+                {
+                    updatep.IsPicked = IsActionCheck.IsChecked;
+                }
+                else
+                    updatep.IsDelivered = IsActionCheck.IsChecked;
+                bl.UpdateParcel(updatep);
+                MessageBox.Show("Successfully completed the task.");
                 closingwin = false;
                 this.Close();
             }

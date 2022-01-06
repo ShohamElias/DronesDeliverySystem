@@ -30,6 +30,7 @@ namespace PL
             closingwin = true;
             customerGrid.DataContext = c;
             Predicate<BO.Parcel> p;
+            PasswordtextBox.Text = "kjhgfd";
             p = s => s.Sender.Id == c.Id;
             SentList.ItemsSource = bl.GetParcelBy(p);
             p = s => s.Target.Id == c.Id && s.Delivered!=null;
@@ -37,8 +38,13 @@ namespace PL
             addUpdateButton.Content = typeWindow;
             if (typeWindow == "User")
                 addUpdateButton.Content = "Update";
+             PasswordtextBox.Visibility = Visibility.Hidden;
+             passwordlabel.Visibility = Visibility.Hidden;
+            
             if (typeWindow == "show")
             {
+                
+
                 addUpdateButton.Visibility = Visibility.Collapsed;
                 idTextBox.IsReadOnly = true;
                 LatitudeTextBox.IsReadOnly = true;
@@ -85,6 +91,7 @@ namespace PL
                     cust.Id = int.Parse(idTextBox.Text.ToString());
                     cust.Name = nameTextBox.Text.ToString();
                     cust.Phone = phoneTextBox.Text.ToString();
+                    cust.password = PasswordtextBox.Text;
                     cust.CustLocation = new BO.Location() { Lattitude = double.Parse(LongtitudeTextBox.Text.ToString()), Longitude = double.Parse(LatitudeTextBox.Text.ToString()) };
                     bl.AddCustomer(cust);
                 }
@@ -162,7 +169,7 @@ namespace PL
             {
                 c = c.Remove(c.Length - 1);
                 idTextBox.Text = c;
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString(), "Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -179,7 +186,7 @@ namespace PL
             {
                 c = "0";
                 LongtitudeTextBox.Text = c;
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString(), "Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -196,7 +203,7 @@ namespace PL
             {
                 c = "0";
                 LatitudeTextBox.Text = c;
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString(), "Error Occurred", MessageBoxButton.OK,MessageBoxImage.Error);
             }
         }
 

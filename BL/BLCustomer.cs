@@ -42,14 +42,15 @@ namespace BlApi
         /// <param name="newCustomer"></param>
         public void AddCustomer(Customer newCustomer)
         {
-            
+
             DO.Customer newCus = new DO.Customer()
             {
                 Id = newCustomer.Id,
                 Name = newCustomer.Name,
                 Phone = newCustomer.Phone,
                 Longitude = newCustomer.CustLocation.Longitude,
-                Lattitude = newCustomer.CustLocation.Lattitude     
+                Lattitude = newCustomer.CustLocation.Lattitude,
+                password = newCustomer.password
               
             };
             try
@@ -117,13 +118,14 @@ namespace BlApi
             if (!AccessIdal.CheckCustomer(id))
                 throw new BadIdException(id, "this customer doesn't exist!"); 
             DO.Customer c = AccessIdal.GetCustomer(id);
-            
+
             Customer cb = new Customer()
             {
                 Id = id,
                 CustLocation = new Location() { Lattitude = c.Lattitude, Longitude = c.Longitude },
                 Name = c.Name,
-                Phone = c.Phone,     
+                Phone = c.Phone,
+                password = c.password
             };
             cb.parcelToCustomer = new List<Parcel>();
             cb.parcelFromCustomer = new List<Parcel>();
@@ -172,6 +174,7 @@ namespace BlApi
                 ParcelsDelivered=0,
                 ParcelsOnTheWay=0,
                 PurcelsNotDelivered=0
+                
             };
 
             foreach (var item in c.parcelFromCustomer)

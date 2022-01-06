@@ -61,10 +61,12 @@ namespace DalObject
                     Weight = (WeightCategories)rand.Next(3),
                     Priority = (Priorities)rand.Next(2),
                     Requested = DateTime.Now,
-                    DroneId =0,
-                    Scheduled =null,
+                    DroneId = 0,
+                    Scheduled = null,
                     PickedUp = null,
-                    Delivered = null
+                    Delivered = null,
+                    IsDelivered = false,
+                    IsPicked=false
                 };
                 do
                 {
@@ -105,6 +107,7 @@ namespace DalObject
                     Phone = "un",
                     Lattitude = rand.Next(30, 33) + ((double)rand.Next(0, 1000000) / 1000000),
                     Longitude = rand.Next(34, 36) + ((double)rand.Next(0, 1000000) / 1000000),
+                    password = null
                 };
                 CustomersList.Add(c);
             }

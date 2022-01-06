@@ -34,7 +34,7 @@
 
         </Grid>
 
-        <ListView x:Name="droneChargeListView" ItemsSource="{Binding}" Margin="62,272,536.333,69.667" SelectionMode="Single" MouseDoubleClick="droneChargeListView_MouseDoubleClick">
+        <ListView x:Name="droneChargeListView" ItemsSource="{Binding}" Margin="62,272,536.333,69.667" SelectionMode="Single" MouseDoubleClick="droneChargeListView_MouseDoubleClick" SelectionChanged="droneChargeListView_SelectionChanged">
             <ListView.ItemContainerStyle>
                 <Style>
                     <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>

@@ -33,7 +33,6 @@ namespace PL
             addupdatebutton.Content = "Update";
             ss = s;
             droneChargeListView.Visibility = Visibility.Visible;
-            droneChargeListView.IsEnabled = false;
         }
         public StationShoWindow(BlApi.IBL _bl)
         {
@@ -48,7 +47,7 @@ namespace PL
         {
             BO.DroneCharge dc = droneChargeListView.SelectedItem as BO.DroneCharge;
             if (dc != null)
-                new DroneShow(bl, bl.GetDrone(dc.DroneId)).Show();
+                new DroneShow(bl, bl.GetDrone(dc.DroneId), " ").Show();
         }
 
         private void addupdatebutton_Click(object sender, RoutedEventArgs e)
@@ -91,6 +90,11 @@ namespace PL
                 droneChargeListView.DataContext =ss.DronesinCharge;
                 
             }
+        }
+
+        private void droneChargeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

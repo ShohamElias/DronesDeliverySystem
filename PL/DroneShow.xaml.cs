@@ -33,7 +33,6 @@ namespace PL
             AddUpdateButton.Visibility = Visibility.Hidden;
             ChargingButton.Visibility = Visibility.Hidden;
             DeliveryButton.Visibility = Visibility.Hidden;
-
             idtextbox.Text = d.Id.ToString();
             modelTextbox.Text = d.Model.ToString();
             LattextBox.Text = d.CurrentLocation.Lattitude.ToString();
@@ -45,7 +44,8 @@ namespace PL
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             StatusSelector.SelectedItem = d.Status;
             WeightSelector.SelectedItem = d.MaxWeight;
-
+            stationCombo.Visibility = Visibility.Hidden;
+            stationLable.Visibility = Visibility.Hidden;
             idtextbox.IsReadOnly = true;         
             modelTextbox.IsReadOnly = true;
             LattextBox.IsReadOnly = true;
@@ -66,7 +66,7 @@ namespace PL
             closingwin = true;
 
             s = bl.GetStationsforNoEmpty();
-
+            
             AddUpdateButton.Content = "Add"; //making every thing visible
             idtextbox.Text = "";
             modelTextbox.Text = "";
@@ -78,9 +78,8 @@ namespace PL
             Lontextbox.IsEnabled = true;
             BatteryTextBox.IsEnabled = true;
             StatusSelector.IsEnabled = true;
-
-            stationCombo.Visibility = Visibility.Hidden; //the option buttons are hidden
-            stationLable.Visibility = Visibility.Hidden;
+           
+            //the option buttons are hidden
             ChargingButton.Visibility = Visibility.Hidden;
             DeliveryButton.Visibility = Visibility.Hidden;
             StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.DroneStatuses));
@@ -121,12 +120,9 @@ namespace PL
             idtextbox.IsEnabled = false;
             LattextBox.IsEnabled = false;
             Lontextbox.IsEnabled = false;
-            BatteryTextBox.IsEnabled = false;
-            stationCombo.IsEnabled = false;
             modelTextbox.IsEnabled = false;
 
-            stationCombo.Visibility = Visibility.Hidden;
-            stationLable.Visibility = Visibility.Hidden;
+            
 
             //idtextbox.Visibility = Visibility.Hidden;
             //modelTextbox.Visibility = Visibility.Hidden;
@@ -152,10 +148,6 @@ namespace PL
 
             StatusSelector.IsEnabled = false;
             WeightSelector.IsEnabled = false;
-
-            stationCombo.Visibility = Visibility.Hidden;
-            stationLable.Visibility = Visibility.Hidden;
-
             //LattextBox.Visibility = Visibility.Hidden;
             //Lontextbox.Visibility = Visibility.Hidden;
             //label7.Visibility = Visibility.Hidden;
@@ -340,8 +332,7 @@ namespace PL
                 Lontextbox.Visibility = Visibility.Visible;
                 latlable.Visibility = Visibility.Visible;
                 label7.Visibility = Visibility.Visible;
-                stationCombo.Visibility = Visibility.Hidden;
-                stationLable.Visibility = Visibility.Hidden;
+                
             }
         }
        

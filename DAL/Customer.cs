@@ -13,6 +13,7 @@ using System.Threading.Tasks;
             public string Phone { get; set; }
             public double Longitude { get; set; }
             public double Lattitude { get; set; }
+            public string password { get; set; }
 
             public override string ToString()
             {

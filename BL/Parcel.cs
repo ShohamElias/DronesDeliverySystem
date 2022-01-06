@@ -26,9 +26,11 @@ namespace BO
             public DateTime? Scheduled { get; set; }
             public DateTime? PickedUp { get; set; }
             public DateTime? Delivered { get; set; }
+            public bool? IsPicked { get; set; }
+            public bool? IsDelivered { get; set; }
 
 
-            public override string ToString()
+        public override string ToString()
             {
                 return $"Parcel: Id = {Id}, SenderId = {Sender.Id}, TargetId= {Target.Id}, Weight = {Weight}, Priority = {Priority}, Requested = {Requested}, DroneId ={DroneParcel.Id}, Scheduled = {Scheduled}, PickedUp = {PickedUp}, Delivered = {Delivered}";
             }

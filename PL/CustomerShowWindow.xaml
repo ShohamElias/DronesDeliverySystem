@@ -5,48 +5,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="CustomerShowWindow" Height="450" Width="800" Activated="Window_Activated">
-    <Grid x:Name="customerGrid" HorizontalAlignment="Left" Margin="285,152,0,0" VerticalAlignment="Top" Height="217" RenderTransformOrigin="0.263,0.4" Width="434">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="49.04"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+        Title="CustomerShowWindow" Height="603" Width="800" Activated="Window_Activated">
+    <Grid>
+        <Grid x:Name="customerGrid"  HorizontalAlignment="Left" Margin="70,23,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Id:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+            <TextBox x:Name="idTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
 
-        </Grid.RowDefinitions>
-        <Label Content="Id:" Grid.Column="0" HorizontalAlignment="Left" Margin="-174,-115,0,0" Grid.Row="0" VerticalAlignment="Top" Height="31" Width="25"/>
-        <TextBox x:Name="idTextBox"  HorizontalAlignment="Left" Height="27" Margin="-92,-113,0,0" Grid.Row="0" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="130" Grid.ColumnSpan="2" TextChanged="idTextBox_TextChanged"/>
-        <Label Content="Name:" Grid.Column="0" HorizontalAlignment="Left" Margin="-174,-81,0,0" VerticalAlignment="Top" Height="31" Width="48"/>
-        <TextBox x:Name="nameTextBox" HorizontalAlignment="Left" Height="27" Margin="-92,-80,0,0" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="130" Grid.ColumnSpan="2"/>
-        <Label Content="Phone:" Grid.Column="0" HorizontalAlignment="Left" Margin="-174,-50,0,0" VerticalAlignment="Top" Height="30" Width="50"/>
-        <TextBox x:Name="phoneTextBox" HorizontalAlignment="Left" Height="27" Margin="-92,-49,0,0" Text="{Binding Phone, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="130" Grid.ColumnSpan="2"/>
-        <Label Content="Longtitude:" Grid.Column="0" HorizontalAlignment="Left" Margin="-174,-20,0,0" VerticalAlignment="Top" Height="31" Width="76"/>
-        <TextBox x:Name="LongtitudeTextBox" HorizontalAlignment="Left" Height="27" Margin="-92,-18,0,0" Text="{Binding CustLocation.Longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="130" Grid.ColumnSpan="2" TextChanged="LongtitudeTextBox_TextChanged"/>
-        <Label Content="Latitude:" Grid.Column="0" HorizontalAlignment="Left" Margin="-174,0,0,0" VerticalAlignment="Center" Height="30" Grid.Row="2" Width="60"/>
-        <TextBox x:Name="LatitudeTextBox" HorizontalAlignment="Left" Height="27" Margin="-92,0,0,0" Text="{Binding CustLocation.Lattitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="130" Grid.ColumnSpan="2" Grid.Row="2" TextChanged="LatitudeTextBox_TextChanged"/>
-        <Label x:Name="SentParcels" Content="Sent Parcels" HorizontalAlignment="Left" Margin="-174,41,0,0" Grid.Row="4" VerticalAlignment="Top"/>
-        <Label x:Name="RecievedParcels" Content="Recieved Parcels" HorizontalAlignment="Left" Margin="-174,131,0,0" Grid.Row="4" VerticalAlignment="Top"/>
-        <ListView x:Name="SentList" HorizontalAlignment="Left" Height="59" Margin="-174,67,0,0" Grid.Row="4" VerticalAlignment="Top" Width="579" MouseDoubleClick="SentList_MouseDoubleClick">
+            <Label x:Name="Latitude" Content="Latitude:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="8" VerticalAlignment="Center" IsHitTestVisible="False"/>
+            <TextBox x:Name="LatitudeTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="8" Text="{Binding CustLocation.Lattitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+
+            <Label Content="Name:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+            <TextBox x:Name="nameTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+
+            <Label Content="Longtitude:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
+            <TextBox x:Name="LongtitudeTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="3" Text="{Binding CustLocation.Longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+
+            <Label Content="Phone:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+            <TextBox x:Name="phoneTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding Phone, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+
+        </Grid>
+        <Button x:Name="addUpdateButton" Content="add/update" HorizontalAlignment="Left" Margin="618,98,0,0" VerticalAlignment="Top" Click="addUpdateButton_Click" Width="92" Background="{StaticResource MyButtonBackground}" />
+        <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="618,136,0,0" VerticalAlignment="Top" Click="cancelButton_Click" Width="92" Background="{StaticResource MyButtonBackground}"/>
+        <Button x:Name="SendButton" Content="Send a parcel" HorizontalAlignment="Left" Margin="618,65,0,0" VerticalAlignment="Top" Width="92" Click="SendButton_Click" Background="{StaticResource MyButtonBackground}"/>
+        <ListView x:Name="SentList" Margin="53,260,79,226" MouseDoubleClick="SentList_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="ReceivedList" Grid.Row="4" Margin="-174,162,29,-50" MouseDoubleClick="ReceivedList_MouseDoubleClick">
+        <ListView x:Name="ReceivedList" Margin="53,404,79,68" MouseDoubleClick="ReceivedList_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="addUpdateButton" Content="add/update" HorizontalAlignment="Left" Margin="332,-80,0,0" VerticalAlignment="Top" Click="addUpdateButton_Click" Width="92" Background="{StaticResource MyButtonBackground}"/>
-        <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="332,-42,0,0" VerticalAlignment="Top" Click="cancelButton_Click" Width="92" Background="{StaticResource MyButtonBackground}"/>
-        <Button x:Name="SendButton" Content="Send a parcel" HorizontalAlignment="Left" Margin="332,-113,0,0" VerticalAlignment="Top" Width="92" Click="SendButton_Click" Background="{StaticResource MyButtonBackground}"/>
+        <Label x:Name="SentParcels" Content="Sent Parcels" HorizontalAlignment="Left" Margin="99,217,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="RecievedParcels" Content="Recieved Parcels" HorizontalAlignment="Left" Margin="76,361,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="PasswordtextBox" HorizontalAlignment="Left" Margin="150,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Height="24"/>
+        <Label x:Name="passwordlabel" Content="Password:" HorizontalAlignment="Left" Margin="76,191,0,0" VerticalAlignment="Top" />
+
+
     </Grid>
 </Window>
+

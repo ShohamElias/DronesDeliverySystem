@@ -56,7 +56,8 @@ namespace BlApi
             par.SenderId = p.Sender.Id;
             par.TargetId = p.Target.Id;
             par.PickedUp = null;
-
+            par.IsDelivered = false;
+            par.IsPicked = false;
             par.Scheduled = null;
             par.Delivered = null;
             AccessIdal.AddParcel(par);
@@ -100,7 +101,9 @@ namespace BlApi
                 Requested = p.Requested,
                 Scheduled = p.Scheduled,
                 Delivered = p.Delivered,
-                PickedUp = p.PickedUp
+                PickedUp = p.PickedUp,
+                IsPicked = p.IsPicked,
+                IsDelivered=p.IsDelivered
             };
             if (p.SenderId != 0)
             {
@@ -140,6 +143,8 @@ namespace BlApi
             pDO.Requested = p.Requested;
             pDO.Scheduled = p.Scheduled;
             pDO.Delivered = p.Delivered;
+            pDO.IsDelivered = p.IsDelivered;
+            pDO.IsPicked = p.IsPicked;
             if (!AccessIdal.CheckDrone(p.DroneParcel.Id))
                 pDO.DroneId = p.DroneParcel.Id; //error if null?
             AccessIdal.UpdateParcel(pDO);
@@ -247,6 +252,8 @@ namespace BlApi
                        Scheduled = crs.Scheduled,
                        PickedUp = crs.PickedUp,
                        Delivered = crs.Delivered,
+                       IsPicked = crs.IsPicked,
+                       IsDelivered = crs.IsDelivered,
                        Weight = (BO.WeightCategories)((int)crs.Weight),
                        Priority = (BO.Priorities)crs.Priority
                    };

@@ -11,8 +11,9 @@ using System.Threading.Tasks;
             public int Id { get; set; }
             public string Name { get; set; }
             public string Phone { get; set; }
+            public string password { get; set; }
 
-            public Location CustLocation { get; set; }
+        public Location CustLocation { get; set; }
             //public double Longitude { get; set; }
             //public double Lattitude { get; set; }
 
