@@ -23,6 +23,7 @@
                     <Setter Property="Control.VerticalContentAlignment" Value="Stretch"/>
                 </Style>
             </ListView.ItemContainerStyle>
+            
             <ListView.View>
                 <GridView>
                     <GridViewColumn x:Name="idColumn"  Header="Id" Width="80">
@@ -86,7 +87,9 @@
 
                     
                 </GridView>
+                
             </ListView.View>
+            
         </ListView>
         <Button x:Name="button" Content="Add a Customer" HorizontalAlignment="Left" Margin="261,360,0,0" VerticalAlignment="Top" Click="button_Click" Grid.Column="1"/>
         <TextBox x:Name="textBox" Grid.Column="1" HorizontalAlignment="Left" Margin="63,37,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="textBox_TextChanged"/>

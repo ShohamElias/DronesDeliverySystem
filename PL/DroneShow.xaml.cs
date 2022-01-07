@@ -109,8 +109,9 @@ namespace PL
 
             ChargingButton.Visibility = Visibility.Visible; //hiding everything except the option buttons
             DeliveryButton.Visibility = Visibility.Visible;
-
-
+            stationCombo.Visibility = Visibility.Hidden;
+            stationLable.Visibility = Visibility.Hidden;
+            BatteryTextBox.IsEnabled = false;
             idtextbox.Text = d.Id.ToString();
             modelTextbox.Text = d.Model.ToString();
             LattextBox.Text = d.CurrentLocation.Lattitude.ToString();
@@ -124,21 +125,7 @@ namespace PL
 
             
 
-            //idtextbox.Visibility = Visibility.Hidden;
-            //modelTextbox.Visibility = Visibility.Hidden;
-            //LattextBox.Visibility = Visibility.Hidden;
-            //Lontextbox.Visibility = Visibility.Hidden;
-            //BatteryTextBox.Visibility = Visibility.Hidden;
-            //StatusSelector.Visibility = Visibility.Hidden;
-            //WeightSelector.Visibility = Visibility.Hidden;
-            //idLable.Visibility = Visibility.Hidden;
-            //modelLable.Visibility = Visibility.Hidden;
-            //statuslablle.Visibility = Visibility.Hidden;
-            //Batterylable.Visibility = Visibility.Hidden;
-            //latlable.Visibility = Visibility.Hidden;
-
-           // WeightLable.Visibility = Visibility.Hidden;
-
+            
 
 
             StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.DroneStatuses));
@@ -148,10 +135,7 @@ namespace PL
 
             StatusSelector.IsEnabled = false;
             WeightSelector.IsEnabled = false;
-            //LattextBox.Visibility = Visibility.Hidden;
-            //Lontextbox.Visibility = Visibility.Hidden;
-            //label7.Visibility = Visibility.Hidden;
-            //latlable.Visibility = Visibility.Hidden;
+            
 
         }
 

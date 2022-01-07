@@ -159,6 +159,7 @@ namespace PL
 
             if (typeCust == "sender"|| typeCust=="target")
             {
+                Cbutton.Visibility = Visibility.Visible;
                 senderButton.Visibility = Visibility.Hidden;
                 targetButton.Visibility = Visibility.Hidden;
                 addUpdateButton.Content = "Update";
@@ -271,6 +272,12 @@ namespace PL
                 Console.WriteLine(el);
             }
             
+        }
+
+        private void Cbutton_Click(object sender, RoutedEventArgs e)
+        {
+            closingwin = false;
+            this.Close();
         }
     }
 }

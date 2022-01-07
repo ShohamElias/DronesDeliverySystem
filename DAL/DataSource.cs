@@ -103,7 +103,7 @@ namespace DalObject
                 Customer c = new Customer()//creating the customer and getting random values
                 {
                     Id = rand.Next(100000000, 1000000000),
-                    Name = "name",
+                    Name = "name"+i,
                     Phone = "un",
                     Lattitude = rand.Next(30, 33) + ((double)rand.Next(0, 1000000) / 1000000),
                     Longitude = rand.Next(34, 36) + ((double)rand.Next(0, 1000000) / 1000000),
@@ -118,7 +118,7 @@ namespace DalObject
         {
              //שדה סטטי של המחלקה
             
-            createStation(2);
+            createStation(5);
             createDrone(5);
             creacustomer(10);
             createParcel(5);

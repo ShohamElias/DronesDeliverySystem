@@ -37,8 +37,11 @@ namespace PL
             ReceivedList.ItemsSource = bl.GetParcelBy(p);
             addUpdateButton.Content = typeWindow;
             if (typeWindow == "User")
+            {
                 addUpdateButton.Content = "Update";
-             PasswordtextBox.Visibility = Visibility.Hidden;
+                SendButton.Visibility = Visibility.Visible;
+            }
+            PasswordtextBox.Visibility = Visibility.Hidden;
              passwordlabel.Visibility = Visibility.Hidden;
             
             if (typeWindow == "show")
@@ -224,6 +227,11 @@ namespace PL
                 ReceivedList.ItemsSource = bl.GetParcelBy(p);
             }
            
+        }
+
+        private void Cbutton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

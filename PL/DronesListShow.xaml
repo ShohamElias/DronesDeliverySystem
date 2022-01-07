@@ -44,12 +44,23 @@
                         <GridViewColumn/>
                     </GridView>
                 </ListView.View>
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock FontWeight="SemiBold" FontStyle="Italic" FontSize="12" Text="{Binding Name}"></TextBlock>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
             </ListView>
 
 
             <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Left" Margin="62,341,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.573,0.31" Height="39" Width="444" Click="AddDrone_Click" Grid.Column="1" Background="#FFF9F7F7"/>
 
         </Grid>
+        <Button x:Name="clearButton" Content="clear" HorizontalAlignment="Left" Margin="314,351,0,0" VerticalAlignment="Top" Click="clearButton_Click" Background="{StaticResource MyButtonBackground}" Width="54" Grid.Column="3"/>
+        <Button x:Name="GroupBy" Content="Grouping" HorizontalAlignment="Left" Margin="170,351,0,0" VerticalAlignment="Top" Click="GroupByClick_1"  Background="{StaticResource MyButtonBackground}" Grid.Column="3" />
 
     </Grid>
 </Window>

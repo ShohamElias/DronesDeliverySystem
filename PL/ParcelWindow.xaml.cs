@@ -22,16 +22,13 @@ namespace PL
         BlApi.IBL bl;
         int nextid;
         IEnumerable<BO.Parcel> pp;
+
         public ParcelWindow(BlApi.IBL _bl)
         {
             InitializeComponent();
             bl = _bl;
             pp  = _bl.GetAllParcels();
             parcelListView.DataContext = bl.GetAllParcelsToList();
-                                         
-            
-
-
             PrioritySelector.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
         }
@@ -49,7 +46,7 @@ namespace PL
                 parcelListView.ItemsSource = bl.GetAllParcelsToList();
             else
                 parcelListView.ItemsSource = bl.GetAllParcelsToListBy(p);
-
+          
         }
 
         private void parcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -93,8 +90,34 @@ namespace PL
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
         {
-            parcelListView.DataContext = bl.GetAllParcelsToList();
+            parcelListView.ItemsSource = bl.GetAllParcelsToList();
+            GroupByPrio.IsEnabled = true;
 
+        }
+
+
+        private void GroupByClick_1(object sender, RoutedEventArgs e)
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parcelListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("SenderName");
+            view.GroupDescriptions.Add(groupDescription);
+            GroupBySender.IsEnabled = false;
+        }
+
+        private void GroupByPrioClick_1(object sender, RoutedEventArgs e)
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parcelListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Priority");
+            view.GroupDescriptions.Add(groupDescription);
+            GroupByPrio.IsEnabled = false;
+        }
+
+        private void GroupByTargetClick_1(object sender, RoutedEventArgs e)
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parcelListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("TargetName");
+            view.GroupDescriptions.Add(groupDescription);
+            GroupByTarget.IsEnabled = false;
         }
     }
 }

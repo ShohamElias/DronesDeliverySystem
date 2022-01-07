@@ -32,6 +32,10 @@ namespace PL
 
             PrioritySelector.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
+
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parcelListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Priority");
+            view.GroupDescriptions.Add(groupDescription);
         }
 
         private void Window_Activated(object sender, EventArgs e)

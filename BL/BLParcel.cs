@@ -316,7 +316,7 @@ namespace BlApi
                 Priority = p.Priority,
                 Weight = p.Weight,
                 SenderName = p.Sender.CustomerName,
-                TargetName = p.Sender.CustomerName,
+                TargetName = p.Target.CustomerName,
             };
 
             if (p.Delivered != null)

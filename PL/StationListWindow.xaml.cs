@@ -59,7 +59,23 @@ namespace PL
                                              FullChargeSlots=item.DronesinCharge.Count,
                                              StationLocation=item.StationLocation
                                          };
+            GroupBy.IsEnabled = true;
 
+        }
+
+        private void clearButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window_Activated( sender,  e);
+
+        }
+
+
+        private void GroupByClick_1(object sender, RoutedEventArgs e)
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(stationListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("EmptyChargeSlots");
+            view.GroupDescriptions.Add(groupDescription);
+            GroupBy.IsEnabled = false;
         }
     }
 }

@@ -36,7 +36,7 @@ namespace PL
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new ParcelWindow(bl).ShowDialog();
+            new ParcelWindow(bl).Show();
         }
 
         private void Customer_Click(object sender, RoutedEventArgs e)

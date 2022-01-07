@@ -83,5 +83,22 @@ namespace PL
                 DronesListView.ItemsSource = bl.GetAllDronesToListBy(p);
 
         }
+
+        private void clearButton_Click(object sender, RoutedEventArgs e)
+        {
+            DronesListView.ItemsSource = bl.GetAllDronesToList();
+            GroupBy.IsEnabled = true;
+
+        }
+
+
+        private void GroupByClick_1(object sender, RoutedEventArgs e)
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DronesListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
+            view.GroupDescriptions.Add(groupDescription);
+            GroupBy.IsEnabled = false;
+        }
     }
+
 }
