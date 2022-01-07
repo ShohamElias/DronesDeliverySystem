@@ -11,6 +11,7 @@ namespace BlApi
     {
         // public IDAL.IDal dl;
         internal static readonly IBL instance = new BL();
+        static bool bla;
         public static IBL Instance { get => instance; }
         internal DalApi.IDal AccessIdal;
         public List<DroneToList> DronesBL;
