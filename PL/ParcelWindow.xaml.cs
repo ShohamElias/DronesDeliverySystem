@@ -21,6 +21,7 @@ namespace PL
     {
         BlApi.IBL bl;
         int nextid;
+        int wish;
         IEnumerable<BO.Parcel> pp;
 
         public ParcelWindow(BlApi.IBL _bl)
