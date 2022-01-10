@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{9BC0
 		{1A4CE57D-821C-4502-8590-A2E681A535B0} = {1A4CE57D-821C-4502-8590-A2E681A535B0}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALXML", "DALXML\DALXML.csproj", "{77F74008-CF73-4B7D-8FA7-6EAF55249DCB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,18 @@ Global
 		{9BC0EE71-0171-4570-8DCA-D8BCB8E38D2C}.Release|x64.Build.0 = Release|Any CPU
 		{9BC0EE71-0171-4570-8DCA-D8BCB8E38D2C}.Release|x86.ActiveCfg = Release|Any CPU
 		{9BC0EE71-0171-4570-8DCA-D8BCB8E38D2C}.Release|x86.Build.0 = Release|Any CPU
+		{77F74008-CF73-4B7D-8FA7-6EAF55249DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77F74008-CF73-4B7D-8FA7-6EAF55249DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77F74008-CF73-4B7D-8FA7-6EAF55249DCB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{77F74008-CF73-4B7D-8FA7-6EAF55249DCB}.Debug|x64.Build.0 = Debug|Any CPU
+		{77F74008-CF73-4B7D-8FA7-6EAF55249DCB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{77F74008-CF73-4B7D-8FA7-6EAF55249DCB}.Debug|x86.Build.0 = Debug|Any CPU
+		{77F74008-CF73-4B7D-8FA7-6EAF55249DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77F74008-CF73-4B7D-8FA7-6EAF55249DCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77F74008-CF73-4B7D-8FA7-6EAF55249DCB}.Release|x64.ActiveCfg = Release|Any CPU
+		{77F74008-CF73-4B7D-8FA7-6EAF55249DCB}.Release|x64.Build.0 = Release|Any CPU
+		{77F74008-CF73-4B7D-8FA7-6EAF55249DCB}.Release|x86.ActiveCfg = Release|Any CPU
+		{77F74008-CF73-4B7D-8FA7-6EAF55249DCB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
