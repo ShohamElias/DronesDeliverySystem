@@ -4,19 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DO;
+using DalApi;
 
-namespace DalObject
+namespace Dal
 {
-    internal class DataSource
+    internal static class DataSource
     {
         internal class Config
         {
-            //internal static int dronesI = 0;
-            //internal static int stationsI = 0;
-            //internal static int customersI = 0;
-            //internal static int parcelsI = 0;
             public static int countIdParcel = 1000;
-            // public static int availableStations = 0;
             internal static int empty = 1;
             internal static int light = 2;
             internal static int heavy = 5;
@@ -43,8 +39,6 @@ namespace DalObject
                     Id = rand.Next(1000, 10001),
                     Model = "",
                     MaxWeight = (WeightCategories)rand.Next(3),
-                    //Status = (DroneStatuses)rand.Next(3),
-                    //Battery = rand.Next(101)
                 };
                 DroneList.Add(d);//adding to the list
             }

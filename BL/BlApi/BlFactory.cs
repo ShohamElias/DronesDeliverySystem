@@ -8,6 +8,6 @@ namespace BlApi
 {
     public static class BlFactory
     {
-        public static IBL GetBL() => BL.Instance;
+        public static IBL GetBL() => BL.BL.Instance;
     }
 }

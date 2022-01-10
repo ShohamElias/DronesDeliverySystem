@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 //using IBAL.BO;
 using BO;
 //using IDAL.DO;
+using BlApi;
+using DalApi;
 
-namespace BlApi
+
+namespace BL
 {
      partial class BL 
     {

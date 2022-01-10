@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BO;
+using BlApi;
+using DalApi;
 
 
-namespace BlApi
+namespace BL
 {
      partial class BL
     {

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>DAL</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DalApi\**" />
+    <Compile Remove="DO\**" />
+    <EmbeddedResource Remove="DalApi\**" />
+    <EmbeddedResource Remove="DO\**" />
+    <None Remove="DalApi\**" />
+    <None Remove="DO\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DALFacade\DALFacade.csproj" />
+  </ItemGroup>
+
+</Project>

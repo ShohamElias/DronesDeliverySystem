@@ -1,19 +1,19 @@
 ﻿using System;
 using BO;
-//using IDAL.DO;
-//using DalObject;
 using System.Linq;
 using System.Collections.Generic;
+using BlApi;
+using DalApi;
 
-namespace BlApi
+namespace BL
 {
     sealed partial class BL: IBL/*: IBL.IBL*/
     {
-        // public IDAL.IDal dl;
         internal static readonly IBL instance = new BL();
-        static bool bla;
         public static IBL Instance { get => instance; }
+
         internal DalApi.IDal AccessIdal;
+
         public List<DroneToList> DronesBL;
         internal static Random rand;//random
         internal static int chargeRate;
@@ -21,7 +21,7 @@ namespace BlApi
 
         public BL()
         {
-            AccessIdal = DalApi.DalFactory.GetDal("List");
+            AccessIdal = DalApi.DalFactory.GetDal();
             rand =  new Random(DateTime.Now.Millisecond);
             chargeRate = AccessIdal.GetChargeRate();
             DronesBL = (List<DroneToList>)(from item in AccessIdal.GetALLDrone()

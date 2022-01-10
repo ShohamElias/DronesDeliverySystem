@@ -21,7 +21,7 @@ namespace ConsoleUI
         enum CalcOPT { Exit, CustomerS, stationD }
         public static void PrintMenu()
         {
-            DalApi.IDal dal =  DalApi.DalFactory.GetDal("List");
+            DalApi.IDal dal =  DalApi.DalFactory.GetDal();
             bool flag2;
             MenuOpt mo;
             int option;
