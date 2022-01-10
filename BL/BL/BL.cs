@@ -7,7 +7,7 @@ using DalApi;
 
 namespace BL
 {
-    sealed partial class BL: IBL/*: IBL.IBL*/
+    sealed partial class BL: IBL
     {
         internal static readonly IBL instance = new BL();
         public static IBL Instance { get => instance; }

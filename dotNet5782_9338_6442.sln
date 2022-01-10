@@ -23,13 +23,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{9BC0
 		{1A4CE57D-821C-4502-8590-A2E681A535B0} = {1A4CE57D-821C-4502-8590-A2E681A535B0}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALXML", "DALXML\DALXML.csproj", "{77F74008-CF73-4B7D-8FA7-6EAF55249DCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DALXML", "DALXML\DALXML.csproj", "{77F74008-CF73-4B7D-8FA7-6EAF55249DCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALFacade", "DALFacade\DALFacade.csproj", "{953776DE-3946-4F57-A6AC-024483C3D466}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DALFacade", "DALFacade\DALFacade.csproj", "{953776DE-3946-4F57-A6AC-024483C3D466}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XML", "XML", "{624B25BE-3735-48B9-8027-C4E49811BEB4}"
 	ProjectSection(SolutionItems) = preProject
+		customerXML.xml = customerXML.xml
 		dal-config.xml = dal-config.xml
+		drone-chargeXML.xml = drone-chargeXML.xml
+		droneXML.xml = droneXML.xml
+		parcelXML.xml = parcelXML.xml
+		stationXML.xml = stationXML.xml
 	EndProjectSection
 EndProject
 Global
@@ -141,9 +146,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{1A4CE57D-821C-4502-8590-A2E681A535B0} = {00BAA585-8AED-409C-9B12-EDD40A782883}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {08DE8067-377E-4FD8-B3DF-57D4319509EB}

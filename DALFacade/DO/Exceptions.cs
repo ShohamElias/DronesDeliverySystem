@@ -69,4 +69,10 @@ namespace DO
         public DalConfigException(string message) : base(message) { }
     }
 
+    [Serializable]
+    public class XMLFileLoadCreateException : Exception
+    {
+        public XMLFileLoadCreateException(string message, string s, Exception exception) : base(message) { }
+    }
+
 }
