@@ -52,7 +52,6 @@ namespace DalApi
 
         #region Station
         IEnumerable<DO.Station> GetALLStationsBy(Predicate<DO.Station> P);
-
         double StationDistance(double lat, double lon1, int id);
         public void UpdateStation(DO.Station newD);
         void AddStation(DO.Station s);
