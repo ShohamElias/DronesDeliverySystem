@@ -169,9 +169,10 @@ namespace PL
                     string c = BatteryTextBox.Text;
                     if (double.Parse(c) > 100 || double.Parse(c) < 0) //validation for the battery
                     {
-                        throw new BO.BadInputException("battery should be between 0-100");
                         c = "100";
                         idtextbox.Text = c;
+                        throw new BO.BadInputException("battery should be between 0-100");
+                        
                     }
 
                     int stid = 0;

@@ -75,7 +75,7 @@ namespace Dal
         /// <param name="lon1">longtitude</param>
         /// <param name="id">the customer id</param>
         /// <returns></returns>
-        public   double CustomerDistance(double lat, double lon1, int id) 
+        public double CustomerDistance(double lat, double lon1, int id) 
         {
             Customer d = DataSource.CustomersList.Find(x => x.Id == id);//finding the customer
             if (d.Id != id)
