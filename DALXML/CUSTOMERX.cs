@@ -11,23 +11,7 @@ namespace DAL
 {
     sealed partial class DLXML : IDal
     {
-        #region singelton
-        static readonly DLXML instance = new DLXML();
-        static DLXML() { }
-        DLXML() { }
-        public static DLXML Instance { get => instance; }
-        #endregion
-
-        #region DS DLXML Files
-        string customerPath = @"customerXML.xml";
-        string dronechargePath = @"drone-chargeXML.xml";
-        string dronePath = @"droneXML.xml";
-        string parcelPath = @"parcelXML.xml";
-        string stationPath = @"stationXML.xml";
-        #endregion
-
-
-        #region Drone 
+        
         void AddCustomer(DO.Customer cus)
         {
             List<DO.Customer> ListCustomer = XMLTools.LoadListFromXMLSerializer<DO.Customer>(customerPath);
@@ -109,6 +93,5 @@ namespace DAL
         {
             return deg * (Math.PI / 180);
         }
-        #endregion
     }
 }
