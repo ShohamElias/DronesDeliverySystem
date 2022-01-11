@@ -75,7 +75,6 @@ namespace Dal
             p.PickedUp = DateTime.Now;
             DataSource.ParcelsList.Add(p);
             Drone d = DataSource.DroneList.Find(x => x.Id == p.DroneId); //finding the drone that was connected to the parcel by its id
-            //d.Status = DroneStatuses.Delivery;   //updating its status#################
         }
 
         /// <summary>
@@ -89,8 +88,7 @@ namespace Dal
                 throw new DO.BadIdException(parcelId, "This parcel id doesnt exists");
             DataSource.ParcelsList.Remove(p);
             p.Delivered = DateTime.Now;
-            DataSource.ParcelsList.Add(p); Drone d = DataSource.DroneList.Find(x => x.Id == p.DroneId); //finding the drone that was connected to the parcel by its id
-            //d.Status = DroneStatuses.Available;   //updating its status###################
+            DataSource.ParcelsList.Add(p); 
 
         }
 

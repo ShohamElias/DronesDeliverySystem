@@ -7,12 +7,12 @@ using DalApi;
 using System.Xml.Linq;
 using DO;
 
-namespace DAL
+namespace Dal
 {
     sealed partial class DLXML : IDal
     {
-        
-        void AddCustomer(DO.Customer cus)
+
+        public void AddCustomer(DO.Customer cus)
         {
             List<DO.Customer> ListCustomer = XMLTools.LoadListFromXMLSerializer<DO.Customer>(customerPath);
             Customer dd = ListCustomer.Find(s => s.Id == cus.Id);
@@ -48,7 +48,7 @@ namespace DAL
                    select Customer;
         }
 
-        double CustomerDistance(double lat, double lon1, int id)
+        public double CustomerDistance(double lat, double lon1, int id)
         {
             List<DO.Customer> ListCustomer = XMLTools.LoadListFromXMLSerializer<DO.Customer>(customerPath);
             Customer d = ListCustomer.Find(x => x.Id == id);//finding the customer
@@ -56,7 +56,7 @@ namespace DAL
                 throw new DO.BadIdException(id, "This id doesnt exists");
             return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);//sending to the func to calculate
         }
-        IEnumerable<DO.Customer> ListCustomer()
+        public IEnumerable<DO.Customer> ListCustomer()
         {
             List<DO.Customer> ListCustomer = XMLTools.LoadListFromXMLSerializer<DO.Customer>(customerPath);
             return ListCustomer.ToList();
@@ -92,6 +92,113 @@ namespace DAL
         public double Deg2rad(double deg)
         {
             return deg * (Math.PI / 180);
+        }
+
+
+
+
+        public void AddParcel(DO.Parcel per)
+        {
+            List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
+            Parcel dd = ParcelList.Find(s => s.Id == per.Id);
+
+            if (per.Id == dd.Id)
+                throw new DO.IDExistsException(per.Id, "Duplicate Parcel ID");
+
+            ParcelList.Add(per); //no need to Clone()
+
+            XMLTools.SaveListToXMLSerializer(ParcelList, parcelPath);
+        }
+
+        public DO.Parcel GetParcel(int id)
+        {
+            if (!CheckParcel(id))
+                throw new DO.BadIdException(id, "Parcel id doesnt exist: ");
+
+            List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
+            Parcel dd = ParcelList.Find(s => s.Id == id);
+            return dd;
+
+        }
+        public bool CheckParcel(int id)
+        {
+            List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
+            return ParcelList.Any(x => x.Id == id);
+        }
+
+        public IEnumerable<DO.Parcel> GetALLParcel()
+        {
+            List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
+            return from Parcel in ParcelList
+                   select Parcel;
+        }
+
+
+        public IEnumerable<DO.Parcel> ListParcel()
+        {
+            List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
+            return ParcelList.ToList();
+        }
+        public void UpdateParcel(DO.Parcel newD)
+        {
+            List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
+            Parcel d2 = ParcelList.Find(x => x.Id == newD.Id); //finding the Parcel by its id
+            if (d2.Id != newD.Id)
+                throw new DO.BadIdException(newD.Id, "This Parcel does not exist");
+            ParcelList.Remove(d2);
+            ParcelList.Add(newD);
+            XMLTools.SaveListToXMLSerializer(ParcelList, parcelPath);
+        }
+
+        public IEnumerable<DO.Parcel> GetALLParcelsBy(Predicate<DO.Parcel> P)
+        {
+            List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
+            return from d in ParcelList
+                   where P(d)
+                   select d;
+        }
+        public void RemoveParcel(int id)
+        {
+            if (!CheckParcel(id))
+                throw new BadIdException(id, "this parcel doesnt exist");
+            List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
+            ParcelList.Remove(GetParcel(id));
+            XMLTools.SaveListToXMLSerializer(ParcelList, parcelPath);
+
+        }
+        //public int getParcelMax()
+        //{
+
+        //}
+        public IEnumerable<DO.Parcel> GetAllUnMachedParcel()
+        {
+            return from item in GetALLParcel()
+                   where item.DroneId == 0
+                   select GetParcel(item.Id);
+        }
+
+        public void PickParcel(int parcelId)
+        {
+            List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
+            Parcel p = ParcelList.Find(x => x.Id == parcelId); //finding the parcel by its id
+            if (p.Id != parcelId)
+                throw new BadIdException(parcelId, "This parcel id doesnt exists");
+            ParcelList.Remove(p);
+            p.PickedUp = DateTime.Now;
+            ParcelList.Add(p);
+            XMLTools.SaveListToXMLSerializer(ParcelList, parcelPath);
+
+        }
+        public void DeliveringParcel(int parcelId)
+        {
+            List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
+            Parcel p = ParcelList.Find(x => x.Id == parcelId); //finding the parcel by its id
+            if (p.Id != parcelId)
+                throw new DO.BadIdException(parcelId, "This parcel id doesnt exists");
+            ParcelList.Remove(p);
+            p.Delivered = DateTime.Now;
+            ParcelList.Add(p);
+            XMLTools.SaveListToXMLSerializer(ParcelList, parcelPath);
         }
     }
 }

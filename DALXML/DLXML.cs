@@ -73,7 +73,7 @@ namespace Dal
 
             XMLTools.SaveListToXMLSerializer(DroneList, dronePath);
         }
-        void LinkParcelToDrone(int parcelId, int droneId)
+        public void LinkParcelToDrone(int parcelId, int droneId)
         {
             List<DO.Drone> DroneList = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronePath);
             List<DO.Parcel> ParcelsList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
@@ -92,7 +92,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(ParcelsList, parcelPath);
 
         }
-        void DroneToCharge(int droneId, int stationId)
+        public void DroneToCharge(int droneId, int stationId)
         {
             List<DO.Drone> DroneList = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronePath);
             List<DO.DroneCharge> DChargeList = XMLTools.LoadListFromXMLSerializer<DO.DroneCharge>(dronechargePath);
@@ -118,7 +118,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(DChargeList, dronechargePath);
         }
 
-        void EndingCharge(int droneId)
+        public void EndingCharge(int droneId)
         {
             List<DO.Drone> DroneList = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronePath);
             List<DO.DroneCharge> DChargeList = XMLTools.LoadListFromXMLSerializer<DO.DroneCharge>(dronechargePath);
