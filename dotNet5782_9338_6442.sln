@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DALXML", "DALXML\DALXML.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DALFacade", "DALFacade\DALFacade.csproj", "{953776DE-3946-4F57-A6AC-024483C3D466}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XML", "XML", "{624B25BE-3735-48B9-8027-C4E49811BEB4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{624B25BE-3735-48B9-8027-C4E49811BEB4}"
 	ProjectSection(SolutionItems) = preProject
 		customerXML.xml = customerXML.xml
 		xml\dal-config.xml = xml\dal-config.xml

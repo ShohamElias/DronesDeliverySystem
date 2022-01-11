@@ -68,6 +68,7 @@ namespace Dal
         /// <param name="droneId">the given object id</param>
         public  void LinkParcelToDrone(int parcelId, int droneId)
         {
+
             Parcel p = DataSource.ParcelsList.Find(x => x.Id == parcelId); //finding the parcel by its id
             if (p.Id != parcelId)
                 throw new DO.BadIdException(parcelId, "This parcel id doesnt exists");

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Dal
 {
-    sealed class DLXML:IDal
+    sealed partial class DLXML:IDal
     {
         #region singelton
         static readonly DLXML instance = new DLXML();
