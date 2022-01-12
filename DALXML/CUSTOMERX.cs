@@ -11,7 +11,6 @@ namespace Dal
 {
     sealed partial class DLXML : IDal
     {
-
         public void AddCustomer(DO.Customer cus)
         {
             List<DO.Customer> ListCustomer = XMLTools.LoadListFromXMLSerializer<DO.Customer>(customerPath);
