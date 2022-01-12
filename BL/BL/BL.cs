@@ -9,15 +9,16 @@ namespace BL
 {
     sealed partial class BL: IBL
     {
-        internal static readonly IBL instance = new BL();
-        public static IBL Instance { get => instance; }
-
         internal DalApi.IDal AccessIdal;
 
         public List<DroneToList> DronesBL;
         internal static Random rand;//random
         internal static int chargeRate;
         public static int parcelNum;
+
+        internal static readonly IBL instance = new BL();
+        public static IBL Instance { get => instance; }
+
 
         public BL()
         {
