@@ -165,10 +165,10 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(ParcelList, parcelPath);
 
         }
-        //public int getParcelMax()
-        //{
-
-        //}
+        public int getParcelMax()
+        {
+            return currentConfig.countIdParcel++;
+        }
         public IEnumerable<DO.Parcel> GetAllUnMachedParcel()
         {
             return from item in GetALLParcel()

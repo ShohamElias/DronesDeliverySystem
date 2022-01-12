@@ -9,6 +9,20 @@ namespace Dal
 {
     sealed partial class DLXML : IDal
     {
+        internal class currentConfig
+        {
+            public static int countIdParcel = 1000;
+            internal static int empty = 1;
+            internal static int light = 2;
+            internal static int heavy = 5;
+            internal static int medium = 3;
+            internal static int chargeRate = 60;
+        }
+        public double[] ElectricityUse()
+        {
+            double[] arr = new double[] { currentConfig.empty, currentConfig.light, currentConfig.medium, currentConfig.heavy, currentConfig.chargeRate };
+            return arr;
+        }
         #region singelton
         static readonly DLXML instance = new DLXML();
         static DLXML() { }
@@ -142,7 +156,7 @@ namespace Dal
 
         public int GetChargeRate()
         {
-            return chargeRate;
+            return currentConfig.chargeRate;
         }
 
 
