@@ -51,15 +51,15 @@ namespace DalApi
         #endregion
 
         #region Station
-        IEnumerable<DO.Station> GetALLStationsBy(Predicate<DO.Station> P);
+        IEnumerable<DO.Station> GetALLStationsBy(Predicate<DO.Station> P);//
         double StationDistance(double lat, double lon1, int id);
-        public void UpdateStation(DO.Station newD);
-        void AddStation(DO.Station s);
-        public DO.Station GetStation(int id);
-        public bool CheckStation(int id);
-        IEnumerable<DO.Station> ListStation();
-        public IEnumerable<DO.Station> GetALLStation();
-        int NumOfChargingNow(int x);
+        public void UpdateStation(DO.Station newD);//
+        void AddStation(DO.Station s);//
+        public DO.Station GetStation(int id);//
+        public bool CheckStation(int id);//
+        IEnumerable<DO.Station> ListStation();//
+        public IEnumerable<DO.Station> GetALLStation();//
+        int NumOfChargingNow(int x);//
         double getDistanceFromLatLonInKm(double lat, double long1, double lat2, double long2 );
 
         #endregion

@@ -54,7 +54,11 @@ namespace Dal
             List<DO.Drone> ListDrone = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronePath);
             return ListDrone.Any(x => x.Id == id);
         }
-
+        public IEnumerable<DO.Drone> ListDrone()
+        {
+            List<DO.Drone> Listdrone = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronePath);
+            return Listdrone.ToList();
+        }
         public IEnumerable<DO.Drone> GetALLDrone()
         {
             List<DO.Drone> ListDrone = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronePath);
@@ -183,6 +187,7 @@ namespace Dal
                           select p).FirstOrDefault();
             return d != null;
         }
+       
         public void UpdateDroneCharge(DO.DroneCharge dc)
         {
             XElement droneChargeElem = XMLTools.LoadListFromXMLElement(dronePath);
@@ -219,6 +224,121 @@ namespace Dal
 
                     });
         }
+        #endregion
+
+        #region Station
+        public DO.Station GetStation(int id)
+        {
+            XElement StationElement = XMLTools.LoadListFromXMLElement(stationPath);
+            Station dc = (from dce in StationElement.Elements()
+                          where int.Parse(dce.Element("Id").Value) == id
+                          select new Station()
+                          {
+                              Id = int.Parse(dce.Element("Id").Value),
+                              Name = (dce.Element("Name").Value).ToString(),
+                              Longitude = double.Parse(dce.Element("Longitude").Value),
+                              Lattitude = double.Parse(dce.Element("Lattitude").Value),
+                              ChargeSlots = int.Parse(dce.Element("ChargeSlots").Value)
+                          }).FirstOrDefault();
+            if (dc.Id != id)
+                throw new DO.BadIdException(id, "This station does not exist");
+            return dc;
+        }
+        public void AddStation(DO.Station s)
+        {
+            XElement stationElem = XMLTools.LoadListFromXMLElement(stationPath);
+            XElement d = (from p in stationElem.Elements()
+                          where int.Parse(p.Element("Id").Value) == s.Id
+                          select p).FirstOrDefault();
+            if (d != null)
+                throw new DO.IDExistsException(s.Id, "This station id already exist");
+            XElement stat = new XElement("DroneCharge", new XElement("Id", s.Id), new XElement("Name", s.Name), new XElement("Longitude", s.Longitude),
+            new XElement("Lattitude", s.Lattitude), new XElement("ChargeSlots", s.ChargeSlots));
+            stationElem.Add(stat);
+
+            XMLTools.SaveListToXMLElement(stationElem, stationPath);
+
+        }
+        public bool CheckStation(int id)
+        {
+            XElement stationElement = XMLTools.LoadListFromXMLElement(stationPath);
+            XElement d = (from p in stationElement.Elements()
+                          where int.Parse(p.Element("Id").Value) == id
+                          select p).FirstOrDefault();
+            return d != null;
+        }
+        public void UpdateStation(DO.Station newD)
+        {
+            XElement stationElement = XMLTools.LoadListFromXMLElement(stationPath);
+            XElement d = (from p in stationElement.Elements()
+                          where int.Parse(p.Element("Id").Value) == newD.Id
+                          select p).FirstOrDefault();
+            if (d == null)
+                throw new DO.BadIdException(newD.Id, "This station does not exist");
+            d.Element("DroneId").Value = newD.Id.ToString();
+            d.Element("Name").Value = newD.Name.ToString();
+            d.Element("Longitude").Value = newD.Longitude.ToString();
+            d.Element("Lattitude").Value = newD.Lattitude.ToString();
+            d.Element("ChargeSlots").Value = newD.ChargeSlots.ToString();
+
+            XMLTools.SaveListToXMLElement(stationElement, stationPath);
+        }
+
+        public IEnumerable<DO.Station> GetALLStation()
+        {
+            XElement stationElement = XMLTools.LoadListFromXMLElement(stationPath);
+            return (from p in stationElement.Elements()
+                    select new Station()
+                    {
+                        Id = Int32.Parse(p.Element("Id").Value),
+                        Name = (p.Element("Name").Value).ToString(),
+                        Longitude = double.Parse(p.Element("Longitude").Value),
+                        Lattitude = double.Parse(p.Element("Lattitude").Value),
+                        ChargeSlots = int.Parse(p.Element("ChargeSlots").Value)
+                    });
+        }
+        public IEnumerable<DO.Station> GetALLStationsBy(Predicate<DO.Station> P)
+        {
+            XElement stationElement = XMLTools.LoadListFromXMLElement(stationPath);
+            return (from p in stationElement.Elements()
+                    where P(GetStation(Int32.Parse(p.Element("Id").Value)))
+                    select new Station()
+                    {
+                        Id = Int32.Parse(p.Element("Id").Value),
+                        Name = (p.Element("Name").Value).ToString(),
+                        Longitude = double.Parse(p.Element("Longitude").Value),
+                        Lattitude = double.Parse(p.Element("Lattitude").Value),
+                        ChargeSlots = int.Parse(p.Element("ChargeSlots").Value)
+                    });
+        }
+
+        public IEnumerable<DO.Station> ListStation()
+        {
+            XElement stationElement = XMLTools.LoadListFromXMLElement(stationPath);
+            List<DO.Station> statList = GetALLStation().ToList();
+            return statList;
+        }
+       public int NumOfChargingNow(int id)
+        {
+            List<DO.DroneCharge> DChargeList = GetALLDroneCharges().ToList();
+            int num = 0;
+            foreach (DroneCharge item in DChargeList)
+            {
+                if (item.StationId == id)
+                    num++;
+            }
+            return num;
+        }
+
+        public double StationDistance(double lat, double lon1, int id)
+        {
+            List<DO.Station> statList = GetALLStation().ToList();
+            Station d = statList.Find(x => x.Id == id);//finding the customer
+            if (d.Id != id)
+                throw new DO.BadIdException(id, "This station id doesnt exists");
+            return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);//sending to the func to calculate
+        }
+    
         #endregion
     }
 }
