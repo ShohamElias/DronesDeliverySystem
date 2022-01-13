@@ -13,7 +13,7 @@ namespace BL
 
         public List<DroneToList> DronesBL;
         internal static Random rand;//random
-        internal static int chargeRate;
+        internal static double chargeRate;
         public static int parcelNum;
 
         internal static readonly IBL instance = new BL();

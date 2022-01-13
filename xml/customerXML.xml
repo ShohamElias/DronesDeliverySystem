@@ -70,4 +70,12 @@
     <Longitude>35.182507</Longitude>
     <Lattitude>30.488614</Lattitude>
   </Customer>
+  <Customer>
+    <Id>212726442</Id>
+    <Name>ADI</Name>
+    <Phone>12345678</Phone>
+    <Longitude>34.28262</Longitude>
+    <Lattitude>32.3632</Lattitude>
+    <password>ADI</password>
+  </Customer>
 </ArrayOfCustomer>

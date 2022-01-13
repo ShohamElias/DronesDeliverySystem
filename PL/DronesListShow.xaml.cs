@@ -32,7 +32,12 @@ namespace PL
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+            if (StatusSelector.SelectedItem == null)
+            {
+                DronesListView.ItemsSource = bl.GetAllDrones();
+                return;
+            }
+
             Predicate<BO.DroneToList> p;
             if (WeightSelector.SelectedIndex != -1) //if the weight selector is selected as well
                 p = s => s.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedIndex && s.Status == (BO.DroneStatuses)StatusSelector.SelectedIndex;
@@ -44,6 +49,11 @@ namespace PL
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Predicate<BO.DroneToList> p;
+            if (WeightSelector.SelectedItem == null)
+            {
+                DronesListView.ItemsSource = bl.GetAllDrones();
+                return;
+            }
             if (StatusSelector.SelectedIndex != -1) //if the status selector is selected as well
                 p = s => s.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedIndex && s.Status == (BO.DroneStatuses)StatusSelector.SelectedIndex;
             else
@@ -76,7 +86,7 @@ namespace PL
                 p = s => s.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedIndex; //create the predicate
             else if (StatusSelector.SelectedIndex != -1)
                 p = s => s.Status == (BO.DroneStatuses)StatusSelector.SelectedIndex;//create the predicate
-
+            GroupBy.IsEnabled = true;
             if (p == null) //if the comboboxes werent selected
                 DronesListView.ItemsSource = bl.GetAllDronesToList();
             else
@@ -88,6 +98,8 @@ namespace PL
         {
             DronesListView.ItemsSource = bl.GetAllDronesToList();
             GroupBy.IsEnabled = true;
+            StatusSelector.SelectedValue = null;
+            WeightSelector.SelectedValue = null;
 
         }
 

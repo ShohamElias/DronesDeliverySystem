@@ -55,8 +55,7 @@ namespace PL
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            nextid = pp.Last().Id + 1;
-            new ParcelShow(bl, nextid).Show();
+            new ParcelShow(bl, 0).Show();
         }
 
         private void PrioritySelector_LostTouchCapture(object sender, TouchEventArgs e)

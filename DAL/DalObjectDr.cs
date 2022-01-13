@@ -137,7 +137,7 @@ namespace Dal
             return temp;
         }
 
-        public  int GetChargeRate()
+        public  double GetChargeRate()
         {
             return DataSource.Config.chargeRate;
         }

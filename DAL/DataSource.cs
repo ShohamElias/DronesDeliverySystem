@@ -13,11 +13,12 @@ namespace Dal
         internal class Config
         {
             public static int countIdParcel = 1000;
-            internal static int empty = 1;
-            internal static int light = 2;
-            internal static int heavy = 5;
-            internal static int medium = 3;
-            internal static int chargeRate = 60;
+            internal static double empty = 1;
+            internal static double light = 2;
+            internal static double heavy = 5;
+            internal static double medium = 3;
+            internal static double chargeRate = 60;
+           
         }
 
 

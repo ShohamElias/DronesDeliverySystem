@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<data-config>
+  <BatteryUsages>
+    <FreeBatteryUsing>0.1</FreeBatteryUsing>
+    <LightBatteryUsing>0.2</LightBatteryUsing>
+    <MediumBatteryUsing>0.3</MediumBatteryUsing>
+    <HeavyBatteryUsing>0.4</HeavyBatteryUsing>
+    <ChargingRate>0.4</ChargingRate>
+  </BatteryUsages>
+  <RowNumbers>
+    <NewParcelId>1005</NewParcelId>
+  </RowNumbers>
+</data-config>

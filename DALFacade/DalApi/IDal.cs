@@ -26,7 +26,7 @@ namespace DalApi
         void LinkParcelToDrone(int parcelId, int droneId);
         void DroneToCharge(int droneId, int stationId);
         void EndingCharge(int droneId);
-        public  int GetChargeRate();
+        public  double GetChargeRate();
 
         public void UpdateDrone(DO.Drone newD);
         double[] ElectricityUse();

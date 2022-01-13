@@ -105,7 +105,10 @@ namespace Dal
                 throw new DO.IDExistsException(per.Id, "Duplicate Parcel ID");
 
             ParcelList.Add(per); //no need to Clone()
-
+            XElement parcelidroot = XMLTools.LoadListFromXMLElement(configPath);
+            parcelidroot.Element("RowNumbers").Element("NewParcelId").Value = per.Id.ToString();
+            //  XMLTools.LoadListFromXMLElement(configPath).Element("RowNumbers").Element("NewParcelId").SetValue(++per.Id);
+            XMLTools.SaveListToXMLElement(parcelidroot, configPath);
             XMLTools.SaveListToXMLSerializer(ParcelList, parcelPath);
         }
 
@@ -167,7 +170,8 @@ namespace Dal
         }
         public int getParcelMax()
         {
-            return currentConfig.countIdParcel++;
+            int id= Convert.ToInt32(XMLTools.LoadListFromXMLElement(configPath).Element("RowNumbers").Value);
+            return id;
         }
         public IEnumerable<DO.Parcel> GetAllUnMachedParcel()
         {

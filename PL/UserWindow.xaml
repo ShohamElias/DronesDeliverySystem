@@ -6,13 +6,50 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="UserWindow" Height="427" Width="456">
+    <Window.Resources>
+
+        <LinearGradientBrush x:Key="GrayBlueGradientBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FFF9F2F2" Offset="0" />
+            <GradientStop Color="#FFE8E8FF" Offset="0.5" />
+            <GradientStop Color="#FFEBFAFA" Offset="1" />
+        </LinearGradientBrush>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="{StaticResource GrayBlueGradientBrush}" />
+            <Setter Property="Width" Value="80" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="FontFamily" Value="Berlin Sans FB" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
+                            <!-- Outer Rectangle with rounded corners. -->
+                            <Rectangle x:Name="outerRectangle" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="{TemplateBinding Background}" RadiusX="12" RadiusY="15" StrokeThickness="5" Fill="Transparent" />
+                            <!-- Inner Rectangle with rounded corners. -->
+                            <!-- Present Content (text) of the button. -->
+                            <DockPanel Name="myContentPresenterDockPanel">
+                                <ContentPresenter x:Name="myContentPresenter" Margin="20" Content="{TemplateBinding  Content}"  TextBlock.Foreground="Black" />
+                            </DockPanel>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Height" Value="56"/>
+                                <Setter Property="FontSize" Value="13"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <Grid VerticalAlignment="Stretch">
         <Label x:Name="Idlabel" Content="Id:" HorizontalAlignment="Left" Margin="131,110,0,0" VerticalAlignment="Top"/>
         <Label x:Name="Passwordlabel1" Content="Password:" HorizontalAlignment="Left" Margin="131,179,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="Id" HorizontalAlignment="Left" Margin="221,114,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="Password" HorizontalAlignment="Left" Margin="221,183,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="Loginbutton" Content="Log in" HorizontalAlignment="Left" Margin="190,237,0,0" VerticalAlignment="Top" Width="64" Click="Loginbutton_Click" Background="{StaticResource MyButtonBackground}"/>
-        <Button x:Name="NewUserbutton" Content="Create a new User" HorizontalAlignment="Left" Margin="172,284,0,0" VerticalAlignment="Top" Width="109" Click="NewUserbutton_Click" Background="{StaticResource MyButtonBackground}"/>
+        <Button x:Name="Loginbutton" Content="Log in" HorizontalAlignment="Left" Margin="123,237,0,0" VerticalAlignment="Top" Width="76" Click="Loginbutton_Click" Background="{StaticResource GrayBlueGradientBrush}"/>
+        <Button x:Name="NewUserbutton" Content="Create a new User" HorizontalAlignment="Left" Margin="221,237,0,0" VerticalAlignment="Top" Width="142" Click="NewUserbutton_Click" Background="{StaticResource GrayBlueGradientBrush}"/>
 
     </Grid>
 </Window>

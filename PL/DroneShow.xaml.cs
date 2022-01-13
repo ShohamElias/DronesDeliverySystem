@@ -25,6 +25,7 @@ namespace PL
         IEnumerable<BO.Station> s;
         bool updateflag = false;
         static bool closingwin = true;
+        string type="f";
 
         public DroneShow(BlApi.IBL _bl, BO.Drone _d,string s)
         {
@@ -66,7 +67,7 @@ namespace PL
             closingwin = true;
 
             s = bl.GetStationsforNoEmpty();
-            
+            type = "Add";
             AddUpdateButton.Content = "Add"; //making every thing visible
             idtextbox.Text = "";
             modelTextbox.Text = "";
@@ -201,12 +202,7 @@ namespace PL
                 {
                     if (updateflag == false) //if we pressed the update button in order to change the name (before changing it) 
                     { //showing all the drone values
-                        //ChargingButton.Visibility = Visibility.Hidden;
-                        //DeliveryButton.Visibility = Visibility.Hidden;
-                        //idtextbox.Visibility = Visibility.Visible;
-                        //idLable.Visibility = Visibility.Visible;
-                        //modelTextbox.Visibility = Visibility.Visible;
-                        //modelLable.Visibility = Visibility.Visible;
+                        
                         updateflag = true;
                         idtextbox.IsEnabled = true;
                         LattextBox.IsEnabled = true;
@@ -215,18 +211,7 @@ namespace PL
                         StatusSelector.IsEnabled = true;
                         modelTextbox.IsEnabled = true;
                         WeightSelector.IsEnabled = true;
-                        //LattextBox.Visibility = Visibility.Visible;
-                        //Lontextbox.Visibility = Visibility.Visible;
-                        //BatteryTextBox.Visibility = Visibility.Visible;
-                        //StatusSelector.Visibility = Visibility.Visible;
-                        //WeightSelector.Visibility = Visibility.Visible;
-                        //idLable.Visibility = Visibility.Visible;
-                        //modelLable.Visibility = Visibility.Visible;
-                        //statuslablle.Visibility = Visibility.Visible;
-                        //Batterylable.Visibility = Visibility.Visible;
-                        //latlable.Visibility = Visibility.Visible;
-                        //label7.Visibility = Visibility.Visible;
-                        //WeightLable.Visibility = Visibility.Visible;
+                        
                     }
                     else //we changed the name and now we wanr an actual update
                     {
@@ -300,7 +285,7 @@ namespace PL
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (StatusSelector.SelectedIndex == 2) //if we selectes maintance
+            if ((StatusSelector.SelectedIndex == 2)&& type=="Add") //if we selectes maintance
             { //hide the location texts boxes and make the station combobox visible
                 stationCombo.Visibility = Visibility.Visible;
                 stationLable.Visibility = Visibility.Visible;
