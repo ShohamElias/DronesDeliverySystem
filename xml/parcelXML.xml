@@ -1,20 +1,6 @@
 <?xml version="1.0"?>
 <ArrayOfParcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Parcel>
-    <Id>1004</Id>
-    <SenderId>506291243</SenderId>
-    <TargetId>930477560</TargetId>
-    <Weight>Medium</Weight>
-    <Priority>TBN</Priority>
-    <Requested>2022-01-13T10:43:41.2210393+02:00</Requested>
-    <DroneId>5306</DroneId>
-    <Scheduled>2022-01-13T10:55:35.1815035+02:00</Scheduled>
-    <PickedUp xsi:nil="true" />
-    <IsPicked>false</IsPicked>
-    <IsDelivered>false</IsDelivered>
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel>
     <Id>1000</Id>
     <SenderId>199247968</SenderId>
     <TargetId>681351948</TargetId>
@@ -71,20 +57,6 @@
     <Delivered xsi:nil="true" />
   </Parcel>
   <Parcel>
-    <Id>1014</Id>
-    <SenderId>506291243</SenderId>
-    <TargetId>199247968</TargetId>
-    <Weight>Medium</Weight>
-    <Priority>TBN</Priority>
-    <Requested>2022-01-13T18:27:49.9820567+02:00</Requested>
-    <DroneId>7498</DroneId>
-    <Scheduled>2022-01-13T18:31:40.3881795+02:00</Scheduled>
-    <PickedUp xsi:nil="true" />
-    <IsPicked>false</IsPicked>
-    <IsDelivered>false</IsDelivered>
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel>
     <Id>1016</Id>
     <SenderId>212726442</SenderId>
     <TargetId>310861650</TargetId>
@@ -97,5 +69,47 @@
     <IsPicked>false</IsPicked>
     <IsDelivered>false</IsDelivered>
     <Delivered xsi:nil="true" />
+  </Parcel>
+  <Parcel>
+    <Id>1017</Id>
+    <SenderId>552988238</SenderId>
+    <TargetId>212726442</TargetId>
+    <Weight>Light</Weight>
+    <Priority>Tba</Priority>
+    <Requested>2022-01-14T00:21:28.6490546+02:00</Requested>
+    <DroneId>1204</DroneId>
+    <Scheduled>2022-01-14T00:21:41.9348656+02:00</Scheduled>
+    <PickedUp>2022-01-14T00:28:34.0662251+02:00</PickedUp>
+    <IsPicked>false</IsPicked>
+    <IsDelivered>false</IsDelivered>
+    <Delivered xsi:nil="true" />
+  </Parcel>
+  <Parcel>
+    <Id>1004</Id>
+    <SenderId>506291243</SenderId>
+    <TargetId>930477560</TargetId>
+    <Weight>Medium</Weight>
+    <Priority>TBN</Priority>
+    <Requested>2022-01-13T10:43:41.2210393+02:00</Requested>
+    <DroneId>5306</DroneId>
+    <Scheduled>2022-01-13T10:55:35.1815035+02:00</Scheduled>
+    <PickedUp xsi:nil="true" />
+    <IsPicked>true</IsPicked>
+    <IsDelivered>false</IsDelivered>
+    <Delivered xsi:nil="true" />
+  </Parcel>
+  <Parcel>
+    <Id>1014</Id>
+    <SenderId>506291243</SenderId>
+    <TargetId>199247968</TargetId>
+    <Weight>Medium</Weight>
+    <Priority>TBN</Priority>
+    <Requested>2022-01-13T18:27:49.9820567+02:00</Requested>
+    <DroneId>7498</DroneId>
+    <Scheduled>2022-01-13T18:31:40.3881795+02:00</Scheduled>
+    <PickedUp>2022-01-14T00:29:48.3966185+02:00</PickedUp>
+    <IsPicked>true</IsPicked>
+    <IsDelivered>false</IsDelivered>
+    <Delivered>2022-01-14T00:29:54.9266254+02:00</Delivered>
   </Parcel>
 </ArrayOfParcel>

@@ -38,8 +38,15 @@ namespace BL
                                                IdOfParcel=-1
                                      
                                            }).ToList();
+            foreach (var item in DronesBL)
+            {
+                item.CurrentLocation = new Location();
+                item.CurrentLocation.Lattitude = rand.Next(30, 33) + ((double)rand.Next(0, 1000000) / 1000000);
+                item.CurrentLocation.Longitude = rand.Next(34, 36) + ((double)rand.Next(0, 1000000) / 1000000);
 
-            foreach(Station s in GetAllStations())
+            }
+
+            foreach (Station s in GetAllStations())
             {
                 foreach (var item in s.DronesinCharge)
                 {
@@ -54,16 +61,21 @@ namespace BL
                 }
             }
 
-            foreach (var item in DronesBL)
+            foreach (var item in GetAllParcels())
             {
-                if(item.IdOfParcel!=-1)
+                if(item.DroneParcel.Id!=-1)
                 {
-                    item.Status = DroneStatuses.Delivery;
-                    Parcel p = GetParcel(item.IdOfParcel);
+                    DroneToList d = DronesBL.Find(x => x.Id == item.DroneParcel.Id);
+                    DroneToList s = d;
+                    d.Status = DroneStatuses.Delivery;
+                    d.IdOfParcel = item.Id;
+                    //Parcel p = GetParcel(item.IdOfParcel);
                     //if(p.PickedUp!=null)
                     //{
-                        item.CurrentLocation = GetCustomer(p.Sender.Id).CustLocation;
+                        d.CurrentLocation = GetCustomer(item.Sender.Id).CustLocation;
                     //}
+                    DronesBL.Remove(s);
+                    DronesBL.Add(d);
                 }
             }
             //foreach (DroneToList item in DronesBL)
