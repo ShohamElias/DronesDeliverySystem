@@ -180,7 +180,7 @@ namespace Dal
         }
         public void AddDroneCharge(DO.DroneCharge dc)
         {
-            XElement droneChargeElem = XMLTools.LoadListFromXMLElement(dronePath);
+            XElement droneChargeElem = XMLTools.LoadListFromXMLElement(dronechargePath);
             XElement d = (from p in droneChargeElem.Elements()
                           where int.Parse(p.Element("DroneId").Value) == dc.DroneId
                           select p).FirstOrDefault();
@@ -229,7 +229,7 @@ namespace Dal
         }
         public IEnumerable<DO.DroneCharge> GetALLDroneCharges()
         {
-            XElement droneChargeElem = XMLTools.LoadListFromXMLElement(dronePath);
+            XElement droneChargeElem = XMLTools.LoadListFromXMLElement(dronechargePath);
             return (from p in droneChargeElem.Elements()
                     select new DroneCharge()
                     {
@@ -289,7 +289,7 @@ namespace Dal
                           select p).FirstOrDefault();
             if (d == null)
                 throw new DO.BadIdException(newD.Id, "This station does not exist");
-            d.Element("DroneId").Value = newD.Id.ToString();
+            d.Element("Id").Value = newD.Id.ToString();
             d.Element("Name").Value = newD.Name.ToString();
             d.Element("Longitude").Value = newD.Longitude.ToString();
             d.Element("Lattitude").Value = newD.Lattitude.ToString();

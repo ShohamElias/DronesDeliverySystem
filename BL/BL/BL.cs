@@ -36,76 +36,111 @@ namespace BL
                                                // IdOfParcel=item.
                                                Battery = rand.Next(20, 41),
                                                IdOfParcel=-1
-                                               
-
+                                     
                                            }).ToList();
-            foreach(DroneToList item in DronesBL)
+
+            foreach(Station s in GetAllStations())
+            {
+                foreach (var item in s.DronesinCharge)
+                {
+                    DroneToList d = DronesBL.Find(x => x.Id == item.DroneId);
+                    if(d!=null)
+                    {
+                        d.CurrentLocation = s.StationLocation;
+                        d.Status = DroneStatuses.Maintenance;
+                        DronesBL.Remove(DronesBL.Find(x => x.Id == item.DroneId));
+                        DronesBL.Add(d);
+                    }
+                }
+            }
+
+            foreach (var item in DronesBL)
             {
                 if(item.IdOfParcel!=-1)
                 {
-                    if(AccessIdal.CheckParcel(item.IdOfParcel))
-                    {
-                        item.Status = DroneStatuses.Delivery;
-                        Station s = closestStation(item.CurrentLocation.Longitude, item.CurrentLocation.Lattitude);
-                        Drone dd = GetDrone(item.Id);
-                        double ba = amountOfbattery(dd,dd.CurrentLocation, s.StationLocation);
-                        item.Battery = rand.Next((int)ba, 101);
-                        DO.Parcel p = AccessIdal.GetParcel(item.IdOfParcel);
-                        DateTime? d = null;
-                        if (p.PickedUp == d)
-                        {
-                           
-                            item.CurrentLocation = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
-                          
-                        }
-                        else if (p.Delivered == d)
-                        {
-                            DO.Customer c = AccessIdal.GetCustomer(p.SenderId);
+                    item.Status = DroneStatuses.Delivery;
+                    Parcel p = GetParcel(item.IdOfParcel);
+                    //if(p.PickedUp!=null)
+                    //{
+                        item.CurrentLocation = GetCustomer(p.Sender.Id).CustLocation;
+                    //}
+                }
+            }
+            //foreach (DroneToList item in DronesBL)
+            //{
+            //    //if (item.IdOfParcel != -1)
+            //    //{
+            //    //    if (AccessIdal.CheckParcel(item.IdOfParcel))
+            //    //    {
+            //    //        item.Status = DroneStatuses.Delivery;
+            //    //        Station s = closestStation(item.CurrentLocation.Longitude, item.CurrentLocation.Lattitude);
+            //    //        Drone dd = GetDrone(item.Id);
+            //    //        double ba = amountOfbattery(dd, dd.CurrentLocation, s.StationLocation);
+            //    //        item.Battery = rand.Next((int)ba, 101);
+            //    //        DO.Parcel p = AccessIdal.GetParcel(item.IdOfParcel);
+            //    //        DateTime? d = null;
+            //    //        if (p.PickedUp == d)
+            //    //        {
 
-                            item.CurrentLocation = new Location() { Lattitude = c.Lattitude, Longitude = c.Longitude };
-                        }
-                    }
-                }
-                if(item.Status!=DroneStatuses.Delivery)
-                {
-                    int x = rand.Next(0, 2);
-                    if (x == 1)
-                        item.Status = DroneStatuses.Available;//YOU WROTY DELIVEREY, WHY????#####
-                    else
-                        item.Status = DroneStatuses.Maintenance;
-                }
-                if(item.Status == DroneStatuses.Maintenance)
-                {
-                    
-                    IEnumerable<Station> ss = GetAllStations();
-                    int index = rand.Next(0, ss.Count());
-                    item.CurrentLocation = new Location() { Lattitude = ss.ElementAt(index).StationLocation.Lattitude, Longitude = ss.ElementAt(index).StationLocation.Longitude };
-                    item.Battery = rand.Next(20, 41);
-                    DO.DroneCharge dc = new DO.DroneCharge() { DroneId = item.Id, StationId = ss.ElementAt(index).Id };
-                    AccessIdal.AddDroneCharge(dc);
+            //    //            item.CurrentLocation = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
 
-                }
+            //    //        }
+            //    //        else if (p.Delivered == d)
+            //    //        {
+            //    //            DO.Customer c = AccessIdal.GetCustomer(p.SenderId);
+
+            //    //            item.CurrentLocation = new Location() { Lattitude = c.Lattitude, Longitude = c.Longitude };
+            //    //        }
+            //    //    }
+            //    //}
+            //    //if (item.Status != DroneStatuses.Delivery)
+            //    //{
+            //    //    int x = rand.Next(0, 2);
+            //    //    if (x == 1)
+            //    //        item.Status = DroneStatuses.Available;//YOU WROTY DELIVEREY, WHY????#####
+            //    //    else
+            //    //        item.Status = DroneStatuses.Maintenance;
+            //    //}
+            //    if (item.Status == DroneStatuses.Maintenance)
+            //    {
+            //        IEnumerable<Station> ss = GetAllStations();
+            //        int index = rand.Next(0, ss.Count());
+            //        item.CurrentLocation = new Location() { Lattitude = ss.ElementAt(index).StationLocation.Lattitude, Longitude = ss.ElementAt(index).StationLocation.Longitude };
+            //        item.Battery = rand.Next(20, 41);
+            //        DO.DroneCharge dc = new DO.DroneCharge() { DroneId = item.Id, StationId = ss.ElementAt(index).Id };
+            //       // AccessIdal.AddDroneCharge(dc);
+
+            //    }
+            //    if (item.Status == DroneStatuses.Available)
+            //    {
+            //        //IEnumerable<Customer> cc = GetAllCustomers();
+            //        //int index = rand.Next(0, cc.Count());
+            //        //item.CurrentLocation = new Location() { Lattitude = cc.ElementAt(index).CustLocation.Lattitude, Longitude = cc.ElementAt(index).CustLocation.Longitude };
+
+            //        ////הגרלות הגרלות#############################33
+            //        //if (item.CurrentLocation == null)
+            //        //{
+            //        //    item.CurrentLocation = new Location();
+            //        //    item.CurrentLocation.Lattitude = rand.Next(30, 33) + ((double)rand.Next(0, 1000000) / 1000000);
+            //        //    item.CurrentLocation.Longitude = rand.Next(34, 36) + ((double)rand.Next(0, 1000000) / 1000000);
+            //        //}
+            //        //Station s = closestStation(item.CurrentLocation.Longitude, item.CurrentLocation.Lattitude);
+            //        //Drone dd = GetDrone(item.Id);
+            //        //double ba = amountOfbattery(dd, dd.CurrentLocation, s.StationLocation);
+
+            //    }
+
+            //}
+
+            foreach (var item in DronesBL)
+            {
                 if (item.Status == DroneStatuses.Available)
                 {
-                    //IEnumerable<Customer> cc = GetAllCustomers();
-                    //int index = rand.Next(0, cc.Count());
-                    //item.CurrentLocation = new Location() { Lattitude = cc.ElementAt(index).CustLocation.Lattitude, Longitude = cc.ElementAt(index).CustLocation.Longitude };
-
-                    ////הגרלות הגרלות#############################33
-                    if (item.CurrentLocation == null)
-                    {
-                        item.CurrentLocation = new Location();
-                        item.CurrentLocation.Lattitude = rand.Next(30, 33) + ((double)rand.Next(0, 1000000) / 1000000);
-                        item.CurrentLocation.Longitude = rand.Next(34, 36) + ((double)rand.Next(0, 1000000) / 1000000);
-                    }
-                    Station s = closestStation(item.CurrentLocation.Longitude, item.CurrentLocation.Lattitude);
-                    Drone dd = GetDrone(item.Id);
-                    double ba = amountOfbattery(dd,dd.CurrentLocation, s.StationLocation);
-
+                    item.CurrentLocation = new Location();
+                    item.CurrentLocation.Lattitude = rand.Next(30, 33) + ((double)rand.Next(0, 1000000) / 1000000);
+                    item.CurrentLocation.Longitude = rand.Next(34, 36) + ((double)rand.Next(0, 1000000) / 1000000);
                 }
-
             }
-
         }
 
         private Station closestStation(double lon, double lat)

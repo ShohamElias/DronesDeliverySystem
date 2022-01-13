@@ -28,7 +28,22 @@ namespace Dal
         internal static List<Customer> CustomersList = new List<Customer>();
         internal static List<Parcel> ParcelsList = new List<Parcel>();
         internal static List<DroneCharge> DChargeList = new List<DroneCharge>();
-       
+
+         private static string customerPath = @"customerXML.xml";
+        static  string dronechargePath = @"drone-chargeXML.xml";
+        static string dronePath = @"droneXML.xml";
+        static string parcelPath = @"parcelXML.xml";
+        static string stationPath = @"stationXML.xml";
+        static DataSource()
+        {
+            Intialize();
+            //XMLTools.SaveListToXMLSerializer(DroneList, dronePath);
+            //XMLTools.SaveListToXMLSerializer(StationsList, stationPath);
+            //XMLTools.SaveListToXMLSerializer(CustomersList, customerPath);
+            //XMLTools.SaveListToXMLSerializer(ParcelsList, parcelPath);
+            //XMLTools.SaveListToXMLSerializer(DChargeList, dronechargePath);
+
+        }
 
         private static void createDrone(int num)//the function creates a given number of drones and adds them to the list
         {
@@ -112,10 +127,10 @@ namespace Dal
         {
              //שדה סטטי של המחלקה
             
-            createStation(5);
-            createDrone(5);
-            creacustomer(10);
-            createParcel(5);
+            //createStation(5);
+            //createDrone(5);
+            //creacustomer(10);
+            //createParcel(5);
 
         }
     }

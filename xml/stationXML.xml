@@ -1,1 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Station>
+    <Id>2901</Id>
+    <Name />
+    <Longitude>34.503181</Longitude>
+    <Lattitude>31.56562</Lattitude>
+    <ChargeSlots>3</ChargeSlots>
+  </Station>
+  <Station>
+    <Id>5656</Id>
+    <Name></Name>
+    <Longitude>34.638011</Longitude>
+    <Lattitude>32.720889</Lattitude>
+    <ChargeSlots>6</ChargeSlots>
+  </Station>
+  <Station>
+    <Id>2105</Id>
+    <Name />
+    <Longitude>35.934184</Longitude>
+    <Lattitude>31.976524</Lattitude>
+    <ChargeSlots>10</ChargeSlots>
+  </Station>
+  <Station>
+    <Id>1821</Id>
+    <Name>rrr</Name>
+    <Longitude>35.792904</Longitude>
+    <Lattitude>32.391015</Lattitude>
+    <ChargeSlots>9</ChargeSlots>
+  </Station>
+  <Station>
+    <Id>3710</Id>
+    <Name />
+    <Longitude>35.789414</Longitude>
+    <Lattitude>30.887011</Lattitude>
+    <ChargeSlots>1</ChargeSlots>
+  </Station>
+</ArrayOfStation>
