@@ -52,34 +52,41 @@ namespace PL
 
         private void addupdatebutton_Click(object sender, RoutedEventArgs e)
         {
-            if(addupdatebutton.Content=="Update")
+            try
             {
-                if (updateflag)
+                if (addupdatebutton.Content == "Update")
                 {
-                    bl.Updatestation(int.Parse(idTextBox.Text), nameTextBox.Text, int.Parse(ChargeSlots.Text));
-                    this.Close();
+                    if (updateflag)
+                    {
+                        bl.Updatestation(int.Parse(idTextBox.Text), nameTextBox.Text, int.Parse(ChargeSlots.Text));
+                        this.Close();
+                    }
+                    else
+                    {
+                        updateflag = true;
+                        stationGrid.IsEnabled = true;
+                        idTextBox.IsEnabled = false;
+                        droneChargeListView.IsEnabled = true;
+                    }
                 }
                 else
                 {
-                    updateflag = true;
-                    stationGrid.IsEnabled = true;
-                    idTextBox.IsEnabled = false;
-                    droneChargeListView.IsEnabled = true;
+                    BO.Station s = new BO.Station()
+                    {
+                        Id = int.Parse(idTextBox.Text.ToString()),
+                        Name = nameTextBox.Text.ToString(),
+                        ChargeSlots = int.Parse(ChargeSlots.Text.ToString()),
+                        StationLocation = new BO.Location() { Lattitude = double.Parse(LatitudeTextBox.Text.ToString()), Longitude = double.Parse(LongtitudeTextBox.Text.ToString()) }
+                    };
+                    bl.AddStation(s);
+                    this.Close();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                BO.Station s = new BO.Station()
-                {
-                    Id = int.Parse(idTextBox.Text.ToString()),
-                    Name = nameTextBox.Text.ToString(),
-                    ChargeSlots = int.Parse(ChargeSlots.Text.ToString()),
-                    StationLocation = new BO.Location() { Lattitude = double.Parse(LatitudeTextBox.Text.ToString()), Longitude = double.Parse(LongtitudeTextBox.Text.ToString()) }
-                };
-                bl.AddStation(s);
-                this.Close();
+
+                MessageBox.Show(ex.ToString());
             }
-           
         }
 
         private void Window_Activated(object sender, EventArgs e)
@@ -95,6 +102,94 @@ namespace PL
         private void droneChargeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        
+        private void LongtitudeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string c = LongtitudeTextBox.Text;
+            try//validatoin for longtitude
+            {
+                if (!IsnumberCharLoc(LongtitudeTextBox.Text.ToString()))
+                    throw new BO.BadInputException(c, "location can include only numbers");
+
+            }
+            catch (Exception ex)
+            {
+                c = "0";
+                LongtitudeTextBox.Text = c;
+                MessageBox.Show(ex.ToString(), "Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        public bool IsnumberChar(string c) //the func checks if the string is a number
+        {
+            for (int i = 0; i < c.Length; i++)
+            {
+                if ((c[i] < '0' || c[i] > '9') && (c[i] != '\b'))
+                    return false;
+
+            }
+            return true;
+        }
+        public bool IsnumberCharLoc(string c) //the func checks if the string is a right input to location
+        {
+            for (int i = 0; i < c.Length; i++)
+            {
+                if ((c[i] < '0' || c[i] > '9') && (c[i] != '\b') && (c[i] != '.'))
+                    return false;
+
+            }
+            return true;
+        }
+        private void LatitudeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string c = LatitudeTextBox.Text;
+            try //validatoin for lattitude
+            {
+                if (!IsnumberCharLoc(LatitudeTextBox.Text.ToString()))
+                    throw new BO.BadInputException(c, "location can include only numbers");
+
+            }
+            catch (Exception ex)
+            {
+                c = "0";
+                LatitudeTextBox.Text = c;
+                MessageBox.Show(ex.ToString(), "Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void idTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string c = idTextBox.Text;
+            try //validatoin for id
+            {
+                if (!IsnumberChar(idTextBox.Text.ToString()))
+                    throw new BO.BadInputException(c, "ID can include only numbers");
+
+            }
+            catch (Exception ex)
+            {
+                c = c.Remove(c.Length - 1);
+                idTextBox.Text = c;
+                MessageBox.Show(ex.ToString(), "Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void ChargeSlots_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string c = ChargeSlots.Text;
+            try //validatoin for id
+            {
+                if (!IsnumberChar(ChargeSlots.Text.ToString()))
+                    throw new BO.BadInputException(c, "Charge Slots can be only a number");
+
+            }
+            catch (Exception ex)
+            {
+                c = "0";
+                ChargeSlots.Text = c;
+                MessageBox.Show(ex.ToString(), "Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
