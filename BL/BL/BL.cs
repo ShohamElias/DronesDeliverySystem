@@ -63,15 +63,13 @@ namespace BL
 
             foreach (var item in GetAllParcels())
             {
-                if(item.DroneParcel.Id>0)
+                if(item.DroneParcel.Id>0 && item.Delivered == null)
                 {
                     DroneToList d = DronesBL.Find(x => x.Id == item.DroneParcel.Id);
                     DroneToList s = d;
                     d.Status = DroneStatuses.Delivery;
                     d.IdOfParcel = item.Id;
-                    //Parcel p = GetParcel(item.IdOfParcel);
-                    //if(p.PickedUp!=null)
-                    //{
+                    
                         d.CurrentLocation = GetCustomer(item.Sender.Id).CustLocation;
                     //}
                     DronesBL.Remove(s);
