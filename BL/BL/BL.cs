@@ -63,7 +63,7 @@ namespace BL
 
             foreach (var item in GetAllParcels())
             {
-                if(item.DroneParcel.Id!=-1)
+                if(item.DroneParcel.Id>0)
                 {
                     DroneToList d = DronesBL.Find(x => x.Id == item.DroneParcel.Id);
                     DroneToList s = d;
