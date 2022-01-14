@@ -70,16 +70,27 @@ namespace PL
 
         private void PrioritySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (PrioritySelector.SelectedItem == null)
+            {
+                parcelListView.ItemsSource = bl.GetAllParcels();
+                return;
+            }
             Predicate<BO.Parcel> p;
             if (WeightSelector.SelectedIndex != -1) //if the weight selector is selected as well
                 p = s => s.Weight == (BO.WeightCategories)WeightSelector.SelectedIndex && s.Priority == (BO.Priorities)PrioritySelector.SelectedIndex;
             else
                 p = s => s.Priority == (BO.Priorities)PrioritySelector.SelectedIndex;
-            parcelListView.ItemsSource = bl.GetParcelBy(p); //fill the list view
+            parcelListView.ItemsSource = from item in bl.GetParcelBy(p)
+                                         select bl.GetParcelToList(item.Id); //fill the list view
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (WeightSelector.SelectedItem == null)
+            {
+                parcelListView.ItemsSource = bl.GetAllParcels();
+                return;
+            }
             Predicate<BO.Parcel> p;
             if (PrioritySelector.SelectedIndex != -1) //if the status selector is selected as well
                 p = s => s.Weight == (BO.WeightCategories)WeightSelector.SelectedIndex && s.Priority == (BO.Priorities)PrioritySelector.SelectedIndex;
@@ -91,6 +102,9 @@ namespace PL
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
         {
+            WeightSelector.SelectedItem = null;
+            PrioritySelector.SelectedItem = null;
+
             parcelListView.ItemsSource = bl.GetAllParcelsToList();
             GroupByPrio.IsEnabled = true;
 

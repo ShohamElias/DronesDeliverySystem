@@ -96,10 +96,10 @@ namespace PL
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
         {
-            DronesListView.ItemsSource = bl.GetAllDronesToList();
             GroupBy.IsEnabled = true;
             StatusSelector.SelectedValue = null;
             WeightSelector.SelectedValue = null;
+            DronesListView.ItemsSource = bl.GetAllDronesToList();
 
         }
 
@@ -110,6 +110,11 @@ namespace PL
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
             view.GroupDescriptions.Add(groupDescription);
             GroupBy.IsEnabled = false;
+        }
+
+        private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 

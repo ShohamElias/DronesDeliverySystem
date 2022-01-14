@@ -38,7 +38,7 @@
                 <Label x:Name="statusLable"  Content="Status"  HorizontalAlignment="Left" Margin="146,20,0,0" VerticalAlignment="Top" FontFamily="Lucida Fax" FontWeight="Normal"/>
                 <Label Content="Weight" Grid.Column="1" HorizontalAlignment="Left" Margin="181,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontFamily="Lucida Fax" FontWeight="Normal"/>
             </Grid>
-            <ListView x:Name="DronesListView" Margin="66,69,66,311" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.RowSpan="2" Background="White" Grid.ColumnSpan="3">
+            <ListView x:Name="DronesListView" Margin="66,69,66,311" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.RowSpan="2" Background="White" Grid.ColumnSpan="3" SelectionChanged="DronesListView_SelectionChanged">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>

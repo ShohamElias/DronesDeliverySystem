@@ -35,4 +35,11 @@
     <Lattitude>30.887011</Lattitude>
     <ChargeSlots>3</ChargeSlots>
   </Station>
+  <DroneCharge>
+    <Id>12345</Id>
+    <Name>elad</Name>
+    <Longitude>25.2727</Longitude>
+    <Lattitude>32.333</Lattitude>
+    <ChargeSlots>10</ChargeSlots>
+  </DroneCharge>
 </ArrayOfStation>
