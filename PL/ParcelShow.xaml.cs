@@ -105,6 +105,16 @@ namespace PL
                 deliveredDatePicker.Visibility = Visibility.Visible;
                 deliveredLable.Visibility = Visibility.Visible;
             }
+            if (p.Scheduled == null)
+            {
+                schedualLable.Visibility = Visibility.Collapsed;
+                scheduledDatePicker.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                scheduledDatePicker.Visibility = Visibility.Visible;
+                schedualLable.Visibility = Visibility.Visible;
+            }
             if (p.DroneParcel.Id==0)
             {
                 droneLable.Visibility = Visibility.Collapsed;
@@ -188,7 +198,7 @@ namespace PL
             if (addUpdateButton.Content == "Add")
             {
                 BO.Parcel p = new BO.Parcel();
-                p.Id = bl.GetNextParcel()+1;
+                p.Id = bl.GetNextParcel();
                 if (targetComboBox.SelectedItem==senderComboBox.SelectedItem)
                 {
                     MessageBox.Show("The sender cant be the same as the target");

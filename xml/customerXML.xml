@@ -43,32 +43,11 @@
     <Lattitude>30.401688</Lattitude>
   </Customer>
   <Customer>
-    <Id>199247968</Id>
-    <Name>name7</Name>
-    <Phone>un</Phone>
-    <Longitude>35.378331</Longitude>
-    <Lattitude>31.886652</Lattitude>
-  </Customer>
-  <Customer>
     <Id>803313113</Id>
     <Name>name8</Name>
     <Phone>un</Phone>
     <Longitude>34.507081</Longitude>
     <Lattitude>30.923645</Lattitude>
-  </Customer>
-  <Customer>
-    <Id>247469713</Id>
-    <Name>name9</Name>
-    <Phone>un</Phone>
-    <Longitude>35.182507</Longitude>
-    <Lattitude>30.488614</Lattitude>
-  </Customer>
-  <Customer>
-    <Id>139886495</Id>
-    <Name>name0</Name>
-    <Phone>un</Phone>
-    <Longitude>35.354293</Longitude>
-    <Lattitude>30.548297</Lattitude>
   </Customer>
   <Customer>
     <Id>212726442</Id>
@@ -77,5 +56,26 @@
     <Longitude>34.28262</Longitude>
     <Lattitude>32.3632</Lattitude>
     <password>ADI</password>
+  </Customer>
+  <Customer>
+    <Id>139886495</Id>
+    <Name>Leah</Name>
+    <Phone>un</Phone>
+    <Longitude>35.354293</Longitude>
+    <Lattitude>30.548297</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>199247968</Id>
+    <Name>Shira</Name>
+    <Phone>un</Phone>
+    <Longitude>35.378331</Longitude>
+    <Lattitude>31.886652</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>247469713</Id>
+    <Name>Roei</Name>
+    <Phone>un</Phone>
+    <Longitude>35.182507</Longitude>
+    <Lattitude>30.488614</Lattitude>
   </Customer>
 </ArrayOfCustomer>
