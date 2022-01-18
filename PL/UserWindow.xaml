@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="UserWindow" Height="427" Width="456">
+        Title="UserWindow" Height="427" Width="456" Background="{StaticResource MyButtonBackground}">
     <Window.Resources>
 
         <LinearGradientBrush x:Key="GrayBlueGradientBrush" StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="#FFF9F2F2" Offset="0" />
+            <GradientStop Color="#FFEBFAF1" Offset="0" />
             <GradientStop Color="#FFE8E8FF" Offset="0.5" />
             <GradientStop Color="#FFEBFAFA" Offset="1" />
         </LinearGradientBrush>

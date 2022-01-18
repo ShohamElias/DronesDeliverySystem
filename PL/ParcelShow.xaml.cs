@@ -71,7 +71,7 @@ namespace PL
 
             bl.GetNextParcel();
             num = bl.GetNextParcel();
-            iDlabel.Content = num;
+            iDlabel.Content = num+1;
             iDlabel.Visibility = Visibility.Visible;
             idTextBox.Visibility = Visibility.Collapsed;
         }
@@ -198,7 +198,7 @@ namespace PL
             if (addUpdateButton.Content == "Add")
             {
                 BO.Parcel p = new BO.Parcel();
-                p.Id = bl.GetNextParcel();
+                p.Id = bl.GetNextParcel()+1;
                 if (targetComboBox.SelectedItem==senderComboBox.SelectedItem)
                 {
                     MessageBox.Show("The sender cant be the same as the target");

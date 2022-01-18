@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="StationShoWindow" Height="450" Width="800" Activated="Window_Activated">
+        Title="StationShoWindow" Height="450" Width="800" Activated="Window_Activated" Background="{StaticResource MyButtonBackground}">
     <Grid >
         <Grid x:Name="stationGrid" HorizontalAlignment="Left" Margin="62,23,0,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>

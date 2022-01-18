@@ -8,4 +8,8 @@
     <DroneId>5306</DroneId>
     <StationId>2105</StationId>
   </DroneCharge>
+  <DroneCharge>
+    <DroneId>1234</DroneId>
+    <StationId>5656</StationId>
+  </DroneCharge>
 </ArrayOfDroneCharge>

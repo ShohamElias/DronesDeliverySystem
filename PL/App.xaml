@@ -10,6 +10,12 @@
             <GradientStop Color="#FFF3FFFC" Offset="0"/>
             <GradientStop Color="#FFFFFFFF" Offset="0.567"/>
         </LinearGradientBrush>
+        <LinearGradientBrush 
+             x:Key="MyBWinBackground" 
+              EndPoint="0.504,1.5" StartPoint="0.504,0.03">
+            <GradientStop Color="#FFF1FFFF" Offset="0"/>
+            <GradientStop Color="#FFFFFFFF" Offset="0.7"/>
+        </LinearGradientBrush>
     </Application.Resources>
     
 </Application>
