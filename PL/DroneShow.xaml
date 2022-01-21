@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="DroneShow" Height="450" Width="800">
-    <Grid Margin="0,0,0,-6" Background="#FFE8F8FA">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="BorderThickness" Value="0 0 0 1" />
+        </Style>
+    </Window.Resources>
+    <Grid Margin="0,0,0,-6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="277*"/>
             <ColumnDefinition Width="123*"/>

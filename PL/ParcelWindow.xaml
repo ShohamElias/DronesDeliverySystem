@@ -10,7 +10,7 @@
 
     <Grid>
 
-        <ListView x:Name="parcelListView" SelectionMode="Single" Margin="163,101,171.333,119.667" ItemsSource="{Binding}" MouseDoubleClick="parcelListView_MouseDoubleClick">
+        <ListView x:Name="parcelListView" SelectionMode="Single" Margin="177,101,111,120" ItemsSource="{Binding}" MouseDoubleClick="parcelListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn x:Name="idColumn" Width="80" Header="Id">

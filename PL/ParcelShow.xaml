@@ -7,6 +7,13 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="ParcelShow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="BorderThickness" Value="0 0 0 1" />
+        </Style>
+        <Style TargetType="{x:Type ComboBox}">
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid x:Name="parcelGrid"  HorizontalAlignment="Left" Margin="99,49,0,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
@@ -32,7 +39,7 @@
             <DatePicker x:Name="deliveredDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="9" SelectedDate="{Binding Delivered, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" IsHitTestVisible="False"/>
 
             <Label x:Name="droneLable" Content="Drone in Parcel:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
-            <ComboBox x:Name="droneParcelComboBox" Grid.Column="1"  HorizontalAlignment="Left" Height="Auto"  Margin="3" Grid.Row="5" ItemsSource="{Binding }" VerticalAlignment="Center" Width="120" IsReadOnly="True" IsEnabled="False">
+            <ComboBox x:Name="droneParcelComboBox" Background="Transparent" Grid.Column="1"  HorizontalAlignment="Left" Height="Auto"  Margin="3" Grid.Row="5" ItemsSource="{Binding }" VerticalAlignment="Center" Width="120" IsReadOnly="True" IsEnabled="False">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>
@@ -45,7 +52,11 @@
             <DatePicker x:Name="pickedUpDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="8" SelectedDate="{Binding PickedUp, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" IsHitTestVisible="False"/>
 
             <Label Content="Priority:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
-            <ComboBox x:Name="priorityComboBox" Grid.Column="1"  HorizontalAlignment="Left"  SelectedItem="{Binding Priority}" Height="Auto" ItemsSource="{Binding }" Margin="1" Grid.Row="1" VerticalAlignment="Center" Width="120" IsEnabled="False">
+            <ComboBox x:Name="priorityComboBox" Grid.Column="1" HorizontalAlignment="Left"  SelectedItem="{Binding Priority}" Height="Auto" ItemsSource="{Binding }" Margin="1" Grid.Row="1" VerticalAlignment="Center" Width="120" IsEnabled="False">
+                <ComboBox.Resources>
+                    <Style TargetType="ScrollContentPresenter">
+                    </Style>
+                </ComboBox.Resources>
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>
@@ -61,6 +72,7 @@
 
             <Label Content="Sender:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
             <ComboBox x:Name="senderComboBox" Grid.Column="1"  HorizontalAlignment="Left"  Height="Auto" ItemsSource="{Binding }" Margin="3" Grid.Row="4" VerticalAlignment="Center" Width="120" IsEnabled="False">
+
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>
@@ -88,9 +100,9 @@
             <Label x:Name="iDlabel" Content="Label" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="118" Visibility="Collapsed"/>
         </Grid>
         <Button x:Name="addUpdateButton" Content="Add" HorizontalAlignment="Left" Margin="523,131,0,0" VerticalAlignment="Top" Click="addUpdateButton_Click_1" Width="111" RenderTransformOrigin="0.559,0.353" Background="{StaticResource MyButtonBackground}"/>
-        <Button x:Name="droneinparcelButton" Content="Show drone" HorizontalAlignment="Left" Height="24" Margin="10,217,0,0" VerticalAlignment="Top" Width="75" Click="droneinparcelButton_Click" Background="{StaticResource MyButtonBackground}"/>
-        <Button x:Name="senderButton" Content="Show sender" HorizontalAlignment="Left" Height="21" Margin="10,188,0,0" VerticalAlignment="Top" Width="75" Click="senderButton_Click" Background="{StaticResource MyButtonBackground}"/>
-        <Button x:Name="targetButton" Content="Show Target" HorizontalAlignment="Left" Height="22" Margin="10,161,0,0" VerticalAlignment="Top" Width="75" Click="targetButton_Click" Background="{StaticResource MyButtonBackground}"/>
+        <Button x:Name="droneinparcelButton" Content="Show drone" HorizontalAlignment="Left" Height="24" Margin="10,211,0,0" VerticalAlignment="Top" Width="75" Click="droneinparcelButton_Click" Background="{StaticResource MyButtonBackground}"/>
+        <Button x:Name="senderButton" Content="Show sender" HorizontalAlignment="Left" Height="21" Margin="10,181,0,0" VerticalAlignment="Top" Width="75" Click="senderButton_Click" Background="{StaticResource MyButtonBackground}"/>
+        <Button x:Name="targetButton" Content="Show Target" HorizontalAlignment="Left" Height="22" Margin="10,149,0,0" VerticalAlignment="Top" Width="75" Click="targetButton_Click" Background="{StaticResource MyButtonBackground}"/>
         <Button x:Name="Removebutton" Content="Remove Parcel" HorizontalAlignment="Left" Margin="523,179,0,0" VerticalAlignment="Top" Width="111" Click="Removebutton_Click" Background="{StaticResource MyButtonBackground}"/>
         <CheckBox x:Name="IsActionCheck" Content="yes" HorizontalAlignment="Left" Margin="523,83,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
         <Label x:Name="isPorD" Content="isPorD" HorizontalAlignment="Left" Margin="523,49,0,0" VerticalAlignment="Top" Visibility="Hidden"/>

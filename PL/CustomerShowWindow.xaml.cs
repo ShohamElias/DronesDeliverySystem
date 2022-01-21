@@ -76,6 +76,7 @@ namespace PL
             SentList.Visibility = Visibility.Hidden;
             SentParcels.Visibility = Visibility.Hidden;
             RecievedParcels.Visibility = Visibility.Hidden;
+            this.Height = 450;
 
         }
 
