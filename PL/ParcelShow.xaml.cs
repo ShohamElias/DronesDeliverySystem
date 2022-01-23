@@ -124,6 +124,7 @@ namespace PL
             else
             {
                 Removebutton.IsEnabled = false;
+                Removebutton.Opacity = 0.5;
                 dd = bl.GetAllDrones();
                 droneParcelComboBox.ItemsSource = null;
                 droneParcelComboBox.ItemsSource = dd;

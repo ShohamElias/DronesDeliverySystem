@@ -106,6 +106,7 @@ namespace PL
 
             parcelListView.ItemsSource = bl.GetAllParcelsToList();
             GroupByPrio.IsEnabled = true;
+            GroupByPrio.Opacity = 1;
 
         }
 
@@ -116,6 +117,7 @@ namespace PL
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("SenderName");
             view.GroupDescriptions.Add(groupDescription);
             GroupBySender.IsEnabled = false;
+            GroupBySender.Opacity = 0.5;
         }
 
         private void GroupByPrioClick_1(object sender, RoutedEventArgs e)
@@ -124,6 +126,8 @@ namespace PL
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("Priority");
             view.GroupDescriptions.Add(groupDescription);
             GroupByPrio.IsEnabled = false;
+            GroupByPrio.Opacity = 0.5;
+
         }
 
         private void GroupByTargetClick_1(object sender, RoutedEventArgs e)
@@ -132,6 +136,8 @@ namespace PL
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("TargetName");
             view.GroupDescriptions.Add(groupDescription);
             GroupByTarget.IsEnabled = false;
+            GroupByTarget.Opacity = 0.5;
+
         }
     }
 }

@@ -99,7 +99,7 @@ namespace PL
             {
                 ChargingButton.Content = "Discharge Drone"; //change the charge/discharge button to discharge
                 DeliveryButton.IsEnabled = false;//charging rn, cant delivere
-
+                DeliveryButton.Opacity = 0.5; 
             }
             else
                 ChargingButton.Content = "Charge Drone";

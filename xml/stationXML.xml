@@ -2,7 +2,7 @@
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
     <Id>2901</Id>
-    <Name></Name>
+    <Name />
     <Longitude>34.503181</Longitude>
     <Lattitude>31.56562</Lattitude>
     <ChargeSlots>3</ChargeSlots>
@@ -12,11 +12,11 @@
     <Name></Name>
     <Longitude>34.638011</Longitude>
     <Lattitude>32.720889</Lattitude>
-    <ChargeSlots>8</ChargeSlots>
+    <ChargeSlots>9</ChargeSlots>
   </Station>
   <Station>
     <Id>2105</Id>
-    <Name></Name>
+    <Name />
     <Longitude>35.934184</Longitude>
     <Lattitude>31.976524</Lattitude>
     <ChargeSlots>9</ChargeSlots>
@@ -30,16 +30,9 @@
   </Station>
   <Station>
     <Id>3710</Id>
-    <Name />
+    <Name>tel aviv</Name>
     <Longitude>35.789414</Longitude>
     <Lattitude>30.887011</Lattitude>
     <ChargeSlots>3</ChargeSlots>
   </Station>
-  <DroneCharge>
-    <Id>12345</Id>
-    <Name>elad</Name>
-    <Longitude>25.2727</Longitude>
-    <Lattitude>32.333</Lattitude>
-    <ChargeSlots>10</ChargeSlots>
-  </DroneCharge>
 </ArrayOfStation>

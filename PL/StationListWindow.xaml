@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="StationListWindow" Height="450" Width="800" Activated="Window_Activated" Background="{StaticResource MyBWinBackground}">
-    
+
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="683*"/>
@@ -79,8 +79,8 @@
                 </GroupStyle>
             </ListView.GroupStyle>
         </ListView>
-        <Button x:Name="clearButton" Content="clear" HorizontalAlignment="Left" Margin="30,142,0,0" VerticalAlignment="Top" Click="clearButton_Click" Background="{StaticResource MyButtonBackground}" Width="54"/>
-        <Button x:Name="GroupBy" Content="Grouping" HorizontalAlignment="Left" Margin="30,101,0,0" VerticalAlignment="Top" Click="GroupByClick_1"  Background="{StaticResource MyButtonBackground}" />
+        <Button x:Name="clearButton" Content="clear" HorizontalAlignment="Left" Margin="30,142,0,0" VerticalAlignment="Top" Click="clearButton_Click" Background="{StaticResource MyButtonBackground}" Width="61"/>
+        <Button x:Name="GroupBy" Content="Grouping" HorizontalAlignment="Left" Margin="30,101,0,0" VerticalAlignment="Top" Click="GroupByClick_1"  Background="{StaticResource MyButtonBackground}" Width="61" />
 
         <Button x:Name="addbutton" Content="Add" HorizontalAlignment="Left" Height="34" Margin="289,335,0,0" VerticalAlignment="Top" Width="163" RenderTransformOrigin="1.228,0.419" Click="addbutton_Click" Background="{StaticResource MyButtonBackground}"/>
     </Grid>

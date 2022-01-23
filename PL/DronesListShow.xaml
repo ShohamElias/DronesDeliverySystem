@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="DronesListShow" Height="640" Width="800" Activated="Window_Activated">
-    <Grid Background="#FFE8F8FA">
+    
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="18*"/>
@@ -15,7 +16,7 @@
             <ColumnDefinition Width="550*"/>
             <ColumnDefinition Width="121*"/>
         </Grid.ColumnDefinitions>
-        <Grid Name="MainGrid" Margin="1,4,-4,-4" Background="#FFE8F8FA" Grid.ColumnSpan="4" Grid.Column="1">
+        <Grid Name="MainGrid" Margin="1,4,-4,-4" Background="#FFFDFDFD" Grid.ColumnSpan="4" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="116*"/>
                 <ColumnDefinition Width="575*"/>
@@ -56,11 +57,11 @@
             </ListView>
 
 
-            <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Left" Margin="62,341,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.573,0.31" Height="39" Width="444" Click="AddDrone_Click" Grid.Column="1" Background="{StaticResource MyButtonBackground}"/>
+            <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Left" Margin="128,341,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.573,0.31" Height="39" Width="328" Click="AddDrone_Click" Grid.Column="1" Background="{StaticResource MyButtonBackground}"/>
 
         </Grid>
         <Button x:Name="clearButton" Content="clear" HorizontalAlignment="Left" Margin="314,351,0,0" VerticalAlignment="Top" Click="clearButton_Click" Background="{StaticResource MyButtonBackground}" Width="54" Grid.Column="3"/>
-        <Button x:Name="GroupBy" Content="Grouping" HorizontalAlignment="Left" Margin="170,351,0,0" VerticalAlignment="Top" Click="GroupByClick_1"  Background="{StaticResource MyButtonBackground}" Grid.Column="3"  />
+        <Button x:Name="GroupBy" Content="Grouping" HorizontalAlignment="Left" Margin="170,351,0,0" VerticalAlignment="Top" Click="GroupByClick_1"  Background="{StaticResource MyButtonBackground}" Grid.Column="3" Width="63"  />
 
     </Grid>
 </Window>
