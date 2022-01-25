@@ -50,14 +50,6 @@
     <Lattitude>30.923645</Lattitude>
   </Customer>
   <Customer>
-    <Id>212726442</Id>
-    <Name>ADI</Name>
-    <Phone>12345678</Phone>
-    <Longitude>34.28262</Longitude>
-    <Lattitude>32.3632</Lattitude>
-    <password>ADI</password>
-  </Customer>
-  <Customer>
     <Id>139886495</Id>
     <Name>Leah</Name>
     <Phone>un</Phone>
@@ -85,5 +77,13 @@
     <Longitude>23.33</Longitude>
     <Lattitude>23.377</Lattitude>
     <password>11</password>
+  </Customer>
+  <Customer>
+    <Id>212726442</Id>
+    <Name>ADI</Name>
+    <Phone>12345678</Phone>
+    <Longitude>34.28262</Longitude>
+    <Lattitude>32.3632</Lattitude>
+    <password>ADI</password>
   </Customer>
 </ArrayOfCustomer>

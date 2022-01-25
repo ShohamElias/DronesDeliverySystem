@@ -6,30 +6,6 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="ParcelWindow" Height="450" Width="800" Activated="Window_Activated">
-    <Window.Resources>
-        <Style TargetType="{x:Type TextBox}">
-            <Setter Property="BorderThickness" Value="0 0 0 1" />
-        </Style>
-        <Style TargetType="{x:Type ComboBox}">
-        </Style>
-        <Style  TargetType="{x:Type Button}">
-            <Setter Property="FontWeight" Value="SemiBold"></Setter>
-            <Setter Property="Height" Value="25"></Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
-                            <!-- Outer Rectangle with rounded corners. -->
-                            <Rectangle x:Name="outerRectangle" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="black" RadiusX="5" RadiusY="6" StrokeThickness="0.5" Fill="{StaticResource MyButtonBackground}"/>
-
-                            <ContentPresenter HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
 
     <Grid>
 
@@ -39,42 +15,42 @@
                     <GridViewColumn x:Name="idColumn" Width="80" Header="Id">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Id}" Margin="6,-1,-6,-1"/>
+                                <Label Content="{Binding Id}" Margin="6,-1,-6,-1"  HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="priorityColumn" Width="80" Header="Priority">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Priority}" Margin="-6,-1"/>
+                                <Label Content="{Binding Priority}" Margin="-6,-1"  HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="senderNameColumn" Width="80" Header="Sender Name">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding SenderName}" Margin="-6,-1"/>
+                                <Label Content="{Binding SenderName}" Margin="-6,-1"  HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="statusColumn" Width="80" Header="Status">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Status}" Margin="-6,-1"/>
+                                <Label Content="{Binding Status}" Margin="-6,-1"  HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="targetNameColumn" Width="80" Header="Target Name">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding TargetName}" Margin="-6,-1"/>
+                                <Label Content="{Binding TargetName}" Margin="-6,-1" HorizontalAlignment="Center" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="weightColumn" Width="80" Header="Weight">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Weight}" Margin="-6,-1"/>
+                                <Label Content="{Binding Weight}" Margin="-6,-1"  HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -96,14 +72,14 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        <Button x:Name="AddButton" Content="Add a parcel" HorizontalAlignment="Center" Margin="0,349,0,0" VerticalAlignment="Top" Click="Button_Click" Width="156" Background="{StaticResource MyButtonBackground}" Height="26"/>
+        <Button x:Name="AddButton" Content="Add a Parcel" HorizontalAlignment="Center" Margin="0,349,0,0" VerticalAlignment="Top" Click="Button_Click" Width="156" Background="{StaticResource MyButtonBackground}" FontSize="13"/>
         <ComboBox x:Name="PrioritySelector" HorizontalAlignment="Left" Margin="215,43,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="PrioritySelector_SelectionChanged"/>
         <ComboBox x:Name="WeightSelector" HorizontalAlignment="Left" Margin="498,45,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="WeightSelector_SelectionChanged"/>
         <Label x:Name="PriorityL" Content="Priority:" HorizontalAlignment="Left" Margin="125,41,0,0" VerticalAlignment="Top"/>
         <Label x:Name="WeightL" Content="Weight:" HorizontalAlignment="Left" Margin="419,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.586"/>
-        <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Left" Margin="69,237,0,0" VerticalAlignment="Top" Click="clearButton_Click" Background="{StaticResource MyButtonBackground}" Width="54" RenderTransformOrigin="0.509,0.954" Height="21"/>
+        <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Left" Margin="69,229,0,0" VerticalAlignment="Top" Click="clearButton_Click" Background="{StaticResource MyButtonBackground}" Width="54" RenderTransformOrigin="0.509,0.954"/>
         <Button x:Name="GroupBySender" Content="Group By Sender" HorizontalAlignment="Left" Margin="47,103,0,0" VerticalAlignment="Top" Click="GroupByClick_1"  Background="{StaticResource MyButtonBackground}" Height="25" Width="103" IsEnabled="{Binding ElementName=GroupByPrio, Path=IsEnabled, Mode=TwoWay}" Opacity="{Binding ElementName=GroupByPrio, Path=Opacity, Mode=TwoWay}"/>
-        <Button x:Name="GroupByTarget" Content="Group By target" HorizontalAlignment="Left" Margin="47,143,0,0" VerticalAlignment="Top" Click="GroupByTargetClick_1"  Background="{StaticResource MyButtonBackground}" Width="103" Height="25" IsEnabled="{Binding ElementName=GroupBySender, Path=IsEnabled, Mode=TwoWay}" Opacity="{Binding ElementName=GroupBySender, Path=Opacity, Mode=TwoWay}" />
-        <Button x:Name="GroupByPrio" Content="Group By Priority" HorizontalAlignment="Left" Margin="47,188,0,0" VerticalAlignment="Top" Click="GroupByPrioClick_1"  Background="{StaticResource MyButtonBackground}" Height="25" Width="103"/>
+        <Button x:Name="GroupByTarget" Content="Group By target" HorizontalAlignment="Left" Margin="47,143,0,0" VerticalAlignment="Top" Click="GroupByTargetClick_1"  Background="{StaticResource MyButtonBackground}" Width="103" IsEnabled="{Binding ElementName=GroupBySender, Path=IsEnabled, Mode=TwoWay}" Opacity="{Binding ElementName=GroupBySender, Path=Opacity, Mode=TwoWay}" />
+        <Button x:Name="GroupByPrio" Content="Group By Priority" HorizontalAlignment="Left" Margin="47,188,0,0" VerticalAlignment="Top" Click="GroupByPrioClick_1"  Background="{StaticResource MyButtonBackground}" Width="103"/>
     </Grid>
 </Window>

@@ -57,8 +57,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label x:Name="SentParcels" Content="Sent Parcels" HorizontalAlignment="Left" Margin="99,217,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="RecievedParcels" Content="Recieved Parcels" HorizontalAlignment="Left" Margin="76,361,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="SentParcels" Content="Sent Parcels:" HorizontalAlignment="Left" Margin="76,226,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="RecievedParcels" Content="Recieved Parcels:" HorizontalAlignment="Left" Margin="70,371,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="PasswordtextBox" HorizontalAlignment="Left" Margin="150,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Height="24"/>
         <Label x:Name="passwordlabel" Content="Password:" HorizontalAlignment="Left" Margin="76,191,0,0" VerticalAlignment="Top" />
 

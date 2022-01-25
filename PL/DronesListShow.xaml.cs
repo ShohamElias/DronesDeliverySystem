@@ -23,9 +23,8 @@ namespace PL
         public DronesListShow(BlApi.IBL _bl) //constructor
         {
             InitializeComponent();
-            DronesListView.ItemsSource = _bl.GetAllDronesToList();
             bl = _bl;
-
+            DronesListView.ItemsSource = _bl.GetAllDronesToList();
             StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.DroneStatuses)); //filling the comboboxes
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
         }
@@ -34,7 +33,7 @@ namespace PL
         {
             if (StatusSelector.SelectedItem == null)
             {
-                DronesListView.ItemsSource = bl.GetAllDrones();
+                DronesListView.ItemsSource = bl.GetAllDronesToList();
                 return;
             }
 

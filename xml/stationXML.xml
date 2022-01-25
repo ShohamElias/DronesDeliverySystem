@@ -2,14 +2,14 @@
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
     <Id>2901</Id>
-    <Name />
+    <Name></Name>
     <Longitude>34.503181</Longitude>
     <Lattitude>31.56562</Lattitude>
-    <ChargeSlots>3</ChargeSlots>
+    <ChargeSlots>4</ChargeSlots>
   </Station>
   <Station>
     <Id>5656</Id>
-    <Name></Name>
+    <Name />
     <Longitude>34.638011</Longitude>
     <Lattitude>32.720889</Lattitude>
     <ChargeSlots>9</ChargeSlots>
@@ -19,7 +19,7 @@
     <Name />
     <Longitude>35.934184</Longitude>
     <Lattitude>31.976524</Lattitude>
-    <ChargeSlots>9</ChargeSlots>
+    <ChargeSlots>8</ChargeSlots>
   </Station>
   <Station>
     <Id>1821</Id>
@@ -33,6 +33,6 @@
     <Name>tel aviv</Name>
     <Longitude>35.789414</Longitude>
     <Lattitude>30.887011</Lattitude>
-    <ChargeSlots>3</ChargeSlots>
+    <ChargeSlots>2</ChargeSlots>
   </Station>
 </ArrayOfStation>

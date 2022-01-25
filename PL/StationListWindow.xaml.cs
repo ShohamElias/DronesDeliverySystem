@@ -77,5 +77,10 @@ namespace PL
             view.GroupDescriptions.Add(groupDescription);
             GroupBy.IsEnabled = false;
         }
+
+        private void stationListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

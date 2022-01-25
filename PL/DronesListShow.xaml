@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="DronesListShow" Height="640" Width="800" Activated="Window_Activated">
-    
+        Title="DronesListShow" Height="549" Width="800" Activated="Window_Activated">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -39,10 +39,74 @@
                 <Label x:Name="statusLable"  Content="Status"  HorizontalAlignment="Left" Margin="146,20,0,0" VerticalAlignment="Top" FontFamily="Lucida Fax" FontWeight="Normal"/>
                 <Label Content="Weight" Grid.Column="1" HorizontalAlignment="Left" Margin="181,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontFamily="Lucida Fax" FontWeight="Normal"/>
             </Grid>
-            <ListView x:Name="DronesListView" Margin="66,69,66,311" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.RowSpan="2" Background="White" Grid.ColumnSpan="3" SelectionChanged="DronesListView_SelectionChanged">
+
+
+            <ListView x:Name="DronesListView" ItemsSource="{Binding}" Margin="0,10,90,213" MouseDoubleClick="DronesListView_MouseDoubleClick" Background="White" SelectionChanged="DronesListView_SelectionChanged" SelectionMode="Single" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+                <ListView.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Control.VerticalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn/>
+                        <GridViewColumn x:Name="IdColumn" Header="Id" Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Id}" Margin="6,-1,-6,-1"  HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn x:Name="ModelColumn" Header="Model" Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Model}" Margin="-6,-1"  HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn x:Name="MaxColumn" Header="Max Weight" Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding MaxWeight}" Margin="-6,-1"  HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn x:Name="BatterySlotsColumn" Header="Battery" Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Battery}" Margin="-6,-1"  HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn x:Name="StatussColumn" Header="Status" Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Status}" Margin="-6,-1"  HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn x:Name="LongSlotsColumn" Header="Longitude" Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding CurrentLocation.Longitude}" Margin="-6,-1"  HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn x:Name="LatSlotsColumn" Header="Lattitude" Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding CurrentLocation.Lattitude}" Margin="-6,-1"  HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+
+
+
                     </GridView>
                 </ListView.View>
                 <ListView.GroupStyle>
@@ -57,11 +121,11 @@
             </ListView>
 
 
-            <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Left" Margin="128,341,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.573,0.31" Height="39" Width="328" Click="AddDrone_Click" Grid.Column="1" Background="{StaticResource MyButtonBackground}"/>
+            <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Left" Margin="128,283,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.573,0.31" Height="39" Width="328" Click="AddDrone_Click" Grid.Column="1" Background="{StaticResource MyButtonBackground}"/>
 
         </Grid>
-        <Button x:Name="clearButton" Content="clear" HorizontalAlignment="Left" Margin="314,351,0,0" VerticalAlignment="Top" Click="clearButton_Click" Background="{StaticResource MyButtonBackground}" Width="54" Grid.Column="3"/>
-        <Button x:Name="GroupBy" Content="Grouping" HorizontalAlignment="Left" Margin="170,351,0,0" VerticalAlignment="Top" Click="GroupByClick_1"  Background="{StaticResource MyButtonBackground}" Grid.Column="3" Width="63"  />
+        <Button x:Name="clearButton" Content="clear" HorizontalAlignment="Left" Margin="13,118,0,0" VerticalAlignment="Top" Click="clearButton_Click" Background="{StaticResource MyButtonBackground}" Width="54" Grid.Column="2"/>
+        <Button x:Name="GroupBy" Content="Grouping" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top" Click="GroupByClick_1"  Background="{StaticResource MyButtonBackground}" Grid.Column="2" Width="63"  />
 
     </Grid>
 </Window>

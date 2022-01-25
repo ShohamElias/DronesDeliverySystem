@@ -17,20 +17,30 @@
             <GradientStop Color="#FFFFFFFF" Offset="0.7"/>
         </LinearGradientBrush>
 
-            <Style TargetType="{x:Type TextBox}">
+        <RadialGradientBrush 
+             x:Key="MyBackground" RadiusX="5" RadiusY="6" Opacity="0.15" SpreadMethod="Reflect">
+                <GradientStop Color="Transparent" Offset="0.917"/>
+                <GradientStop Color="Black" Offset="0.837"/>
+            
+         </RadialGradientBrush>
+        <Style TargetType="{x:Type TextBox}">
                 <Setter Property="BorderThickness" Value="0 0 0 1" />
             </Style>
             <Style TargetType="{x:Type ComboBox}">
             </Style>
+        
             <Style  TargetType="{x:Type Button}">
-                <Setter Property="FontWeight" Value="SemiBold"></Setter>
-                <Setter Property="Height" Value="25"></Setter>
+            <Setter Property="FontWeight" Value="SemiBold"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="BorderThickness" Value="2"></Setter>
+            <Setter Property="BorderBrush" Value="{StaticResource MyBackground}"></Setter>
+            <Setter Property="Height" Value="25"></Setter>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
                                 <!-- Outer Rectangle with rounded corners. -->
-                                <Rectangle x:Name="outerRectangle" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="black" RadiusX="5" RadiusY="6" StrokeThickness="0.5" Fill="{StaticResource MyButtonBackground}"/>
+                            <Rectangle x:Name="outerRectangle" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="{StaticResource MyBackground}" RadiusX="7" RadiusY="6" StrokeThickness="0.5" Fill="#F005F7DF"/>
 
                                 <ContentPresenter HorizontalAlignment="Center"
                                           VerticalAlignment="Center"/>

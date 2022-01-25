@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PL
 {
-    class Validation
+    public class Validation
     {
-        
+
         public bool IsnumberChar(string c) //the func checks if the string is a number
         {
             for (int i = 0; i < c.Length; i++)

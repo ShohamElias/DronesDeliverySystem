@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="StationListWindow" Height="450" Width="800" Activated="Window_Activated" Background="{StaticResource MyBWinBackground}">
+        Title="StationListWindow" Height="450" Width="800" Activated="Window_Activated">
 
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="683*"/>
             <ColumnDefinition Width="117*"/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="stationListView" ItemsSource="{Binding}" Margin="121,87,27,134" SelectionMode="Single" MouseDoubleClick="stationListView_MouseDoubleClick">
+        <ListView x:Name="stationListView" ItemsSource="{Binding}" Margin="121,87,27,134" SelectionMode="Single" MouseDoubleClick="stationListView_MouseDoubleClick" SelectionChanged="stationListView_SelectionChanged">
             <ListView.ItemContainerStyle>
                 <Style>
                     <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
@@ -24,21 +24,21 @@
                     <GridViewColumn x:Name="chargeSlotsColumn" Header="Charge Slots" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding EmptyChargeSlots}" Margin="6,-1,-6,-1"/>
+                                <Label Content="{Binding EmptyChargeSlots}" Margin="6,-1,-6,-1"  HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="idColumn" Header="Id" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Id}" Margin="-6,-1"/>
+                                <Label Content="{Binding Id}" Margin="-6,-1"  HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="nameColumn" Header="Name" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Name}" Margin="-6,-1"/>
+                                <Label Content="{Binding Name}" Margin="-6,-1"  HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -46,7 +46,7 @@
                     <GridViewColumn x:Name="fullchargeSlotsColumn" Header="Full Charge Slots" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding FullChargeSlots}" Margin="-6,-1"/>
+                                <Label Content="{Binding FullChargeSlots}" Margin="-6,-1"  HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -54,7 +54,7 @@
                     <GridViewColumn x:Name="LatitudeColumn" Header="Latitude"  Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding StationLocation.Lattitude}" Margin="6,-1,-6,-1"/>
+                                <Label Content="{Binding StationLocation.Lattitude}" Margin="6,-1,-6,-1"  HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -62,7 +62,7 @@
                     <GridViewColumn x:Name="LongtitudeColumn" Header="Longitude" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding StationLocation.Longitude}"/>
+                                <Label Content="{Binding StationLocation.Longitude}"  HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

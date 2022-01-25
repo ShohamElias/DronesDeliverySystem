@@ -22,6 +22,7 @@ namespace PL
         BlApi.IBL bl;
         bool updateflag;
         BO.Station ss;
+        Validation valid = new Validation();
         public StationShoWindow(BlApi.IBL _bl,BO.Station s)
         {
             InitializeComponent();
@@ -71,6 +72,11 @@ namespace PL
                 }
                 else
                 {
+                    if (idTextBox.Text == "" || nameTextBox.Text == "" || ChargeSlots.Text == "" || LongtitudeTextBox.Text == "" || LatitudeTextBox.Text=="" )
+                    {
+                        MessageBox.Show("Please fill all the fields!" ,"Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
                     BO.Station s = new BO.Station()
                     {
                         Id = int.Parse(idTextBox.Text.ToString()),
@@ -110,7 +116,7 @@ namespace PL
             string c = LongtitudeTextBox.Text;
             try//validatoin for longtitude
             {
-                if (!IsnumberCharLoc(LongtitudeTextBox.Text.ToString()))
+                if (!valid.IsnumberCharLoc(LongtitudeTextBox.Text.ToString()))
                     throw new BO.BadInputException(c, "location can include only numbers");
 
             }
@@ -121,32 +127,13 @@ namespace PL
                 MessageBox.Show(ex.ToString(), "Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        public bool IsnumberChar(string c) //the func checks if the string is a number
-        {
-            for (int i = 0; i < c.Length; i++)
-            {
-                if ((c[i] < '0' || c[i] > '9') && (c[i] != '\b'))
-                    return false;
-
-            }
-            return true;
-        }
-        public bool IsnumberCharLoc(string c) //the func checks if the string is a right input to location
-        {
-            for (int i = 0; i < c.Length; i++)
-            {
-                if ((c[i] < '0' || c[i] > '9') && (c[i] != '\b') && (c[i] != '.'))
-                    return false;
-
-            }
-            return true;
-        }
+        
         private void LatitudeTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string c = LatitudeTextBox.Text;
             try //validatoin for lattitude
             {
-                if (!IsnumberCharLoc(LatitudeTextBox.Text.ToString()))
+                if (!valid.IsnumberCharLoc(LatitudeTextBox.Text.ToString()))
                     throw new BO.BadInputException(c, "location can include only numbers");
 
             }
@@ -163,7 +150,7 @@ namespace PL
             string c = idTextBox.Text;
             try //validatoin for id
             {
-                if (!IsnumberChar(idTextBox.Text.ToString()))
+                if (!valid.IsnumberChar(idTextBox.Text.ToString()))
                     throw new BO.BadInputException(c, "ID can include only numbers");
 
             }
@@ -180,7 +167,7 @@ namespace PL
             string c = ChargeSlots.Text;
             try //validatoin for id
             {
-                if (!IsnumberChar(ChargeSlots.Text.ToString()))
+                if (!valid.IsnumberChar(ChargeSlots.Text.ToString()))
                     throw new BO.BadInputException(c, "Charge Slots can be only a number");
 
             }

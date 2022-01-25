@@ -23,6 +23,7 @@ namespace PL
         BlApi.IBL bl;
         BO.Drone d;
         IEnumerable<BO.Station> s;
+        Validation valid= new Validation();
         bool updateflag = false;
         static bool closingwin = true;
         string type="f";
@@ -124,11 +125,6 @@ namespace PL
             Lontextbox.IsEnabled = false;
             modelTextbox.IsEnabled = false;
 
-            
-
-            
-
-
             StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.DroneStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             StatusSelector.SelectedItem = d.Status;
@@ -140,26 +136,7 @@ namespace PL
 
         }
 
-        public bool IsnumberChar(string c) //the func checks if the string is a number
-        {
-            for (int i = 0; i < c.Length; i++)
-            {
-                if ((c[i] < '0' || c[i] > '9') && (c[i] != '\b'))
-                    return false;
-
-            }
-            return true;
-        }
-        public bool IsnumberCharLoc(string c) //the func checks if the string is a right input to location
-        {
-            for (int i = 0; i < c.Length; i++)
-            {
-                if ((c[i] < '0' || c[i] > '9') && (c[i] != '\b') && (c[i] != '.'))
-                    return false;
-
-            }
-            return true;
-        }
+       
 
         private void button_Click(object sender, RoutedEventArgs e) //add/update button click
         {
@@ -167,14 +144,11 @@ namespace PL
             {
                 if (AddUpdateButton.Content.Equals("Add")) //if we are adding a new drone
                 {
-                    string c = BatteryTextBox.Text;
-                    if (double.Parse(c) > 100 || double.Parse(c) < 0) //validation for the battery
+                    if (idtextbox.Text == "" || modelTextbox.Text == "" || BatteryTextBox.Text == "" || StatusSelector.SelectedIndex == -1 || WeightSelector.SelectedIndex == -1)
                     {
-                        c = "100";
-                        idtextbox.Text = c;
-                        throw new BO.BadInputException("battery should be between 0-100");
-                        
-                    }
+                        MessageBox.Show("Please fill all the fields!");
+                        return;
+                    }                  
 
                     int stid = 0;
                     BO.Drone db = new BO.Drone() //creating a new drone bty the filled text boxes and comboboxes
@@ -305,14 +279,24 @@ namespace PL
                 
             }
         }
-       
+
+        public bool IsnumberChar(string c) //the func checks if the string is a number
+        {
+            for (int i = 0; i < c.Length; i++)
+            {
+                if ((c[i] < '0' || c[i] > '9') && (c[i] != '\b'))
+                    return false;
+
+            }
+            return true;
+        }
 
         private void idtextbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string c = idtextbox.Text;
             try //validatoin for id
             {
-                if (!IsnumberChar(idtextbox.Text.ToString()))
+                if (!valid.IsnumberChar(idtextbox.Text.ToString()))
                     throw new BO.BadInputException(c, "ID can include only numbers");
 
             }
@@ -330,7 +314,7 @@ namespace PL
             string c = BatteryTextBox.Text;
             try //validatoin for battery
             {
-                if (!IsnumberCharLoc(BatteryTextBox.Text.ToString()))
+                if (!valid.IsnumberCharLoc(BatteryTextBox.Text.ToString()))
                     throw new BO.BadInputException(c, "battery can include only numbers");
                 if (c.Length > 0 && (int.Parse(c) > 100 || int.Parse(c) < 0))
                     throw new BO.BadInputException("battery should be between 0-100");
@@ -348,7 +332,7 @@ namespace PL
             string c = LattextBox.Text;
             try //validatoin for lattitude
             {
-                if (!IsnumberCharLoc(LattextBox.Text.ToString()))
+                if (!valid.IsnumberCharLoc(LattextBox.Text.ToString()))
                     throw new BO.BadInputException(c, "location can include only numbers");
 
             }
@@ -365,9 +349,8 @@ namespace PL
             string c = Lontextbox.Text;
             try//validatoin for longtitude
             {
-                if (!IsnumberCharLoc(Lontextbox.Text.ToString()))
+                if (!valid.IsnumberCharLoc(Lontextbox.Text.ToString()))
                     throw new BO.BadInputException(c, "location can include only numbers");
-
             }
             catch (Exception ex)
             {

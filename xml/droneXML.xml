@@ -40,4 +40,14 @@
     <Model>AS</Model>
     <MaxWeight>Medium</MaxWeight>
   </Drone>
+  <Drone>
+    <Id>5287</Id>
+    <Model>adi</Model>
+    <MaxWeight>Heavy</MaxWeight>
+  </Drone>
+  <Drone>
+    <Id>9090</Id>
+    <Model>newD</Model>
+    <MaxWeight>Medium</MaxWeight>
+  </Drone>
 </ArrayOfDrone>

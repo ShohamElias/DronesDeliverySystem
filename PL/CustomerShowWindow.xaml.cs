@@ -22,6 +22,7 @@ namespace PL
     {
         BlApi.IBL bl;
         static bool closingwin = true;
+        Validation valid= new Validation();
 
         public CustomerShowWindow(BO.Customer c, BlApi.IBL _bl, string typeWindow)
         {
@@ -139,33 +140,13 @@ namespace PL
             Close();
         }
 
-        public bool IsnumberChar(string c) //the func checks if the string is a number
-        {
-            for (int i = 0; i < c.Length; i++)
-            {
-                if ((c[i] < '0' || c[i] > '9') && (c[i] != '\b'))
-                    return false;
-
-            }
-            return true;
-        }
-        public bool IsnumberCharLoc(string c) //the func checks if the string is a right input to location
-        {
-            for (int i = 0; i < c.Length; i++)
-            {
-                if ((c[i] < '0' || c[i] > '9') && (c[i] != '\b') && (c[i] != '.'))
-                    return false;
-
-            }
-            return true;
-        }
 
         private void idTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string c = idTextBox.Text;
             try //validatoin for id
             {
-                if (!IsnumberChar(idTextBox.Text.ToString()))
+                if (!valid.IsnumberChar(idTextBox.Text.ToString()))
                     throw new BO.BadInputException(c, "ID can include only numbers");
 
             }
@@ -182,7 +163,7 @@ namespace PL
             string c = LongtitudeTextBox.Text;
             try//validatoin for longtitude
             {
-                if (!IsnumberCharLoc(LongtitudeTextBox.Text.ToString()))
+                if (!valid.IsnumberCharLoc(LongtitudeTextBox.Text.ToString()))
                     throw new BO.BadInputException(c, "location can include only numbers");
 
             }
@@ -199,7 +180,7 @@ namespace PL
             string c = LatitudeTextBox.Text;
             try //validatoin for lattitude
             {
-                if (!IsnumberCharLoc(LatitudeTextBox.Text.ToString()))
+                if (!valid.IsnumberCharLoc(LatitudeTextBox.Text.ToString()))
                     throw new BO.BadInputException(c, "location can include only numbers");
 
             }
