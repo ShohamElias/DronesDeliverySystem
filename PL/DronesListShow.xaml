@@ -36,7 +36,7 @@
                 </Grid.ColumnDefinitions >
                 <ComboBox x:Name="StatusSelector" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="StatusSelector_SelectionChanged"/>
                 <ComboBox x:Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelector_SelectionChanged" Grid.ColumnSpan="2" Margin="40,0,0,0"/>
-                <Label x:Name="statusLable"  Content="Status"  HorizontalAlignment="Left" Margin="146,20,0,0" VerticalAlignment="Top" FontFamily="Lucida Fax" FontWeight="Normal"/>
+                <Label x:Name="statusLable" Content="Status"  HorizontalAlignment="Left" Margin="146,20,0,0" VerticalAlignment="Top" FontFamily="Lucida Fax" FontWeight="Normal"/>
                 <Label Content="Weight" Grid.Column="1" HorizontalAlignment="Left" Margin="181,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontFamily="Lucida Fax" FontWeight="Normal"/>
             </Grid>
 
@@ -125,7 +125,7 @@
 
         </Grid>
         <Button x:Name="clearButton" Content="clear" HorizontalAlignment="Left" Margin="13,118,0,0" VerticalAlignment="Top" Click="clearButton_Click" Background="{StaticResource MyButtonBackground}" Width="54" Grid.Column="2"/>
-        <Button x:Name="GroupBy" Content="Grouping" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top" Click="GroupByClick_1"  Background="{StaticResource MyButtonBackground}" Grid.Column="2" Width="63"  />
+        <Button x:Name="GroupBy" Content="Grouping" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top" Click="GroupByClick_1"  Background="{StaticResource MyButtonBackground}" Grid.Column="2" Width="63" />
 
     </Grid>
 </Window>

@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using DalApi;
 using System.Xml.Linq;
 using DO;
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
     sealed partial class DLXML : IDal
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(DO.Customer cus)
         {
             List<DO.Customer> ListCustomer = XMLTools.LoadListFromXMLSerializer<DO.Customer>(customerPath);
@@ -24,6 +26,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(ListCustomer, customerPath);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DO.Customer GetCustomer(int id)
         {
            if (!CheckCustomer(id))///
@@ -34,12 +37,15 @@ namespace Dal
             return dd;
 
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public bool CheckCustomer(int id)
         {
             List<DO.Customer> ListCustomer = XMLTools.LoadListFromXMLSerializer<DO.Customer>(customerPath);
             return ListCustomer.Any(x => x.Id == id);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Customer> GetALLCustomer()
         {
             List<DO.Customer> ListCustomer = XMLTools.LoadListFromXMLSerializer<DO.Customer>(customerPath);
@@ -47,6 +53,7 @@ namespace Dal
                    select Customer;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double CustomerDistance(double lat, double lon1, int id)
         {
             List<DO.Customer> ListCustomer = XMLTools.LoadListFromXMLSerializer<DO.Customer>(customerPath);
@@ -55,11 +62,14 @@ namespace Dal
                 throw new DO.BadIdException(id, "This id doesnt exists");
             return getDistanceFromLatLonInKm(lat, lon1, d.Lattitude, d.Longitude);//sending to the func to calculate
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Customer> ListCustomer()
         {
             List<DO.Customer> ListCustomer = XMLTools.LoadListFromXMLSerializer<DO.Customer>(customerPath);
             return ListCustomer.ToList();
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(DO.Customer newD)
         {
             List<DO.Customer> ListCustomer = XMLTools.LoadListFromXMLSerializer<DO.Customer>(customerPath);
@@ -71,6 +81,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(ListCustomer, customerPath);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)
         {
             double R = 6371; // Radius of the earth in km
@@ -83,6 +94,7 @@ namespace Dal
             double d = R * c; // Distance in km
             return d;
         }
+
         /// <summary>
         /// the function gets a number in dergrees and converts it to radians
         /// </summary>
@@ -94,8 +106,7 @@ namespace Dal
         }
 
 
-
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddParcel(DO.Parcel per)
         {
             List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
@@ -112,6 +123,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(ParcelList, parcelPath);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DO.Parcel GetParcel(int id)
         {
             if (!CheckParcel(id))
@@ -122,12 +134,15 @@ namespace Dal
             return dd;
 
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public bool CheckParcel(int id)
         {
             List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
             return ParcelList.Any(x => x.Id == id);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Parcel> GetALLParcel()
         {
             List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
@@ -136,11 +151,14 @@ namespace Dal
         }
 
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Parcel> ListParcel()
         {
             List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
             return ParcelList.ToList();
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcel(DO.Parcel newD)
         {
             List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
@@ -152,6 +170,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(ParcelList, parcelPath);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Parcel> GetALLParcelsBy(Predicate<DO.Parcel> P)
         {
             List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
@@ -159,6 +178,8 @@ namespace Dal
                    where P(d)
                    select d;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveParcel(int id)
         {
             if (!CheckParcel(id))
@@ -168,11 +189,14 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(ParcelList, parcelPath);
 
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int getParcelMax()
         {
             int id= Convert.ToInt32(XMLTools.LoadListFromXMLElement(configPath).Element("RowNumbers").Value);
             return id;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Parcel> GetAllUnMachedParcel()
         {
             return from item in GetALLParcel()
@@ -180,6 +204,7 @@ namespace Dal
                    select GetParcel(item.Id);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void PickParcel(int parcelId)
         {
             List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);
@@ -192,6 +217,8 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(ParcelList, parcelPath);
 
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeliveringParcel(int parcelId)
         {
             List<DO.Parcel> ParcelList = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelPath);

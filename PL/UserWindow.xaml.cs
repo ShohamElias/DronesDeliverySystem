@@ -31,7 +31,7 @@ namespace PL
             try
             {
                 BO.Customer c = bl.GetCustomer(int.Parse(Id.Text.ToString()));
-                if (Password.Text!=c.password)
+                if (!passwordBox.Password.Equals(c.password))
                 {
                     throw new BO.BadIdException(c.Id, "The id or the password were wrong, try again");    
                 }

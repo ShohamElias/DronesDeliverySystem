@@ -4,6 +4,8 @@ using System.Xml.Linq;
 using DO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+
 
 namespace Dal
 {
@@ -28,6 +30,7 @@ namespace Dal
 
 
         #region Drone 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(DO.Drone d)
         {
             List<DO.Drone> ListDrone = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronePath);
@@ -41,6 +44,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(ListDrone, dronePath);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DO.Drone GetDrone(int id)
         {
             if (!CheckDrone(id))
@@ -51,22 +55,30 @@ namespace Dal
             return dd;
 
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public bool CheckDrone(int id)
         {
             List<DO.Drone> ListDrone = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronePath);
             return ListDrone.Any(x => x.Id == id);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Drone> ListDrone()
         {
             List<DO.Drone> Listdrone = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronePath);
             return Listdrone.ToList();
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Drone> GetALLDrone()
         {
             List<DO.Drone> ListDrone = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronePath);
             return from Drone in ListDrone
                    select Drone;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(DO.Drone newD)
         {
             List<DO.Drone> DroneList = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronePath);
@@ -79,6 +91,8 @@ namespace Dal
 
             XMLTools.SaveListToXMLSerializer(DroneList, dronePath);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void LinkParcelToDrone(int parcelId, int droneId)
         {
             List<DO.Drone> DroneList = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronePath);
@@ -98,6 +112,8 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(ParcelsList, parcelPath);
 
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DroneToCharge(int droneId, int stationId)
         {
             List<DO.Drone> DroneList = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronePath);
@@ -124,6 +140,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(DChargeList, dronechargePath);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void EndingCharge(int droneId)
         {
             List<DO.Drone> DroneList = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronePath);
@@ -142,11 +159,14 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(DChargeList, dronechargePath);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double GetChargeRate()
         {
             double[] i = ElectricityUse();
             return i[4];
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] ElectricityUse()
         {
             return XMLTools.LoadListFromXMLElement(configPath).Element("BatteryUsages").Elements()
@@ -155,8 +175,9 @@ namespace Dal
 
         #endregion
 
-
         #region Drone Charge
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DO.DroneCharge GetDroneCharge(int id)
         {
             XElement dronechargeElement = XMLTools.LoadListFromXMLElement(dronechargePath);
@@ -171,6 +192,8 @@ namespace Dal
                 throw new DO.BadIdException(id, "This drone does not exist in drone charges list: ");
             return dc;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDroneCharge(DO.DroneCharge dc)
         {
             XElement droneChargeElem = XMLTools.LoadListFromXMLElement(dronechargePath);
@@ -186,6 +209,8 @@ namespace Dal
             XMLTools.SaveListToXMLElement(droneChargeElem, dronechargePath);
 
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public bool CheckDC(int id)
         {
             XElement dronechargeElement = XMLTools.LoadListFromXMLElement(dronechargePath);
@@ -194,7 +219,8 @@ namespace Dal
                           select p).FirstOrDefault();
             return d != null;
         }
-       
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDroneCharge(DO.DroneCharge dc)
         {
             XElement droneChargeElem = XMLTools.LoadListFromXMLElement(dronePath);
@@ -208,6 +234,8 @@ namespace Dal
 
             XMLTools.SaveListToXMLElement(droneChargeElem, dronechargePath);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteDroneCharge(int id)
         {
             XElement droneChargeElem = XMLTools.LoadListFromXMLElement(dronePath);
@@ -220,6 +248,8 @@ namespace Dal
             d.Remove();
             XMLTools.SaveListToXMLElement(droneChargeElem, dronechargePath);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.DroneCharge> GetALLDroneCharges()
         {
             XElement droneChargeElem = XMLTools.LoadListFromXMLElement(dronechargePath);
@@ -234,6 +264,8 @@ namespace Dal
         #endregion
 
         #region Station
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DO.Station GetStation(int id)
         {
             XElement StationElement = XMLTools.LoadListFromXMLElement(stationPath);
@@ -251,6 +283,8 @@ namespace Dal
                 throw new DO.BadIdException(id, "This station does not exist");
             return dc;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(DO.Station s)
         {
             XElement stationElem = XMLTools.LoadListFromXMLElement(stationPath);
@@ -266,6 +300,8 @@ namespace Dal
             XMLTools.SaveListToXMLElement(stationElem, stationPath);
 
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public bool CheckStation(int id)
         {
             XElement stationElement = XMLTools.LoadListFromXMLElement(stationPath);
@@ -274,6 +310,8 @@ namespace Dal
                           select p).FirstOrDefault();
             return d != null;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateStation(DO.Station newD)
         {
             XElement stationElement = XMLTools.LoadListFromXMLElement(stationPath);
@@ -291,6 +329,7 @@ namespace Dal
             XMLTools.SaveListToXMLElement(stationElement, stationPath);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Station> GetALLStation()
         {
             XElement stationElement = XMLTools.LoadListFromXMLElement(stationPath);
@@ -304,6 +343,8 @@ namespace Dal
                         ChargeSlots = int.Parse(p.Element("ChargeSlots").Value)
                     });
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Station> GetALLStationsBy(Predicate<DO.Station> P)
         {
             XElement stationElement = XMLTools.LoadListFromXMLElement(stationPath);
@@ -319,13 +360,16 @@ namespace Dal
                     });
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Station> ListStation()
         {
             XElement stationElement = XMLTools.LoadListFromXMLElement(stationPath);
             List<DO.Station> statList = GetALLStation().ToList();
             return statList;
         }
-       public int NumOfChargingNow(int id)
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public int NumOfChargingNow(int id)
         {
             List<DO.DroneCharge> DChargeList = GetALLDroneCharges().ToList();
             int num = 0;
@@ -337,6 +381,7 @@ namespace Dal
             return num;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double StationDistance(double lat, double lon1, int id)
         {
             List<DO.Station> statList = GetALLStation().ToList();

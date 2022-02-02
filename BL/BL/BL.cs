@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using BlApi;
 using DalApi;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
@@ -22,22 +23,26 @@ namespace BL
 
         public BL()
         {
-            AccessIdal = DalApi.DalFactory.GetDal();
-            rand =  new Random(DateTime.Now.Millisecond);
-            chargeRate = AccessIdal.GetChargeRate();
-            DronesBL = (List<DroneToList>)(from item in AccessIdal.GetALLDrone()
-                                           select new DroneToList()
-                                           {
-                                               Id = item.Id,
-                                               Model = item.Model,
-                                               MaxWeight = (WeightCategories)item.MaxWeight,
-                                               Status = 0,
-                                               //CurrentLocation = new Location() { Lattitude = item.Lattitude, Longitude = item.Longitude },
-                                               // IdOfParcel=item.
-                                               Battery = rand.Next(20, 41),
-                                               IdOfParcel=-1
-                                     
-                                           }).ToList();
+            lock (AccessIdal)
+            {
+
+                AccessIdal = DalApi.DalFactory.GetDal();
+                rand = new Random(DateTime.Now.Millisecond);
+                chargeRate = AccessIdal.GetChargeRate();
+                DronesBL = (List<DroneToList>)(from item in AccessIdal.GetALLDrone()
+                                               select new DroneToList()
+                                               {
+                                                   Id = item.Id,
+                                                   Model = item.Model,
+                                                   MaxWeight = (WeightCategories)item.MaxWeight,
+                                                   Status = 0,
+                                                   //CurrentLocation = new Location() { Lattitude = item.Lattitude, Longitude = item.Longitude },
+                                                   // IdOfParcel=item.
+                                                   Battery = rand.Next(20, 41),
+                                                   IdOfParcel = -1
+
+                                               }).ToList();
+            }
             foreach (var item in DronesBL)
             {
                 item.CurrentLocation = new Location();
@@ -76,72 +81,7 @@ namespace BL
                     DronesBL.Add(d);
                 }
             }
-            //foreach (DroneToList item in DronesBL)
-            //{
-            //    //if (item.IdOfParcel != -1)
-            //    //{
-            //    //    if (AccessIdal.CheckParcel(item.IdOfParcel))
-            //    //    {
-            //    //        item.Status = DroneStatuses.Delivery;
-            //    //        Station s = closestStation(item.CurrentLocation.Longitude, item.CurrentLocation.Lattitude);
-            //    //        Drone dd = GetDrone(item.Id);
-            //    //        double ba = amountOfbattery(dd, dd.CurrentLocation, s.StationLocation);
-            //    //        item.Battery = rand.Next((int)ba, 101);
-            //    //        DO.Parcel p = AccessIdal.GetParcel(item.IdOfParcel);
-            //    //        DateTime? d = null;
-            //    //        if (p.PickedUp == d)
-            //    //        {
-
-            //    //            item.CurrentLocation = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
-
-            //    //        }
-            //    //        else if (p.Delivered == d)
-            //    //        {
-            //    //            DO.Customer c = AccessIdal.GetCustomer(p.SenderId);
-
-            //    //            item.CurrentLocation = new Location() { Lattitude = c.Lattitude, Longitude = c.Longitude };
-            //    //        }
-            //    //    }
-            //    //}
-            //    //if (item.Status != DroneStatuses.Delivery)
-            //    //{
-            //    //    int x = rand.Next(0, 2);
-            //    //    if (x == 1)
-            //    //        item.Status = DroneStatuses.Available;//YOU WROTY DELIVEREY, WHY????#####
-            //    //    else
-            //    //        item.Status = DroneStatuses.Maintenance;
-            //    //}
-            //    if (item.Status == DroneStatuses.Maintenance)
-            //    {
-            //        IEnumerable<Station> ss = GetAllStations();
-            //        int index = rand.Next(0, ss.Count());
-            //        item.CurrentLocation = new Location() { Lattitude = ss.ElementAt(index).StationLocation.Lattitude, Longitude = ss.ElementAt(index).StationLocation.Longitude };
-            //        item.Battery = rand.Next(20, 41);
-            //        DO.DroneCharge dc = new DO.DroneCharge() { DroneId = item.Id, StationId = ss.ElementAt(index).Id };
-            //       // AccessIdal.AddDroneCharge(dc);
-
-            //    }
-            //    if (item.Status == DroneStatuses.Available)
-            //    {
-            //        //IEnumerable<Customer> cc = GetAllCustomers();
-            //        //int index = rand.Next(0, cc.Count());
-            //        //item.CurrentLocation = new Location() { Lattitude = cc.ElementAt(index).CustLocation.Lattitude, Longitude = cc.ElementAt(index).CustLocation.Longitude };
-
-            //        ////הגרלות הגרלות#############################33
-            //        //if (item.CurrentLocation == null)
-            //        //{
-            //        //    item.CurrentLocation = new Location();
-            //        //    item.CurrentLocation.Lattitude = rand.Next(30, 33) + ((double)rand.Next(0, 1000000) / 1000000);
-            //        //    item.CurrentLocation.Longitude = rand.Next(34, 36) + ((double)rand.Next(0, 1000000) / 1000000);
-            //        //}
-            //        //Station s = closestStation(item.CurrentLocation.Longitude, item.CurrentLocation.Lattitude);
-            //        //Drone dd = GetDrone(item.Id);
-            //        //double ba = amountOfbattery(dd, dd.CurrentLocation, s.StationLocation);
-
-            //    }
-
-            //}
-
+            
             foreach (var item in DronesBL)
             {
                 if (item.Status == DroneStatuses.Available)
@@ -155,53 +95,63 @@ namespace BL
 
         private Station closestStation(double lon, double lat)
         {
-            double max=double.MaxValue, d = 0;
-            int ids=0;
-            foreach (DO.Station  item in AccessIdal.GetALLStation())
+            lock (AccessIdal)
             {
-                d = AccessIdal.StationDistance(lat, lon, item.Id);
-                if(d<max)
+
+                double max = double.MaxValue, d = 0;
+                int ids = 0;
+                foreach (DO.Station item in AccessIdal.GetALLStation())
                 {
-                    max = d;
-                    ids = item.Id;
+                    d = AccessIdal.StationDistance(lat, lon, item.Id);
+                    if (d < max)
+                    {
+                        max = d;
+                        ids = item.Id;
+                    }
                 }
+
+                return GetStation(ids);
             }
-            return GetStation(ids);
         }
 
         private double amountOfbattery(Drone d, Location l,Location L2)
         {
-            double[] arr = AccessIdal.ElectricityUse();
-            double s;
-            s = getDistanceFromLatLonInKm(l.Lattitude, l.Longitude, L2.Lattitude, L2.Longitude);
+            lock (AccessIdal)
+            {
+                double[] arr = AccessIdal.ElectricityUse();
+                double s;
+                s = getDistanceFromLatLonInKm(l.Lattitude, l.Longitude, L2.Lattitude, L2.Longitude);
 
-            if (d.Status == DroneStatuses.Available)
-            {
-                s *= arr[0];
-            }
-            else
-            {
-                switch (d.MaxWeight)
+                if (d.Status == DroneStatuses.Available)
                 {
-                    case WeightCategories.Light:
-                        s *= arr[1];
-                        break;
-                    case WeightCategories.Medium:
-                        s *= arr[2];
-                        break;
-                    case WeightCategories.Heavy:
-                        s *= arr[3];
-                        break;
-                    default:
-                        break;
+                    s *= arr[0];
                 }
+                else
+                {
+                    switch (d.MaxWeight)
+                    {
+                        case WeightCategories.Light:
+                            s *= arr[1];
+                            break;
+                        case WeightCategories.Medium:
+                            s *= arr[2];
+                            break;
+                        case WeightCategories.Heavy:
+                            s *= arr[3];
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                return s / 100;
             }
-            return s/100   ;
         }
         private double Deg2rad(double deg)
         {
             return deg * (Math.PI / 180);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)
         {
             double R = 6371; // Radius of the earth in km
@@ -215,11 +165,16 @@ namespace BL
             return d;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.DroneCharge> GetAllDroneCharges()
         {
-            return from item in AccessIdal.GetALLDroneCharges()
-                   orderby item.DroneId
-                   select AccessIdal.GetDroneCharge(item.DroneId);
+            lock (AccessIdal)
+            {
+
+                return from item in AccessIdal.GetALLDroneCharges()
+                       orderby item.DroneId
+                       select AccessIdal.GetDroneCharge(item.DroneId);
+            }
         }
     }
 }

@@ -40,8 +40,8 @@
             <TextBox x:Name="phoneTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding Phone, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
 
         </Grid>
-        <Button x:Name="addUpdateButton" Content="add/update" HorizontalAlignment="Left" Margin="618,98,0,0" VerticalAlignment="Top" Click="addUpdateButton_Click" Width="92" Background="{StaticResource MyButtonBackground}" />
-        <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="618,136,0,0" VerticalAlignment="Top" Click="cancelButton_Click" Width="92" Background="{StaticResource MyButtonBackground}"/>
+        <Button x:Name="addUpdateButton" Content="add/update" HorizontalAlignment="Left" Margin="618,102,0,0" VerticalAlignment="Top" Click="addUpdateButton_Click" Width="92" Background="{StaticResource MyButtonBackground}" />
+        <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="618,138,0,0" VerticalAlignment="Top" Click="cancelButton_Click" Width="92" Background="{StaticResource MyButtonBackground}"/>
         <Button x:Name="SendButton" Content="Send a parcel" Visibility="Hidden" HorizontalAlignment="Left" Margin="618,65,0,0" VerticalAlignment="Top" Width="92" Click="SendButton_Click" Background="{StaticResource MyButtonBackground}"/>
         <ListView x:Name="SentList" Margin="53,260,79,226" MouseDoubleClick="SentList_MouseDoubleClick">
             <ListView.View>

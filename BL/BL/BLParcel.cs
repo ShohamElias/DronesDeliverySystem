@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BO;
 using BlApi;
+using System.Runtime.CompilerServices;
 
 
 namespace BL
@@ -37,6 +38,7 @@ namespace BL
         /// gets a parcel and add it to the list
         /// </summary>
         /// <param name="p"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddParcel(Parcel p)
         {
             DO.Parcel par = new DO.Parcel();
@@ -61,99 +63,113 @@ namespace BL
             par.IsPicked = false;
             par.Scheduled = null;
             par.Delivered = null;
-            AccessIdal.AddParcel(par);
-
+            lock (AccessIdal)
+            {
+                AccessIdal.AddParcel(par);
+            }
         }
+
         /// <summary>
         /// returns all the parcel in the list
         /// </summary>
         /// <returns></returns> list of parcels
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetAllParcels()
         {
-            return from item in AccessIdal.GetALLParcel()
-                   orderby item.Id
-                   select GetParcel(item.Id);
+            lock (AccessIdal)
+            {
+                return from item in AccessIdal.GetALLParcel()
+                       orderby item.Id
+                       select GetParcel(item.Id);
+            }
         }
+
         /// <summary>
         /// gets and id of a parcel and returns the parcel
         /// </summary>
         /// <param name="id"></param> id of parcel
         /// <returns></returns> parcel
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int id)
         {
             if (id == -1)
                 return new Parcel();
-
             DO.Parcel p;
-            try
+            lock (AccessIdal)
             {
-                p = AccessIdal.GetParcel(id);
-            }
-            catch (DO.BadIdException)
-            {
-
-                throw new BadIdException(id, "this parcel doesn't exist");
-            }
-            Parcel pl = new Parcel()
-            {
-                Id = p.Id,
-                Weight = (WeightCategories)p.Weight,
-                Priority = (Priorities)p.Priority,
-                Requested = p.Requested,
-                Scheduled = p.Scheduled,
-                Delivered = p.Delivered,
-                PickedUp = p.PickedUp,
-                IsPicked = p.IsPicked,
-                IsDelivered=p.IsDelivered
-            };
-            if (p.SenderId != 0)
-            {
-                pl.Sender = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.SenderId).Name, Id = p.SenderId };
-                pl.Target = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.TargetId).Name, Id = p.TargetId };
-                if (p.DroneId > 0)
+                try
                 {
-                    DroneToList dt = DronesBL.Find(x => x.Id == p.DroneId);
-                    pl.DroneParcel = new DroneInParcel() { Battery = dt.Battery, Id = p.DroneId, CurrentLocation = new Location() { Longitude = dt.CurrentLocation.Longitude, Lattitude = dt.CurrentLocation.Lattitude } };
+                    p = AccessIdal.GetParcel(id);
+                }
+                catch (DO.BadIdException)
+                {
+
+                    throw new BadIdException(id, "this parcel doesn't exist");
+                }
+                Parcel pl = new Parcel()
+                {
+                    Id = p.Id,
+                    Weight = (WeightCategories)p.Weight,
+                    Priority = (Priorities)p.Priority,
+                    Requested = p.Requested,
+                    Scheduled = p.Scheduled,
+                    Delivered = p.Delivered,
+                    PickedUp = p.PickedUp,
+                    IsPicked = p.IsPicked,
+                    IsDelivered = p.IsDelivered
+                };
+                if (p.SenderId != 0)
+                {
+                    pl.Sender = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.SenderId).Name, Id = p.SenderId };
+                    pl.Target = new CustomerInParcel() { CustomerName = AccessIdal.GetCustomer(p.TargetId).Name, Id = p.TargetId };
+                    if (p.DroneId > 0)
+                    {
+                        DroneToList dt = DronesBL.Find(x => x.Id == p.DroneId);
+                        pl.DroneParcel = new DroneInParcel() { Battery = dt.Battery, Id = p.DroneId, CurrentLocation = new Location() { Longitude = dt.CurrentLocation.Longitude, Lattitude = dt.CurrentLocation.Lattitude } };
+                    }
+                }
+                else if (p.SenderId == 0)
+                {
+                    pl.Sender = new CustomerInParcel();
+                    pl.Target = new CustomerInParcel();
+                    pl.DroneParcel = new DroneInParcel();
                 }
 
-
-
+                if (p.DroneId <= 0)
+                {
+                    pl.DroneParcel = new DroneInParcel() { Id = 0 };
+                }
+                return pl;
             }
-            else if (p.SenderId == 0)
-            {
-                pl.Sender = new CustomerInParcel();
-                pl.Target = new CustomerInParcel();
-                pl.DroneParcel = new DroneInParcel();
-            }
-
-            if (p.DroneId <= 0)
-            {
-                pl.DroneParcel = new DroneInParcel() { Id = 0 };
-            }
-
-            return pl;
         }
+
         /// <summary>
         /// gets a parcel and update it
         /// </summary>
         /// <param name="p"></param> the parcel
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcel(Parcel p)
         {
-            DO.Parcel pDO = AccessIdal.GetParcel(p.Id);
-            pDO.PickedUp = p.PickedUp;
-            pDO.Requested = p.Requested;
-            pDO.Scheduled = p.Scheduled;
-            pDO.Delivered = p.Delivered;
-            pDO.IsDelivered = p.IsDelivered;
-            pDO.IsPicked = p.IsPicked;
-            if (!AccessIdal.CheckDrone(p.DroneParcel.Id))
-                pDO.DroneId = p.DroneParcel.Id; //error if null?
-            AccessIdal.UpdateParcel(pDO);
+            lock (AccessIdal)
+            {
+                DO.Parcel pDO = AccessIdal.GetParcel(p.Id);
+                pDO.PickedUp = p.PickedUp;
+                pDO.Requested = p.Requested;
+                pDO.Scheduled = p.Scheduled;
+                pDO.Delivered = p.Delivered;
+                pDO.IsDelivered = p.IsDelivered;
+                pDO.IsPicked = p.IsPicked;
+                if (!AccessIdal.CheckDrone(p.DroneParcel.Id))
+                    pDO.DroneId = p.DroneParcel.Id; //error if null?
+                AccessIdal.UpdateParcel(pDO);
+            }
         }
+
         /// <summary>
         /// gets and id of drone and update the parcel to be picked
         /// </summary>
         /// <param name="id"></param> id of drone
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void PickParcel(int id)
         {
             Drone d;
@@ -191,20 +207,24 @@ namespace BL
                 DronesBL.Remove(dss);
                 DronesBL.Add(dt);
                 UpdateParcel(p);
-
             }
             else
                 throw new WrongDroneStatException("there was an issue, parcel couldnt be picked");//########
 
         }
+
         /// <summary>
         /// gets an id of drone and update its parcel to be delivered
         /// </summary>
         /// <param name="id"></param> id of drone
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeliveringParcel(int id)
         {
-            if (!AccessIdal.CheckDrone(id))
-                throw new BadIdException(id, "drone doesnt exist");
+            lock (AccessIdal)
+            {
+                if (!AccessIdal.CheckDrone(id))
+                    throw new BadIdException(id, "drone doesnt exist");
+            }
             DroneToList dt = DronesBL.Find(x => x.Id == id);
             Parcel p;
             try
@@ -239,45 +259,58 @@ namespace BL
         /// returbs all of the unmached parcels
         /// </summary>
         /// <returns></returns> list of parcels
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetAllUnmachedParcels()
         {
-            return from sic in AccessIdal.GetALLParcelsBy(sic => sic.DroneId == 0)
-                   let crs = AccessIdal.GetParcel(sic.Id)
-                   select new BO.Parcel()
-                   {
-                       Id = crs.Id,
-                       DroneParcel = new DroneInParcel() { CurrentLocation = GetDrone(crs.DroneId).CurrentLocation, Battery = GetDrone(crs.DroneId).Battery, Id = crs.DroneId },
-                       Sender = new CustomerInParcel() { Id = crs.SenderId, CustomerName = GetCustomer(crs.SenderId).Name },
-                       Target = new CustomerInParcel() { Id = crs.TargetId, CustomerName = GetCustomer(crs.TargetId).Name },
-                       Requested = crs.Requested,
-                       Scheduled = crs.Scheduled,
-                       PickedUp = crs.PickedUp,
-                       Delivered = crs.Delivered,
-                       IsPicked = crs.IsPicked,
-                       IsDelivered = crs.IsDelivered,
-                       Weight = (BO.WeightCategories)((int)crs.Weight),
-                       Priority = (BO.Priorities)crs.Priority
-                   };
-
+            lock (AccessIdal)
+            {
+                return from sic in AccessIdal.GetALLParcelsBy(sic => sic.DroneId == 0)
+                       let crs = AccessIdal.GetParcel(sic.Id)
+                       select new BO.Parcel()
+                       {
+                           Id = crs.Id,
+                           DroneParcel = new DroneInParcel() { CurrentLocation = GetDrone(crs.DroneId).CurrentLocation, Battery = GetDrone(crs.DroneId).Battery, Id = crs.DroneId },
+                           Sender = new CustomerInParcel() { Id = crs.SenderId, CustomerName = GetCustomer(crs.SenderId).Name },
+                           Target = new CustomerInParcel() { Id = crs.TargetId, CustomerName = GetCustomer(crs.TargetId).Name },
+                           Requested = crs.Requested,
+                           Scheduled = crs.Scheduled,
+                           PickedUp = crs.PickedUp,
+                           Delivered = crs.Delivered,
+                           IsPicked = crs.IsPicked,
+                           IsDelivered = crs.IsDelivered,
+                           Weight = (BO.WeightCategories)((int)crs.Weight),
+                           Priority = (BO.Priorities)crs.Priority
+                       };
+            }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveParcel(int id)
         {
-            try
+            lock (AccessIdal)
             {
-                AccessIdal.RemoveParcel(id);
+                try
+                {
+                    AccessIdal.RemoveParcel(id);
+                }
+                catch (BadIdException)
+                {
+                    throw new BadIdException(id, "This parcel doesnt exist");
+                }
             }
-            catch (BadIdException)
-            {
-                throw new BadIdException(id, "This parcel doesnt exist");
-            }
-
-
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int GetNextParcel()
         {
-            parcelNum = AccessIdal.getParcelMax();
-            return parcelNum;
+            lock (AccessIdal)
+            {
+                parcelNum = AccessIdal.getParcelMax();
+                return parcelNum;
+            }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcelBy(Predicate<Parcel> P)
         {
             return from d in GetAllParcels()
@@ -285,12 +318,14 @@ namespace BL
                    select d;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelToList> GetAllParcelsToList()
         {
             return from d in GetAllParcels()              
                    select GetParcelToList(d.Id);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelToList> GetAllParcelsToListBy(Predicate<Parcel> P)
         {
             return from d in GetAllParcels()
@@ -298,6 +333,7 @@ namespace BL
                    select GetParcelToList(d.Id);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public ParcelToList GetParcelToList(int id)
         {
             Parcel p;
