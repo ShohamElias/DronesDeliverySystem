@@ -23,8 +23,8 @@ namespace BL
 
         public BL()
         {
-            lock (AccessIdal)
-            {
+        //    lock (AccessIdal)
+        //    {
 
                 AccessIdal = DalApi.DalFactory.GetDal();
                 rand = new Random(DateTime.Now.Millisecond);
@@ -42,7 +42,7 @@ namespace BL
                                                    IdOfParcel = -1
 
                                                }).ToList();
-            }
+            //}
             foreach (var item in DronesBL)
             {
                 item.CurrentLocation = new Location();

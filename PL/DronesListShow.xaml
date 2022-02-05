@@ -7,20 +7,23 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="DronesListShow" Height="549" Width="800" Activated="Window_Activated">
-
+    <Window.Resources>
+        <local:NotBooleanToVisibilityConverter x:Key="NotBooleanToVisibilityConverter" />
+    </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="18*"/>
-            <ColumnDefinition Width="108*"/>
-            <ColumnDefinition Width="550*"/>
-            <ColumnDefinition Width="121*"/>
+            <ColumnDefinition Width="99*"/>
+            <ColumnDefinition Width="598*"/>
+            <ColumnDefinition Width="82*"/>
         </Grid.ColumnDefinitions>
         <Grid Name="MainGrid" Margin="1,4,-4,-4" Background="#FFFDFDFD" Grid.ColumnSpan="4" Grid.Column="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="116*"/>
-                <ColumnDefinition Width="575*"/>
-                <ColumnDefinition Width="109*"/>
+                <ColumnDefinition Width="58*"/>
+                <ColumnDefinition Width="303*"/>
+                <ColumnDefinition Width="39*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50*"/>
@@ -28,20 +31,20 @@
             </Grid.RowDefinitions>
             <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="3">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="37*"/>
-                    <ColumnDefinition Width="13*"/>
-                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="200*"/>
+                    <ColumnDefinition Width="200*"/>
+                    <ColumnDefinition Width="148*"/>
+                    <ColumnDefinition Width="71*"/>
+                    <ColumnDefinition Width="181*"/>
                 </Grid.ColumnDefinitions >
-                <ComboBox x:Name="StatusSelector" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="StatusSelector_SelectionChanged"/>
-                <ComboBox x:Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelector_SelectionChanged" Grid.ColumnSpan="2" Margin="40,0,0,0"/>
-                <Label x:Name="statusLable" Content="Status"  HorizontalAlignment="Left" Margin="146,20,0,0" VerticalAlignment="Top" FontFamily="Lucida Fax" FontWeight="Normal"/>
-                <Label Content="Weight" Grid.Column="1" HorizontalAlignment="Left" Margin="181,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontFamily="Lucida Fax" FontWeight="Normal"/>
+                <ComboBox x:Name="StatusSelector" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" SelectionChanged="StatusSelector_SelectionChanged" Height="22" Margin="32,0,0,0"/>
+                <ComboBox x:Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelector_SelectionChanged" Grid.ColumnSpan="2" Margin="70,0,0,0" Height="22"/>
+                <Label x:Name="statusLable" Content="Status"  HorizontalAlignment="Left" Margin="162,20,0,0" VerticalAlignment="Top" FontFamily="Lucida Fax" FontWeight="Normal" Height="24" Width="47" Grid.ColumnSpan="2"/>
+                <Label Content="Weight" Grid.Column="2" HorizontalAlignment="Left" Margin="1,0,0,0" VerticalAlignment="Center" FontFamily="Lucida Fax" FontWeight="Normal" Height="24" Width="52"/>
             </Grid>
 
 
-            <ListView x:Name="DronesListView" ItemsSource="{Binding}" Margin="0,10,90,213" MouseDoubleClick="DronesListView_MouseDoubleClick" Background="White" SelectionChanged="DronesListView_SelectionChanged" SelectionMode="Single" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+            <ListView x:Name="DronesListView" ItemsSource="{Binding}" Margin="0,10,5,213" MouseDoubleClick="DronesListView_MouseDoubleClick" Background="White" SelectionChanged="DronesListView_SelectionChanged" SelectionMode="Single" Grid.Column="1" Grid.Row="1">
                 <ListView.ItemContainerStyle>
                     <Style>
                         <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
@@ -72,13 +75,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn x:Name="BatterySlotsColumn" Header="Battery" Width="80">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Label Content="{Binding Battery}" Margin="-6,-1"  HorizontalAlignment="Center"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+                    
 
                         <GridViewColumn x:Name="StatussColumn" Header="Status" Width="80">
                             <GridViewColumn.CellTemplate>
@@ -104,7 +101,14 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-
+                        <GridViewColumn x:Name="BatterySlotsColumn" Header="Battery" Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ProgressBar Height="15"  Width="80" Minimum="0" Maximum="100" Value="{Binding Battery}" Margin="-6,-1"  HorizontalAlignment="Center" Background="White" Foreground="{Binding Battery, Converter={StaticResource NotBooleanToVisibilityConverter}}" >
+                                    </ProgressBar>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
 
                     </GridView>
@@ -124,8 +128,8 @@
             <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Left" Margin="128,283,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.573,0.31" Height="39" Width="328" Click="AddDrone_Click" Grid.Column="1" Background="{StaticResource MyButtonBackground}"/>
 
         </Grid>
-        <Button x:Name="clearButton" Content="clear" HorizontalAlignment="Left" Margin="13,118,0,0" VerticalAlignment="Top" Click="clearButton_Click" Background="{StaticResource MyButtonBackground}" Width="54" Grid.Column="2"/>
-        <Button x:Name="GroupBy" Content="Grouping" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top" Click="GroupByClick_1"  Background="{StaticResource MyButtonBackground}" Grid.Column="2" Width="63" />
+        <Button x:Name="clearButton" Content="clear" HorizontalAlignment="Left" Margin="13,118,0,0" VerticalAlignment="Top" Click="clearButton_Click" Background="{StaticResource MyButtonBackground}" Width="54" Grid.Column="2" Height="25"/>
+        <Button x:Name="GroupBy" Content="Grouping" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top" Click="GroupByClick_1"  Background="{StaticResource MyButtonBackground}" Grid.Column="2" Width="63" Height="25" />
 
     </Grid>
 </Window>
