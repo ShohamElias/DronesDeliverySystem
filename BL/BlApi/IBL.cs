@@ -8,6 +8,7 @@ namespace BlApi
 {
     public interface IBL
     {
+        public void simulator(int droneId, Action updateWPF, Func<bool> check);
         #region Drone
         public BO.Drone GetDrone(int id);
          IEnumerable<BO.Drone> GetAllDrones();

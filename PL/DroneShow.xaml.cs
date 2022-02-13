@@ -373,6 +373,12 @@ namespace PL
             this.Close();
         }
 
-        
+        private void simulatorButton_Click(object sender, RoutedEventArgs e)
+        {
+            BackgroundWorker worker = new();
+            worker.WorkerReportsProgress = true;
+            worker.WorkerSupportsCancellation = true;
+           // worker.DoWork += bl.simulator;
+        }
     }
 }

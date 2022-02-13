@@ -34,6 +34,7 @@ namespace PL
             addupdatebutton.Content = "Update";
             ss = s;
             droneChargeListView.Visibility = Visibility.Visible;
+            
         }
         public StationShoWindow(BlApi.IBL _bl)
         {
@@ -178,5 +179,7 @@ namespace PL
                 MessageBox.Show(ex.ToString(), "Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+       
     }
 }

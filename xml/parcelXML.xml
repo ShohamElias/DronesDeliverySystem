@@ -210,4 +210,18 @@
     <IsDelivered>false</IsDelivered>
     <Delivered>2022-02-03T16:07:06.1009573+02:00</Delivered>
   </Parcel>
+  <Parcel>
+    <Id>1027</Id>
+    <SenderId>366323333</SenderId>
+    <TargetId>199247968</TargetId>
+    <Weight>Medium</Weight>
+    <Priority>TBN</Priority>
+    <Requested>2022-02-06T13:27:17.2037688+02:00</Requested>
+    <DroneId>1204</DroneId>
+    <Scheduled>2022-02-06T13:27:26.647947+02:00</Scheduled>
+    <PickedUp xsi:nil="true" />
+    <IsPicked>false</IsPicked>
+    <IsDelivered>false</IsDelivered>
+    <Delivered xsi:nil="true" />
+  </Parcel>
 </ArrayOfParcel>

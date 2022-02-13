@@ -92,6 +92,10 @@ namespace BL
                 }
             }
         }
+        public void Simulator(int droneId, Action updateWPF, Func<bool> check)
+        {
+            Simulation sim=new(null, droneId,  updateWPF, check);//לשנות מנאל!!!
+        }
 
         private Station closestStation(double lon, double lat)
         {
@@ -176,5 +180,7 @@ namespace BL
                        select AccessIdal.GetDroneCharge(item.DroneId);
             }
         }
+
+        
     }
 }

@@ -119,7 +119,7 @@ namespace PL
 
 
     }
-    public class NotBooleanToVisibilityConverter : IValueConverter
+    public class BatteryConverter : IValueConverter
     {
         //convert from source property type to target property type
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -127,7 +127,7 @@ namespace PL
             Double boolValue = (Double)value;
             if (boolValue > 20)
             {
-                return "#F005F7DF"; //Visibility.Collapsed;
+                return "Lime"; //Visibility.Collapsed;
             }
             else
             {

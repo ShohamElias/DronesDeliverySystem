@@ -36,5 +36,6 @@
         <ComboBox x:Name="stationCombo" HorizontalAlignment="Left" Margin="424,102,0,0" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
         <Label x:Name="stationLable" Content="Select Station" HorizontalAlignment="Left" Margin="337,100,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
         <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="336,345,0,0" VerticalAlignment="Top" Click="button_Click_3" Width="128" Background="{StaticResource MyButtonBackground}"/>
-      </Grid>
+        <Button x:Name="simulatorButton" Content="Automatic" HorizontalAlignment="Left" Margin="254,393,0,0" VerticalAlignment="Top" Width="271" Click="simulatorButton_Click"/>
+    </Grid>
 </Window>

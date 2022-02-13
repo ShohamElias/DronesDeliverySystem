@@ -10,9 +10,9 @@
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="86*"/>
-            <ColumnDefinition Width="366*"/>
-            <ColumnDefinition Width="132*"/>
-            <ColumnDefinition Width="89*"/>
+            <ColumnDefinition Width="317*"/>
+            <ColumnDefinition Width="136*"/>
+            <ColumnDefinition Width="134*"/>
             <ColumnDefinition Width="127*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
@@ -91,7 +91,7 @@
             </ListView.View>
 
         </ListView>
-        <Button x:Name="button" Content="Add a Customer" HorizontalAlignment="Left" Margin="261,349,0,0" VerticalAlignment="Top" Click="button_Click" Grid.Column="1" Background="{StaticResource MyButtonBackground}" Grid.ColumnSpan="2" Width="133" BorderThickness="10">
+        <Button x:Name="button" Content="Add a Customer" HorizontalAlignment="Left" Margin="261,349,0,0" VerticalAlignment="Top" Click="button_Click" Grid.Column="1" Background="{StaticResource MyButtonBackground}" Grid.ColumnSpan="2" Width="133" BorderThickness="10" Height="25">
             <Button.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.85">
                     <GradientStop Color="Black" Offset="0.163"/>
@@ -99,8 +99,8 @@
                 </LinearGradientBrush>
             </Button.BorderBrush>
         </Button>
-        <TextBox x:Name="textBox" Grid.Column="1" HorizontalAlignment="Left" Margin="82,51,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="textBox_TextChanged"/>
-        <Label x:Name="nameSearch" FontWeight="SemiBold" Content="Search by name:" HorizontalAlignment="Left" Margin="64,47,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="textBox" Grid.Column="1" HorizontalAlignment="Left" Margin="82,51,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="textBox_TextChanged" Height="17"/>
+        <Label x:Name="nameSearch" FontWeight="SemiBold" Content="Search by name:" HorizontalAlignment="Left" Margin="64,47,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="26" Width="99"/>
 
     </Grid>
 </Window>

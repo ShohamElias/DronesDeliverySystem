@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="StationShoWindow" Height="451" Width="809" Activated="Window_Activated">
+        Title="StationShoWindow" Height="321" Width="662" Activated="Window_Activated">
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="BorderThickness" Value="0 0 0 1" />
@@ -14,6 +14,10 @@
     </Window.Resources>
 
     <Grid Margin="0,0,10,0" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="433*"/>
+            <ColumnDefinition Width="366*"/>
+        </Grid.ColumnDefinitions>
         <Grid x:Name="stationGrid" HorizontalAlignment="Left" Margin="62,23,0,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -41,7 +45,7 @@
 
         </Grid>
 
-        <ListView x:Name="droneChargeListView" ItemsSource="{Binding}" Margin="351,27,282,287" SelectionMode="Single" MouseDoubleClick="droneChargeListView_MouseDoubleClick" SelectionChanged="droneChargeListView_SelectionChanged">
+        <ListView x:Name="droneChargeListView" ItemsSource="{Binding}" Margin="351,27,133,180" SelectionMode="Single" MouseDoubleClick="droneChargeListView_MouseDoubleClick" SelectionChanged="droneChargeListView_SelectionChanged" Grid.ColumnSpan="2">
             <ListView.ItemContainerStyle>
                 <Style>
                     <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
@@ -69,7 +73,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="addupdatebutton" Content="Button" HorizontalAlignment="Left" Height="34" Margin="370,162,0,0" VerticalAlignment="Top" Width="129" RenderTransformOrigin="1.027,-0.634" Click="addupdatebutton_Click" Background="{StaticResource MyButtonBackground}"/>
+        <Button x:Name="addupdatebutton" Content="Button" HorizontalAlignment="Left" Height="34" Margin="370,162,0,0" VerticalAlignment="Top" Width="129" RenderTransformOrigin="1.027,-0.634" Click="addupdatebutton_Click" Background="{StaticResource MyButtonBackground}" Grid.ColumnSpan="2"/>
     </Grid>
 
 </Window>

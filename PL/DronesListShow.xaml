@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen"
         Title="DronesListShow" Height="549" Width="800" Activated="Window_Activated">
     <Window.Resources>
-        <local:NotBooleanToVisibilityConverter x:Key="NotBooleanToVisibilityConverter" />
+        <local:BatteryConverter x:Key="BatteryConverter" />
     </Window.Resources>
     
     <Grid>
@@ -104,7 +104,7 @@
                         <GridViewColumn x:Name="BatterySlotsColumn" Header="Battery" Width="80">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ProgressBar Height="15"  Width="80" Minimum="0" Maximum="100" Value="{Binding Battery}" Margin="-6,-1"  HorizontalAlignment="Center" Background="White" Foreground="{Binding Battery, Converter={StaticResource NotBooleanToVisibilityConverter}}" >
+                                    <ProgressBar Height="15"  Width="80" Minimum="0" Maximum="100" Value="{Binding Battery}" Margin="-6,-1"  HorizontalAlignment="Center" Background="White" Foreground="{Binding Battery, Converter={StaticResource BatteryConverter}}" >
                                     </ProgressBar>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
