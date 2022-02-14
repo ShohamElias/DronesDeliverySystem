@@ -108,6 +108,7 @@ namespace BL
                     default:
                         break;
                 }
+                Thread.Sleep(1000);
             }
         }
     }
