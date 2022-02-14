@@ -83,7 +83,7 @@ namespace BL
                                 }
                                 d.Battery = battery;
                                 d.CurrentLocation = loc;
-                                blObject.PickParcel(droneId);
+                                blObject.DeliveringParcel(droneId);
                                 ReportProgressInSimulation();
                                 Thread.Sleep(500);
                             }
