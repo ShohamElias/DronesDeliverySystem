@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace PL
 {
     /// <summary>
@@ -396,6 +397,7 @@ namespace PL
                 CancelSimBtn.Visibility = Visibility.Collapsed;
                 simulatorButton.Visibility = Visibility.Visible;
                 simulatorButton.IsEnabled = true;
+                Cursor = Cursors.Arrow;
             }
             else ///###############
             {      
@@ -419,12 +421,15 @@ namespace PL
 
         private void simulatorButton_Click(object sender, RoutedEventArgs e)
         {
-            simulator();  
+            simulator();
+            
         }
 
         private void CancelSimBtn_Click(object sender, RoutedEventArgs e)
         {
             worker.CancelAsync();
+            Cursor = Cursors.Wait;
+          //  Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
         }
     }
 }
