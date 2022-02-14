@@ -92,7 +92,7 @@ namespace BL
                 }
             }
         }
-        public void Simulator(int droneId, Action updateWPF, Func<bool> check)
+        public void simulator(int droneId, Action updateWPF, Func<bool> check)
         {
             Simulation sim=new(null, droneId,  updateWPF, check);//לשנות מנאל!!!
         }
