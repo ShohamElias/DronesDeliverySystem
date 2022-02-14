@@ -22,7 +22,7 @@
         <Label x:Name="statuslablle" Content="Status" Margin="48,101,409,295"/>
         <Label x:Name="modelLable" Content="Model" Margin="49,60,408,336"/>
         <Label x:Name="latlable" Content="Latitude" Margin="49,228,408,168"/>
-        <Label x:Name="label7" Content="Lomgtitude" Margin="49,263,407,133" RenderTransformOrigin="0,0"/>
+        <Label x:Name="label7" Content="Longittude" Margin="49,263,407,133" RenderTransformOrigin="0,0"/>
         <ComboBox x:Name="WeightSelector" HorizontalAlignment="Left" Margin="194,152,0,0" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="LattextBox" HorizontalAlignment="Left" Margin="194,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.249,0.144" TextChanged="LattextBox_TextChanged"/>
         <TextBox x:Name="Lontextbox" HorizontalAlignment="Left" Margin="194,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Lontextbox_TextChanged"/>
@@ -37,5 +37,6 @@
         <Label x:Name="stationLable" Content="Select Station" HorizontalAlignment="Left" Margin="337,100,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
         <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="336,345,0,0" VerticalAlignment="Top" Click="button_Click_3" Width="128" Background="{StaticResource MyButtonBackground}"/>
         <Button x:Name="simulatorButton" Content="Automatic" HorizontalAlignment="Left" Margin="254,393,0,0" VerticalAlignment="Top" Width="271" Click="simulatorButton_Click"/>
+        <Button x:Name="CancelSimBtn" Content="Button" HorizontalAlignment="Left" Height="24" Margin="25,389,0,0" VerticalAlignment="Top" Width="188" Click="CancelSimBtn_Click"/>
     </Grid>
 </Window>

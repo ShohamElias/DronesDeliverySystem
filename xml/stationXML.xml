@@ -16,10 +16,10 @@
   </Station>
   <Station>
     <Id>2105</Id>
-    <Name />
+    <Name></Name>
     <Longitude>35.934184</Longitude>
     <Lattitude>31.976524</Lattitude>
-    <ChargeSlots>9</ChargeSlots>
+    <ChargeSlots>10</ChargeSlots>
   </Station>
   <Station>
     <Id>1821</Id>

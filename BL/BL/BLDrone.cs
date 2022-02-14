@@ -234,8 +234,7 @@ namespace BL
                     throw new BadIdException(id, "this drone doesnt exists");
                 }
             }
-            int i = DronesBL.FindIndex(x => x.Id == id);
-            DronesBL.ElementAt(i).Model = m;
+             DronesBL.Find(x => x.Id == id).Model = m;
             
         }
 
@@ -259,12 +258,12 @@ namespace BL
                 double b = amountOfbattery(GetDrone(id), dt.CurrentLocation, l);
                 if (b > dt.Battery)
                     throw new BatteryIssueException(dt.Id, "there wasnt enough battery");
-                DronesBL.Remove(dt);
+              //  DronesBL.Remove(dt);
                 dt.Battery -= Convert.ToInt32(b);
                 dt.CurrentLocation = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
                 dt.Status = DroneStatuses.Maintenance;
                 dt.TimeCharge = DateTime.Now;
-                DronesBL.Add(dt);
+               // DronesBL.Add(dt);
                 Station ss = GetStation(s.Id);
                 DroneCharge dc = new DroneCharge() { Battery = dt.Battery, DroneId = dt.Id };
                 ss.DronesinCharge.Add(dc);
@@ -293,7 +292,7 @@ namespace BL
                 if (!AccessIdal.CheckDrone(id))
                     throw new DO.BadIdException(id, "this drone doesnt exist"); //#######
                 DroneToList dt = DronesBL.Find(x => x.Id == id);
-                DroneToList dss = DronesBL.Find(x => x.Id == id);
+              //  DroneToList dss = DronesBL.Find(x => x.Id == id);
                 if (dt.Status != DroneStatuses.Maintenance)
                     throw new WrongDroneStatException(id, "this drone is not in charge"); //#####
                                                                                           // DronesBL.Remove(dt);
@@ -302,9 +301,9 @@ namespace BL
                 dt.Battery += 10 * (timeSpan.TotalHours * chargeRate);
                 if (dt.Battery >= 100)
                     dt.Battery = 100;
-                DronesBL.Remove(dss);
+               // DronesBL.Remove(dss);
 
-                DronesBL.Add(dt);
+               // DronesBL.Add(dt);
                 DO.DroneCharge dc = AccessIdal.GetDroneCharge(id);
                 Station s = GetStation(dc.StationId);
                 s.ChargeSlots++;
@@ -372,10 +371,10 @@ namespace BL
                 p2.Scheduled = DateTime.Now;
                 AccessIdal.UpdateParcel(p2);
                 DroneToList dt = DronesBL.Find(x => x.Id == d.Id);
-                DronesBL.Remove(dt);
+              //  DronesBL.Remove(dt);
                 dt.Status = DroneStatuses.Delivery;
                 dt.IdOfParcel = p2.Id;
-                DronesBL.Add(dt);
+               // DronesBL.Add(dt);
             }
         }
 

@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen"
         Title="DronesListShow" Height="549" Width="800" Activated="Window_Activated">
     <Window.Resources>
-        <local:BatteryConverter x:Key="BatteryConverter" />
+        <local:BatteryConverter x:Key="BatteryConverter"/>
     </Window.Resources>
     
     <Grid>

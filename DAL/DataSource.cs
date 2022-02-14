@@ -18,7 +18,7 @@ namespace Dal
             internal static double light = 2;
             internal static double heavy = 5;
             internal static double medium = 3;
-            internal static double chargeRate = 60;
+            internal static double chargeRate = 360;
            
         }
 

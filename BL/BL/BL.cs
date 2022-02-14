@@ -77,8 +77,8 @@ namespace BL
                     
                         d.CurrentLocation = GetCustomer(item.Sender.Id).CustLocation;
                     //}
-                    DronesBL.Remove(s);
-                    DronesBL.Add(d);
+                  //  DronesBL.Remove(s);
+                    //DronesBL.Add(d);
                 }
             }
             
@@ -94,10 +94,10 @@ namespace BL
         }
         public void simulator(int droneId, Action updateWPF, Func<bool> check)
         {
-            Simulation sim=new(null, droneId,  updateWPF, check);//לשנות מנאל!!!
+            new Simulation(this, droneId,  updateWPF, check);
         }
 
-        private Station closestStation(double lon, double lat)
+        internal Station closestStation(double lon, double lat)
         {
             lock (AccessIdal)
             {
@@ -118,7 +118,7 @@ namespace BL
             }
         }
 
-        private double amountOfbattery(Drone d, Location l,Location L2)
+        internal double amountOfbattery(Drone d, Location l,Location L2)
         {
             lock (AccessIdal)
             {

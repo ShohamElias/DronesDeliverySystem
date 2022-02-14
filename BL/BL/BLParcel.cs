@@ -183,7 +183,7 @@ namespace BL
                 throw new BadIdException(id, "this Drone doesn;t exist");
             }
             DroneToList dt = DronesBL.Find(x => x.Id == id);
-            DroneToList dss = DronesBL.Find(x => x.Id == id);
+          //  DroneToList dss = DronesBL.Find(x => x.Id == id);
 
             Parcel p;
             try
@@ -204,8 +204,8 @@ namespace BL
                 dt.CurrentLocation.Lattitude = GetCustomer(p.Sender.Id).CustLocation.Lattitude;
                 dt.CurrentLocation.Longitude = GetCustomer(p.Sender.Id).CustLocation.Longitude;
                 p.PickedUp = DateTime.Now;
-                DronesBL.Remove(dss);
-                DronesBL.Add(dt);
+              //  DronesBL.Remove(dss);
+              //  DronesBL.Add(dt);
                 UpdateParcel(p);
             }
             else
@@ -247,8 +247,8 @@ namespace BL
                 dt.Status = DroneStatuses.Available;
                 p.Delivered = DateTime.Now;
                 UpdateParcel(p);
-                DronesBL.Remove(DronesBL.Find(x => x.Id == id));
-                DronesBL.Add(dt);
+              //  DronesBL.Remove(DronesBL.Find(x => x.Id == id));
+                //DronesBL.Add(dt);
 
             }
             else

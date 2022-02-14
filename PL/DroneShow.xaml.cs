@@ -27,6 +27,7 @@ namespace PL
         bool updateflag = false;
         static bool closingwin = true;
         string type="f";
+        BackgroundWorker worker;
 
         public DroneShow(BlApi.IBL _bl, BO.Drone _d,string s)
         {
@@ -372,13 +373,58 @@ namespace PL
             StatusSelector.IsEnabled = true;
             this.Close();
         }
+    
+        private void simulator()
+        {
+             worker = new();
+
+            worker.WorkerReportsProgress = true;
+            worker.WorkerSupportsCancellation = true;
+            worker.DoWork += Worker_DoWork;
+            worker.ProgressChanged += Worker_ProgressChanged;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+
+        }
+        public bool IsTimeRun()
+        {
+            return worker.CancellationPending;
+        }
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if(CancelSimBtn.Visibility==Visibility.Visible)
+            {
+                CancelSimBtn.Visibility = Visibility.Collapsed;
+                simulatorButton.Visibility = Visibility.Visible;
+                simulatorButton.IsEnabled = true;
+            }
+            else ///###############
+            {      
+            }
+
+        }
+
+        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReportProgressInSimulator()
+        {
+            worker.ReportProgress(0);
+        }
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            bl.simulator(d.Id, ReportProgressInSimulator, IsTimeRun);
+        }
 
         private void simulatorButton_Click(object sender, RoutedEventArgs e)
         {
-            BackgroundWorker worker = new();
-            worker.WorkerReportsProgress = true;
-            worker.WorkerSupportsCancellation = true;
-           // worker.DoWork += bl.simulator;
+            simulator();  
+        }
+
+        private void CancelSimBtn_Click(object sender, RoutedEventArgs e)
+        {
+            worker.CancelAsync();
         }
     }
 }

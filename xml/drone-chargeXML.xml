@@ -4,8 +4,4 @@
     <DroneId>7498</DroneId>
     <StationId>3710</StationId>
   </DroneCharge>
-  <DroneCharge>
-    <DroneId>5306</DroneId>
-    <StationId>2105</StationId>
-  </DroneCharge>
 </ArrayOfDroneCharge>
