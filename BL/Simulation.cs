@@ -29,7 +29,7 @@ namespace BL
                             {
                                 battery = d.Battery;
                                 Station s = blObject.closestStation(d.CurrentLocation.Longitude, d.CurrentLocation.Lattitude);
-                                distance = blObject.getDistanceFromLatLonInKm(d.CurrentLocation.Longitude, d.CurrentLocation.Lattitude, s.StationLocation.Lattitude, s.StationLocation.Longitude);
+                                distance = blObject.getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, s.StationLocation.Lattitude, s.StationLocation.Longitude);
                                 while (distance>0)
                                 {
                                     d.Battery -= AccessIdal.ElectricityUse()[0];
@@ -46,7 +46,7 @@ namespace BL
                         break;
                     case DroneStatuses.Delivery:
                         {
-                            Parcel p = blObject.GetParcel(droneId);
+                            Parcel p = blObject.GetParcel(d.IdOfParcel);
                             if(p.PickedUp==null)
                             {
                                 Location loc = new() { Lattitude = d.CurrentLocation.Lattitude, Longitude = d.CurrentLocation.Longitude };
@@ -93,8 +93,8 @@ namespace BL
                         {
                             while (d.Battery<100)
                             {
-                                d.Battery += 1;
-                                if(d.Battery < 100)
+                                d.Battery += 10;
+                                if(d.Battery > 100)
                                 {
                                     d.Battery = 100;
                                 }

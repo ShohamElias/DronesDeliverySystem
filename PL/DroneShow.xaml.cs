@@ -369,6 +369,8 @@ namespace PL
         }
         private void button_Click_3(object sender, RoutedEventArgs e)
         {
+            if (!simulatorButton.IsEnabled)
+                worker.CancelAsync();
             closingwin = false;
             WeightSelector.IsEnabled = true;
             StatusSelector.IsEnabled = true;
@@ -378,7 +380,6 @@ namespace PL
         private void simulator()
         {
              worker = new();
-
             worker.WorkerReportsProgress = true;
             worker.WorkerSupportsCancellation = true;
             worker.DoWork += Worker_DoWork;
@@ -400,14 +401,24 @@ namespace PL
                 Cursor = Cursors.Arrow;
             }
             else ///###############
-            {      
+            {
+                button_Click_3(sender, null);
             }
 
         }
 
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            BO.Drone dI = bl.GetDrone(d.Id);
+            idtextbox.Text = dI.Id.ToString();
+            modelTextbox.Text = dI.Model.ToString();
+            LattextBox.Text = dI.CurrentLocation.Lattitude.ToString();
+            Lontextbox.Text = dI.CurrentLocation.Longitude.ToString();
+            BatteryTextBox.Text = Convert.ToInt64(dI.Battery).ToString();
+            modelTextbox.Text = dI.Model;
+
+            StatusSelector.SelectedItem = dI.Status;
+            WeightSelector.SelectedItem = dI.MaxWeight;
         }
 
         public void ReportProgressInSimulator()
@@ -422,6 +433,8 @@ namespace PL
         private void simulatorButton_Click(object sender, RoutedEventArgs e)
         {
             simulator();
+            worker.RunWorkerAsync();
+            simulatorButton.IsEnabled = false;
             
         }
 
