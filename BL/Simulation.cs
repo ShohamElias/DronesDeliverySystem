@@ -30,7 +30,11 @@ namespace BL
                                 battery = d.Battery;
                                 Station s = blObject.closestStation(d.CurrentLocation.Longitude, d.CurrentLocation.Lattitude);
                                 distance = blObject.getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, s.StationLocation.Lattitude, s.StationLocation.Longitude);
-                                while (distance>0)
+                                Drone dt = blObject.GetDrone(droneId);
+                                double b = blObject.amountOfbattery(dt, d.CurrentLocation, s.StationLocation);
+                                b /= distance;
+                                
+                                while (distance>1)
                                 {
                                     d.Battery -= AccessIdal.ElectricityUse()[0];
                                     ReportProgressInSimulation();
