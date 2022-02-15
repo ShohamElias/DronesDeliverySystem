@@ -11,7 +11,7 @@ namespace BL
         public Simulation(BL blObject, int droneId, Action ReportProgressInSimulation, Func<bool> IsTimeRun)
         {
             DalApi.IDal AccessIdal = DalApi.DalFactory.GetDal();
-            DroneToList d = blObject.GetAllDronesToList().First(x=>x.Id==droneId);
+                 DroneToList d = blObject.GetAllDronesToList().First(x=>x.Id==droneId);
             double battery, distance;
             while (!IsTimeRun())
             {
@@ -53,13 +53,16 @@ namespace BL
                                 battery = d.Battery;
                                 Customer c = blObject.GetCustomer(p.Sender.Id);
                                 distance = blObject.getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, c.CustLocation.Lattitude, c.CustLocation.Longitude);
-
+                                Drone dt = blObject.GetDrone(droneId);
+                                double b =blObject.amountOfbattery(dt, d.CurrentLocation,blObject. GetCustomer(p.Sender.Id).CustLocation);
+                                b /= distance;
+                                b *= 2;
                                 while (distance>1)
                                 {
-                                    d.Battery -= AccessIdal.ElectricityUse()[(int)p.Weight+1];
-                                    distance -= 1;
+                                    d.Battery -= b;// (AccessIdal.ElectricityUse()[(int)p.Weight+1]/10);
+                                    distance -= 2;
                                     ReportProgressInSimulation();
-                                    Thread.Sleep(500);
+                                    Thread.Sleep(100);
                                 }
                                 d.Battery = battery;
                                 d.CurrentLocation = loc;
@@ -73,13 +76,17 @@ namespace BL
                                 Customer c = blObject.GetCustomer(p.Target.Id);
                                 Location loc = new() { Lattitude = d.CurrentLocation.Lattitude, Longitude = d.CurrentLocation.Longitude };
                                 distance = blObject.getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, c.CustLocation.Lattitude, c.CustLocation.Longitude);
+                                Drone dt = blObject.GetDrone(droneId);
 
+                                double b = blObject.amountOfbattery(dt, d.CurrentLocation,blObject. GetCustomer(p.Target.Id).CustLocation);
+                                b /= distance;
+                                b *= 2;
                                 while (distance > 1)
                                 {
-                                    d.Battery -= AccessIdal.ElectricityUse()[(int)p.Weight + 1];
-                                    distance -= 1;
+                                    d.Battery -= b;//(AccessIdal.ElectricityUse()[(int)p.Weight + 1]/10);
+                                    distance -= 2;
                                     ReportProgressInSimulation();
-                                    Thread.Sleep(500);
+                                    Thread.Sleep(100);
                                 }
                                 d.Battery = battery;
                                 d.CurrentLocation = loc;

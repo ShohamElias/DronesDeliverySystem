@@ -12,40 +12,7 @@ using DalApi;
 namespace BL
 {
      partial class BL 
-    {
-        /// <summary>
-        /// adapter from dal to bl object
-        /// </summary>
-        /// <param name="customerDO"></param> DO object
-        /// <returns></returns> BO object
-        private Customer customerDoBoAdapter(DO.Customer customerDO)
-        {
-            lock (AccessIdal)
-            {
-
-                Customer customerBO = new Customer();
-                int id = customerDO.Id;
-                DO.Customer s;
-                try
-                {
-                    s = AccessIdal.GetCustomer(id);
-                }
-                catch (DO.BadIdException)
-                {
-
-                    throw new BadIdException("customer");
-                }
-
-                s.CopyPropertiesTo(customerBO);
-                customerDO.CopyPropertiesTo(customerBO);
-                return customerBO;
-            }
-
-        }
-        /// <summary>
-        /// creating a bl customer and adding it to the dal too
-        /// </summary>
-        /// <param name="newCustomer"></param>
+    {        
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer newCustomer)
         {
@@ -84,11 +51,8 @@ namespace BL
         {
             lock (AccessIdal)
             {
-
                 try
                 {
-                    if (!AccessIdal.CheckCustomer(cusId))
-                        throw new DO.BadIdException(cusId, "this customer doesn't exist");
                     DO.Customer cus = AccessIdal.GetCustomer(cusId);
                     if (cusName != "")
                         cus.Name = cusName;
@@ -98,7 +62,6 @@ namespace BL
                 }
                 catch (DO.BadIdException)
                 {
-
                     throw new BadIdException(cusId, "this customer doesn't exist");
                 }
             }
@@ -126,7 +89,8 @@ namespace BL
         {
             lock (AccessIdal)
             {
-                return from item in AccessIdal.GetALLCustomer()
+                return from item in GetAllCustomers()
+                       where item.parcelFromCustomer.Count>0
                        orderby item.Id
                        select GetCustomer(item.Id);
             }
@@ -212,8 +176,7 @@ namespace BL
                 ParcelsArrived=0,
                 ParcelsDelivered=0,
                 ParcelsOnTheWay=0,
-                PurcelsNotDelivered=0
-                
+                PurcelsNotDelivered=0               
             };
 
             foreach (var item in c.parcelFromCustomer)

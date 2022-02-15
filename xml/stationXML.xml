@@ -33,6 +33,6 @@
     <Name>tel aviv</Name>
     <Longitude>35.789414</Longitude>
     <Lattitude>30.887011</Lattitude>
-    <ChargeSlots>3</ChargeSlots>
+    <ChargeSlots>0</ChargeSlots>
   </Station>
 </ArrayOfStation>

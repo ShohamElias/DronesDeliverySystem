@@ -12,32 +12,6 @@ namespace BL
 {
      partial class BL
     {
-        /// <summary>
-        /// the func is an adpater from dal object to a bl object of station
-        /// </summary>
-        /// <param name="stationDO"></param> DAL station
-        /// <returns></returns> bl station
-        private Station stationDoBoAdapter(DO.Station stationDO)
-        {
-            Station stationBO = new Station();
-            int id = stationDO.Id;
-            DO.Station s;
-            try 
-            {
-                s = AccessIdal.GetStation(id);
-            }
-            catch (DO.BadIdException)
-            {
-
-                throw new BadIdException("station");
-            }
-            s.CopyPropertiesTo(stationBO);
-            stationDO.CopyPropertiesTo(stationBO);
-            stationBO.DronesinCharge = new List<DroneCharge>();
-            DroneCharge dc = new DroneCharge();
-            stationBO.DronesinCharge.Add(dc);
-            return stationBO;
-        }
 
         /// <summary>
         /// the func gets a station and adds it to the db on dal
@@ -64,7 +38,6 @@ namespace BL
                 }
                 catch (DO.IDExistsException)
                 {
-
                     throw new IDExistsException("Station");
                 }
             }
@@ -83,21 +56,14 @@ namespace BL
             {
                 try
                 {
-                    if (!AccessIdal.CheckStation(id))
-                        throw new DO.BadIdException(id, "this station doesnt exist");
                     DO.Station s = AccessIdal.GetStation(id);
                     if (name != "")
-                        s.Name = name;
-                    //Station t=get
-                    //int n = AccessIdal.NumOfChargingNow(id);
-                    //if (numOfChargingSlots >=n)###############doing problems!
-                    s.ChargeSlots = numOfChargingSlots/* - n*/;
+                    s.ChargeSlots = numOfChargingSlots;
                     AccessIdal.UpdateStation(s);
                 }
                 catch (DO.BadIdException)
                 {
-
-                    throw new BadIdException(id, "station");
+                    throw new BadIdException(id, "this station doesnt exist");
                 }
             }
         }
@@ -119,7 +85,6 @@ namespace BL
                 }
                 catch (DO.BadIdException)
                 {
-
                     throw new BadIdException(id, "this station doesnt exists");
                 }
                 Station sb = new Station()
@@ -155,8 +120,8 @@ namespace BL
             lock (AccessIdal)
             {
                 return from sic in AccessIdal.GetALLStationsBy(sic => sic.ChargeSlots != 0)
-                       let crs = AccessIdal.GetStation(sic.Id)
-                       select GetStation(crs.Id);
+                       //let crs = AccessIdal.GetStation(sic.Id) ####
+                       select GetStation(sic.Id);
             }
         }
 

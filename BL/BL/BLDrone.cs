@@ -352,11 +352,12 @@ namespace BL
                         p = item;
                         flag2 = true;
                     }
-
+                    d.Status = DroneStatuses.Delivery;
                     double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.SenderId).CustLocation);
                     double b2 = amountOfbattery(d, GetCustomer(p.SenderId).CustLocation, GetCustomer(p.TargetId).CustLocation);
                     Station st = closestStation(GetCustomer(p.TargetId).CustLocation.Longitude, GetCustomer(p.TargetId).CustLocation.Lattitude);
                     double b3 = amountOfbattery(d, GetCustomer(p.TargetId).CustLocation, st.StationLocation);
+                    d.Status = DroneStatuses.Available;
                     if (d.Battery >= b + b2 + b3 && flag2)
                     {
                         p2 = p;

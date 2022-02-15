@@ -13,28 +13,6 @@ namespace BL
     partial class BL
     {
         /// <summary>
-        /// adapter- gets a DO parcel and returns a BO parcel
-        /// </summary>
-        /// <param name="parcelDO"></param> the DO parcel
-        /// <returns></returns> BO parcel
-        private Parcel parcelDoBoAdapter(DO.Parcel parcelDO)
-        {
-            Parcel parcelBO = new Parcel();
-            int id = parcelDO.Id;
-            DO.Parcel s;
-            try //???
-            {
-                s = AccessIdal.GetParcel(id);
-            }
-            catch (DO.BadIdException)
-            {
-
-                throw new BadIdException("station");
-            }
-            return parcelBO;
-
-        }
-        /// <summary>
         /// gets a parcel and add it to the list
         /// </summary>
         /// <param name="p"></param>
@@ -103,7 +81,6 @@ namespace BL
                 }
                 catch (DO.BadIdException)
                 {
-
                     throw new BadIdException(id, "this parcel doesn't exist");
                 }
                 Parcel pl = new Parcel()
@@ -180,11 +157,9 @@ namespace BL
             catch (DO.BadIdException)
             {
 
-                throw new BadIdException(id, "this Drone doesn;t exist");
+                throw new BadIdException(id, "this Drone doesnt exist");
             }
             DroneToList dt = DronesBL.Find(x => x.Id == id);
-          //  DroneToList dss = DronesBL.Find(x => x.Id == id);
-
             Parcel p;
             try
             {
@@ -197,15 +172,13 @@ namespace BL
             if (d.Status == DroneStatuses.Delivery && p.Scheduled != null)
             {
                 double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Sender.Id).CustLocation);
-                d.Battery -= b;
+                d.Battery -= b;//#######
                 dt.Battery -= b;
                 if (dt.Battery < 0)
                     dt.Battery = 0;
                 dt.CurrentLocation.Lattitude = GetCustomer(p.Sender.Id).CustLocation.Lattitude;
                 dt.CurrentLocation.Longitude = GetCustomer(p.Sender.Id).CustLocation.Longitude;
                 p.PickedUp = DateTime.Now;
-              //  DronesBL.Remove(dss);
-              //  DronesBL.Add(dt);
                 UpdateParcel(p);
             }
             else
@@ -247,9 +220,6 @@ namespace BL
                 dt.Status = DroneStatuses.Available;
                 p.Delivered = DateTime.Now;
                 UpdateParcel(p);
-              //  DronesBL.Remove(DronesBL.Find(x => x.Id == id));
-                //DronesBL.Add(dt);
-
             }
             else
                 throw new Exception("there was an issue with the parcel or drone status");
@@ -265,22 +235,7 @@ namespace BL
             lock (AccessIdal)
             {
                 return from sic in AccessIdal.GetALLParcelsBy(sic => sic.DroneId == 0)
-                       let crs = AccessIdal.GetParcel(sic.Id)
-                       select new BO.Parcel()
-                       {
-                           Id = crs.Id,
-                           DroneParcel = new DroneInParcel() { CurrentLocation = GetDrone(crs.DroneId).CurrentLocation, Battery = GetDrone(crs.DroneId).Battery, Id = crs.DroneId },
-                           Sender = new CustomerInParcel() { Id = crs.SenderId, CustomerName = GetCustomer(crs.SenderId).Name },
-                           Target = new CustomerInParcel() { Id = crs.TargetId, CustomerName = GetCustomer(crs.TargetId).Name },
-                           Requested = crs.Requested,
-                           Scheduled = crs.Scheduled,
-                           PickedUp = crs.PickedUp,
-                           Delivered = crs.Delivered,
-                           IsPicked = crs.IsPicked,
-                           IsDelivered = crs.IsDelivered,
-                           Weight = (BO.WeightCategories)((int)crs.Weight),
-                           Priority = (BO.Priorities)crs.Priority
-                       };
+                       select GetParcel(sic.Id);
             }
         }
 
@@ -321,7 +276,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelToList> GetAllParcelsToList()
         {
-            return from d in GetAllParcels()              
+            return from d in GetAllParcels()
                    select GetParcelToList(d.Id);
         }
 
