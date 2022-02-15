@@ -50,4 +50,9 @@
     <Model>22</Model>
     <MaxWeight>Light</MaxWeight>
   </Drone>
+  <Drone>
+    <Id>2002</Id>
+    <Model>shsh</Model>
+    <MaxWeight>Heavy</MaxWeight>
+  </Drone>
 </ArrayOfDrone>

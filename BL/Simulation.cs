@@ -36,10 +36,10 @@ namespace BL
                                 
                                 while (distance>1)
                                 {
-                                    d.Battery -= AccessIdal.ElectricityUse()[0];
+                                    d.Battery -= b;
                                     ReportProgressInSimulation();
                                     distance -= 1;
-                                    Thread.Sleep(500);
+                                    Thread.Sleep(50);
                                 }
 
                                 d.Battery = battery;
@@ -66,13 +66,13 @@ namespace BL
                                     d.Battery -= b;// (AccessIdal.ElectricityUse()[(int)p.Weight+1]/10);
                                     distance -= 2;
                                     ReportProgressInSimulation();
-                                    Thread.Sleep(100);
+                                    Thread.Sleep(50);
                                 }
                                 d.Battery = battery;
                                 d.CurrentLocation = loc;
                                 blObject.PickParcel(droneId);
                                 ReportProgressInSimulation();
-                                Thread.Sleep(500);
+                                Thread.Sleep(100);
                             }
                             else
                             {
@@ -90,13 +90,13 @@ namespace BL
                                     d.Battery -= b;//(AccessIdal.ElectricityUse()[(int)p.Weight + 1]/10);
                                     distance -= 2;
                                     ReportProgressInSimulation();
-                                    Thread.Sleep(100);
+                                    Thread.Sleep(50);
                                 }
                                 d.Battery = battery;
                                 d.CurrentLocation = loc;
                                 blObject.DeliveringParcel(droneId);
                                 ReportProgressInSimulation();
-                                Thread.Sleep(500);
+                                Thread.Sleep(100);
                             }
                         }
                         break;
@@ -110,7 +110,7 @@ namespace BL
                                     d.Battery = 100;
                                 }
                                 ReportProgressInSimulation();
-                                Thread.Sleep(500);
+                                Thread.Sleep(100);
                             }
                             blObject.EndCharging(droneId);
                             ReportProgressInSimulation();
@@ -119,7 +119,7 @@ namespace BL
                     default:
                         break;
                 }
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
             }
         }
     }

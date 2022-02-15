@@ -199,6 +199,7 @@ namespace PL
             if (addUpdateButton.Content == "Add")
             {
                 BO.Parcel p = new BO.Parcel();
+                
                 p.Id = bl.GetNextParcel()+1;
                 if (targetComboBox.SelectedItem==senderComboBox.SelectedItem)
                 {

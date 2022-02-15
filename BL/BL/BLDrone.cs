@@ -372,10 +372,8 @@ namespace BL
                 p2.Scheduled = DateTime.Now;
                 AccessIdal.UpdateParcel(p2);
                 DroneToList dt = DronesBL.Find(x => x.Id == d.Id);
-              //  DronesBL.Remove(dt);
                 dt.Status = DroneStatuses.Delivery;
                 dt.IdOfParcel = p2.Id;
-               // DronesBL.Add(dt);
             }
         }
 

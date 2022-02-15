@@ -26,13 +26,13 @@
     <Name>rrr</Name>
     <Longitude>35.792904</Longitude>
     <Lattitude>32.391015</Lattitude>
-    <ChargeSlots>9</ChargeSlots>
+    <ChargeSlots>8</ChargeSlots>
   </Station>
   <Station>
     <Id>3710</Id>
     <Name>tel aviv</Name>
     <Longitude>35.789414</Longitude>
     <Lattitude>30.887011</Lattitude>
-    <ChargeSlots>0</ChargeSlots>
+    <ChargeSlots>-4</ChargeSlots>
   </Station>
 </ArrayOfStation>

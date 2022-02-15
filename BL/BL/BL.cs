@@ -147,7 +147,7 @@ namespace BL
                             break;
                     }
                 }
-                return s/10 /*/ 100*/;
+                return s/50 /*/ 100*/;
             }
         }
         private double Deg2rad(double deg)

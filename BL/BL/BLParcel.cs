@@ -234,7 +234,7 @@ namespace BL
         {
             lock (AccessIdal)
             {
-                return from sic in AccessIdal.GetALLParcelsBy(sic => sic.DroneId == 0)
+                return from sic in AccessIdal.GetALLParcelsBy(x=>x.Scheduled==null)
                        select GetParcel(sic.Id);
             }
         }

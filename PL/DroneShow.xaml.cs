@@ -267,7 +267,7 @@ namespace PL
                 stationLable.Visibility = Visibility.Visible;
                 stationCombo.ItemsSource = s;
                 latlable.Visibility = Visibility.Hidden;
-                label7.Visibility = Visibility.Hidden;
+                lable7.Visibility = Visibility.Hidden;
                 LattextBox.Visibility = Visibility.Hidden;
                 Lontextbox.Visibility = Visibility.Hidden;
 
@@ -277,7 +277,7 @@ namespace PL
                 LattextBox.Visibility = Visibility.Visible;
                 Lontextbox.Visibility = Visibility.Visible;
                 latlable.Visibility = Visibility.Visible;
-                label7.Visibility = Visibility.Visible;
+                lable7.Visibility = Visibility.Visible;
                 
             }
         }
@@ -416,9 +416,11 @@ namespace PL
             Lontextbox.Text = dI.CurrentLocation.Longitude.ToString();
             BatteryTextBox.Text = Convert.ToInt64(dI.Battery).ToString();
             modelTextbox.Text = dI.Model;
-
+            
             StatusSelector.SelectedItem = dI.Status;
             WeightSelector.SelectedItem = dI.MaxWeight;
+            if (dI.Status == BO.DroneStatuses.Delivery)
+                ppp.Content = dI.CurrentParcel.Id.ToString();
         }
 
         public void ReportProgressInSimulator()
