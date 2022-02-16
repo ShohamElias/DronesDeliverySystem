@@ -9,7 +9,7 @@
   </Station>
   <Station>
     <Id>5656</Id>
-    <Name />
+    <Name></Name>
     <Longitude>34.638011</Longitude>
     <Lattitude>32.720889</Lattitude>
     <ChargeSlots>9</ChargeSlots>
@@ -33,6 +33,6 @@
     <Name>tel aviv</Name>
     <Longitude>35.789414</Longitude>
     <Lattitude>30.887011</Lattitude>
-    <ChargeSlots>-6</ChargeSlots>
+    <ChargeSlots>-7</ChargeSlots>
   </Station>
 </ArrayOfStation>

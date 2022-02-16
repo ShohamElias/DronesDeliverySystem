@@ -39,7 +39,7 @@ namespace BL
                                     d.Battery -= b;
                                     ReportProgressInSimulation();
                                     distance -= 1;
-                                    Thread.Sleep(500);
+                                    Thread.Sleep(200);
                                 }
 
                                 d.Battery = battery;
@@ -60,13 +60,13 @@ namespace BL
                                 Drone dt = blObject.GetDrone(droneId);
                                 double b =blObject.amountOfbattery(dt, d.CurrentLocation,blObject. GetCustomer(p.Sender.Id).CustLocation);
                                 b /= distance;
-                                b *= 2;
+                                b *= 4;
                                 while (distance>1)
                                 {
                                     d.Battery -= b;// (AccessIdal.ElectricityUse()[(int)p.Weight+1]/10);
-                                    distance -= 2;
+                                    distance -= 4;
                                     ReportProgressInSimulation();
-                                    Thread.Sleep(100);
+                                    Thread.Sleep(20);
                                 }
                                 d.Battery = battery;
                                 d.CurrentLocation = loc;
@@ -90,7 +90,7 @@ namespace BL
                                     d.Battery -= b;//(AccessIdal.ElectricityUse()[(int)p.Weight + 1]/10);
                                     distance -= 2;
                                     ReportProgressInSimulation();
-                                    Thread.Sleep(100);
+                                    Thread.Sleep(20);
                                 }
                                 d.Battery = battery;
                                 d.CurrentLocation = loc;
@@ -110,7 +110,7 @@ namespace BL
                                     d.Battery = 100;
                                 }
                                 ReportProgressInSimulation();
-                                Thread.Sleep(100);
+                                Thread.Sleep(500);
                             }
                             blObject.EndCharging(droneId);
                             ReportProgressInSimulation();
