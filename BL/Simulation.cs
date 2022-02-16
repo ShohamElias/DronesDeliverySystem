@@ -39,7 +39,7 @@ namespace BL
                                     d.Battery -= b;
                                     ReportProgressInSimulation();
                                     distance -= 1;
-                                    Thread.Sleep(50);
+                                    Thread.Sleep(500);
                                 }
 
                                 d.Battery = battery;
@@ -66,7 +66,7 @@ namespace BL
                                     d.Battery -= b;// (AccessIdal.ElectricityUse()[(int)p.Weight+1]/10);
                                     distance -= 2;
                                     ReportProgressInSimulation();
-                                    Thread.Sleep(50);
+                                    Thread.Sleep(100);
                                 }
                                 d.Battery = battery;
                                 d.CurrentLocation = loc;
@@ -90,7 +90,7 @@ namespace BL
                                     d.Battery -= b;//(AccessIdal.ElectricityUse()[(int)p.Weight + 1]/10);
                                     distance -= 2;
                                     ReportProgressInSimulation();
-                                    Thread.Sleep(50);
+                                    Thread.Sleep(100);
                                 }
                                 d.Battery = battery;
                                 d.CurrentLocation = loc;

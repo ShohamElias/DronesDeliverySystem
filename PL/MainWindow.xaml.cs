@@ -22,7 +22,7 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        BlApi.IBL bl; 
+        BlApi.IBL bl;
         public MainWindow()
         {
             InitializeComponent();
@@ -31,17 +31,12 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new DronesListShow(bl).Show();
+            new CustomerList(bl).Show();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             new ParcelWindow(bl).Show();
-        }
-
-        private void Customer_Click(object sender, RoutedEventArgs e)
-        {
-            new CustomerListShow(bl).Show();
         }
 
         private void stationList_Click(object sender, RoutedEventArgs e)
@@ -53,6 +48,9 @@ namespace PL
         {
             new UserWindow(bl).Show();
         }
-        
+        private void Customer_Click(object sender, RoutedEventArgs e)
+        {
+            new DronesListShow(bl).Show();
+        }
     }
 }
