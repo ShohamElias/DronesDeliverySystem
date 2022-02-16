@@ -63,10 +63,10 @@ namespace BL
                                 b *= 4;
                                 while (distance>1)
                                 {
-                                    d.Battery -= b;// (AccessIdal.ElectricityUse()[(int)p.Weight+1]/10);
+                                    d.Battery -= 0.5;// (AccessIdal.ElectricityUse()[(int)p.Weight+1]/10);
                                     distance -= 4;
                                     ReportProgressInSimulation();
-                                    Thread.Sleep(20);
+                                    //Thread.Sleep(20);
                                 }
                                 d.Battery = battery;
                                 d.CurrentLocation = loc;
@@ -79,18 +79,18 @@ namespace BL
                                 battery = d.Battery;
                                 Customer c = blObject.GetCustomer(p.Target.Id);
                                 Location loc = new() { Lattitude = d.CurrentLocation.Lattitude, Longitude = d.CurrentLocation.Longitude };
-                                distance = blObject.getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, c.CustLocation.Lattitude, c.CustLocation.Longitude);
+                                distance = 50;// blObject.getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, c.CustLocation.Lattitude, c.CustLocation.Longitude);
                                 Drone dt = blObject.GetDrone(droneId);
 
-                                double b = blObject.amountOfbattery(dt, d.CurrentLocation,blObject. GetCustomer(p.Target.Id).CustLocation);
+                                double b = blObject.amountOfbattery(dt, d.CurrentLocation, blObject.GetCustomer(p.Target.Id).CustLocation);
                                 b /= distance;
-                                b *= 2;
+                               // b *= 2;
                                 while (distance > 1)
                                 {
-                                    d.Battery -= b;//(AccessIdal.ElectricityUse()[(int)p.Weight + 1]/10);
-                                    distance -= 2;
+                                    d.Battery -= 3;//(AccessIdal.ElectricityUse()[(int)p.Weight + 1]/10);
+                                    distance -= 1;
                                     ReportProgressInSimulation();
-                                    Thread.Sleep(20);
+                                    //Thread.Sleep(500);
                                 }
                                 d.Battery = battery;
                                 d.CurrentLocation = loc;
