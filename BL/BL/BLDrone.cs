@@ -253,17 +253,22 @@ namespace BL
                 DroneToList dt = DronesBL.Find(x => x.Id == id);
                 if (dt.Status != DroneStatuses.Available)
                     throw new WrongDroneStatException(id, "this drone is already charging or in a delivery -> not available");
+
                 Station s = closestStation(dt.CurrentLocation.Longitude, dt.CurrentLocation.Lattitude);
+                if (s.Id == 0)
+                {
+                    throw new StationProblemException("There wasn't any empty station. \n Pleas try again later!");
+                }
                 Location l = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
                 double b = amountOfbattery(GetDrone(id), dt.CurrentLocation, l);
+
                 if (b > dt.Battery)
                     throw new BatteryIssueException(dt.Id, "there wasnt enough battery");
-              //  DronesBL.Remove(dt);
+
                 dt.Battery -= Convert.ToInt32(b);
                 dt.CurrentLocation = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
                 dt.Status = DroneStatuses.Maintenance;
                 dt.TimeCharge = DateTime.Now;
-               // DronesBL.Add(dt);
                 Station ss = GetStation(s.Id);
                 DroneCharge dc = new DroneCharge() { Battery = dt.Battery, DroneId = dt.Id };
                 ss.DronesinCharge.Add(dc);

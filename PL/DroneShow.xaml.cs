@@ -30,7 +30,7 @@ namespace PL
         string type="f";
         BackgroundWorker worker;
 
-        public DroneShow(BlApi.IBL _bl, BO.Drone _d,string s)
+        public DroneShow(BlApi.IBL _bl, BO.Drone _d,string s)//view only! option window
         {
             InitializeComponent();
             d = _d;
@@ -61,8 +61,8 @@ namespace PL
 
             WeightSelector.IsEnabled = false;
             StatusSelector.IsEnabled = false;
-
         }
+ 
         public DroneShow(BlApi.IBL _bl) //window opens as "ADD" opstion
         {
             InitializeComponent();
@@ -134,11 +134,11 @@ namespace PL
 
             StatusSelector.IsEnabled = false;
             WeightSelector.IsEnabled = false;
-            
 
+            simulatorButton.Visibility = Visibility.Visible;//simulator is available
         }
 
-       
+
 
         private void button_Click(object sender, RoutedEventArgs e) //add/update button click
         {
@@ -153,7 +153,7 @@ namespace PL
                     }                  
 
                     int stid = 0;
-                    BO.Drone db = new BO.Drone() //creating a new drone bty the filled text boxes and comboboxes
+                    BO.Drone db = new BO.Drone() //creating a new drone by the filled text boxes and comboboxes
                     {
                         Id = Convert.ToInt32(idtextbox.Text.ToString()),
                         Battery = double.Parse(BatteryTextBox.Text.ToString()),
@@ -369,8 +369,11 @@ namespace PL
         }
         private void button_Click_3(object sender, RoutedEventArgs e)
         {
-            if (!simulatorButton.IsEnabled)
+            if (!simulatorButton.IsEnabled )//If we came by the cancel button and the simulator hasant stopped yet
+            {
                 worker.CancelAsync();
+                return;
+            }
             closingwin = false;
             WeightSelector.IsEnabled = true;
             StatusSelector.IsEnabled = true;
@@ -393,17 +396,16 @@ namespace PL
         }
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if(CancelSimBtn.Visibility==Visibility.Visible)
-            {
-                CancelSimBtn.Visibility = Visibility.Collapsed;
-                simulatorButton.Visibility = Visibility.Visible;
-                simulatorButton.IsEnabled = true;
-                Cursor = Cursors.Arrow;
-            }
-            else ///###############
+            
+            CancelSimBtn.Visibility = Visibility.Collapsed;
+            simulatorButton.Visibility = Visibility.Visible;
+            simulatorButton.IsEnabled = true;
+            if (Cursor != Cursors.Wait)//canceld bc of cancel button => wanting to close window
             {
                 button_Click_3(sender, null);
-            }
+
+            }//canceled bc of stop simulation button
+            Cursor = Cursors.Arrow;
 
         }
 
@@ -427,6 +429,7 @@ namespace PL
         {
             worker.ReportProgress(0);
         }
+
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             bl.simulator(d.Id, ReportProgressInSimulator, IsTimeRun);
@@ -437,6 +440,8 @@ namespace PL
             simulator();
             worker.RunWorkerAsync();
             simulatorButton.IsEnabled = false;
+            simulatorButton.Visibility = Visibility.Collapsed;
+            CancelSimBtn.Visibility = Visibility.Visible;
             
         }
 
@@ -444,7 +449,6 @@ namespace PL
         {
             worker.CancelAsync();
             Cursor = Cursors.Wait;
-          //  Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
         }
     }
 }

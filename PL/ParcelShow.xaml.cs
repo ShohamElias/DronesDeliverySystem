@@ -69,7 +69,6 @@ namespace PL
             senderButton.Visibility = Visibility.Hidden;
             targetButton.Visibility = Visibility.Hidden;
 
-            bl.GetNextParcel();
             num = bl.GetNextParcel();
             iDlabel.Content = num+1;
             iDlabel.Visibility = Visibility.Visible;

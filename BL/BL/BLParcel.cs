@@ -172,7 +172,6 @@ namespace BL
             if (d.Status == DroneStatuses.Delivery && p.Scheduled != null)
             {
                 double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Sender.Id).CustLocation);
-                d.Battery -= b;//#######
                 dt.Battery -= b;
                 if (dt.Battery < 0)
                     dt.Battery = 0;

@@ -36,8 +36,8 @@
         <ComboBox x:Name="stationCombo" HorizontalAlignment="Left" Margin="424,102,0,0" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
         <Label x:Name="stationLable" Content="Select Station" HorizontalAlignment="Left" Margin="337,100,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
         <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="336,345,0,0" VerticalAlignment="Top" Click="button_Click_3" Width="128" Background="{StaticResource MyButtonBackground}"/>
-        <Button x:Name="simulatorButton" Content="Automatic" HorizontalAlignment="Left" Margin="254,393,0,0" VerticalAlignment="Top" Width="271" Click="simulatorButton_Click"/>
-        <Button x:Name="CancelSimBtn" Content="Button" HorizontalAlignment="Left" Height="24" Margin="25,389,0,0" VerticalAlignment="Top" Width="188" Click="CancelSimBtn_Click"/>
+        <Button x:Name="simulatorButton" Content="Automatic" HorizontalAlignment="Left" Margin="254,393,0,0" VerticalAlignment="Top" Width="271" Click="simulatorButton_Click" Visibility="Hidden"/>
+        <Button x:Name="CancelSimBtn" Content="Button" HorizontalAlignment="Left" Height="24" Margin="254,394,0,0" VerticalAlignment="Top" Width="271" Click="CancelSimBtn_Click" Visibility="Collapsed"/>
         <Label x:Name="ppp" Content="Label" HorizontalAlignment="Left" Margin="484,188,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

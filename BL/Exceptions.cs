@@ -118,19 +118,15 @@ namespace BO
         [Serializable]
         public class StationProblemException : Exception
         {
-            public int ID { get; private set; }
+          public int ID { get; private set; }
+           public StationProblemException(int id) : base() => ID = id;
+           public StationProblemException(string message) : base(message) { }
+           public StationProblemException(int id, string message, Exception inner) : base(message, inner) => ID = id;
 
-            public StationProblemException(int id) : base() => ID = id;
-            public StationProblemException(string message) : base(message) { }
-            public StationProblemException(int id, string message, Exception inner) : base(message, inner) => ID = id;
-
-            //   protected BadIdException(int idSerializationInfo info, StreamingContext context)
-            //: base(info, context) { }
-            //   // special constructor for our custom exception
             public StationProblemException(int id, string message) : base(message)
             { this.ID = id; }
 
             override public string ToString()
-            { return "problem with station:" + ID + "\n" + Message; }
+            { return  Message; }
         }
     }

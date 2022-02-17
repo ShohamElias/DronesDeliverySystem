@@ -11,18 +11,11 @@ namespace BO
             public int Id { get; set; }
 
             public CustomerInParcel Sender { get; set; }
-
             public CustomerInParcel Target { get; set; }
-
-
-            //public int SenderId { get; set; }
-           // public int Id { get; set; }
-
             public DroneInParcel DroneParcel { get; set; }
             public WeightCategories Weight { get; set; }
             public Priorities Priority { get; set; }
             public DateTime? Requested { get; set; }
-           // public int DroneId { get; set; }
             public DateTime? Scheduled { get; set; }
             public DateTime? PickedUp { get; set; }
             public DateTime? Delivered { get; set; }

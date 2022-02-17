@@ -74,8 +74,8 @@
     <Id>123456</Id>
     <Name>EPRAT</Name>
     <Phone>12345</Phone>
-    <Longitude>23.33</Longitude>
-    <Lattitude>23.377</Lattitude>
+    <Longitude>32.33</Longitude>
+    <Lattitude>35.377</Lattitude>
     <password>11</password>
   </Customer>
   <Customer>

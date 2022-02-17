@@ -57,7 +57,8 @@ namespace BL
                 try
                 {
                     DO.Station s = AccessIdal.GetStation(id);
-                    if (name != "")
+                    if(name!="" && name!=" ")
+                       s.Name = name;
                     s.ChargeSlots = numOfChargingSlots;
                     AccessIdal.UpdateStation(s);
                 }

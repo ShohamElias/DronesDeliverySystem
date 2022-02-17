@@ -107,7 +107,7 @@ namespace BL
                 foreach (DO.Station item in AccessIdal.GetALLStation())
                 {
                     d = AccessIdal.StationDistance(lat, lon, item.Id);
-                    if (d < max)
+                    if (d < max && item.ChargeSlots > 0)
                     {
                         max = d;
                         ids = item.Id;
@@ -147,7 +147,7 @@ namespace BL
                             break;
                     }
                 }
-                return s/50 /*/ 100*/;
+                return s/20 /*/ 100*/;
             }
         }
         private double Deg2rad(double deg)
