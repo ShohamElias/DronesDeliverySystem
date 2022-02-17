@@ -21,6 +21,11 @@ namespace BlApi
         public IEnumerable<BO.Drone> GetDroneBy(Predicate<BO.Drone> P);
 
         #endregion
+        #region dCharge
+        int GetDroneChargeStation(int id);
+
+        #endregion
+
 
         #region Customer
         public IEnumerable<BO.Customer> GetCustomerBy(Predicate<BO.Customer> P);

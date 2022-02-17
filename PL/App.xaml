@@ -21,15 +21,13 @@
              x:Key="MyBackground" RadiusX="5" RadiusY="6" Opacity="0.15" SpreadMethod="Reflect">
                 <GradientStop Color="Transparent" Offset="0.917"/>
                 <GradientStop Color="Black" Offset="0.837"/>
-            
          </RadialGradientBrush>
+
         <Style TargetType="{x:Type TextBox}">
-                <Setter Property="BorderThickness" Value="0 0 0 1" />
-            </Style>
-            <Style TargetType="{x:Type ComboBox}">
-            </Style>
-        
-            <Style  TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="0 0 0 1" />
+        </Style>
+
+        <Style  TargetType="{x:Type Button}">
             <Setter Property="FontWeight" Value="SemiBold"></Setter>
             <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="BorderThickness" Value="2"></Setter>
@@ -40,7 +38,7 @@
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
                                 <!-- Outer Rectangle with rounded corners. -->
-                            <Rectangle x:Name="outerRectangle" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="{StaticResource MyBackground}" RadiusX="7" RadiusY="6" StrokeThickness="0.5" Fill="#F005F7DF"/>
+                            <Rectangle x:Name="outerRectangle" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="{StaticResource MyBackground}" RadiusX="7" RadiusY="6" StrokeThickness="0.5" Fill="Lavender"/>
 
                                 <ContentPresenter HorizontalAlignment="Center"
                                           VerticalAlignment="Center"/>
@@ -61,6 +59,122 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+
+
+            <SolidColorBrush x:Key="NormalBrush" Color="Lavender" />
+
+            <SolidColorBrush x:Key="WindowBackgroundBrush" Color="Lavender" />
+
+            <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="20" />
+                    </Grid.ColumnDefinitions>
+                    <Border x:Name="Border" Grid.ColumnSpan="2" CornerRadius="2" Background="{StaticResource NormalBrush}"
+                       BorderThickness="0,0,0,1"   />
+                    <Border Grid.Column="0" CornerRadius="2,0,0,2" Margin="1" Background="White" BorderThickness="0,0,0,1" />
+                    <Path  x:Name="Arrow" Grid.Column="1"  HorizontalAlignment="Center"  VerticalAlignment="Center"
+                Data="M 0 0 L 4 4 L 8 0 Z" Fill="White" Height="9" Width="8" Stretch="Fill"/>
+                </Grid>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox" >
+                <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+            </ControlTemplate>
+
+
+            <Style x:Key="{x:Type ComboBox}" TargetType="ComboBox">
+                <Setter Property="SnapsToDevicePixels" Value="true"/>
+                <Setter Property="OverridesDefaultStyle" Value="true"/>
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+                <Setter Property="MinWidth" Value="120"/>
+                <Setter Property="MinHeight" Value="20"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBox">
+                            <Grid>
+                                <ToggleButton 
+            Name="ToggleButton" 
+            Template="{StaticResource ComboBoxToggleButton}" 
+            Grid.Column="2" 
+            Focusable="false"
+            IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+            ClickMode="Press">
+                                </ToggleButton>
+                                <ContentPresenter
+            Name="ContentSite"
+            IsHitTestVisible="False" 
+            Content="{TemplateBinding SelectionBoxItem}"
+            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+            Margin="3,3,23,3"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left" />
+                                <TextBox x:Name="PART_EditableTextBox"
+            Style="{x:Null}" 
+            Template="{StaticResource ComboBoxTextBox}" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" 
+            Margin="3,3,23,3"
+            Focusable="True" 
+            Background="Transparent"
+            Visibility="Hidden"
+            IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                                <Popup 
+            Name="Popup"
+            Placement="Bottom"
+            IsOpen="{TemplateBinding IsDropDownOpen}"
+            AllowsTransparency="True" 
+            Focusable="False"
+            PopupAnimation="Slide">
+                                    <Grid 
+              Name="DropDown"
+              SnapsToDevicePixels="True"                
+              MinWidth="{TemplateBinding ActualWidth}"
+              MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                        <Border 
+                x:Name="DropDownBorder"
+                Background="White"
+                BorderThickness="1"
+                BorderBrush="{StaticResource WindowBackgroundBrush}"/>
+                                        <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                        </ScrollViewer>
+                                    </Grid>
+                                </Popup>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="HasItems" Value="false">
+                                    <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </Trigger>
+                                <Trigger Property="IsGrouping" Value="true">
+                                    <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                                </Trigger>
+                                <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                    <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="4"/>
+                                    <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
+                                </Trigger>
+                                <Trigger Property="IsEditable"
+               Value="true">
+                                    <Setter Property="IsTabStop" Value="false"/>
+                                    <Setter TargetName="PART_EditableTextBox" Property="Visibility"    Value="Visible"/>
+                                    <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                </Style.Triggers>
+            </Style>
+
     </Application.Resources>
    
 </Application>

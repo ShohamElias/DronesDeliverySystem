@@ -16,9 +16,21 @@ using System.Globalization;
 
 namespace PL
 {
+    public static class LocationString
+    {
+        public static  string ToStringLoc(double Lattitude)
+        {
+            double degrees = (Lattitude);//converting to sexagesimal
+            double minutes = (degrees - (int)degrees) * 60;//converting the minutes by multiplying by the base number
+            double seconds = (minutes - (int)minutes) * 60;//converting the seconds by multiplying them by the base number
+            return (int)degrees + "° " + (int)minutes + "' " + (((int)(seconds * 1000)) / (float)1000)//the final outcome
+                    + "\"";
+        }
 
-    
-        public class Validation
+    }
+
+
+    public class Validation
         {
 
             public bool IsnumberChar(string c) //the func checks if the string is a number

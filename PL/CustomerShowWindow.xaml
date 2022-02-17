@@ -6,11 +6,6 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="CustomerShowWindow" Height="603" Width="800" Activated="Window_Activated">
-    <Window.Resources>
-        <Style TargetType="{x:Type TextBox}">
-            <Setter Property="BorderThickness" Value="0 0 0 1" />
-        </Style>
-    </Window.Resources>
     <Grid>
         <Grid x:Name="customerGrid"  HorizontalAlignment="Left" Margin="70,23,0,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>

@@ -5,39 +5,64 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="DroneShow" Height="450" Width="800">
-    <Window.Resources>
-        <Style TargetType="{x:Type TextBox}">
-            <Setter Property="BorderThickness" Value="0 0 0 1" />
-        </Style>
-    </Window.Resources>
-    <Grid Margin="0,0,0,-6">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="277*"/>
-            <ColumnDefinition Width="123*"/>
-        </Grid.ColumnDefinitions>
-        <Label x:Name="idLable" Content="Id" Margin="48,20,409,376"/>
-        <Label x:Name="Batterylable" Content="Battery" Margin="48,188,409,208"/>
-        <Label x:Name="WeightLable" Content="Maximum Weight" Margin="48,148,395,248"/>
-        <Label x:Name="statuslablle" Content="Status" Margin="48,101,409,295"/>
-        <Label x:Name="modelLable" Content="Model" Margin="49,60,408,336"/>
-        <Label x:Name="latlable" Content="Latitude" Margin="49,228,408,168"/>
-        <Label x:Name="lable7" Content="Longittude" Margin="49,263,407,133" RenderTransformOrigin="0,0"/>
-        <ComboBox x:Name="WeightSelector" HorizontalAlignment="Left" Margin="194,152,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="LattextBox" HorizontalAlignment="Left" Margin="194,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.249,0.144" TextChanged="LattextBox_TextChanged"/>
-        <TextBox x:Name="Lontextbox" HorizontalAlignment="Left" Margin="194,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Lontextbox_TextChanged"/>
-        <TextBox x:Name="BatteryTextBox" HorizontalAlignment="Left" Margin="194,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="BatteryTextBox_TextChanged"/>
-        <ComboBox x:Name="StatusSelector" HorizontalAlignment="Left" Margin="194,103,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="StatusSelector_SelectionChanged"/>
-        <TextBox x:Name="idtextbox" HorizontalAlignment="Left" Margin="194,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="idtextbox_TextChanged"/>
-        <TextBox x:Name="modelTextbox" HorizontalAlignment="Left" Margin="194,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.202,0.976"/>
-        <Button x:Name="AddUpdateButton" Content="Add" HorizontalAlignment="Left" Margin="21,62,0,0" VerticalAlignment="Top" Width="128" Click="button_Click" Grid.Column="1" Background="{StaticResource MyButtonBackground}"/>
-        <Button x:Name="DeliveryButton" Content="Next delivery step" Grid.Column="1" HorizontalAlignment="Left" Margin="21,106,0,0" VerticalAlignment="Top" Width="128" Click="DeliveryButton_Click" Background="{StaticResource MyButtonBackground}" />
-        <Button x:Name="ChargingButton" Content="Charge/Discharge" Grid.Column="1" HorizontalAlignment="Left" Margin="21,147,0,0" VerticalAlignment="Top" Width="128" Click="ChargingButton_Click" Background="{StaticResource MyButtonBackground}" />
+        Title="DroneShow" Height="600" Width="800">
+    <Grid>
+
+
+        <ComboBox x:Name="WeightSelector" HorizontalAlignment="Left" Margin="158,213,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="LattextBox" HorizontalAlignment="Left" Margin="450,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.249,0.144" TextChanged="LattextBox_TextChanged"/>
+        <TextBox x:Name="Lontextbox" HorizontalAlignment="Left" Margin="450,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Lontextbox_TextChanged"/>
+        <TextBox x:Name="BatteryTextBox" HorizontalAlignment="Left" Margin="450,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="BatteryTextBox_TextChanged"/>
+        <ComboBox x:Name="StatusSelector" HorizontalAlignment="Left" Margin="158,164,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="StatusSelector_SelectionChanged" BorderBrush="Lavender" Foreground="Black" Background="Lavender"/>
+        <TextBox x:Name="idtextbox" HorizontalAlignment="Left" Margin="158,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="idtextbox_TextChanged"/>
+        <TextBox x:Name="modelTextbox" HorizontalAlignment="Left" Margin="158,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.202,0.976"/>
+        <Button x:Name="AddUpdateButton" Content="Add" HorizontalAlignment="Left" Margin="158,319,0,0" VerticalAlignment="Top" Width="128" Click="button_Click" Background="{StaticResource MyButtonBackground}"/>
+        <Button x:Name="DeliveryButton" Content="Next delivery step" HorizontalAlignment="Center" Margin="0,319,0,0" VerticalAlignment="Top" Width="128" Click="DeliveryButton_Click" Background="{StaticResource MyButtonBackground}" />
+        <Button x:Name="ChargingButton" Content="Charge/Discharge" HorizontalAlignment="Left" Margin="506,319,0,0" VerticalAlignment="Top" Width="128" Click="ChargingButton_Click" Background="{StaticResource MyButtonBackground}" />
         <ComboBox x:Name="stationCombo" HorizontalAlignment="Left" Margin="424,102,0,0" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
         <Label x:Name="stationLable" Content="Select Station" HorizontalAlignment="Left" Margin="337,100,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
-        <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="336,345,0,0" VerticalAlignment="Top" Click="button_Click_3" Width="128" Background="{StaticResource MyButtonBackground}"/>
-        <Button x:Name="simulatorButton" Content="Automatic" HorizontalAlignment="Left" Margin="254,393,0,0" VerticalAlignment="Top" Width="271" Click="simulatorButton_Click" Visibility="Hidden"/>
-        <Button x:Name="CancelSimBtn" Content="Button" HorizontalAlignment="Left" Height="24" Margin="254,394,0,0" VerticalAlignment="Top" Width="271" Click="CancelSimBtn_Click" Visibility="Collapsed"/>
-        <Label x:Name="ppp" Content="Label" HorizontalAlignment="Left" Margin="484,188,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="Cancel" Content="X" HorizontalAlignment="Left" Margin="743,12,0,0" VerticalAlignment="Top" Click="cancelButton" Width="37" Background="{StaticResource MyButtonBackground}"/>
+        <Button x:Name="simulatorButton" Content="Automatic" HorizontalAlignment="Left" Margin="55,15,0,0" VerticalAlignment="Top" Width="271" Click="simulatorButton_Click" Visibility="Hidden" />
+        <Button x:Name="CancelSimBtn" Content="Button" HorizontalAlignment="Left" Height="24" Margin="54,15,0,0" VerticalAlignment="Top" Width="272" Click="CancelSimBtn_Click" Visibility="Collapsed"/>
+
+
+        <Rectangle x:Name="RLocation" Visibility="Collapsed" Margin="371,181,88,284" RadiusX="10" RadiusY="10">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,4">
+                    <GradientStop Color="#FFE6E6FA" Offset="0.0"/>
+                    <GradientStop Color="#EED4D7F9" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle x:Name="RBattery" Visibility="Collapsed" Margin="549,69,88,410"  RadiusX="10" RadiusY="10">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#FFE6E6FA" Offset="0.0"/>
+                    <GradientStop Color="#EED4D7F9" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle x:Name="RDoing" Visibility="Collapsed" Margin="371,70,265,408" Fill="LavenderBlush" RadiusX="10" RadiusY="10"/>
+        <Label x:Name="ppp" Visibility="Collapsed" Content="Label" Foreground="White" FontWeight="DemiBold" FontSize="50" HorizontalAlignment="Left"  Margin="388,77,0,0" VerticalAlignment="Top"/>
+
+
+
+
+        <Label x:Name="idlabel" Content="Id:" Margin="46,76,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="46"/>
+        <Label x:Name="Batterylable" Content="Battery:" Margin="359,76,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="53"/>
+        <Label x:Name="WeightLable" Content="Maximum Weight:" Margin="45,209,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="115"/>
+        <Label x:Name="statuslablle" Content="Status:" Margin="44,162,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="52"/>
+        <Label x:Name="modelLable" Content="Model:" Margin="45,121,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="51"/>
+        <Label x:Name="latlable" Content="Latitude:" HorizontalAlignment="Left" Margin="360,157,0,0"  VerticalAlignment="Top" Width="64"/>
+        <Label x:Name="lable7" Content="Longittude:"  Margin="360,120,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68"/>
+        <Label x:Name="batteryPrecentage" Visibility="Collapsed" Content="100%" Foreground="White" FontWeight="DemiBold" FontSize="50" HorizontalAlignment="Left" Margin="570,77,0,0" VerticalAlignment="Top" Width="125" Height="72" RenderTransformOrigin="0.497,0.522"/>
+        <Label x:Name="longitudeLabel2" Visibility="Collapsed" FontFamily="Bahnschrift Condensed" FontWeight="DemiBold" Content="lll" FontSize="30" Foreground="White" HorizontalAlignment="Left" Margin="550,217,0,0" VerticalAlignment="Top" Width="162"/>
+        <Label x:Name="BATTERYlabel1" Content="Battery:" Visibility="Collapsed" FontWeight="DemiBold" FontSize="14" Foreground="White" HorizontalAlignment="Left" Margin="592,66,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="locationLabel2" Visibility="Collapsed" FontWeight="DemiBold" FontSize="16" Content="Longitude &amp; Lattiude:" Foreground="White" HorizontalAlignment="Left" Margin="455,188,0,0" VerticalAlignment="Top" Width="239"/>
+        <Label x:Name="latitudeLabel3" Visibility="Collapsed" FontWeight="DemiBold"  Content="Label" FontSize="30" HorizontalAlignment="Left" Foreground="White" Margin="378,217,0,0" VerticalAlignment="Top" Width="172" FontFamily="Bahnschrift Condensed"/>
+        <Label x:Name="doingLabel" FontSize="14" FontWeight="DemiBold" Content="Charging at Station:" Foreground="White" HorizontalAlignment="Left" Margin="379,66,0,0" VerticalAlignment="Top" Width="139" Visibility="Collapsed"/>
+
     </Grid>
+
+
 </Window>

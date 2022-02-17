@@ -170,6 +170,25 @@ namespace BL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
+        public int GetDroneChargeStation(int id)
+        {
+            lock (AccessIdal)
+            {
+                try
+                {
+                    DO.DroneCharge dd = AccessIdal.GetDroneCharge(id);
+                    return dd.StationId;
+
+                }
+                catch (Exception)
+                {
+                    throw new BO.IDExistsException(id,"this drone isnt in charge in one of the stations!");
+                }
+               
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.DroneCharge> GetAllDroneCharges()
         {
             lock (AccessIdal)

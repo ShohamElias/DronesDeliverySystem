@@ -47,11 +47,10 @@
     <Grid>
         <Label x:Name="Idlabel" Content="Id:" HorizontalAlignment="Left"  FontWeight="Normal" Margin="131,108,0,0" VerticalAlignment="Top" FontSize="14"/>
         <Label x:Name="Passwordlabel1" Content="Password:" HorizontalAlignment="Left" Margin="132,176,0,0" VerticalAlignment="Top" FontStyle="Normal" Width="78" FontSize="14"/>
-        <TextBox x:Name="Id" HorizontalAlignment="Left" Margin="131,139,0,0" Text="" BorderThickness="0 0 0 1" Background="Transparent" TextWrapping="Wrap" VerticalAlignment="Top" Width="223"/>
-        <TextBox x:Name="Password" HorizontalAlignment="Left" Margin="132,205,0,0" BorderThickness="0 0 0 1" Background="Transparent" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="222"/>
+        <TextBox x:Name="Id" HorizontalAlignment="Left" Margin="131,139,0,0" Text="" Background="Transparent" TextWrapping="Wrap" VerticalAlignment="Top" Width="223"/>
         <Button x:Name="Loginbutton" Content="Log in" HorizontalAlignment="Left"  Margin="123,243,0,0" VerticalAlignment="Top" Width="76" Click="Loginbutton_Click" Background="{StaticResource GrayBlueGradientBrush}"/>
         <Button x:Name="NewUserbutton" Content="Create a new User"  HorizontalAlignment="Left" Margin="221,243,0,0" VerticalAlignment="Top" Width="142" Click="NewUserbutton_Click" Background="{StaticResource GrayBlueGradientBrush}"/>
-        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="132,205,0,0" BorderThickness="0 0 0 1" VerticalAlignment="Top" Width="222"   Background="Transparent"/>
+        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="132,205,0,0" VerticalAlignment="Top" Width="222"   Background="Transparent"/>
 
     </Grid>
 </Window>

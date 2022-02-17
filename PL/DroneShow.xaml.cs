@@ -34,16 +34,17 @@ namespace PL
         {
             InitializeComponent();
             d = _d;
+            bl = _bl;
             AddUpdateButton.Visibility = Visibility.Hidden;
             ChargingButton.Visibility = Visibility.Hidden;
             DeliveryButton.Visibility = Visibility.Hidden;
             idtextbox.Text = d.Id.ToString();
             modelTextbox.Text = d.Model.ToString();
-            LattextBox.Text = d.CurrentLocation.Lattitude.ToString();
-            Lontextbox.Text = d.CurrentLocation.Longitude.ToString();
-            BatteryTextBox.Text = Convert.ToInt64(d.Battery).ToString();
+            latitudeLabel3.Content = d.CurrentLocation.Lattitude.ToString();
+            longitudeLabel2.Content = d.CurrentLocation.Longitude.ToString();
+            batteryPrecentage.Content = Convert.ToInt64(d.Battery).ToString()+"%";
             modelTextbox.Text = d.Model;
-
+            
             StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.DroneStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             StatusSelector.SelectedItem = d.Status;
@@ -52,13 +53,19 @@ namespace PL
             stationLable.Visibility = Visibility.Hidden;
             idtextbox.IsReadOnly = true;         
             modelTextbox.IsReadOnly = true;
-            LattextBox.IsReadOnly = true;
-            Lontextbox.IsReadOnly = true;
-            BatteryTextBox.IsReadOnly = true;
-            WeightSelector.IsReadOnly = true;
-            StatusSelector.IsReadOnly = true;
+            HideAndShow();
+            if ((int)d.Status == 0)
+            {
+                doingLabel.Content = "";
+            }
+            else if ((int)d.Status == 1)
+            {
+                doingLabel.Content = "Delivering Parcel:";
+                ppp.Content = d.CurrentParcel.Id;
+            }
+            else
+                ppp.Content = bl.GetDroneChargeStation(d.Id);
             modelTextbox.IsReadOnly = true;
-
             WeightSelector.IsEnabled = false;
             StatusSelector.IsEnabled = false;
         }
@@ -68,7 +75,9 @@ namespace PL
             InitializeComponent();
             bl = _bl;
             closingwin = true;
-
+            this.Height = 400;
+            AddUpdateButton.Margin =new Thickness(218, 267, 0, 0);
+            AddUpdateButton.Width *= 2;
             s = bl.GetStationsforNoEmpty();
             type = "Add";
             AddUpdateButton.Content = "Add"; //making every thing visible
@@ -77,12 +86,9 @@ namespace PL
             LattextBox.Text = "";
             Lontextbox.Text = "";
             BatteryTextBox.Text = "";
-            idtextbox.IsEnabled = true;
-            LattextBox.IsEnabled = true;
-            Lontextbox.IsEnabled = true;
-            BatteryTextBox.IsEnabled = true;
-            StatusSelector.IsEnabled = true;
-           
+            RBattery.Visibility = Visibility.Collapsed;
+            batteryPrecentage.Visibility = Visibility.Collapsed;
+            
             //the option buttons are hidden
             ChargingButton.Visibility = Visibility.Hidden;
             DeliveryButton.Visibility = Visibility.Hidden;
@@ -98,42 +104,50 @@ namespace PL
             bl = _bl;
             d = _d;
             AddUpdateButton.Content = "Update";
+            ppp.Content = d.CurrentParcel.Id;
             if (_d.Status == (BO.DroneStatuses)2) //id the drone is currently charging
             {
+                ppp.Content = bl.GetDroneChargeStation(d.Id);
                 ChargingButton.Content = "Discharge Drone"; //change the charge/discharge button to discharge
                 DeliveryButton.IsEnabled = false;//charging rn, cant delivere
-                DeliveryButton.Opacity = 0.5; 
+                DeliveryButton.Opacity = 0.5;
             }
             else
+            {
                 ChargingButton.Content = "Charge Drone";
+            }
             if (_d.Status == (BO.DroneStatuses)0)
+            {
+                ppp.Content = "FREE";
+                doingLabel.Content = "";
                 DeliveryButton.Content = "Pick a Parcel";
-            else
+            }
+            else if (_d.Status == (BO.DroneStatuses)1)
+            {
+                doingLabel.Content = "Delivering Parcel:";
                 DeliveryButton.Content = "Next delivery step";
+            }
 
             ChargingButton.Visibility = Visibility.Visible; //hiding everything except the option buttons
             DeliveryButton.Visibility = Visibility.Visible;
             stationCombo.Visibility = Visibility.Hidden;
             stationLable.Visibility = Visibility.Hidden;
-            BatteryTextBox.IsEnabled = false;
             idtextbox.Text = d.Id.ToString();
             modelTextbox.Text = d.Model.ToString();
-            LattextBox.Text = d.CurrentLocation.Lattitude.ToString();
-            Lontextbox.Text = d.CurrentLocation.Longitude.ToString();
-            BatteryTextBox.Text = Convert.ToInt64(d.Battery).ToString();
+            latitudeLabel3.Content = LocationString.ToStringLoc(d.CurrentLocation.Lattitude);
+            longitudeLabel2.Content = LocationString.ToStringLoc(d.CurrentLocation.Longitude);
+            batteryPrecentage.Content = Convert.ToInt64(d.Battery).ToString()+"%";
 
             idtextbox.IsEnabled = false;
-            LattextBox.IsEnabled = false;
-            Lontextbox.IsEnabled = false;
             modelTextbox.IsEnabled = false;
 
             StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.DroneStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             StatusSelector.SelectedItem = d.Status;
             WeightSelector.SelectedItem = d.MaxWeight;
-
             StatusSelector.IsEnabled = false;
             WeightSelector.IsEnabled = false;
+            HideAndShow();
 
             simulatorButton.Visibility = Visibility.Visible;//simulator is available
         }
@@ -181,15 +195,10 @@ namespace PL
                         
                         updateflag = true;
                         idtextbox.IsEnabled = true;
-                        LattextBox.IsEnabled = true;
-                        Lontextbox.IsEnabled = true;
-                        BatteryTextBox.IsEnabled = true;
-                        StatusSelector.IsEnabled = true;
                         modelTextbox.IsEnabled = true;
-                        WeightSelector.IsEnabled = true;
                         
                     }
-                    else //we changed the name and now we wanr an actual update
+                    else //we changed the name and now we want an actual update
                     {
                         updateflag = false;
                         bl.UpdateDrone(d.Id, modelTextbox.Text);
@@ -197,7 +206,6 @@ namespace PL
                         closingwin = false;
                         this.Close();
                     }
-
                 }
             }
             catch (Exception ex)
@@ -262,7 +270,8 @@ namespace PL
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if ((StatusSelector.SelectedIndex == 2)&& type=="Add") //if we selectes maintance
-            { //hide the location texts boxes and make the station combobox visible
+            { 
+                //hide the location texts boxes and make the station combobox visible
                 stationCombo.Visibility = Visibility.Visible;
                 stationLable.Visibility = Visibility.Visible;
                 stationCombo.ItemsSource = s;
@@ -272,7 +281,7 @@ namespace PL
                 Lontextbox.Visibility = Visibility.Hidden;
 
             }
-            else
+            else if (CancelSimBtn.Visibility != Visibility.Visible)
             { //exactly the opposit
                 LattextBox.Visibility = Visibility.Visible;
                 Lontextbox.Visibility = Visibility.Visible;
@@ -280,17 +289,6 @@ namespace PL
                 lable7.Visibility = Visibility.Visible;
                 
             }
-        }
-
-        public bool IsnumberChar(string c) //the func checks if the string is a number
-        {
-            for (int i = 0; i < c.Length; i++)
-            {
-                if ((c[i] < '0' || c[i] > '9') && (c[i] != '\b'))
-                    return false;
-
-            }
-            return true;
         }
 
         private void idtextbox_TextChanged(object sender, TextChangedEventArgs e)
@@ -331,35 +329,35 @@ namespace PL
 
         private void LattextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string c = LattextBox.Text;
-            try //validatoin for lattitude
-            {
-                if (!valid.IsnumberCharLoc(LattextBox.Text.ToString()))
-                    throw new BO.BadInputException(c, "location can include only numbers");
+            //string c = LattextBox.Text;
+            //try //validatoin for lattitude
+            //{
+            //    if (!valid.IsnumberCharLoc(LattextBox.Text.ToString()))
+            //        throw new BO.BadInputException(c, "location can include only numbers");
 
-            }
-            catch (Exception ex)
-            {
-                c = "0";
-                LattextBox.Text = c;
-                MessageBox.Show(ex.ToString());
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    c = "0";
+            //    LattextBox.Text = c;
+            //    MessageBox.Show(ex.ToString());
+            //}
         }
 
         private void Lontextbox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string c = Lontextbox.Text;
-            try//validatoin for longtitude
-            {
-                if (!valid.IsnumberCharLoc(Lontextbox.Text.ToString()))
-                    throw new BO.BadInputException(c, "location can include only numbers");
-            }
-            catch (Exception ex)
-            {
-                c = "0";
-                Lontextbox.Text = c;
-                MessageBox.Show(ex.ToString());
-            }
+            //string c = Lontextbox.Text;
+            //try//validatoin for longtitude
+            //{
+            //    if (!valid.IsnumberCharLoc(Lontextbox.Text.ToString()))
+            //        throw new BO.BadInputException(c, "location can include only numbers");
+            //}
+            //catch (Exception ex)
+            //{
+            //    c = "0";
+            //    Lontextbox.Text = c;
+            //    MessageBox.Show(ex.ToString());
+            //}
         }
        
 
@@ -367,7 +365,8 @@ namespace PL
         {
             e.Cancel = closingwin;
         }
-        private void button_Click_3(object sender, RoutedEventArgs e)
+
+        private void cancelButton(object sender, RoutedEventArgs e)
         {
             if (!simulatorButton.IsEnabled )//If we came by the cancel button and the simulator hasant stopped yet
             {
@@ -402,7 +401,7 @@ namespace PL
             simulatorButton.IsEnabled = true;
             if (Cursor != Cursors.Wait)//canceld bc of cancel button => wanting to close window
             {
-                button_Click_3(sender, null);
+                cancelButton(sender, null);
 
             }//canceled bc of stop simulation button
             Cursor = Cursors.Arrow;
@@ -414,15 +413,28 @@ namespace PL
             BO.Drone dI = bl.GetDrone(d.Id);
             idtextbox.Text = dI.Id.ToString();
             modelTextbox.Text = dI.Model.ToString();
-            LattextBox.Text = dI.CurrentLocation.Lattitude.ToString();
-            Lontextbox.Text = dI.CurrentLocation.Longitude.ToString();
-            BatteryTextBox.Text = Convert.ToInt64(dI.Battery).ToString();
+            latitudeLabel3.Content = LocationString.ToStringLoc(dI.CurrentLocation.Lattitude);
+            longitudeLabel2.Content = LocationString.ToStringLoc(dI.CurrentLocation.Longitude);
+            batteryPrecentage.Content = Convert.ToInt64(dI.Battery).ToString()+"%";
             modelTextbox.Text = dI.Model;
-            
+            doingLabel.Content = "";
             StatusSelector.SelectedItem = dI.Status;
             WeightSelector.SelectedItem = dI.MaxWeight;
+
             if (dI.Status == BO.DroneStatuses.Delivery)
+            {
                 ppp.Content = dI.CurrentParcel.Id.ToString();
+                doingLabel.Content = "Delivering Parcel:";
+            }
+            else if (dI.Status == BO.DroneStatuses.Maintenance)
+            {
+                ppp.Content = bl.GetDroneChargeStation(dI.Id);
+                doingLabel.Content = "Charging at Station:";
+
+            }
+            else
+                ppp.Content = "FREE";
+
         }
 
         public void ReportProgressInSimulator()
@@ -449,6 +461,27 @@ namespace PL
         {
             worker.CancelAsync();
             Cursor = Cursors.Wait;
+        }
+
+        private void HideAndShow()
+        {
+            Batterylable.Visibility = Visibility.Hidden;
+            Lontextbox.Visibility = Visibility.Hidden;
+            lable7.Visibility = Visibility.Hidden;
+            latlable.Visibility = Visibility.Hidden;
+            LattextBox.Visibility = Visibility.Hidden;
+            BatteryTextBox.Visibility = Visibility.Hidden;
+
+            RBattery.Visibility = Visibility.Visible;
+            RLocation.Visibility = Visibility.Visible;
+            RDoing.Visibility = Visibility.Visible;
+            batteryPrecentage.Visibility = Visibility.Visible;
+            ppp.Visibility = Visibility.Visible;
+            BATTERYlabel1.Visibility = Visibility.Visible;
+            locationLabel2.Visibility = Visibility.Visible;
+            longitudeLabel2.Visibility = Visibility.Visible;
+            latitudeLabel3.Visibility = Visibility.Visible;
+            doingLabel.Visibility = Visibility.Visible;
         }
     }
 }
