@@ -38,22 +38,22 @@
         <Button x:Name="addUpdateButton" Content="add/update" HorizontalAlignment="Left" Margin="618,102,0,0" VerticalAlignment="Top" Click="addUpdateButton_Click" Width="92" Background="{StaticResource MyButtonBackground}" />
         <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="618,138,0,0" VerticalAlignment="Top" Click="cancelButton_Click" Width="92" Background="{StaticResource MyButtonBackground}"/>
         <Button x:Name="SendButton" Content="Send a parcel" Visibility="Hidden" HorizontalAlignment="Left" Margin="618,65,0,0" VerticalAlignment="Top" Width="92" Click="SendButton_Click" Background="{StaticResource MyButtonBackground}"/>
-        <ListView x:Name="SentList" Margin="53,260,79,226" MouseDoubleClick="SentList_MouseDoubleClick">
+        <ListView x:Name="SentList"  Margin="53,248,79,215" MouseDoubleClick="SentList_MouseDoubleClick" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="ReceivedList" Margin="53,404,79,68" MouseDoubleClick="ReceivedList_MouseDoubleClick">
+        <ListView x:Name="ReceivedList" Margin="53,392,79,80" MouseDoubleClick="ReceivedList_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label x:Name="SentParcels" Content="Sent Parcels:" HorizontalAlignment="Left" Margin="76,226,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="RecievedParcels" Content="Recieved Parcels:" HorizontalAlignment="Left" Margin="70,371,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="SentParcels" FontWeight="Bold" Content="Sent Parcels:" HorizontalAlignment="Left" Margin="76,214,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="RecievedParcels" Content="Recieved Parcels:" HorizontalAlignment="Left"  FontWeight="Bold" Margin="70,359,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="PasswordtextBox" HorizontalAlignment="Left" Margin="150,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Height="24"/>
         <Label x:Name="passwordlabel" Content="Password:" HorizontalAlignment="Left" Margin="76,191,0,0" VerticalAlignment="Top" />
 

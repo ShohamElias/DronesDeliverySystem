@@ -5,7 +5,7 @@
     <Name>Elad</Name>
     <Longitude>34.503181</Longitude>
     <Lattitude>31.56562</Lattitude>
-    <ChargeSlots>11</ChargeSlots>
+    <ChargeSlots>12</ChargeSlots>
   </Station>
   <Station>
     <Id>5656</Id>
@@ -33,6 +33,6 @@
     <Name>tel aviv</Name>
     <Longitude>35.789414</Longitude>
     <Lattitude>30.887011</Lattitude>
-    <ChargeSlots>1</ChargeSlots>
+    <ChargeSlots>0</ChargeSlots>
   </Station>
 </ArrayOfStation>

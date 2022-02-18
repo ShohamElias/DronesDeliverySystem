@@ -399,6 +399,10 @@ namespace PL
             CancelSimBtn.Visibility = Visibility.Collapsed;
             simulatorButton.Visibility = Visibility.Visible;
             simulatorButton.IsEnabled = true;
+            //ALWAYS STOPS WHEN FREE:
+            ChargingButton.IsEnabled = true;
+            DeliveryButton.IsEnabled = true;
+            AddUpdateButton.IsEnabled = true;
             if (Cursor != Cursors.Wait)//canceld bc of cancel button => wanting to close window
             {
                 cancelButton(sender, null);
@@ -454,6 +458,9 @@ namespace PL
             simulatorButton.IsEnabled = false;
             simulatorButton.Visibility = Visibility.Collapsed;
             CancelSimBtn.Visibility = Visibility.Visible;
+            ChargingButton.IsEnabled = false;
+            DeliveryButton.IsEnabled = false;
+            AddUpdateButton.IsEnabled = false;
             
         }
 

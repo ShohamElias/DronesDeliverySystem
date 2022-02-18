@@ -24,7 +24,7 @@ namespace PL
         static bool closingwin = true;
         Validation valid= new Validation();
 
-        public CustomerShowWindow(BO.Customer c, BlApi.IBL _bl, string typeWindow)
+        public CustomerShowWindow(BO.Customer c, BlApi.IBL _bl, string typeWindow)//SHOW WINDOW
         {
             InitializeComponent();
             bl = _bl;
@@ -61,7 +61,7 @@ namespace PL
             
         }
 
-        public CustomerShowWindow(BlApi.IBL _bl)
+        public CustomerShowWindow(BlApi.IBL _bl)//ADD WINDOW
         {
             InitializeComponent();
             bl = _bl;
@@ -165,6 +165,8 @@ namespace PL
             {
                 if (!valid.IsnumberCharLoc(LongtitudeTextBox.Text.ToString()))
                     throw new BO.BadInputException(c, "location can include only numbers");
+                if (Convert.ToDouble(c)>35 ||  Convert.ToDouble(c) < 30)
+                    throw new BO.BadInputException(c, "location is out of range!");
 
             }
             catch (Exception ex)
@@ -182,6 +184,8 @@ namespace PL
             {
                 if (!valid.IsnumberCharLoc(LatitudeTextBox.Text.ToString()))
                     throw new BO.BadInputException(c, "location can include only numbers");
+                if (Convert.ToDouble(c) > 35 || Convert.ToDouble(c) < 30)
+                    throw new BO.BadInputException(c, "location is out of range!");
 
             }
             catch (Exception ex)

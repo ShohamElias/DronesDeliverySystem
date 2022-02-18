@@ -10,7 +10,7 @@
 
 
         <LinearGradientBrush x:Key="GrayBlueGradientBrush" StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="#FFEBFAF1" Offset="0" />
+            <GradientStop Color="LavenderBlush" Offset="0" />
             <GradientStop Color="#FFE8E8FF" Offset="0.5" />
             <GradientStop Color="#FFEBFAFA" Offset="1" />
         </LinearGradientBrush>
@@ -50,7 +50,7 @@
         <TextBox x:Name="Id" HorizontalAlignment="Left" Margin="131,139,0,0" Text="" Background="Transparent" TextWrapping="Wrap" VerticalAlignment="Top" Width="223"/>
         <Button x:Name="Loginbutton" Content="Log in" HorizontalAlignment="Left"  Margin="123,243,0,0" VerticalAlignment="Top" Width="76" Click="Loginbutton_Click" Background="{StaticResource GrayBlueGradientBrush}"/>
         <Button x:Name="NewUserbutton" Content="Create a new User"  HorizontalAlignment="Left" Margin="221,243,0,0" VerticalAlignment="Top" Width="142" Click="NewUserbutton_Click" Background="{StaticResource GrayBlueGradientBrush}"/>
-        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="132,205,0,0" VerticalAlignment="Top" Width="222"   Background="Transparent"/>
+        <PasswordBox x:Name="passwordBox" BorderThickness="0,0,0,1" HorizontalAlignment="Left" Margin="132,205,0,0" VerticalAlignment="Top" Width="222"   Background="Transparent"/>
 
     </Grid>
 </Window>

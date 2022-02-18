@@ -64,7 +64,7 @@ namespace BL
                     case DroneStatuses.Delivery:
                         {
                             Parcel p = blObject.GetParcel(d.IdOfParcel);
-                            double ELECTRICITY = AccessIdal.ElectricityUse()[(int)p.Weight + 1] / 20;
+                            double ELECTRICITY = AccessIdal.ElectricityUse()[(int)p.Weight + 1];
                             if (p.PickedUp==null)
                             {
                                 Location loc = new() { Lattitude = d.CurrentLocation.Lattitude, Longitude = d.CurrentLocation.Longitude };

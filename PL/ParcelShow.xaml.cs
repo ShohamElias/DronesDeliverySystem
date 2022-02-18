@@ -26,13 +26,16 @@ namespace PL
         IEnumerable<BO.Drone> dd;
         bool closingwin = true;
         BO.Parcel updatep; 
-        public ParcelShow(BlApi.IBL _bl,int id)
+        public ParcelShow(BlApi.IBL _bl,int id)//opening as add option
         {
             InitializeComponent();
             int num = 0;
             addUpdateButton.Content = "Add";
             closingwin = false;
             bl = _bl;
+            this.Height = 340;
+            this.Width = 366;
+            addUpdateButton.Margin = new Thickness(130,240,0,0);
             weightComboBox.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             priorityComboBox.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
             weightComboBox.IsEnabled = true;
@@ -75,7 +78,7 @@ namespace PL
             idTextBox.Visibility = Visibility.Collapsed;
         }
 
-        public ParcelShow(BO.Parcel p, BlApi.IBL _bl, string typeCust)
+        public ParcelShow(BO.Parcel p, BlApi.IBL _bl, string typeCust)//update and show window
         {
             InitializeComponent();
             closingwin = true;
