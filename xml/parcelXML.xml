@@ -518,4 +518,18 @@
     <IsDelivered>false</IsDelivered>
     <Delivered xsi:nil="true" />
   </Parcel>
+  <Parcel>
+    <Id>1055</Id>
+    <SenderId>199247968</SenderId>
+    <TargetId>123456</TargetId>
+    <Weight>Light</Weight>
+    <Priority>Regular</Priority>
+    <Requested>2022-02-19T20:37:55.6238857+02:00</Requested>
+    <DroneId>0</DroneId>
+    <Scheduled xsi:nil="true" />
+    <PickedUp xsi:nil="true" />
+    <IsPicked>false</IsPicked>
+    <IsDelivered>false</IsDelivered>
+    <Delivered xsi:nil="true" />
+  </Parcel>
 </ArrayOfParcel>
