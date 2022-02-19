@@ -295,12 +295,11 @@ namespace BL
             lock (AccessIdal)
             {
                 if (!AccessIdal.CheckDrone(id))
-                    throw new DO.BadIdException(id, "this drone doesnt exist"); //#######
+                    throw new DO.BadIdException(id, "This drone doesn't exist!"); //#######
                 DroneToList dt = DronesBL.Find(x => x.Id == id);
               //  DroneToList dss = DronesBL.Find(x => x.Id == id);
                 if (dt.Status != DroneStatuses.Maintenance)
-                    throw new WrongDroneStatException(id, "this drone is not in charge"); //#####
-                                                                                          // DronesBL.Remove(dt);
+                    throw new WrongDroneStatException(id, "This drone is not in charge!"); // DronesBL.Remove(dt);
                 dt.Status = DroneStatuses.Available;
                 TimeSpan timeSpan = DateTime.Now - dt.TimeCharge;
                 dt.Battery += 10 * (timeSpan.TotalHours * chargeRate);

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="DroneShow" Height="420" Width="800">
+        Title="DroneShow" Height="420" Width="800" ResizeMode="NoResize">
     <Grid>
         <ComboBox x:Name="WeightSelector" HorizontalAlignment="Left" Margin="158,213,0,0" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="LattextBox" HorizontalAlignment="Left" Margin="450,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.249,0.144" TextChanged="LattextBox_TextChanged"/>
@@ -21,7 +21,7 @@
         <Label x:Name="stationLable" Content="Select Station" HorizontalAlignment="Left" Margin="337,100,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
         <Button x:Name="Cancel" Content="X" HorizontalAlignment="Left" Margin="743,12,0,0" VerticalAlignment="Top" Click="cancelButton" Width="37" Background="{StaticResource MyButtonBackground}"/>
         <Button x:Name="simulatorButton" Content="Automatic" HorizontalAlignment="Left" Margin="55,15,0,0" VerticalAlignment="Top" Width="271" Click="simulatorButton_Click" Visibility="Hidden" />
-        <Button x:Name="CancelSimBtn" Content="Button" HorizontalAlignment="Left" Height="24" Margin="54,15,0,0" VerticalAlignment="Top" Width="272" Click="CancelSimBtn_Click" Visibility="Collapsed"/>
+        <Button x:Name="CancelSimBtn" Content="Cancel Automation" HorizontalAlignment="Left" Height="24" Margin="54,15,0,0" VerticalAlignment="Top" Width="272" Click="CancelSimBtn_Click" Visibility="Collapsed"/>
 
 
         <Rectangle x:Name="RLocation" Visibility="Collapsed" Margin="371,181,88,110" RadiusX="10" RadiusY="10">
@@ -36,7 +36,7 @@
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#FFE6E6FA" Offset="0.0"/>
-                    <GradientStop Color="#EED4D7F9" Offset="1"/>
+                    <GradientStop Color="#AAD4D7F9" Offset="1"/>
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>

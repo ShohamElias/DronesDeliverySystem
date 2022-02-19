@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="DronesListShow" Height="549" Width="800" Activated="Window_Activated">
+        Title="DronesListShow" Height="439" Width="800" ResizeMode="NoResize" Activated="Window_Activated">
     <Window.Resources>
         <local:BatteryConverter x:Key="BatteryConverter"/>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -26,7 +26,7 @@
                 <ColumnDefinition Width="39*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50*"/>
+                <RowDefinition Height="60*"/>
                 <RowDefinition Height="400*"/>
             </Grid.RowDefinitions>
             <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="3">
@@ -37,14 +37,14 @@
                     <ColumnDefinition Width="71*"/>
                     <ColumnDefinition Width="181*"/>
                 </Grid.ColumnDefinitions >
-                <ComboBox x:Name="StatusSelector" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" SelectionChanged="StatusSelector_SelectionChanged" Height="22" Margin="32,0,0,0"/>
-                <ComboBox x:Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelector_SelectionChanged" Grid.ColumnSpan="2" Margin="70,0,0,0" Height="22"/>
+                <ComboBox x:Name="StatusSelector" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" SelectionChanged="StatusSelector_SelectionChanged" Height="22" Margin="32,19,0,0"/>
+                <ComboBox x:Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" SelectionChanged="WeightSelector_SelectionChanged" Grid.ColumnSpan="2" Margin="70,19,0,0" Height="22"/>
                 <Label x:Name="statusLable" Content="Status"  HorizontalAlignment="Left" Margin="162,20,0,0" VerticalAlignment="Top" FontFamily="Lucida Fax" FontWeight="Normal" Height="24" Width="47" Grid.ColumnSpan="2"/>
-                <Label Content="Weight" Grid.Column="2" HorizontalAlignment="Left" Margin="1,0,0,0" VerticalAlignment="Center" FontFamily="Lucida Fax" FontWeight="Normal" Height="24" Width="52"/>
+                <Label Content="Weight" Grid.Column="2" HorizontalAlignment="Left" Margin="1,19,0,0" VerticalAlignment="Top" FontFamily="Lucida Fax" FontWeight="Normal" Height="24" Width="52"/>
             </Grid>
 
 
-            <ListView x:Name="DronesListView" ItemsSource="{Binding}" Margin="0,10,5,213" MouseDoubleClick="DronesListView_MouseDoubleClick" Background="White" SelectionChanged="DronesListView_SelectionChanged" SelectionMode="Single" Grid.Column="1" Grid.Row="1">
+            <ListView x:Name="DronesListView" ItemsSource="{Binding}" Margin="0,10,5,123" MouseDoubleClick="DronesListView_MouseDoubleClick" Background="White" SelectionChanged="DronesListView_SelectionChanged" SelectionMode="Single" Grid.Column="1" Grid.Row="1">
                 <ListView.ItemContainerStyle>
                     <Style>
                         <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
@@ -75,7 +75,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                    
+
 
                         <GridViewColumn x:Name="StatussColumn" Header="Status" Width="80">
                             <GridViewColumn.CellTemplate>

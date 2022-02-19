@@ -70,7 +70,7 @@ namespace PL
             StatusSelector.IsEnabled = false;
         }
  
-        public DroneShow(BlApi.IBL _bl) //window opens as "ADD" opstion
+        public DroneShow(BlApi.IBL _bl) //window opens as "ADD" option
         {
             InitializeComponent();
             bl = _bl;
@@ -162,7 +162,7 @@ namespace PL
                 {
                     if (idtextbox.Text == "" || modelTextbox.Text == "" || BatteryTextBox.Text == "" || StatusSelector.SelectedIndex == -1 || WeightSelector.SelectedIndex == -1)
                     {
-                        MessageBox.Show("Please fill all the fields!");
+                        MessageBox.Show("Please fill all the fields!", "Error Occurred", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }                  
 
@@ -211,7 +211,7 @@ namespace PL
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString(), "Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -237,7 +237,7 @@ namespace PL
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString(), "Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             closingwin = false;
             this.Close();
@@ -252,13 +252,13 @@ namespace PL
                 else if (d.Status == BO.DroneStatuses.Maintenance) //if the drone is charging
                     bl.EndCharging(d.Id); //end it
                 else if (d.Status == BO.DroneStatuses.Delivery) //drones on delivey cand be charged
-                    throw new BO.WrongDroneStatException(d.Id, "cant charge a drone on delivery");
+                    throw new BO.WrongDroneStatException(d.Id, "Can't charge a drone on delivery!");
                 MessageBox.Show("Successfully completed the task.");
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString(), "Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
             closingwin = false;
@@ -304,7 +304,7 @@ namespace PL
             {
                 c = c.Remove(c.Length - 1);
                 idtextbox.Text = c;
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString(), "Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -315,15 +315,15 @@ namespace PL
             try //validatoin for battery
             {
                 if (!valid.IsnumberCharLoc(BatteryTextBox.Text.ToString()))
-                    throw new BO.BadInputException(c, "battery can include only numbers");
+                    throw new BO.BadInputException(c, "Battery can include only numbers!");
                 if (c.Length > 0 && (int.Parse(c) > 100 || int.Parse(c) < 0))
-                    throw new BO.BadInputException("battery should be between 0-100");
+                    throw new BO.BadInputException("Battery should be between 0-100");
             }
             catch (Exception ex)
             {
                 c = "0";
                 BatteryTextBox.Text = c;
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString(), "Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -403,6 +403,7 @@ namespace PL
             ChargingButton.IsEnabled = true;
             DeliveryButton.IsEnabled = true;
             AddUpdateButton.IsEnabled = true;
+            DeliveryButton.Content = "Pick a Parcel";
             if (Cursor != Cursors.Wait)//canceld bc of cancel button => wanting to close window
             {
                 cancelButton(sender, null);
@@ -489,6 +490,11 @@ namespace PL
             longitudeLabel2.Visibility = Visibility.Visible;
             latitudeLabel3.Visibility = Visibility.Visible;
             doingLabel.Visibility = Visibility.Visible;
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }
