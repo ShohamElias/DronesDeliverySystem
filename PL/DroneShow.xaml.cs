@@ -470,6 +470,36 @@ namespace PL
         {
             worker.CancelAsync();
             Cursor = Cursors.Wait;
+            d = bl.GetDrone(d.Id);
+            if (d.Status == BO.DroneStatuses.Maintenance)
+            {
+                ChargingButton.Content = "Discharge Drone"; //change the charge/discharge button to discharge
+                DeliveryButton.IsEnabled = false;//charging rn, cant delivere
+                DeliveryButton.Opacity = 0.5;
+
+               
+            }
+            else
+            {
+                ChargingButton.Content = "Charge Drone";
+                DeliveryButton.IsEnabled = true;
+                DeliveryButton.Opacity =1;
+                ChargingButton.IsEnabled = true;
+                ChargingButton.Opacity = 1;
+
+            }
+            if (d.Status == (BO.DroneStatuses)0)
+            {
+                DeliveryButton.Content = "Pick a Parcel";
+            }
+            else if (d.Status == (BO.DroneStatuses)1)
+            {
+                DeliveryButton.Content = "Next delivery step";
+                ChargingButton.IsEnabled = false;
+                ChargingButton.Opacity = 0.5;
+
+            }
+
         }
 
         private void HideAndShow()
