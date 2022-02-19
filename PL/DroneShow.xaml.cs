@@ -330,35 +330,11 @@ namespace PL
 
         private void LattextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //string c = LattextBox.Text;
-            //try //validatoin for lattitude
-            //{
-            //    if (!valid.IsnumberCharLoc(LattextBox.Text.ToString()))
-            //        throw new BO.BadInputException(c, "location can include only numbers");
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    c = "0";
-            //    LattextBox.Text = c;
-            //    MessageBox.Show(ex.ToString());
-            //}
+           
         }
 
         private void Lontextbox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //string c = Lontextbox.Text;
-            //try//validatoin for longtitude
-            //{
-            //    if (!valid.IsnumberCharLoc(Lontextbox.Text.ToString()))
-            //        throw new BO.BadInputException(c, "location can include only numbers");
-            //}
-            //catch (Exception ex)
-            //{
-            //    c = "0";
-            //    Lontextbox.Text = c;
-            //    MessageBox.Show(ex.ToString());
-            //}
         }
        
 
@@ -419,6 +395,7 @@ namespace PL
             BO.Drone dI = bl.GetDrone(d.Id);
             idtextbox.Text = dI.Id.ToString();
             modelTextbox.Text = dI.Model.ToString();
+            ChargingButton.Content = "Charge Drone";
             latitudeLabel3.Content = LocationString.ToStringLoc(dI.CurrentLocation.Lattitude);
             longitudeLabel2.Content = LocationString.ToStringLoc(dI.CurrentLocation.Longitude);
             batteryPrecentage.Content = Convert.ToInt64(dI.Battery).ToString()+"%";
@@ -436,6 +413,9 @@ namespace PL
             {
                 ppp.Content = bl.GetDroneChargeStation(dI.Id);
                 doingLabel.Content = "Charging at Station:";
+                ChargingButton.Content = "Discharge Drone"; //change the charge/discharge button to discharge
+                DeliveryButton.IsEnabled = false;//charging rn, cant delivere
+                DeliveryButton.Opacity = 0.5;
 
             }
             else
@@ -471,34 +451,7 @@ namespace PL
             worker.CancelAsync();
             Cursor = Cursors.Wait;
             d = bl.GetDrone(d.Id);
-            if (d.Status == BO.DroneStatuses.Maintenance)
-            {
-                ChargingButton.Content = "Discharge Drone"; //change the charge/discharge button to discharge
-                DeliveryButton.IsEnabled = false;//charging rn, cant delivere
-                DeliveryButton.Opacity = 0.5;
-
-               
-            }
-            else
-            {
-                ChargingButton.Content = "Charge Drone";
-                DeliveryButton.IsEnabled = true;
-                DeliveryButton.Opacity =1;
-                ChargingButton.IsEnabled = true;
-                ChargingButton.Opacity = 1;
-
-            }
-            if (d.Status == (BO.DroneStatuses)0)
-            {
-                DeliveryButton.Content = "Pick a Parcel";
-            }
-            else if (d.Status == (BO.DroneStatuses)1)
-            {
-                DeliveryButton.Content = "Next delivery step";
-                ChargingButton.IsEnabled = false;
-                ChargingButton.Opacity = 0.5;
-
-            }
+         
 
         }
 
