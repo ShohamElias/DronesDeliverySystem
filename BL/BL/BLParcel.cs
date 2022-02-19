@@ -171,7 +171,7 @@ namespace BL
             }
             if (d.Status == DroneStatuses.Delivery && p.Scheduled != null)
             {
-                double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Sender.Id).CustLocation);
+                double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Sender.Id).CustLocation, p);
                 dt.Battery -= b;
                 if (dt.Battery < 0)
                     dt.Battery = 0;
@@ -210,7 +210,7 @@ namespace BL
             Drone d = GetDrone(id);
             if (dt.Status == DroneStatuses.Delivery && p.PickedUp != null)
             {
-                double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Target.Id).CustLocation);
+                double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Target.Id).CustLocation,p);
                 dt.Battery -= b;
                 if (dt.Battery < 0)
                     dt.Battery = 0;
@@ -221,7 +221,7 @@ namespace BL
                 UpdateParcel(p);
             }
             else
-                throw new Exception("there was an issue with the parcel or drone status");
+                throw new Exception("There was an issue with the parcel or drone status");
         }
 
         /// <summary>
@@ -229,11 +229,12 @@ namespace BL
         /// </summary>
         /// <returns></returns> list of parcels
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public IEnumerable<Parcel> GetAllUnmachedParcels()
+        public IEnumerable<Parcel> GetAllUnmachedParcels(Predicate<DO.Parcel> p)
         {
             lock (AccessIdal)
             {
                 return from sic in AccessIdal.GetALLParcelsBy(x=>x.Scheduled==null)
+                       where p(sic)
                        select GetParcel(sic.Id);
             }
         }

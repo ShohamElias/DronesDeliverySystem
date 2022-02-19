@@ -77,7 +77,10 @@ namespace PL
             SentList.Visibility = Visibility.Hidden;
             SentParcels.Visibility = Visibility.Hidden;
             RecievedParcels.Visibility = Visibility.Hidden;
-            this.Height = 450;
+            this.Height = 350;
+            this.Width = 418;
+            addUpdateButton.Margin = new Thickness(295, 106, 0, 0);
+            cancelButton.Margin = new Thickness(295, 142, 0, 0);
 
         }
 
@@ -198,7 +201,7 @@ namespace PL
 
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            new ParcelShow(bl, int.Parse(idTextBox.Text)).Show();////מספר רץ בעיה
+            new ParcelShow(bl, int.Parse(idTextBox.Text)).Show();
         }
 
         private void Window_Activated(object sender, EventArgs e)

@@ -27,6 +27,7 @@ namespace PL
         {
             InitializeComponent();
             bl = BlApi.BlFactory.GetBL();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

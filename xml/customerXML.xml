@@ -86,4 +86,12 @@
     <Lattitude>32.3632</Lattitude>
     <password>ADI</password>
   </Customer>
+  <Customer>
+    <Id>2111</Id>
+    <Name>ADIDA</Name>
+    <Phone>12345678</Phone>
+    <Longitude>34.28262</Longitude>
+    <Lattitude>32.3632</Lattitude>
+    <password>111</password>
+  </Customer>
 </ArrayOfCustomer>

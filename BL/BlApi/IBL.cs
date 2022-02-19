@@ -59,7 +59,7 @@ namespace BlApi
 
         public int GetNextParcel();
         public void DeliveringParcel(int id);
-        public IEnumerable<BO.Parcel> GetAllUnmachedParcels();
+        public IEnumerable<BO.Parcel> GetAllUnmachedParcels(Predicate<DO.Parcel> p);
 
         #endregion
 

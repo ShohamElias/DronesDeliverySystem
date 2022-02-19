@@ -25,8 +25,9 @@ namespace PL
         IEnumerable<BO.Customer> cc;
         IEnumerable<BO.Drone> dd;
         bool closingwin = true;
-        BO.Parcel updatep; 
-        public ParcelShow(BlApi.IBL _bl,int id)//opening as add option
+        BO.Parcel updatep;
+        int custId = 0;
+       public ParcelShow(BlApi.IBL _bl,int id)//opening as add option
         {
             InitializeComponent();
             int num = 0;
@@ -50,6 +51,7 @@ namespace PL
                 p = s => s.Id == id; //create the predicate
                 senderComboBox.ItemsSource = bl.GetCustomerBy(p);
                 senderComboBox.IsReadOnly = true;
+                custId = id;
             }
             catch (Exception)
             {
@@ -212,9 +214,14 @@ namespace PL
                     p.Priority = (BO.Priorities)priorityComboBox.SelectedItem;
                 if (weightComboBox.SelectedIndex != -1)
                     p.Weight = (BO.WeightCategories)weightComboBox.SelectedItem;
-                if (senderComboBox.SelectedIndex!=-1)
-                   p.Sender = new BO.CustomerInParcel() {Id=cc.ElementAt(senderComboBox.SelectedIndex).Id,CustomerName= cc.ElementAt(senderComboBox.SelectedIndex).Name };
-               if(targetComboBox.SelectedIndex!=-1)
+                if (senderComboBox.SelectedIndex != -1)
+                {
+                    if(custId==0)
+                       p.Sender = new BO.CustomerInParcel() { Id = cc.ElementAt(senderComboBox.SelectedIndex).Id, CustomerName = cc.ElementAt(senderComboBox.SelectedIndex).Name };
+                    else
+                        p.Sender = new BO.CustomerInParcel() { Id = custId, CustomerName = bl.GetCustomer(custId).Name };
+                }
+                if (targetComboBox.SelectedIndex!=-1)
                     p.Target = new BO.CustomerInParcel() { Id = cc.ElementAt(targetComboBox.SelectedIndex).Id, CustomerName = cc.ElementAt(targetComboBox.SelectedIndex).Name };
                 p.Requested = DateTime.Now;
                 bl.AddParcel(p);

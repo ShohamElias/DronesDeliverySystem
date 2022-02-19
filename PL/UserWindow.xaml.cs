@@ -30,8 +30,13 @@ namespace PL
         {
             try
             {
-                BO.Customer c = bl.GetCustomer(int.Parse(Id.Text.ToString()));
-                if (!passwordBox.Password.Equals(c.password))
+                if (passwordBox.Password == "" || Id.Text == "")//if one is empty
+                {
+                    MessageBox.Show("Please fill all the fields!", "Error Occurred", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                    BO.Customer c = bl.GetCustomer(int.Parse(Id.Text.ToString()));//getting the customer
+                if (!passwordBox.Password.Equals(c.password))//checking password right
                 {
                     throw new BO.BadIdException(c.Id, "The id or the password were wrong, try again");    
                 }

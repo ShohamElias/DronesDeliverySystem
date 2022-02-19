@@ -27,7 +27,7 @@
         <Rectangle x:Name="RLocation" Visibility="Collapsed" Margin="371,181,88,110" RadiusX="10" RadiusY="10">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,4">
-                    <GradientStop Color="#FFE6E6FA" Offset="0.0"/>
+                    <GradientStop Color="#EED4D7F9" Offset="0.0"/>
                     <GradientStop Color="#EED4D7F9" Offset="1"/>
                 </LinearGradientBrush>
             </Rectangle.Fill>
@@ -36,11 +36,11 @@
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#FFE6E6FA" Offset="0.0"/>
-                    <GradientStop Color="#AAD4D7F9" Offset="1"/>
+                    <GradientStop Color="#EED4D7F9" Offset="1"/>
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Rectangle x:Name="RDoing" Visibility="Collapsed" Margin="371,70,256,218" Fill="LavenderBlush" RadiusX="10" RadiusY="10"/>
+        <Rectangle x:Name="RDoing" Visibility="Collapsed" Margin="371,70,256,218" Fill="#FFFDDEE9" RadiusX="10" RadiusY="10"/>
         <Label x:Name="ppp" Visibility="Collapsed" Content="Label" Foreground="White" FontWeight="DemiBold" FontSize="50" HorizontalAlignment="Left"  Margin="388,77,0,0" VerticalAlignment="Top"/>
 
 

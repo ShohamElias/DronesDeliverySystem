@@ -40,8 +40,8 @@ namespace PL
             DeliveryButton.Visibility = Visibility.Hidden;
             idtextbox.Text = d.Id.ToString();
             modelTextbox.Text = d.Model.ToString();
-            latitudeLabel3.Content = d.CurrentLocation.Lattitude.ToString();
-            longitudeLabel2.Content = d.CurrentLocation.Longitude.ToString();
+            latitudeLabel3.Content = LocationString.ToStringLoc(d.CurrentLocation.Lattitude);
+            longitudeLabel2.Content = LocationString.ToStringLoc(d.CurrentLocation.Longitude);
             batteryPrecentage.Content = Convert.ToInt64(d.Battery).ToString()+"%";
             modelTextbox.Text = d.Model;
             
@@ -57,6 +57,7 @@ namespace PL
             if ((int)d.Status == 0)
             {
                 doingLabel.Content = "";
+                ppp.Content = "FREE";
             }
             else if ((int)d.Status == 1)
             {

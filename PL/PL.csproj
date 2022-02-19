@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="5f127baab5b675e60e4bb7c984d1c01d.jpg" />
+    <None Remove="cb28df54fba9761bdfeef5c9978cef5c.jpg" />
+    <None Remove="DRONE PIC.png" />
+    <None Remove="drone_3579005.jpg" />
     <None Remove="f56bcec6-a20d-4d2c-a07f-512eb2566234.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="5f127baab5b675e60e4bb7c984d1c01d.jpg" />
+    <Resource Include="cb28df54fba9761bdfeef5c9978cef5c.jpg" />
+    <Resource Include="DRONE PIC.png" />
+    <Resource Include="drone_3579005.jpg" />
     <Resource Include="f56bcec6-a20d-4d2c-a07f-512eb2566234.jpg" />
   </ItemGroup>
 

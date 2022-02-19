@@ -37,7 +37,7 @@ namespace BL
                                     }
                                     distance = blObject.getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, s.StationLocation.Lattitude, s.StationLocation.Longitude);
                                     Drone dt = blObject.GetDrone(droneId);
-                                    double b = blObject.amountOfbattery(dt, d.CurrentLocation, s.StationLocation);
+                                    double b = blObject.amountOfbattery(dt, d.CurrentLocation, s.StationLocation, null);
                                     b /= distance;
 
                                     while (distance > 10)
@@ -64,7 +64,7 @@ namespace BL
                     case DroneStatuses.Delivery:
                         {
                             Parcel p = blObject.GetParcel(d.IdOfParcel);
-                            double ELECTRICITY = AccessIdal.ElectricityUse()[(int)p.Weight + 1];
+                            double ELECTRICITY = AccessIdal.ElectricityUse()[(int)p.Weight + 1]/10;
                             if (p.PickedUp==null)
                             {
                                 Location loc = new() { Lattitude = d.CurrentLocation.Lattitude, Longitude = d.CurrentLocation.Longitude };
@@ -78,7 +78,7 @@ namespace BL
                                     d.Battery -= ELECTRICITY*2;
                                     distance -= 2;
                                     ReportProgressInSimulation();
-                                    Thread.Sleep(20);
+                                    Thread.Sleep(100);
                                 }
                                 d.Battery = battery;
                                 d.CurrentLocation = loc;
@@ -99,7 +99,7 @@ namespace BL
                                     d.Battery -= ELECTRICITY * 2;
                                     distance -= 2;
                                     ReportProgressInSimulation();
-                                    Thread.Sleep(50);
+                                    Thread.Sleep(100);
                                 }
                                 d.Battery = battery;
                                 d.CurrentLocation = loc;

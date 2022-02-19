@@ -9,6 +9,7 @@
         Title="ParcelShow" Height="450" Width="800" ResizeMode="NoResize">
 
     <Grid>
+        
         <Grid x:Name="parcelGrid"  HorizontalAlignment="Left" Margin="99,49,0,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

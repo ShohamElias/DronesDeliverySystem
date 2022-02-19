@@ -118,7 +118,7 @@ namespace BL
             }
         }
 
-        internal double amountOfbattery(Drone d, Location l,Location L2)
+        internal double amountOfbattery(Drone d, Location l,Location L2, Parcel prcl)
         {
             lock (AccessIdal)
             {
@@ -132,7 +132,7 @@ namespace BL
                 }
                 else
                 {
-                    switch (d.MaxWeight)
+                    switch (prcl.Weight)
                     {
                         case WeightCategories.Light:
                             s *= arr[1];
@@ -147,7 +147,7 @@ namespace BL
                             break;
                     }
                 }
-                return s/*/ 100*/;
+                return s/10/*/ 100*/;
             }
         }
         private double Deg2rad(double deg)

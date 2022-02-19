@@ -12,7 +12,7 @@
             <ColumnDefinition Width="683*"/>
             <ColumnDefinition Width="117*"/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="stationListView" ItemsSource="{Binding}" Margin="121,87,27,134" SelectionMode="Single" MouseDoubleClick="stationListView_MouseDoubleClick" SelectionChanged="stationListView_SelectionChanged">
+        <ListView x:Name="stationListView" Background="Transparent" ItemsSource="{Binding}" Margin="121,87,27,134" SelectionMode="Single" MouseDoubleClick="stationListView_MouseDoubleClick" SelectionChanged="stationListView_SelectionChanged">
             <ListView.ItemContainerStyle>
                 <Style>
                     <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
@@ -21,13 +21,6 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn x:Name="chargeSlotsColumn" Header="Charge Slots" Width="80">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label Content="{Binding EmptyChargeSlots}" Margin="6,-1,-6,-1"  HorizontalAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
                     <GridViewColumn x:Name="idColumn" Header="Id" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -35,6 +28,14 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn x:Name="chargeSlotsColumn" Header="Charge Slots" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding EmptyChargeSlots}" Margin="6,-1,-6,-1"  HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
                     <GridViewColumn x:Name="nameColumn" Header="Name" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -43,7 +44,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn x:Name="fullchargeSlotsColumn" Header="Full Charge Slots" Width="80">
+                    <GridViewColumn x:Name="fullchargeSlotsColumn" Header="Full Charge Slots" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Label Content="{Binding FullChargeSlots}" Margin="-6,-1"  HorizontalAlignment="Center"/>

@@ -260,7 +260,7 @@ namespace BL
                     throw new StationProblemException("There wasn't any empty station. \n Pleas try again later!");
                 }
                 Location l = new Location() { Lattitude = s.StationLocation.Lattitude, Longitude = s.StationLocation.Longitude };
-                double b = amountOfbattery(GetDrone(id), dt.CurrentLocation, l);
+                double b = amountOfbattery(GetDrone(id), dt.CurrentLocation, l, null);
 
                 if (b > dt.Battery)
                     throw new BatteryIssueException(dt.Id, "there wasnt enough battery");
@@ -330,10 +330,12 @@ namespace BL
                 Drone d = GetDrone(id);
                 if (d.Status != DroneStatuses.Available)
                     throw new WrongDroneStatException(id, "this drone is not available");
-                IEnumerable<DO.Parcel> par = AccessIdal.GetAllUnMachedParcel();
+                Predicate<DO.Parcel> pred = s => (int)s.Weight <= (int)d.MaxWeight;
+
+                IEnumerable<BO.Parcel> par = GetAllUnmachedParcels(pred);
                 if (!par.Any())
                     throw new NoMatchException("no match was found"); //no mach parcel for drone ##########
-                DO.Parcel p = par.First(), p2 = par.First();
+                Parcel p = par.First(), p2 = par.First();
                 bool flag = false, flag2 = false;
 
                 foreach (var item in par)
@@ -348,8 +350,8 @@ namespace BL
                         p = item;
                         flag2 = true;
                     }
-                    double dist = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(p.SenderId).CustLocation.Lattitude, GetCustomer(p.SenderId).CustLocation.Longitude);
-                    double dist2 = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(item.SenderId).CustLocation.Lattitude, GetCustomer(item.SenderId).CustLocation.Longitude);
+                    double dist = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(p.Sender.Id).CustLocation.Lattitude, GetCustomer(p.Sender.Id).CustLocation.Longitude);
+                    double dist2 = getDistanceFromLatLonInKm(d.CurrentLocation.Lattitude, d.CurrentLocation.Longitude, GetCustomer(item.Sender.Id).CustLocation.Lattitude, GetCustomer(item.Sender.Id).CustLocation.Longitude);
 
                     if (item.Priority == p.Priority && item.Weight == p.Weight && dist2 <= dist)
                     {
@@ -357,11 +359,11 @@ namespace BL
                         flag2 = true;
                     }
                     d.Status = DroneStatuses.Delivery;
-                    double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.SenderId).CustLocation);
-                    double b2 = amountOfbattery(d, GetCustomer(p.SenderId).CustLocation, GetCustomer(p.TargetId).CustLocation);
-                    Station st = closestStation(GetCustomer(p.TargetId).CustLocation.Longitude, GetCustomer(p.TargetId).CustLocation.Lattitude);
-                    double b3 = amountOfbattery(d, GetCustomer(p.TargetId).CustLocation, st.StationLocation);
+                    double b = amountOfbattery(d, d.CurrentLocation, GetCustomer(p.Sender.Id).CustLocation, item);
+                    double b2 = amountOfbattery(d, GetCustomer(p.Sender.Id).CustLocation, GetCustomer(p.Target.Id).CustLocation, item);
+                    Station st = closestStation(GetCustomer(p.Target.Id).CustLocation.Longitude, GetCustomer(p.Target.Id).CustLocation.Lattitude);
                     d.Status = DroneStatuses.Available;
+                    double b3 = amountOfbattery(d, GetCustomer(p.Target.Id).CustLocation, st.StationLocation, null);
                     if (d.Battery >= b + b2 + b3 && flag2)
                     {
                         p2 = p;
@@ -372,9 +374,9 @@ namespace BL
                 }
                 if (!flag)
                     throw new NoMatchException("no match was found"); //no mach parcel for drone ##########
-                p2.DroneId = d.Id;
+                p2.DroneParcel.Id = d.Id;
                 p2.Scheduled = DateTime.Now;
-                AccessIdal.UpdateParcel(p2);
+                UpdateParcel(p2);
                 DroneToList dt = DronesBL.Find(x => x.Id == d.Id);
                 dt.Status = DroneStatuses.Delivery;
                 dt.IdOfParcel = p2.Id;

@@ -38,21 +38,18 @@
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
                                 <!-- Outer Rectangle with rounded corners. -->
-                            <Rectangle x:Name="outerRectangle" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="{StaticResource MyBackground}" RadiusX="7" RadiusY="6" StrokeThickness="0.5" Fill="Lavender"/>
+                            <Rectangle x:Name="outerRectangle" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="{StaticResource MyBackground}" RadiusX="7" RadiusY="6" StrokeThickness="0.5" Fill="#EED4D7F9"/>
 
-                                <ContentPresenter HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"/>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Height" Value="28"/>
-
                                 <Setter Property="FontSize" Value="13"/>
                             </Trigger>
 
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter Property="Opacity" Value="0.5"/>
-
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -62,9 +59,9 @@
 
 
 
-            <SolidColorBrush x:Key="NormalBrush" Color="Lavender" />
+        <SolidColorBrush x:Key="NormalBrush" Color="#EED4D7F9" />
 
-            <SolidColorBrush x:Key="WindowBackgroundBrush" Color="Lavender" />
+        <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#EED4D7F9" />
 
             <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
                 <Grid>
@@ -97,13 +94,7 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="ComboBox">
                             <Grid>
-                                <ToggleButton 
-            Name="ToggleButton" 
-            Template="{StaticResource ComboBoxToggleButton}" 
-            Grid.Column="2" 
-            Focusable="false"
-            IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
-            ClickMode="Press">
+                                <ToggleButton Name="ToggleButton" Template="{StaticResource ComboBoxToggleButton}" Grid.Column="2" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press">
                                 </ToggleButton>
                                 <ContentPresenter
             Name="ContentSite"

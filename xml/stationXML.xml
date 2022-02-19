@@ -5,7 +5,7 @@
     <Name>Elad</Name>
     <Longitude>34.503181</Longitude>
     <Lattitude>31.56562</Lattitude>
-    <ChargeSlots>12</ChargeSlots>
+    <ChargeSlots>11</ChargeSlots>
   </Station>
   <Station>
     <Id>5656</Id>
@@ -19,14 +19,14 @@
     <Name>Petah Tikva</Name>
     <Longitude>35.934184</Longitude>
     <Lattitude>31.976524</Lattitude>
-    <ChargeSlots>3</ChargeSlots>
+    <ChargeSlots>9</ChargeSlots>
   </Station>
   <Station>
     <Id>1821</Id>
     <Name>rrr</Name>
     <Longitude>35.792904</Longitude>
     <Lattitude>32.391015</Lattitude>
-    <ChargeSlots>3</ChargeSlots>
+    <ChargeSlots>4</ChargeSlots>
   </Station>
   <Station>
     <Id>3710</Id>
