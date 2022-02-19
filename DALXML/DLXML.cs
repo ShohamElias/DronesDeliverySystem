@@ -612,5 +612,5 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(ParcelList, parcelPath);
         }
     
-}
+    }
 }

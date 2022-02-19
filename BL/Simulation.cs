@@ -40,7 +40,7 @@ namespace BL
                                     double b = blObject.amountOfbattery(dt, d.CurrentLocation, s.StationLocation);
                                     b /= distance;
 
-                                    while (distance > 1)
+                                    while (distance > 10)
                                     {
                                         d.Battery -= b * 10;
                                         ReportProgressInSimulation();
@@ -114,13 +114,13 @@ namespace BL
                         {
                             while (d.Battery<100)
                             {
-                                d.Battery += 10;
+                                d.Battery += 1;
                                 if(d.Battery > 100)
                                 {
                                     d.Battery = 100;
                                 }
                                 ReportProgressInSimulation();
-                                Thread.Sleep(500);
+                                Thread.Sleep(200);
                             }
                             blObject.EndCharging(droneId);
                             ReportProgressInSimulation();
