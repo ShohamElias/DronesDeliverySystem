@@ -4,28 +4,28 @@
     <Id>930477560</Id>
     <Name>name1</Name>
     <Phone>un</Phone>
-    <Longitude>35.655188</Longitude>
+    <Longitude>32.655188</Longitude>
     <Lattitude>31.590387</Lattitude>
   </Customer>
   <Customer>
     <Id>681351948</Id>
     <Name>name2</Name>
     <Phone>un</Phone>
-    <Longitude>34.240846</Longitude>
+    <Longitude>32.240846</Longitude>
     <Lattitude>32.971336</Lattitude>
   </Customer>
   <Customer>
     <Id>366323333</Id>
     <Name>name3</Name>
     <Phone>un</Phone>
-    <Longitude>35.340294</Longitude>
+    <Longitude>33.340294</Longitude>
     <Lattitude>32.663819</Lattitude>
   </Customer>
   <Customer>
     <Id>506291243</Id>
     <Name>name4</Name>
     <Phone>un</Phone>
-    <Longitude>35.001251</Longitude>
+    <Longitude>34.001251</Longitude>
     <Lattitude>32.989643</Lattitude>
   </Customer>
   <Customer>
@@ -53,21 +53,21 @@
     <Id>139886495</Id>
     <Name>Leah</Name>
     <Phone>un</Phone>
-    <Longitude>35.354293</Longitude>
+    <Longitude>34.354293</Longitude>
     <Lattitude>30.548297</Lattitude>
   </Customer>
   <Customer>
     <Id>199247968</Id>
     <Name>Shira</Name>
     <Phone>un</Phone>
-    <Longitude>35.378331</Longitude>
+    <Longitude>34.378331</Longitude>
     <Lattitude>31.886652</Lattitude>
   </Customer>
   <Customer>
     <Id>247469713</Id>
     <Name>Roei</Name>
     <Phone>un</Phone>
-    <Longitude>35.182507</Longitude>
+    <Longitude>34.182507</Longitude>
     <Lattitude>30.488614</Lattitude>
   </Customer>
   <Customer>
@@ -75,7 +75,7 @@
     <Name>EPRAT</Name>
     <Phone>12345</Phone>
     <Longitude>32.33</Longitude>
-    <Lattitude>35.377</Lattitude>
+    <Lattitude>31.377</Lattitude>
     <password>11</password>
   </Customer>
   <Customer>
