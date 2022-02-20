@@ -12,10 +12,10 @@ namespace BL
     {
         internal DalApi.IDal AccessIdal;
 
-        public List<DroneToList> DronesBL;
+        internal List<DroneToList> DronesBL;
         internal static Random rand;//random
         internal static double chargeRate;
-        public static int parcelNum;
+        internal static int parcelNum;//next id of parcel
 
         internal static readonly IBL instance = new BL();
         public static IBL Instance { get => instance; }
@@ -23,9 +23,6 @@ namespace BL
 
         public BL()
         {
-        //    lock (AccessIdal)
-        //    {
-
                 AccessIdal = DalApi.DalFactory.GetDal();
                 rand = new Random(DateTime.Now.Millisecond);
                 chargeRate = AccessIdal.GetChargeRate();
@@ -36,13 +33,11 @@ namespace BL
                                                    Model = item.Model,
                                                    MaxWeight = (WeightCategories)item.MaxWeight,
                                                    Status = 0,
-                                                   //CurrentLocation = new Location() { Lattitude = item.Lattitude, Longitude = item.Longitude },
-                                                   // IdOfParcel=item.
                                                    Battery = rand.Next(20, 41),
                                                    IdOfParcel = -1
 
                                                }).ToList();
-            //}
+           
             foreach (var item in DronesBL)
             {
                 item.CurrentLocation = new Location();
@@ -76,9 +71,6 @@ namespace BL
                     d.IdOfParcel = item.Id;
                     
                         d.CurrentLocation = GetCustomer(item.Sender.Id).CustLocation;
-                    //}
-                  //  DronesBL.Remove(s);
-                    //DronesBL.Add(d);
                 }
             }
             
@@ -96,7 +88,12 @@ namespace BL
         {
             new Simulation(this, droneId,  updateWPF, check);
         }
-
+/// <summary>
+/// the func gets a location and returns the clothest station to this location
+/// </summary>
+/// <param name="lon">longtitude</param>
+/// <param name="lat">latitude</param>
+/// <returns></returns>
         internal Station closestStation(double lon, double lat)
         {
             lock (AccessIdal)
@@ -117,7 +114,14 @@ namespace BL
                 return GetStation(ids);
             }
         }
-
+/// <summary>
+/// the func gets a drone, 2 locations and a parcel and returns the anount of battery it takes to go between those locations
+/// </summary>
+/// <param name="d">the drone</param>
+/// <param name="l">location number 1</param>
+/// <param name="L2">location number 2</param>
+/// <param name="prcl">the parcel</param>
+/// <returns></returns>
         internal double amountOfbattery(Drone d, Location l,Location L2, Parcel prcl)
         {
             lock (AccessIdal)
@@ -147,14 +151,21 @@ namespace BL
                             break;
                     }
                 }
-                return s/10/*/ 100*/;
+                return s/10;
             }
         }
         private double Deg2rad(double deg)
         {
             return deg * (Math.PI / 180);
         }
-
+        /// <summary>
+        /// the func returns the distance in kilometers between 2 locations
+        /// </summary>
+        /// <param name="lat1"></param>
+        /// <param name="lon1"></param>
+        /// <param name="lat2"></param>
+        /// <param name="lon2"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)
         {
@@ -168,7 +179,11 @@ namespace BL
             double d = R * c; // Distance in km
             return d;
         }
-
+        /// <summary>
+        /// the func returns the id of the station the drone is in rn
+        /// </summary>
+        /// <param name="id">id of drone</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public int GetDroneChargeStation(int id)
         {
@@ -178,7 +193,6 @@ namespace BL
                 {
                     DO.DroneCharge dd = AccessIdal.GetDroneCharge(id);
                     return dd.StationId;
-
                 }
                 catch (Exception)
                 {
@@ -187,7 +201,10 @@ namespace BL
                
             }
         }
-
+        /// <summary>
+        /// the func returns all drones that are charging rn
+        /// </summary>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.DroneCharge> GetAllDroneCharges()
         {
