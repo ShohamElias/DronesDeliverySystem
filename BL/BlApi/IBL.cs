@@ -8,24 +8,27 @@ namespace BlApi
 {
     public interface IBL
     {
+        #region Simulation
         public void simulator(int droneId, Action updateWPF, Func<bool> check);
+        #endregion
+
         #region Drone
         public BO.Drone GetDrone(int id);
          IEnumerable<BO.Drone> GetAllDrones();
         public void AddDrone(BO.Drone d, int x);
         public void UpdateDrone(int id, string m);
         public void DroneToCharge(int id);
-        public void EndCharging(int id/*, int timeI*/);
+        public void EndCharging(int id);
         public void LinkDroneToParcel(int id);
         public IEnumerable<BO.DroneToList> ListDrone();
         public IEnumerable<BO.Drone> GetDroneBy(Predicate<BO.Drone> P);
 
         #endregion
+
         #region dCharge
         int GetDroneChargeStation(int id);
 
         #endregion
-
 
         #region Customer
         public IEnumerable<BO.Customer> GetCustomerBy(Predicate<BO.Customer> P);
@@ -55,8 +58,6 @@ namespace BlApi
 
         public IEnumerable<BO.DroneToList> GetAllDronesToList();
         public IEnumerable<BO.DroneToList> GetAllDronesToListBy(Predicate<BO.DroneToList> P);
-
-
         public int GetNextParcel();
         public void DeliveringParcel(int id);
         public IEnumerable<BO.Parcel> GetAllUnmachedParcels(Predicate<DO.Parcel> p);
@@ -66,11 +67,10 @@ namespace BlApi
         #region Station
          IEnumerable<BO.Station> GetStationsforNoEmpty();
         public BO.Station GetStation(int id);
-
         public void AddStation(BO.Station s);
         public void Updatestation(int id, string name, int numOfChargingSlots);
         public IEnumerable<BO.Station> GetAllStations();
-            #endregion
+          #endregion
 
-        }
+     }
 }

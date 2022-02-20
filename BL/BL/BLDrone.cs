@@ -13,41 +13,6 @@ namespace BL
      partial class BL
     {
         /// <summary>
-        /// adapter- gets a DO drone and returns a BO drone
-        /// </summary>
-        /// <param name="droneDO"></param> the DO drone
-        /// <returns></returns> BO drone
-        private Drone droneDoBoAdapter(DO.Drone droneDO)
-        {
-            Drone droneBO = new Drone();
-            int id = droneDO.Id;
-            DO.Drone s;
-            try //???
-            {
-                s = AccessIdal.GetDrone(id);
-            }
-            catch (DO.BadIdException)
-            {
-
-                throw new BadIdException("station");
-            }
-            s.CopyPropertiesTo(droneBO);
-            droneDO.CopyPropertiesTo(droneBO);
-            for (int i = 0; i < DronesBL.Count(); i++)//#########IDK IF ITS SUPPOSED TO BE LIKE THAT, BUT YOU DIDNT COPY THE SADOT OF THE BL
-            {
-                if (id == DronesBL[i].Id)
-                {
-                    droneBO.Status = DronesBL[i].Status;
-                    droneBO.Battery = DronesBL[i].Battery;
-                }
-            }
-            //stationBO.DronesinCharge= from sic in AccessIdal.GetALLDrone(sic=> sic.Id==Id )
-            //                          let 
-            return droneBO;
-
-        }
-
-        /// <summary>
         /// the func gets an id of drone and returns the drone
         /// </summary>
         /// <param name="id"></param> id of a drone
@@ -193,14 +158,21 @@ namespace BL
                        select GetDrone(droneDO.Id);
             }
         }
-
+        /// <summary>
+        /// the func returns all of the drones but as TOLIST drones
+        /// </summary>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneToList> GetAllDronesToList()
         {
             return from item in DronesBL
                 select DronesBL.Find(x=>x.Id==item.Id);
         }
-
+        /// <summary>
+        /// the func returns all of the drones that returns true to a certain predicate
+        /// </summary>
+        /// <param name="P"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneToList> GetAllDronesToListBy(Predicate<DroneToList> P)
         {
@@ -297,7 +269,6 @@ namespace BL
                 if (!AccessIdal.CheckDrone(id))
                     throw new DO.BadIdException(id, "This drone doesn't exist!"); //#######
                 DroneToList dt = DronesBL.Find(x => x.Id == id);
-              //  DroneToList dss = DronesBL.Find(x => x.Id == id);
                 if (dt.Status != DroneStatuses.Maintenance)
                     throw new WrongDroneStatException(id, "This drone is not in charge!"); // DronesBL.Remove(dt);
                 dt.Status = DroneStatuses.Available;
@@ -305,9 +276,6 @@ namespace BL
                 dt.Battery += 10 * (timeSpan.TotalHours * chargeRate);
                 if (dt.Battery >= 100)
                     dt.Battery = 100;
-               // DronesBL.Remove(dss);
-
-               // DronesBL.Add(dt);
                 DO.DroneCharge dc = AccessIdal.GetDroneCharge(id);
                 Station s = GetStation(dc.StationId);
                 s.ChargeSlots++;
@@ -397,7 +365,11 @@ namespace BL
             }
             return temp;
         }
-
+        /// <summary>
+        /// returns all of the drones ny a certain predicate
+        /// </summary>
+        /// <param name="P">the predicate</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDroneBy(Predicate<Drone> P)
         {

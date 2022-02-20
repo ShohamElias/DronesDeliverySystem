@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace BL
 {
-    sealed partial class BL: IBL
+    sealed partial class BL : IBL
     {
         internal DalApi.IDal AccessIdal;
 
@@ -23,21 +23,21 @@ namespace BL
 
         public BL()
         {
-                AccessIdal = DalApi.DalFactory.GetDal();
-                rand = new Random(DateTime.Now.Millisecond);
-                chargeRate = AccessIdal.GetChargeRate();
-                DronesBL = (List<DroneToList>)(from item in AccessIdal.GetALLDrone()
-                                               select new DroneToList()
-                                               {
-                                                   Id = item.Id,
-                                                   Model = item.Model,
-                                                   MaxWeight = (WeightCategories)item.MaxWeight,
-                                                   Status = 0,
-                                                   Battery = rand.Next(20, 41),
-                                                   IdOfParcel = -1
+            AccessIdal = DalApi.DalFactory.GetDal();
+            rand = new Random(DateTime.Now.Millisecond);
+            chargeRate = AccessIdal.GetChargeRate();
+            DronesBL = (List<DroneToList>)(from item in AccessIdal.GetALLDrone()
+                                           select new DroneToList()
+                                           {
+                                               Id = item.Id,
+                                               Model = item.Model,
+                                               MaxWeight = (WeightCategories)item.MaxWeight,
+                                               Status = 0,
+                                               Battery = rand.Next(20, 41),
+                                               IdOfParcel = -1
 
-                                               }).ToList();
-           
+                                           }).ToList();
+
             foreach (var item in DronesBL)
             {
                 item.CurrentLocation = new Location();
@@ -51,7 +51,7 @@ namespace BL
                 foreach (var item in s.DronesinCharge)
                 {
                     DroneToList d = DronesBL.Find(x => x.Id == item.DroneId);
-                    if(d!=null)
+                    if (d != null)
                     {
                         d.CurrentLocation = s.StationLocation;
                         d.Status = DroneStatuses.Maintenance;
@@ -63,17 +63,17 @@ namespace BL
 
             foreach (var item in GetAllParcels())
             {
-                if(item.DroneParcel.Id>0 && item.Delivered == null)
+                if (item.DroneParcel.Id > 0 && item.Delivered == null)
                 {
                     DroneToList d = DronesBL.Find(x => x.Id == item.DroneParcel.Id);
                     DroneToList s = d;
                     d.Status = DroneStatuses.Delivery;
                     d.IdOfParcel = item.Id;
-                    
-                        d.CurrentLocation = GetCustomer(item.Sender.Id).CustLocation;
+
+                    d.CurrentLocation = GetCustomer(item.Sender.Id).CustLocation;
                 }
             }
-            
+
             foreach (var item in DronesBL)
             {
                 if (item.Status == DroneStatuses.Available)
@@ -86,14 +86,14 @@ namespace BL
         }
         public void simulator(int droneId, Action updateWPF, Func<bool> check)
         {
-            new Simulation(this, droneId,  updateWPF, check);
+            new Simulation(this, droneId, updateWPF, check);
         }
-/// <summary>
-/// the func gets a location and returns the clothest station to this location
-/// </summary>
-/// <param name="lon">longtitude</param>
-/// <param name="lat">latitude</param>
-/// <returns></returns>
+        /// <summary>
+        /// the func gets a location and returns the clothest station to this location
+        /// </summary>
+        /// <param name="lon">longtitude</param>
+        /// <param name="lat">latitude</param>
+        /// <returns></returns>
         internal Station closestStation(double lon, double lat)
         {
             lock (AccessIdal)
@@ -114,15 +114,15 @@ namespace BL
                 return GetStation(ids);
             }
         }
-/// <summary>
-/// the func gets a drone, 2 locations and a parcel and returns the anount of battery it takes to go between those locations
-/// </summary>
-/// <param name="d">the drone</param>
-/// <param name="l">location number 1</param>
-/// <param name="L2">location number 2</param>
-/// <param name="prcl">the parcel</param>
-/// <returns></returns>
-        internal double amountOfbattery(Drone d, Location l,Location L2, Parcel prcl)
+        /// <summary>
+        /// the func gets a drone, 2 locations and a parcel and returns the anount of battery it takes to go between those locations
+        /// </summary>
+        /// <param name="d">the drone</param>
+        /// <param name="l">location number 1</param>
+        /// <param name="L2">location number 2</param>
+        /// <param name="prcl">the parcel</param>
+        /// <returns></returns>
+        internal double amountOfbattery(Drone d, Location l, Location L2, Parcel prcl)
         {
             lock (AccessIdal)
             {
@@ -151,10 +151,10 @@ namespace BL
                             break;
                     }
                 }
-                return s/10;
+                return s / 10;
             }
         }
-        private double Deg2rad(double deg)
+        private double deg2rad(double deg)
         {
             return deg * (Math.PI / 180);
         }
@@ -167,13 +167,13 @@ namespace BL
         /// <param name="lon2"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)
+        internal double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)
         {
             double R = 6371; // Radius of the earth in km
-            double dLat = Deg2rad(lat2 - lat1);  // deg2rad below
-            double dLon = Deg2rad(lon2 - lon1);
+            double dLat = deg2rad(lat2 - lat1);  // deg2rad below
+            double dLon = deg2rad(lon2 - lon1);
             double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-              Math.Cos(Deg2rad(lat1)) * Math.Cos(Deg2rad(lat2)) *
+              Math.Cos(deg2rad(lat1)) * Math.Cos(deg2rad(lat2)) *
               Math.Sin(dLon / 2) * Math.Sin(dLon / 2);///calculating by the formula
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
             double d = R * c; // Distance in km
@@ -196,9 +196,9 @@ namespace BL
                 }
                 catch (Exception)
                 {
-                    throw new BO.IDExistsException(id,"this drone isnt in charge in one of the stations!");
+                    throw new BO.IDExistsException(id, "this drone isnt in charge in one of the stations!");
                 }
-               
+
             }
         }
         /// <summary>
@@ -217,6 +217,6 @@ namespace BL
             }
         }
 
-        
+
     }
 }

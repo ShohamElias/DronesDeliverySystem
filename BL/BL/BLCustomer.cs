@@ -12,7 +12,11 @@ using DalApi;
 namespace BL
 {
      partial class BL 
-    {        
+    {    
+        /// <summary>
+        /// the func gets a new customer and add it
+        /// </summary>
+        /// <param name="newCustomer">the new customer</param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer newCustomer)
         {
@@ -157,7 +161,11 @@ namespace BL
                    where P(d)
                    select d;
         }
-
+        /// <summary>
+        /// the func returns all of the customer but as TOLIST customers
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public CustomerToList GetCustomerToList(int id)
         {

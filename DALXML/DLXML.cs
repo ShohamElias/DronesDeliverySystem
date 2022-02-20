@@ -28,7 +28,6 @@ namespace Dal
         string configPath = @"data-config.xml";
         #endregion
 
-
         #region Drone 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(DO.Drone d)
@@ -393,6 +392,8 @@ namespace Dal
 
         #endregion
 
+        #region Customer
+
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(DO.Customer cus)
         {
@@ -486,7 +487,9 @@ namespace Dal
         {
             return deg * (Math.PI / 180);
         }
+        #endregion
 
+        #region Parcel
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddParcel(DO.Parcel per)
@@ -611,6 +614,6 @@ namespace Dal
             ParcelList.Add(p);
             XMLTools.SaveListToXMLSerializer(ParcelList, parcelPath);
         }
-    
+        #endregion
     }
 }

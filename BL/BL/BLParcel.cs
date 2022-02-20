@@ -254,7 +254,10 @@ namespace BL
                 }
             }
         }
-
+        /// <summary>
+        /// the func gets the next id of a new parcel
+        /// </summary>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public int GetNextParcel()
         {
@@ -264,7 +267,11 @@ namespace BL
                 return parcelNum;
             }
         }
-
+        /// <summary>
+        /// the func returns all of the parcels by a certain predicate
+        /// </summary>
+        /// <param name="P"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcelBy(Predicate<Parcel> P)
         {
@@ -272,14 +279,21 @@ namespace BL
                    where P(d)
                    select d;
         }
-
+        /// <summary>
+        /// the func rturns all parcels but as tolist parcels
+        /// </summary>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelToList> GetAllParcelsToList()
         {
             return from d in GetAllParcels()
                    select GetParcelToList(d.Id);
         }
-
+        /// <summary>
+        /// the function returns all parcels who returns true to a preducate but as tolist func
+        /// </summary>
+        /// <param name="P"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelToList> GetAllParcelsToListBy(Predicate<Parcel> P)
         {
@@ -287,7 +301,11 @@ namespace BL
                    where P(d)
                    select GetParcelToList(d.Id);
         }
-
+        /// <summary>
+        /// the func returns a parccel but as tolist parcel
+        /// </summary>
+        /// <param name="id">id of parcel</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public ParcelToList GetParcelToList(int id)
         {
