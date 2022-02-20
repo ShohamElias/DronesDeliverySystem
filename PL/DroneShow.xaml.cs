@@ -353,11 +353,10 @@ namespace PL
             if (!simulatorButton.IsEnabled )//If we came by the cancel button and the simulator hasant stopped yet
             {
                 worker.CancelAsync();
+                Cursor = Cursors.AppStarting;
                 return;
             }
             closingwin = false;
-            WeightSelector.IsEnabled = true;
-            StatusSelector.IsEnabled = true;
             this.Close();
         }
     

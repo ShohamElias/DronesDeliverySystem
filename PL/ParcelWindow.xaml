@@ -77,9 +77,12 @@
         <ComboBox x:Name="WeightSelector" HorizontalAlignment="Left" Margin="498,45,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="WeightSelector_SelectionChanged"/>
         <Label x:Name="PriorityL" Content="Priority:" HorizontalAlignment="Left" Margin="125,41,0,0" VerticalAlignment="Top"/>
         <Label x:Name="WeightL" Content="Weight:" HorizontalAlignment="Left" Margin="419,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.586"/>
-        <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Left" Margin="69,229,0,0" VerticalAlignment="Top" Click="clearButton_Click" Background="{StaticResource MyButtonBackground}" Width="54" RenderTransformOrigin="0.509,0.954"/>
-        <Button x:Name="GroupBySender" Content="Group By Sender" HorizontalAlignment="Left" Margin="47,103,0,0" VerticalAlignment="Top" Click="GroupByClick_1"  Background="{StaticResource MyButtonBackground}" Height="25" Width="103" IsEnabled="{Binding ElementName=GroupByPrio, Path=IsEnabled, Mode=TwoWay}" Opacity="{Binding ElementName=GroupByPrio, Path=Opacity, Mode=TwoWay}"/>
-        <Button x:Name="GroupByTarget" Content="Group By target" HorizontalAlignment="Left" Margin="47,143,0,0" VerticalAlignment="Top" Click="GroupByTargetClick_1"  Background="{StaticResource MyButtonBackground}" Width="103" IsEnabled="{Binding ElementName=GroupBySender, Path=IsEnabled, Mode=TwoWay}" Opacity="{Binding ElementName=GroupBySender, Path=Opacity, Mode=TwoWay}" />
-        <Button x:Name="GroupByPrio" Content="Group By Priority" HorizontalAlignment="Left" Margin="47,188,0,0" VerticalAlignment="Top" Click="GroupByPrioClick_1"  Background="{StaticResource MyButtonBackground}" Width="103"/>
+        <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Left" Margin="69,229,0,0" VerticalAlignment="Top" Click="clearButton_Click" Width="54" RenderTransformOrigin="0.509,0.954"/>
+        <Button x:Name="GroupBySender" Content="Group By Sender" HorizontalAlignment="Left" Margin="47,103,0,0" VerticalAlignment="Top" Click="GroupByClick_1"  Height="25" Width="103" IsEnabled="{Binding ElementName=GroupByPrio, Path=IsEnabled, Mode=TwoWay}" Opacity="{Binding ElementName=GroupByPrio, Path=Opacity, Mode=TwoWay}">
+            
+        </Button>
+
+        <Button x:Name="GroupByTarget" Content="Group By target" HorizontalAlignment="Left" Margin="47,143,0,0" VerticalAlignment="Top" Click="GroupByTargetClick_1" Width="103" IsEnabled="{Binding ElementName=GroupBySender, Path=IsEnabled, Mode=TwoWay}" Opacity="{Binding ElementName=GroupBySender, Path=Opacity, Mode=TwoWay}" />
+        <Button x:Name="GroupByPrio" Content="Group By Priority" HorizontalAlignment="Left" Margin="47,188,0,0" VerticalAlignment="Top" Click="GroupByPrioClick_1" Width="103"/>
     </Grid>
 </Window>
