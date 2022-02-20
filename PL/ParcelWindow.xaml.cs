@@ -24,7 +24,7 @@ namespace PL
         int wish;
         IEnumerable<BO.Parcel> pp;
 
-        public ParcelWindow(BlApi.IBL _bl)
+        public ParcelWindow(BlApi.IBL _bl)//builder
         {
             InitializeComponent();
             bl = _bl;
@@ -33,7 +33,7 @@ namespace PL
             PrioritySelector.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
         }
-        private void Window_Activated(object sender, EventArgs e)
+        private void Window_Activated(object sender, EventArgs e)//reloading
         {
             Predicate<BO.Parcel> p = null;
             if (PrioritySelector.SelectedIndex != -1 && WeightSelector.SelectedIndex != -1) //if both of the combo boxes are selected
@@ -50,7 +50,7 @@ namespace PL
           
         }
 
-        private void parcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void parcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)//clicking on a parcel
         {
             BO.ParcelToList p = parcelListView.SelectedItem as BO.ParcelToList;
             if (p != null)
@@ -59,7 +59,7 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new ParcelShow(bl, 0).Show();
+            new ParcelShow(bl, 0).Show();//add parcel
         }
 
         private void PrioritySelector_LostTouchCapture(object sender, TouchEventArgs e)
@@ -67,7 +67,7 @@ namespace PL
 
         }
 
-        private void PrioritySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void PrioritySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)//combo box selected
         {
             if (PrioritySelector.SelectedItem == null)
             {
@@ -99,7 +99,7 @@ namespace PL
                                          select bl.GetParcelToList(item.Id);
         }
 
-        private void clearButton_Click(object sender, RoutedEventArgs e)
+        private void clearButton_Click(object sender, RoutedEventArgs e)//cear combobox and grouping
         {
             WeightSelector.SelectedItem = null;
             PrioritySelector.SelectedItem = null;

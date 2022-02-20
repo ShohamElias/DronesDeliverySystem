@@ -54,12 +54,12 @@ namespace PL
             idtextbox.IsReadOnly = true;         
             modelTextbox.IsReadOnly = true;
             HideAndShow();
-            if ((int)d.Status == 0)
+            if ((int)d.Status == 0)//available
             {
                 doingLabel.Content = "";
                 ppp.Content = "FREE";
             }
-            else if ((int)d.Status == 1)
+            else if ((int)d.Status == 1)//delivery
             {
                 doingLabel.Content = "Delivering Parcel:";
                 ppp.Content = d.CurrentParcel.Id;
@@ -361,7 +361,7 @@ namespace PL
             this.Close();
         }
     
-        private void simulator()
+        private void simulator()//creating
         {
              worker = new();
             worker.WorkerReportsProgress = true;
@@ -397,7 +397,7 @@ namespace PL
 
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            BO.Drone dI = bl.GetDrone(d.Id);
+            BO.Drone dI = bl.GetDrone(d.Id);//reloading
             idtextbox.Text = dI.Id.ToString();
             modelTextbox.Text = dI.Model.ToString();
             ChargingButton.Content = "Charge Drone";
@@ -438,7 +438,7 @@ namespace PL
             bl.simulator(d.Id, ReportProgressInSimulator, IsTimeRun);
         }
 
-        private void simulatorButton_Click(object sender, RoutedEventArgs e)
+        private void simulatorButton_Click(object sender, RoutedEventArgs e)//starting the simulation
         {
             simulator();
             worker.RunWorkerAsync();
@@ -451,15 +451,13 @@ namespace PL
             
         }
 
-        private void CancelSimBtn_Click(object sender, RoutedEventArgs e)
+        private void CancelSimBtn_Click(object sender, RoutedEventArgs e)//cancel simulation
         {
             worker.CancelAsync();
             Cursor = Cursors.Wait;
             d = bl.GetDrone(d.Id);
-         
-
         }
-
+        
         private void HideAndShow()
         {
             Batterylable.Visibility = Visibility.Hidden;

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <DroneCharge>
     <DroneId>1234</DroneId>
@@ -15,5 +15,9 @@
   <DroneCharge>
     <DroneId>2222</DroneId>
     <StationId>3710</StationId>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>123</DroneId>
+    <StationId>2901</StationId>
   </DroneCharge>
 </ArrayOfDroneCharge>

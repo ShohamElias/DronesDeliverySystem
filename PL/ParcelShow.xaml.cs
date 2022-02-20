@@ -44,7 +44,7 @@ namespace PL
             senderComboBox.IsEnabled = true;
             targetComboBox.IsEnabled = true;
             cc = bl.GetAllCustomers();
-            try
+            try//if opened by customer
             {
                 bl.GetCustomer(id);
                 Predicate<BO.Customer> p;
@@ -59,6 +59,7 @@ namespace PL
                 senderComboBox.ItemsSource = cc;
             }
             targetComboBox.ItemsSource = cc;
+            //Hiding
             requestedDatePicker.Visibility = Visibility.Collapsed;
             requestedlLable.Visibility = Visibility.Collapsed;
             pickedUpDatePicker.Visibility = Visibility.Collapsed;
@@ -119,13 +120,13 @@ namespace PL
                 scheduledDatePicker.Visibility = Visibility.Visible;
                 schedualLable.Visibility = Visibility.Visible;
             }
-            if (p.DroneParcel.Id==0)
+            if (p.DroneParcel.Id==0)//was not linked yet
             {
                 droneLable.Visibility = Visibility.Collapsed;
                 droneLable.Visibility = Visibility.Collapsed;
                 droneinparcelButton.Visibility = Visibility.Collapsed;
             }
-            else
+            else//linked
             {
                 Removebutton.IsEnabled = false;
                 Removebutton.Opacity = 0.5;
@@ -133,7 +134,7 @@ namespace PL
                 droneParcelComboBox.ItemsSource = null;
                 droneParcelComboBox.ItemsSource = dd;
                 int _index = 0;
-                foreach (var item in dd)
+                foreach (var item in dd)//getting location in combobox of rone
                 {
                     if (item.Id == p.DroneParcel.Id)
                         break;
@@ -172,12 +173,12 @@ namespace PL
                 droneLable.Visibility = Visibility.Collapsed;
             }
 
-            if (typeCust == "sender"|| typeCust=="target")
+            if (typeCust == "sender"|| typeCust=="target")//opened from customer 
             {
                 Cbutton.Visibility = Visibility.Visible;
                 senderButton.Visibility = Visibility.Hidden;
                 targetButton.Visibility = Visibility.Hidden;
-                addUpdateButton.Content = "Update";
+                addUpdateButton.Content = "Update";//can update
                 if (pickedUpDatePicker != null)
                 {
                     isPorD.Visibility = Visibility.Visible;
@@ -200,8 +201,9 @@ namespace PL
 
         private void addUpdateButton_Click_1(object sender, RoutedEventArgs e)
         {
-            if (addUpdateButton.Content == "Add")
+            if (addUpdateButton.Content == "Add")//adding a parcel
             {
+                
                 BO.Parcel p = new BO.Parcel();
                 
                 p.Id = bl.GetNextParcel()+1;
@@ -216,7 +218,7 @@ namespace PL
                     p.Weight = (BO.WeightCategories)weightComboBox.SelectedItem;
                 if (senderComboBox.SelectedIndex != -1)
                 {
-                    if(custId==0)
+                    if(custId==0)//customer sending
                        p.Sender = new BO.CustomerInParcel() { Id = cc.ElementAt(senderComboBox.SelectedIndex).Id, CustomerName = cc.ElementAt(senderComboBox.SelectedIndex).Name };
                     else
                         p.Sender = new BO.CustomerInParcel() { Id = custId, CustomerName = bl.GetCustomer(custId).Name };
@@ -229,14 +231,14 @@ namespace PL
                 closingwin = false;
                 this.Close();
             }
-            else if (addUpdateButton.Content == "Cancel")
+            else if (addUpdateButton.Content == "Cancel")//closing
             {
                 closingwin = false;
                 this.Close();
             }
             else
             {
-                if(isPorD.Content == "Parcel picked?")
+                if(isPorD.Content == "Parcel picked?")//update
                 {
                     updatep.IsPicked = IsActionCheck.IsChecked;
                 }
@@ -251,20 +253,19 @@ namespace PL
 
         private void droneinparcelButton_Click(object sender, RoutedEventArgs e)
         {
-            new DroneShow(bl, dd.ElementAt(droneParcelComboBox.SelectedIndex),"show").Show();
+            new DroneShow(bl, dd.ElementAt(droneParcelComboBox.SelectedIndex),"show").Show();//showing drone
         }
 
         private void senderButton_Click(object sender, RoutedEventArgs e)
         {
-            //BO.Customer c = cc.ElementAt(senderComboBox.SelectedIndex);
 
-            new CustomerShowWindow(cc.ElementAt(senderComboBox.SelectedIndex), bl, "show").Show();
+            new CustomerShowWindow(cc.ElementAt(senderComboBox.SelectedIndex), bl, "show").Show();//show sender
 
         }
 
         private void targetButton_Click(object sender, RoutedEventArgs e)
         {
-            new CustomerShowWindow(cc.ElementAt(targetComboBox.SelectedIndex), bl, "show").Show();
+            new CustomerShowWindow(cc.ElementAt(targetComboBox.SelectedIndex), bl, "show").Show();//shoe target
 
         }
 

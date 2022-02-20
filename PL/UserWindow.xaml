@@ -12,7 +12,7 @@
         <LinearGradientBrush x:Key="GrayBlueGradientBrush" StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="LavenderBlush" Offset="0" />
             <GradientStop Color="#FFE8E8FF" Offset="0.5" />
-            <GradientStop Color="#FFEBFAFA" Offset="1" />
+            <GradientStop Color="#EEDAFAFA" Offset="1" />
         </LinearGradientBrush>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Background" Value="{StaticResource GrayBlueGradientBrush}" />

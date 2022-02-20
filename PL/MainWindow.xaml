@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Icon="/cb28df54fba9761bdfeef5c9978cef5c.jpg" Height="714" Width="840" >
+        Title="MainWindow" Icon="/62-628886_drones-clip-art-drone-transparent-png-download-removebg-preview.png" Height="714" Width="840" >
 
     <Window.Resources>
         <Style  TargetType="{x:Type Button}">

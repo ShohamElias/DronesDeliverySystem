@@ -20,10 +20,10 @@ namespace PL
     public partial class StationListWindow : Window
     {
         BlApi.IBL bl;
-        public StationListWindow(BlApi.IBL _bl)
+        public StationListWindow(BlApi.IBL _bl)//building
         {
             InitializeComponent();
-            stationListView.DataContext = from item in _bl.GetAllStations()
+            stationListView.DataContext = from item in _bl.GetAllStations()//getting values
                                           select new BO.StationsToList()
                                           {
                                               Id = item.Id,
@@ -36,19 +36,19 @@ namespace PL
                                                  
         }
 
-        private void stationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void stationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)//clicking on a station
         {
             BO.StationsToList s = stationListView.SelectedItem as BO.StationsToList;
             if (s != null)
-                new StationShoWindow(bl,bl.GetStation(s.Id)).Show();
+                new StationShoWindow(bl,bl.GetStation(s.Id)).Show();//opening window of this station
         }
 
         private void addbutton_Click(object sender, RoutedEventArgs e)
         {
-            new StationShoWindow(bl).Show();
+            new StationShoWindow(bl).Show();//add window
         }
 
-        private void Window_Activated(object sender, EventArgs e)
+        private void Window_Activated(object sender, EventArgs e)//reloading
         {
             stationListView.DataContext =from item in bl.GetAllStations()
                                          select new BO.StationsToList()
@@ -63,14 +63,14 @@ namespace PL
 
         }
 
-        private void clearButton_Click(object sender, RoutedEventArgs e)
+        private void clearButton_Click(object sender, RoutedEventArgs e)//clear grouping
         {
             Window_Activated( sender,  e);
 
         }
 
 
-        private void GroupByClick_1(object sender, RoutedEventArgs e)
+        private void GroupByClick_1(object sender, RoutedEventArgs e)//grouping by empty charge slots
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(stationListView.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("EmptyChargeSlots");

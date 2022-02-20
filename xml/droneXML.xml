@@ -55,4 +55,9 @@
     <Model>shsh</Model>
     <MaxWeight>Heavy</MaxWeight>
   </Drone>
+  <Drone>
+    <Id>123</Id>
+    <Model>AAA</Model>
+    <MaxWeight>Light</MaxWeight>
+  </Drone>
 </ArrayOfDrone>

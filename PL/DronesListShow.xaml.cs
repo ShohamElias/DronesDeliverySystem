@@ -94,7 +94,7 @@ namespace PL
 
         }
 
-        private void clearButton_Click(object sender, RoutedEventArgs e)
+        private void clearButton_Click(object sender, RoutedEventArgs e)//clearing the selectors and grouping
         {
             GroupBy.IsEnabled = true;
             StatusSelector.SelectedValue = null;
@@ -104,7 +104,7 @@ namespace PL
         }
 
 
-        private void GroupByClick_1(object sender, RoutedEventArgs e)
+        private void GroupByClick_1(object sender, RoutedEventArgs e)//grouping on pl level
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DronesListView.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");

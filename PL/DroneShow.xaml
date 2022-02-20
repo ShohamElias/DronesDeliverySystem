@@ -52,11 +52,11 @@
         <Label x:Name="statuslablle" Content="Status:" Margin="44,162,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="52"/>
         <Label x:Name="modelLable" Content="Model:" Margin="45,121,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="51"/>
         <Label x:Name="latlable" Content="Latitude:" HorizontalAlignment="Left" Margin="360,157,0,0"  VerticalAlignment="Top" Width="64"/>
-        <Label x:Name="lable7" Content="Longittude:"  Margin="360,120,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68"/>
+        <Label x:Name="lable7" Content="Longitude:"  Margin="360,120,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68"/>
         <Label x:Name="batteryPrecentage" Visibility="Collapsed" Content="100%" Foreground="White" FontWeight="DemiBold" FontSize="50" HorizontalAlignment="Left" Margin="570,77,0,0" VerticalAlignment="Top" Width="125" Height="72" RenderTransformOrigin="0.497,0.522"/>
-        <Label x:Name="longitudeLabel2" Visibility="Collapsed" FontFamily="Bahnschrift Condensed" FontWeight="DemiBold" Content="lll" FontSize="30" Foreground="White" HorizontalAlignment="Left" Margin="550,217,0,0" VerticalAlignment="Top" Width="162"/>
+        <Label x:Name="longitudeLabel2" Visibility="Collapsed" FontFamily="Bahnschrift Condensed" FontWeight="DemiBold" Content="lll" FontSize="30" Foreground="White" HorizontalAlignment="Left" Margin="545,217,0,0" VerticalAlignment="Top" Width="162"/>
         <Label x:Name="BATTERYlabel1" Content="Battery:" Visibility="Collapsed" FontWeight="DemiBold" FontSize="14" Foreground="White" HorizontalAlignment="Left" Margin="592,66,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="locationLabel2" Visibility="Collapsed" FontWeight="DemiBold" FontSize="16" Content="Longitude &amp; Lattiude:" Foreground="White" HorizontalAlignment="Left" Margin="455,188,0,0" VerticalAlignment="Top" Width="239"/>
+        <Label x:Name="locationLabel2" Visibility="Collapsed" FontWeight="DemiBold" FontSize="16" Content="Latitude  &amp; Longitude:" Foreground="White" HorizontalAlignment="Left" Margin="455,188,0,0" VerticalAlignment="Top" Width="239"/>
         <Label x:Name="latitudeLabel3" Visibility="Collapsed" FontWeight="DemiBold"  Content="Label" FontSize="30" HorizontalAlignment="Left" Foreground="White" Margin="378,217,0,0" VerticalAlignment="Top" Width="172" FontFamily="Bahnschrift Condensed"/>
         <Label x:Name="doingLabel" FontSize="14" FontWeight="DemiBold" Content="Charging at Station:" Foreground="White" HorizontalAlignment="Left" Margin="379,66,0,0" VerticalAlignment="Top" Width="139" Visibility="Collapsed"/>
 

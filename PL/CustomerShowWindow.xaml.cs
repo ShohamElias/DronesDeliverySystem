@@ -31,13 +31,13 @@ namespace PL
             closingwin = true;
             customerGrid.DataContext = c;
             Predicate<BO.Parcel> p;
-            PasswordtextBox.Text = "kjhgfd";
-            p = s => s.Sender.Id == c.Id;
+            PasswordtextBox.Text = "";
+            p = s => s.Sender.Id == c.Id;//predicate, getting parcels sent by this customer
             SentList.ItemsSource = bl.GetParcelBy(p);
-            p = s => s.Target.Id == c.Id && s.Delivered!=null;
+            p = s => s.Target.Id == c.Id && s.Delivered!=null;//getting all the parcels delivered to this customer
             ReceivedList.ItemsSource = bl.GetParcelBy(p);
             addUpdateButton.Content = typeWindow;
-            if (typeWindow == "User")
+            if (typeWindow == "User")//if user then can apdate checkbox
             {
                 addUpdateButton.Content = "Update";
                 SendButton.Visibility = Visibility.Visible;
@@ -79,7 +79,7 @@ namespace PL
             RecievedParcels.Visibility = Visibility.Hidden;
             this.Height = 350;
             this.Width = 418;
-            addUpdateButton.Margin = new Thickness(295, 106, 0, 0);
+            addUpdateButton.Margin = new Thickness(295, 106, 0, 0);//relocation
             cancelButton.Margin = new Thickness(295, 142, 0, 0);
 
         }
@@ -88,10 +88,10 @@ namespace PL
         {
             try
             {
-                if (addUpdateButton.Content == "Add")
+                if (addUpdateButton.Content == "Add")//if we want to add
                 {
                     BO.Customer cust = new BO.Customer();
-                    if (idTextBox.Text == "" || nameTextBox.Text == "" || phoneTextBox.Text == "" || LongtitudeTextBox.Text == "" || LatitudeTextBox.Text == "")
+                    if (idTextBox.Text == "" || nameTextBox.Text == "" || phoneTextBox.Text == "" || LongtitudeTextBox.Text == "" || LatitudeTextBox.Text == "")//checking all fields
                     {
                         MessageBox.Show("Please fill all the fields!");
                         return;
@@ -100,10 +100,10 @@ namespace PL
                     cust.Name = nameTextBox.Text.ToString();
                     cust.Phone = phoneTextBox.Text.ToString();
                     cust.password = PasswordtextBox.Text;
-                    cust.CustLocation = new BO.Location() { Lattitude = double.Parse(LongtitudeTextBox.Text.ToString()), Longitude = double.Parse(LatitudeTextBox.Text.ToString()) };
+                    cust.CustLocation = new BO.Location() { Lattitude = double.Parse(LongtitudeTextBox.Text.ToString()), Longitude = double.Parse(LatitudeTextBox.Text.ToString()) };//creating
                     bl.AddCustomer(cust);
                 }
-                else if (addUpdateButton.Content == "Update")
+                else if (addUpdateButton.Content == "Update")//update option
                 {
                     bl.UpdateCustomer(int.Parse(idTextBox.Text), nameTextBox.Text, phoneTextBox.Text);
                 }
@@ -118,14 +118,14 @@ namespace PL
             
         }
 
-        private void SentList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void SentList_MouseDoubleClick(object sender, MouseButtonEventArgs e)//clicing on a parcel
         {
             BO.Parcel c = SentList.SelectedItem as BO.Parcel;
             if (c != null)
                 new ParcelShow(c, bl, "sender").ShowDialog();
         }
 
-        private void ReceivedList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ReceivedList_MouseDoubleClick(object sender, MouseButtonEventArgs e)//clicking on a parcel
         {
             BO.Parcel c = ReceivedList.SelectedItem as BO.Parcel;
             if (c != null)
@@ -134,7 +134,7 @@ namespace PL
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            e.Cancel = closingwin;
+            e.Cancel = closingwin;//let close
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
@@ -199,12 +199,12 @@ namespace PL
             }
         }
 
-        private void SendButton_Click(object sender, RoutedEventArgs e)
+        private void SendButton_Click(object sender, RoutedEventArgs e)//sending a parcel fron this customer
         {
             new ParcelShow(bl, int.Parse(idTextBox.Text)).Show();
         }
 
-        private void Window_Activated(object sender, EventArgs e)
+        private void Window_Activated(object sender, EventArgs e)//reloading
         {
             if (addUpdateButton.Content != "Add")
             {

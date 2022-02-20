@@ -23,7 +23,7 @@ namespace PL
         bool updateflag;
         BO.Station ss;
         Validation valid = new Validation();
-        public StationShoWindow(BlApi.IBL _bl,BO.Station s)
+        public StationShoWindow(BlApi.IBL _bl,BO.Station s)//builder as update
         {
             InitializeComponent();
             stationGrid.DataContext = s;
@@ -36,7 +36,7 @@ namespace PL
             droneChargeListView.Visibility = Visibility.Visible;
             
         }
-        public StationShoWindow(BlApi.IBL _bl)
+        public StationShoWindow(BlApi.IBL _bl)//builder of add option
         {
             InitializeComponent();
             bl = _bl;
@@ -49,7 +49,7 @@ namespace PL
         {
             BO.DroneCharge dc = droneChargeListView.SelectedItem as BO.DroneCharge;
             if (dc != null)
-                new DroneShow(bl, bl.GetDrone(dc.DroneId), " ").Show();
+                new DroneShow(bl, bl.GetDrone(dc.DroneId), " ").Show();//showing the drones that in charge
         }
 
         private void addupdatebutton_Click(object sender, RoutedEventArgs e)
@@ -60,12 +60,12 @@ namespace PL
                 {
                     if (updateflag)
                     {
-                        bl.Updatestation(int.Parse(idTextBox.Text), nameTextBox.Text, int.Parse(ChargeSlots.Text));
+                        bl.Updatestation(int.Parse(idTextBox.Text), nameTextBox.Text, int.Parse(ChargeSlots.Text));//updating
                         this.Close();
                     }
                     else
                     {
-                        updateflag = true;
+                        updateflag = true;//clicing twice for enabling update
                         stationGrid.IsEnabled = true;
                         idTextBox.IsEnabled = false;
                         droneChargeListView.IsEnabled = true;
@@ -78,7 +78,7 @@ namespace PL
                         MessageBox.Show("Please fill all the fields!" ,"Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
-                    BO.Station s = new BO.Station()
+                    BO.Station s = new BO.Station()//creating the new station
                     {
                         Id = int.Parse(idTextBox.Text.ToString()),
                         Name = nameTextBox.Text.ToString(),
@@ -96,9 +96,9 @@ namespace PL
             }
         }
 
-        private void Window_Activated(object sender, EventArgs e)
+        private void Window_Activated(object sender, EventArgs e)//RELOADING
         {
-            if (droneChargeListView.Visibility == Visibility.Visible)
+            if (droneChargeListView.Visibility == Visibility.Visible)//IF NOT ADD OPTION
             {
                 ss = bl.GetStation(ss.Id);
                 droneChargeListView.DataContext =ss.DronesinCharge;
