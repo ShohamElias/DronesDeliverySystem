@@ -290,6 +290,11 @@ namespace PL
                 lable7.Visibility = Visibility.Visible;
                 
             }
+            if(StatusSelector.SelectedIndex != 2)
+            {
+                stationCombo.Visibility = Visibility.Collapsed;
+                stationLable.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void idtextbox_TextChanged(object sender, TextChangedEventArgs e)

@@ -17,8 +17,8 @@
         <Button x:Name="AddUpdateButton" Content="Add" HorizontalAlignment="Left" Margin="158,319,0,0" VerticalAlignment="Top" Width="128" Click="button_Click" Background="{StaticResource MyButtonBackground}"/>
         <Button x:Name="DeliveryButton" Content="Next delivery step" HorizontalAlignment="Center" Margin="0,319,0,0" VerticalAlignment="Top" Width="128" Click="DeliveryButton_Click" Background="{StaticResource MyButtonBackground}" />
         <Button x:Name="ChargingButton" Content="Charge/Discharge" HorizontalAlignment="Left" Margin="506,319,0,0" VerticalAlignment="Top" Width="128" Click="ChargingButton_Click" Background="{StaticResource MyButtonBackground}" />
-        <ComboBox x:Name="stationCombo" HorizontalAlignment="Left" Margin="424,102,0,0" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
-        <Label x:Name="stationLable" Content="Select Station" HorizontalAlignment="Left" Margin="337,100,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+        <ComboBox x:Name="stationCombo" Visibility="Hidden" HorizontalAlignment="Left" Margin="450,115,0,0" VerticalAlignment="Top" Width="120" />
+        <Label x:Name="stationLable" Visibility="Hidden" Content="Select Station" HorizontalAlignment="Center" Margin="0,113,0,0" VerticalAlignment="Top"  />
         <Button x:Name="Cancel" Content="X" HorizontalAlignment="Left" Margin="743,12,0,0" VerticalAlignment="Top" Click="cancelButton" Width="37" Background="{StaticResource MyButtonBackground}"/>
         <Button x:Name="simulatorButton" Content="Automatic" HorizontalAlignment="Left" Margin="55,15,0,0" VerticalAlignment="Top" Width="271" Click="simulatorButton_Click" Visibility="Hidden" />
         <Button x:Name="CancelSimBtn" Content="Cancel Automation" HorizontalAlignment="Left" Height="24" Margin="54,15,0,0" VerticalAlignment="Top" Width="272" Click="CancelSimBtn_Click" Visibility="Collapsed"/>
@@ -47,7 +47,7 @@
 
 
         <Label x:Name="idlabel" Content="Id:" Margin="46,76,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="46"/>
-        <Label x:Name="Batterylable" Content="Battery:" Margin="359,76,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="53"/>
+        <Label x:Name="Batterylable" Content="Battery:" Margin="361,84,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="53"/>
         <Label x:Name="WeightLable" Content="Maximum Weight:" Margin="45,209,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="115"/>
         <Label x:Name="statuslablle" Content="Status:" Margin="44,162,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="52"/>
         <Label x:Name="modelLable" Content="Model:" Margin="45,121,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="51"/>
